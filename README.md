@@ -1,8 +1,8 @@
 # BidetBeacon
 
-Community map of masajed and restaurants with bidets, washlets, and handheld sprayers — focused on the US, Canada, and the UK.
+Community map of masajid and restaurants with bidets, washlets, and handheld sprayers — focused on the US, Canada, and the UK.
 
-**Live site:** [ymorsi7.github.io/bidetbeacon](https://ymorsi7.github.io/bidetbeacon/) (enable GitHub Pages on this repo: *Settings → Pages → Deploy from branch `main` / root*)
+**Live site:** [bidetbeacon.netlify.app](https://bidetbeacon.netlify.app/)
 
 ## What it is
 
