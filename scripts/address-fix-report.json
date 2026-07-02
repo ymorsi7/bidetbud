@@ -1,0 +1,1912 @@
+{
+  "changes": [
+    {
+      "name": "Berkeley Masjid",
+      "source": "manual",
+      "before": {
+        "name": "Berkeley Masjid",
+        "address": "2716 Derby St, Berkeley, CA 94705",
+        "latitude": "37.8717",
+        "longitude": "-122.2656",
+        "city": "Berkeley, CA",
+        "country": "USA",
+        "type": "mosque",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "37.8619778",
+        "lng": "-122.2526999",
+        "address": "2716 Derby St, Berkeley, CA 94705"
+      }
+    },
+    {
+      "name": "Cairo Restaurant and Cafe",
+      "source": "manual",
+      "before": {
+        "name": "Cairo Restaurant and Cafe",
+        "address": "Anaheim, CA",
+        "latitude": "33.8366",
+        "longitude": "-117.9143",
+        "city": "Anaheim, CA",
+        "country": "USA",
+        "type": "restaurant",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "33.8033311",
+        "lng": "-117.9593359",
+        "address": "10832 W Katella Ave, Anaheim, CA 92804"
+      }
+    },
+    {
+      "name": "Islamic Society of Orange County",
+      "source": "manual",
+      "before": {
+        "name": "Islamic Society of Orange County",
+        "address": "1 Al-Rahman Plaza, 9752 13th St, Garden Grove, CA 92844",
+        "latitude": "33.755837",
+        "longitude": "-117.958866",
+        "city": "Garden Grove, CA",
+        "country": "USA",
+        "type": "mosque",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "33.755813",
+        "lng": "-117.9570504",
+        "address": "1 Al-Rahman Plaza, 9752 13th St, Garden Grove, CA 92844"
+      }
+    },
+    {
+      "name": "Islamic Center of San Diego",
+      "source": "manual",
+      "before": {
+        "name": "Islamic Center of San Diego",
+        "address": "7050 Eckstrom Ave, San Diego, CA 92111",
+        "latitude": "32.8206",
+        "longitude": "-117.1655",
+        "city": "San Diego, CA",
+        "country": "USA",
+        "type": "mosque",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "32.8205714",
+        "lng": "-117.1654667",
+        "address": "7050 Eckstrom Ave, San Diego, CA 92111"
+      }
+    },
+    {
+      "name": "Islamic Society of Baltimore",
+      "source": "manual",
+      "before": {
+        "name": "Islamic Society of Baltimore",
+        "address": "6631 Johnnycake Road, Windsor Mill, MD 21244",
+        "latitude": "39.3034707",
+        "longitude": "-76.7480735",
+        "city": "Windsor Mill, MD",
+        "country": "USA",
+        "type": "mosque",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "39.3034924",
+        "lng": "-76.7480395",
+        "address": "6631 Johnnycake Road, Windsor Mill, MD 21244"
+      }
+    },
+    {
+      "name": "Islamic Society of Colorado Springs",
+      "source": "manual",
+      "before": {
+        "name": "Islamic Society of Colorado Springs",
+        "address": "2125 N Chestnut St, Colorado Springs, CO 80907",
+        "latitude": "38.8339",
+        "longitude": "-104.8214",
+        "city": "Colorado Springs, CO",
+        "country": "USA",
+        "type": "mosque",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "38.8639254",
+        "lng": "-104.8359241",
+        "address": "2125 N Chestnut St, Colorado Springs, CO 80907"
+      }
+    },
+    {
+      "name": "King Fahad Mosque",
+      "source": "manual",
+      "before": {
+        "name": "King Fahad Mosque",
+        "address": "10980 Washington Blvd, Culver City, CA 90232",
+        "latitude": "34.01141",
+        "longitude": "-118.41012",
+        "city": "Los Angeles, CA",
+        "country": "USA",
+        "type": "mosque",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "34.011522",
+        "lng": "-118.410197",
+        "address": "10980 Washington Blvd, Culver City, CA 90232"
+      }
+    },
+    {
+      "name": "London Central Mosque",
+      "source": "manual",
+      "before": {
+        "name": "London Central Mosque",
+        "address": "146 Park Rd, London NW8 7RG, UK",
+        "latitude": "51.5074",
+        "longitude": "-0.1278",
+        "city": "London",
+        "country": "UK",
+        "type": "mosque",
+        "bidetStatus": "warmed",
+        "bidetType": "Heated seat (unconfirmed)",
+        "access": "public"
+      },
+      "after": {
+        "lat": "51.529167",
+        "lng": "-0.165278",
+        "address": "146 Park Rd, London NW8 7RG, UK"
+      }
+    },
+    {
+      "name": "Masjid Al Ansar",
+      "source": "manual",
+      "before": {
+        "name": "Masjid Al Ansar",
+        "address": "1000 N State College Blvd, Anaheim, CA 92806",
+        "latitude": "33.8366",
+        "longitude": "-117.9143",
+        "city": "Anaheim, CA",
+        "country": "USA",
+        "type": "mosque",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "33.8056321",
+        "lng": "-117.9593752",
+        "address": "1717 S Brookhurst St, Anaheim, CA 92804"
+      }
+    },
+    {
+      "name": "Muslim Community Association",
+      "source": "manual",
+      "before": {
+        "name": "Muslim Community Association",
+        "address": "3003 Scott Blvd, Santa Clara, CA 95054",
+        "latitude": "37.37708",
+        "longitude": "-121.95946",
+        "city": "Santa Clara, CA",
+        "country": "USA",
+        "type": "mosque",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "37.3772243",
+        "lng": "-121.959468",
+        "address": "3003 Scott Blvd, Santa Clara, CA 95054"
+      }
+    },
+    {
+      "name": "Muslim Community Center San Diego",
+      "source": "manual",
+      "before": {
+        "name": "Muslim Community Center San Diego",
+        "address": "9445 Activity Rd, San Diego, CA 92126",
+        "latitude": "32.8312",
+        "longitude": "-117.0225",
+        "city": "San Diego, CA",
+        "country": "USA",
+        "type": "mosque",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "32.9918672",
+        "lng": "-117.164856",
+        "address": "14698 Via Fiesta, San Diego, CA 92127"
+      }
+    },
+    {
+      "name": "Ritz-Carlton Montreal",
+      "source": "geocode",
+      "distM": 7244,
+      "before": {
+        "lat": "45.453107",
+        "lng": "-73.6432374"
+      },
+      "after": {
+        "lat": "45.4997136",
+        "lng": "-73.5783306"
+      }
+    },
+    {
+      "name": "Asanebo",
+      "source": "geocode",
+      "distM": 2140,
+      "before": {
+        "lat": "34.1431637",
+        "lng": "-118.3916268"
+      },
+      "after": {
+        "lat": "34.1456048",
+        "lng": "-118.4146939"
+      }
+    },
+    {
+      "name": "Bardessono",
+      "source": "geocode",
+      "distM": 304,
+      "before": {
+        "lat": "38.4026265",
+        "lng": "-122.3611117"
+      },
+      "after": {
+        "lat": "38.4047392",
+        "lng": "-122.3633319"
+      }
+    },
+    {
+      "name": "Bravado Lounge",
+      "source": "geocode",
+      "distM": 383,
+      "before": {
+        "lat": "37.7790026",
+        "lng": "-122.3921341"
+      },
+      "after": {
+        "lat": "37.7763649",
+        "lng": "-122.394938"
+      }
+    },
+    {
+      "name": "Digital Garage",
+      "source": "geocode",
+      "distM": 1729,
+      "before": {
+        "lat": "37.7868575",
+        "lng": "-122.4036416"
+      },
+      "after": {
+        "lat": "37.782776",
+        "lng": "-122.4226212"
+      }
+    },
+    {
+      "name": "Good2Go Mobile Restroom",
+      "source": "geocode",
+      "distM": 4222,
+      "before": {
+        "lat": "37.7625848",
+        "lng": "-122.408357"
+      },
+      "after": {
+        "lat": "37.7793627",
+        "lng": "-122.4514473"
+      }
+    },
+    {
+      "name": "Gyu-Kaku",
+      "source": "geocode",
+      "distM": 627,
+      "before": {
+        "lat": "34.1442564",
+        "lng": "-118.151983"
+      },
+      "after": {
+        "lat": "34.1436537",
+        "lng": "-118.1452085"
+      }
+    },
+    {
+      "name": "Hakone Estate and Gardens",
+      "source": "geocode",
+      "distM": 765,
+      "before": {
+        "lat": "37.253709",
+        "lng": "-122.041011"
+      },
+      "after": {
+        "lat": "37.2576329",
+        "lng": "-122.0339149"
+      }
+    },
+    {
+      "name": "Hotel Via",
+      "source": "geocode",
+      "distM": 483,
+      "before": {
+        "lat": "37.7793416",
+        "lng": "-122.3909399"
+      },
+      "after": {
+        "lat": "37.7763649",
+        "lng": "-122.394938"
+      }
+    },
+    {
+      "name": "Izakaya Roku",
+      "source": "geocode",
+      "distM": 1284,
+      "before": {
+        "lat": "37.7712767",
+        "lng": "-122.4238893"
+      },
+      "after": {
+        "lat": "37.782776",
+        "lng": "-122.4226212"
+      }
+    },
+    {
+      "name": "KitTea",
+      "source": "geocode",
+      "distM": 2089,
+      "before": {
+        "lat": "37.7726057",
+        "lng": "-122.4212516"
+      },
+      "after": {
+        "lat": "37.7879363",
+        "lng": "-122.4075201"
+      }
+    },
+    {
+      "name": "Onsen",
+      "source": "geocode",
+      "distM": 647,
+      "before": {
+        "lat": "37.7838389",
+        "lng": "-122.4153872"
+      },
+      "after": {
+        "lat": "37.782776",
+        "lng": "-122.4226212"
+      }
+    },
+    {
+      "name": "Sushi Tsujita",
+      "source": "geocode",
+      "distM": 1338,
+      "before": {
+        "lat": "34.0408609",
+        "lng": "-118.4434433"
+      },
+      "after": {
+        "lat": "34.0309712",
+        "lng": "-118.4351772"
+      }
+    },
+    {
+      "name": "Wako",
+      "source": "geocode",
+      "distM": 3864,
+      "before": {
+        "lat": "37.7829939",
+        "lng": "-122.4614446"
+      },
+      "after": {
+        "lat": "37.7824221",
+        "lng": "-122.5054093"
+      }
+    },
+    {
+      "name": "Yabu Restaurant",
+      "source": "geocode",
+      "distM": 16721,
+      "before": {
+        "lat": "34.0303816",
+        "lng": "-118.4479837"
+      },
+      "after": {
+        "lat": "33.918397",
+        "lng": "-118.3269574"
+      }
+    },
+    {
+      "name": "Yayoi",
+      "source": "geocode",
+      "distM": 17944,
+      "before": {
+        "lat": "34.1930459",
+        "lng": "-118.3194683"
+      },
+      "after": {
+        "lat": "34.0708777",
+        "lng": "-118.4468503"
+      }
+    },
+    {
+      "name": "Umi Buckhead",
+      "source": "geocode",
+      "distM": 2429,
+      "before": {
+        "lat": "33.8400012",
+        "lng": "-84.3792758"
+      },
+      "after": {
+        "lat": "33.819517",
+        "lng": "-84.388419"
+      }
+    },
+    {
+      "name": "Andaz Maui at Wailea Resort",
+      "source": "geocode",
+      "distM": 488,
+      "before": {
+        "lat": "20.6929821",
+        "lng": "-156.4411739"
+      },
+      "after": {
+        "lat": "20.6971674",
+        "lng": "-156.4397586"
+      }
+    },
+    {
+      "name": "ESPACIO The Jewel Of Waikiki",
+      "source": "geocode",
+      "distM": 227,
+      "before": {
+        "lat": "21.2762174",
+        "lng": "-157.825881"
+      },
+      "after": {
+        "lat": "21.2746017",
+        "lng": "-157.8245457"
+      }
+    },
+    {
+      "name": "Grand Hyatt Kauai Resort & Spa",
+      "source": "geocode",
+      "distM": 194,
+      "before": {
+        "lat": "21.8755208",
+        "lng": "-159.4407498"
+      },
+      "after": {
+        "lat": "21.8759006",
+        "lng": "-159.4389099"
+      }
+    },
+    {
+      "name": "The Current Iowa",
+      "source": "geocode",
+      "distM": 403,
+      "before": {
+        "lat": "42.4961097",
+        "lng": "-90.664719"
+      },
+      "after": {
+        "lat": "42.4926592",
+        "lng": "-90.6632108"
+      }
+    },
+    {
+      "name": "JINYA Ramen Bar",
+      "source": "geocode",
+      "distM": 9227,
+      "before": {
+        "lat": "36.1156138",
+        "lng": "-115.2073507"
+      },
+      "after": {
+        "lat": "36.1304712",
+        "lng": "-115.1062845"
+      }
+    },
+    {
+      "name": "Aburiya Kinosuke",
+      "source": "geocode",
+      "distM": 367,
+      "before": {
+        "lat": "40.7526128",
+        "lng": "-73.9722778"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Andaz Hyatt Hotel",
+      "source": "geocode",
+      "distM": 2306,
+      "before": {
+        "lat": "40.7528315",
+        "lng": "-73.9810928"
+      },
+      "after": {
+        "lat": "40.7347636",
+        "lng": "-73.9945377"
+      }
+    },
+    {
+      "name": "Brushstroke",
+      "source": "geocode",
+      "distM": 4204,
+      "before": {
+        "lat": "40.7167151",
+        "lng": "-74.0089922"
+      },
+      "after": {
+        "lat": "40.753983",
+        "lng": "-74.0006028"
+      }
+    },
+    {
+      "name": "Curry Ya",
+      "source": "geocode",
+      "distM": 2789,
+      "before": {
+        "lat": "40.729224",
+        "lng": "-73.9860301"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Fukurou",
+      "source": "geocode",
+      "distM": 8863,
+      "before": {
+        "lat": "40.6796207",
+        "lng": "-73.9186261"
+      },
+      "after": {
+        "lat": "40.7280285",
+        "lng": "-74.0021577"
+      }
+    },
+    {
+      "name": "Gari",
+      "source": "geocode",
+      "distM": 1693,
+      "before": {
+        "lat": "40.7811628",
+        "lng": "-73.9763912"
+      },
+      "after": {
+        "lat": "40.7943903",
+        "lng": "-73.9664251"
+      }
+    },
+    {
+      "name": "Hakata Ton Ton",
+      "source": "geocode",
+      "distM": 7587,
+      "before": {
+        "lat": "40.6923297",
+        "lng": "-73.9220089"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Hasaki",
+      "source": "geocode",
+      "distM": 2879,
+      "before": {
+        "lat": "40.7296626",
+        "lng": "-73.9888332"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Hi-Collar",
+      "source": "geocode",
+      "distM": 2789,
+      "before": {
+        "lat": "40.729224",
+        "lng": "-73.9860301"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Hirohisa",
+      "source": "geocode",
+      "distM": 4880,
+      "before": {
+        "lat": "40.7245853",
+        "lng": "-74.0031325"
+      },
+      "after": {
+        "lat": "40.7643285",
+        "lng": "-73.978572"
+      }
+    },
+    {
+      "name": "Inakaya",
+      "source": "geocode",
+      "distM": 309,
+      "before": {
+        "lat": "40.7552129",
+        "lng": "-73.9887616"
+      },
+      "after": {
+        "lat": "40.7535612",
+        "lng": "-73.9858179"
+      }
+    },
+    {
+      "name": "Morimoto",
+      "source": "geocode",
+      "distM": 1797,
+      "before": {
+        "lat": "40.7430657",
+        "lng": "-74.0068932"
+      },
+      "after": {
+        "lat": "40.7574181",
+        "lng": "-73.9970833"
+      }
+    },
+    {
+      "name": "Ninja New York",
+      "source": "geocode",
+      "distM": 5097,
+      "before": {
+        "lat": "40.7166187",
+        "lng": "-74.0093343"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Rai Rai Ken",
+      "source": "geocode",
+      "distM": 2777,
+      "before": {
+        "lat": "40.7292423",
+        "lng": "-73.9857986"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "RedFarm West Village",
+      "source": "geocode",
+      "distM": 300,
+      "before": {
+        "lat": "40.7341998",
+        "lng": "-74.0065267"
+      },
+      "after": {
+        "lat": "40.7315007",
+        "lng": "-74.0066315"
+      }
+    },
+    {
+      "name": "Robata Ya",
+      "source": "geocode",
+      "distM": 2836,
+      "before": {
+        "lat": "40.729598",
+        "lng": "-73.9878188"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Rosanjin",
+      "source": "geocode",
+      "distM": 5030,
+      "before": {
+        "lat": "40.7164785",
+        "lng": "-74.0079323"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Sakagura",
+      "source": "geocode",
+      "distM": 375,
+      "before": {
+        "lat": "40.7512213",
+        "lng": "-73.9731673"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Shalom Japan",
+      "source": "geocode",
+      "distM": 4755,
+      "before": {
+        "lat": "40.7092035",
+        "lng": "-73.9558364"
+      },
+      "after": {
+        "lat": "40.6719696",
+        "lng": "-73.9835614"
+      }
+    },
+    {
+      "name": "Sobaya",
+      "source": "geocode",
+      "distM": 2831,
+      "before": {
+        "lat": "40.7296747",
+        "lng": "-73.9878673"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Sushi Azabu",
+      "source": "geocode",
+      "distM": 1551,
+      "before": {
+        "lat": "40.7224181",
+        "lng": "-74.0099711"
+      },
+      "after": {
+        "lat": "40.7319802",
+        "lng": "-73.9965658"
+      }
+    },
+    {
+      "name": "Yakiniku Takashi",
+      "source": "geocode",
+      "distM": 3828,
+      "before": {
+        "lat": "40.7314115",
+        "lng": "-74.0064867"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "UTM Student Centre",
+      "source": "geocode",
+      "distM": 547,
+      "before": {
+        "lat": "43.5508441",
+        "lng": "-79.6628727"
+      },
+      "after": {
+        "lat": "43.5461811",
+        "lng": "-79.6650477"
+      }
+    },
+    {
+      "name": "Coast Edmonton Plaza Hotel By APA",
+      "source": "geocode",
+      "distM": 469,
+      "before": {
+        "lat": "53.546",
+        "lng": "-113.493"
+      },
+      "after": {
+        "lat": "53.5419725",
+        "lng": "-113.4950949"
+      }
+    },
+    {
+      "name": "Hinodeya SOMA",
+      "source": "geocode",
+      "distM": 424,
+      "before": {
+        "lat": "37.7886",
+        "lng": "-122.3955"
+      },
+      "after": {
+        "lat": "37.7847893",
+        "lng": "-122.395484"
+      }
+    },
+    {
+      "name": "Innovation Factory",
+      "source": "geocode",
+      "distM": 1365,
+      "before": {
+        "lat": "37.5842",
+        "lng": "-122.3662"
+      },
+      "after": {
+        "lat": "37.5964693",
+        "lng": "-122.365655"
+      }
+    },
+    {
+      "name": "Soregashi",
+      "source": "geocode",
+      "distM": 11506,
+      "before": {
+        "lat": "34.0774",
+        "lng": "-118.3612"
+      },
+      "after": {
+        "lat": "34.0280837",
+        "lng": "-118.4710004"
+      }
+    },
+    {
+      "name": "Circle Sushi",
+      "source": "geocode",
+      "distM": 9443,
+      "before": {
+        "lat": "33.9092",
+        "lng": "-84.3585"
+      },
+      "after": {
+        "lat": "33.9938873",
+        "lng": "-84.3508475"
+      }
+    },
+    {
+      "name": "Mauna Lani Bay Hotel & Bungalows",
+      "source": "geocode",
+      "distM": 1004,
+      "before": {
+        "lat": "19.9472",
+        "lng": "-155.8645"
+      },
+      "after": {
+        "lat": "19.940859",
+        "lng": "-155.857667"
+      }
+    },
+    {
+      "name": "Hotel Nikko San Jose",
+      "source": "geocode",
+      "distM": 1122,
+      "before": {
+        "lat": "37.3382",
+        "lng": "-121.8863"
+      },
+      "after": {
+        "lat": "37.3282419",
+        "lng": "-121.8842366"
+      }
+    },
+    {
+      "name": "Grand Hyatt at SFO",
+      "source": "geocode",
+      "distM": 5094,
+      "before": {
+        "lat": "37.6135",
+        "lng": "-122.384"
+      },
+      "after": {
+        "lat": "37.5780965",
+        "lng": "-122.3473099"
+      }
+    },
+    {
+      "name": "Malibu Beach Inn",
+      "source": "geocode",
+      "distM": 11075,
+      "before": {
+        "lat": "34.0392",
+        "lng": "-118.6784"
+      },
+      "after": {
+        "lat": "34.0204644",
+        "lng": "-118.7964392"
+      }
+    },
+    {
+      "name": "The Kitano Hotel New York",
+      "source": "geocode",
+      "distM": 640,
+      "before": {
+        "lat": "40.7496",
+        "lng": "-73.9795"
+      },
+      "after": {
+        "lat": "40.7445435",
+        "lng": "-73.9831206"
+      }
+    },
+    {
+      "name": "Le Mount Stephen Montreal",
+      "source": "geocode",
+      "distM": 321,
+      "before": {
+        "lat": "45.4992",
+        "lng": "-73.5775"
+      },
+      "after": {
+        "lat": "45.4983059",
+        "lng": "-73.5735783"
+      }
+    },
+    {
+      "name": "Lake Nona Wave Hotel",
+      "source": "geocode",
+      "distM": 6664,
+      "before": {
+        "lat": "28.3648",
+        "lng": "-81.2668"
+      },
+      "after": {
+        "lat": "28.412265",
+        "lng": "-81.3083927"
+      }
+    },
+    {
+      "name": "Prince Waikiki",
+      "source": "geocode",
+      "distM": 188,
+      "before": {
+        "lat": "21.2867",
+        "lng": "-157.8383"
+      },
+      "after": {
+        "lat": "21.2861716",
+        "lng": "-157.8400203"
+      }
+    },
+    {
+      "name": "The Emory Hotel",
+      "source": "geocode",
+      "distM": 474,
+      "before": {
+        "lat": "51.507",
+        "lng": "-0.1585"
+      },
+      "after": {
+        "lat": "51.5067752",
+        "lng": "-0.1516632"
+      }
+    },
+    {
+      "name": "Eccleston Square Hotel",
+      "source": "geocode",
+      "distM": 313,
+      "before": {
+        "lat": "51.4939",
+        "lng": "-0.1456"
+      },
+      "after": {
+        "lat": "51.4911167",
+        "lng": "-0.1449185"
+      }
+    },
+    {
+      "name": "Claridge's",
+      "source": "geocode",
+      "distM": 340,
+      "before": {
+        "lat": "51.5154",
+        "lng": "-0.1476"
+      },
+      "after": {
+        "lat": "51.512348",
+        "lng": "-0.1473175"
+      }
+    },
+    {
+      "name": "The Prince Akatoki London",
+      "source": "geocode",
+      "distM": 163,
+      "before": {
+        "lat": "51.515",
+        "lng": "-0.1585"
+      },
+      "after": {
+        "lat": "51.5161439",
+        "lng": "-0.1599683"
+      }
+    },
+    {
+      "name": "London Hilton on Park Lane",
+      "source": "geocode",
+      "distM": 161,
+      "before": {
+        "lat": "51.5055",
+        "lng": "-0.1475"
+      },
+      "after": {
+        "lat": "51.5055929",
+        "lng": "-0.1498249"
+      }
+    },
+    {
+      "name": "The Connaught",
+      "source": "geocode",
+      "distM": 290,
+      "before": {
+        "lat": "51.5128",
+        "lng": "-0.1496"
+      },
+      "after": {
+        "lat": "51.5101927",
+        "lng": "-0.1494863"
+      }
+    },
+    {
+      "name": "TOTO London Showroom",
+      "source": "geocode",
+      "distM": 318,
+      "before": {
+        "lat": "51.5255",
+        "lng": "-0.1038"
+      },
+      "after": {
+        "lat": "51.5228324",
+        "lng": "-0.1021592"
+      }
+    },
+    {
+      "name": "Curtiss Hotel",
+      "source": "geocode",
+      "distM": 331,
+      "before": {
+        "lat": "42.8864",
+        "lng": "-78.8764"
+      },
+      "after": {
+        "lat": "42.8893529",
+        "lng": "-78.8758871"
+      }
+    },
+    {
+      "name": "The Chatwal New York",
+      "source": "geocode",
+      "distM": 246,
+      "before": {
+        "lat": "40.7568",
+        "lng": "-73.9847"
+      },
+      "after": {
+        "lat": "40.7554118",
+        "lng": "-73.9824319"
+      }
+    },
+    {
+      "name": "J House Greenwich",
+      "source": "geocode",
+      "distM": 763,
+      "before": {
+        "lat": "41.0263",
+        "lng": "-73.6267"
+      },
+      "after": {
+        "lat": "41.0328794",
+        "lng": "-73.6241372"
+      }
+    },
+    {
+      "name": "Hilton Club Liberty Place",
+      "source": "geocode",
+      "distM": 207,
+      "before": {
+        "lat": "32.778",
+        "lng": "-79.9312"
+      },
+      "after": {
+        "lat": "32.7796366",
+        "lng": "-79.9322596"
+      }
+    },
+    {
+      "name": "Holiday Inn Express Auburn Hills",
+      "source": "geocode",
+      "distM": 3734,
+      "before": {
+        "lat": "42.6588",
+        "lng": "-83.2568"
+      },
+      "after": {
+        "lat": "42.6456178",
+        "lng": "-83.2148129"
+      }
+    },
+    {
+      "name": "Courtyard Monterey Park",
+      "source": "geocode",
+      "distM": 859,
+      "before": {
+        "lat": "34.0624",
+        "lng": "-118.1075"
+      },
+      "after": {
+        "lat": "34.0627007",
+        "lng": "-118.116819"
+      }
+    },
+    {
+      "name": "Alila Marea Beach Resort",
+      "source": "geocode",
+      "distM": 1818,
+      "before": {
+        "lat": "33.1581",
+        "lng": "-117.3506"
+      },
+      "after": {
+        "lat": "33.1677648",
+        "lng": "-117.3348458"
+      }
+    },
+    {
+      "name": "Rancho Valencia Resort",
+      "source": "geocode",
+      "distM": 3887,
+      "before": {
+        "lat": "33.0234",
+        "lng": "-117.2023"
+      },
+      "after": {
+        "lat": "32.9911414",
+        "lng": "-117.1862517"
+      }
+    },
+    {
+      "name": "Milyar Coffee House",
+      "source": "geocode",
+      "distM": 168,
+      "before": {
+        "lat": "37.3526",
+        "lng": "-121.95"
+      },
+      "after": {
+        "lat": "37.3538277",
+        "lng": "-121.951116"
+      }
+    },
+    {
+      "name": "Coast Edmonton Plaza Hotel",
+      "source": "geocode",
+      "distM": 661,
+      "before": {
+        "lat": "53.546",
+        "lng": "-113.493"
+      },
+      "after": {
+        "lat": "53.5421491",
+        "lng": "-113.5006262"
+      }
+    },
+    {
+      "name": "Mauna Lani Bay Hotel",
+      "source": "geocode",
+      "distM": 1004,
+      "before": {
+        "lat": "19.9472",
+        "lng": "-155.8645"
+      },
+      "after": {
+        "lat": "19.940859",
+        "lng": "-155.857667"
+      }
+    },
+    {
+      "name": "The Residences by Club Hilton New York",
+      "source": "geocode",
+      "distM": 478,
+      "before": {
+        "lat": "40.7624611",
+        "lng": "-73.9797130"
+      },
+      "after": {
+        "lat": "40.7586695",
+        "lng": "-73.9823756"
+      }
+    },
+    {
+      "name": "The Ritz-Carlton Battery Park",
+      "source": "geocode",
+      "distM": 706,
+      "before": {
+        "lat": "40.7056235",
+        "lng": "-74.0176820"
+      },
+      "after": {
+        "lat": "40.7023329",
+        "lng": "-74.0105146"
+      }
+    },
+    {
+      "name": "Redac Gateway Hotel",
+      "source": "geocode",
+      "distM": 2747,
+      "before": {
+        "lat": "33.8469211",
+        "lng": "-118.3140361"
+      },
+      "after": {
+        "lat": "33.8270959",
+        "lng": "-118.3317771"
+      }
+    },
+    {
+      "name": "R Inn Napa",
+      "source": "geocode",
+      "distM": 396,
+      "before": {
+        "lat": "38.3398824",
+        "lng": "-122.2584465"
+      },
+      "after": {
+        "lat": "38.3372483",
+        "lng": "-122.2615072"
+      }
+    },
+    {
+      "name": "Alila Napa Valley",
+      "source": "geocode",
+      "distM": 1756,
+      "before": {
+        "lat": "38.5054530",
+        "lng": "-122.4379836"
+      },
+      "after": {
+        "lat": "38.5120658",
+        "lng": "-122.4563057"
+      }
+    },
+    {
+      "name": "Miyako Hotel Los Angeles",
+      "source": "geocode",
+      "distM": 1134,
+      "before": {
+        "lat": "33.9451595",
+        "lng": "-118.3760257"
+      },
+      "after": {
+        "lat": "33.9463024",
+        "lng": "-118.388239"
+      }
+    },
+    {
+      "name": "Bellagio Las Vegas",
+      "source": "geocode",
+      "distM": 178,
+      "before": {
+        "lat": "36.1123192",
+        "lng": "-115.1787230"
+      },
+      "after": {
+        "lat": "36.1131149",
+        "lng": "-115.1770065"
+      }
+    },
+    {
+      "name": "The Mirage Las Vegas",
+      "source": "geocode",
+      "distM": 652,
+      "before": {
+        "lat": "36.1217460",
+        "lng": "-115.1751262"
+      },
+      "after": {
+        "lat": "36.1177082",
+        "lng": "-115.169858"
+      }
+    },
+    {
+      "name": "Red Rock Casino Resort",
+      "source": "geocode",
+      "distM": 265,
+      "before": {
+        "lat": "36.1590408",
+        "lng": "-115.3346854"
+      },
+      "after": {
+        "lat": "36.1568415",
+        "lng": "-115.3335588"
+      }
+    },
+    {
+      "name": "Dupont Kitchen & Bath Showroom",
+      "source": "geocode",
+      "distM": 571,
+      "before": {
+        "lat": "43.6916340",
+        "lng": "-79.4645369"
+      },
+      "after": {
+        "lat": "43.6908888",
+        "lng": "-79.4715586"
+      }
+    },
+    {
+      "name": "Jumeirah Carlton Tower",
+      "source": "geocode",
+      "distM": 440,
+      "before": {
+        "lat": "51.4984923",
+        "lng": "-0.1591661"
+      },
+      "after": {
+        "lat": "51.4945489",
+        "lng": "-0.1586703"
+      }
+    },
+    {
+      "name": "London Marriott Park Lane",
+      "source": "geocode",
+      "distM": 3226,
+      "before": {
+        "lat": "51.5129280",
+        "lng": "-0.1577998"
+      },
+      "after": {
+        "lat": "51.5138341",
+        "lng": "-0.2043938"
+      }
+    },
+    {
+      "name": "Jack Barclay Bentley London",
+      "source": "geocode",
+      "distM": 171,
+      "before": {
+        "lat": "51.5091441",
+        "lng": "-0.1441211"
+      },
+      "after": {
+        "lat": "51.5094358",
+        "lng": "-0.1465404"
+      }
+    },
+    {
+      "name": "Chugai Pharma London",
+      "source": "geocode",
+      "distM": 1146,
+      "before": {
+        "lat": "51.5049",
+        "lng": "-0.0875"
+      },
+      "after": {
+        "lat": "51.4980433",
+        "lng": "-0.099856"
+      }
+    },
+    {
+      "name": "EMCO Toronto Showroom",
+      "source": "geocode",
+      "distM": 1273,
+      "before": {
+        "lat": "43.6233938",
+        "lng": "-79.5147707"
+      },
+      "after": {
+        "lat": "43.634363",
+        "lng": "-79.5193192"
+      }
+    },
+    {
+      "name": "Hurlingham Club London",
+      "source": "geocode",
+      "distM": 280,
+      "before": {
+        "lat": "51.4673892",
+        "lng": "-0.2054082"
+      },
+      "after": {
+        "lat": "51.4678489",
+        "lng": "-0.2093881"
+      }
+    },
+    {
+      "name": "Tracy Islamic Center (TIC)",
+      "source": "geocode",
+      "distM": 756,
+      "before": {
+        "lat": "37.7649275",
+        "lng": "-121.4528372"
+      },
+      "after": {
+        "lat": "37.7650262",
+        "lng": "-121.4442324"
+      }
+    },
+    {
+      "name": "Lin Asian Bar + Dim Sum",
+      "source": "geocode",
+      "distM": 725,
+      "before": {
+        "lat": "30.2727955",
+        "lng": "-97.7580095"
+      },
+      "after": {
+        "lat": "30.2757311",
+        "lng": "-97.7647553"
+      }
+    },
+    {
+      "name": "Ling Wu at The Grove",
+      "source": "geocode",
+      "distM": 10760,
+      "before": {
+        "lat": "30.3183425",
+        "lng": "-97.7531593"
+      },
+      "after": {
+        "lat": "30.2329237",
+        "lng": "-97.7005067"
+      }
+    },
+    {
+      "name": "Kata Robata",
+      "source": "geocode",
+      "distM": 752,
+      "before": {
+        "lat": "29.7335268",
+        "lng": "-95.4196027"
+      },
+      "after": {
+        "lat": "29.7402546",
+        "lng": "-95.4188235"
+      }
+    },
+    {
+      "name": "Westheimer Plumbing Showroom (Kirby)",
+      "source": "geocode",
+      "distM": 769,
+      "before": {
+        "lat": "29.7333410",
+        "lng": "-95.4187650"
+      },
+      "after": {
+        "lat": "29.7402546",
+        "lng": "-95.4188235"
+      }
+    },
+    {
+      "name": "Jarrell Company Showroom (Rockwall)",
+      "source": "geocode",
+      "distM": 3241,
+      "before": {
+        "lat": "32.9165025",
+        "lng": "-96.4328592"
+      },
+      "after": {
+        "lat": "32.9003716",
+        "lng": "-96.4617706"
+      }
+    },
+    {
+      "name": "Hanover Supply Bath Gallery Showroom",
+      "source": "geocode",
+      "distM": 1556,
+      "before": {
+        "lat": "40.8193",
+        "lng": "-74.3646"
+      },
+      "after": {
+        "lat": "40.8061259",
+        "lng": "-74.3708499"
+      }
+    },
+    {
+      "name": "Hanover Supply Showroom (Chatham)",
+      "source": "geocode",
+      "distM": 454,
+      "before": {
+        "lat": "40.7281638",
+        "lng": "-74.3832541"
+      },
+      "after": {
+        "lat": "40.7266504",
+        "lng": "-74.3882531"
+      }
+    },
+    {
+      "name": "The Somerville Showroom",
+      "source": "geocode",
+      "distM": 1098,
+      "before": {
+        "lat": "38.8637486",
+        "lng": "-77.2841761"
+      },
+      "after": {
+        "lat": "38.8647876",
+        "lng": "-77.2715686"
+      }
+    },
+    {
+      "name": "Islamic Center of Washington DC",
+      "source": "geocode",
+      "distM": 236,
+      "before": {
+        "lat": "38.9170995",
+        "lng": "-77.0566554"
+      },
+      "after": {
+        "lat": "38.9154308",
+        "lng": "-77.0549763"
+      }
+    },
+    {
+      "name": "Hotel Mai Downtown Long Beach",
+      "source": "geocode",
+      "distM": 335,
+      "before": {
+        "lat": "33.7683399",
+        "lng": "-118.1898534"
+      },
+      "after": {
+        "lat": "33.7675463",
+        "lng": "-118.1933521"
+      }
+    },
+    {
+      "name": "Japan Society",
+      "source": "geocode",
+      "distM": 219,
+      "before": {
+        "lat": "40.7525569",
+        "lng": "-73.9682461"
+      },
+      "after": {
+        "lat": "40.750632",
+        "lng": "-73.9687884"
+      }
+    },
+    {
+      "name": "Sapp Bros Travel Center (Council Bluffs)",
+      "source": "geocode",
+      "distM": 271,
+      "before": {
+        "lat": "41.2372489",
+        "lng": "-95.8824069"
+      },
+      "after": {
+        "lat": "41.2356242",
+        "lng": "-95.8799842"
+      }
+    },
+    {
+      "name": "Taneda",
+      "source": "geocode",
+      "distM": 222,
+      "before": {
+        "lat": "47.6205327",
+        "lng": "-122.3213420"
+      },
+      "after": {
+        "lat": "47.6225262",
+        "lng": "-122.3213463"
+      }
+    },
+    {
+      "name": "Weber's Boutique Hotel",
+      "source": "geocode",
+      "distM": 198,
+      "before": {
+        "lat": "42.2834029",
+        "lng": "-83.7906401"
+      },
+      "after": {
+        "lat": "42.2828543",
+        "lng": "-83.7883524"
+      }
+    },
+    {
+      "name": "Torai Sushi",
+      "source": "geocode",
+      "distM": 435,
+      "before": {
+        "lat": "38.8795750",
+        "lng": "-76.9952187"
+      },
+      "after": {
+        "lat": "38.8834879",
+        "lng": "-76.9950745"
+      }
+    },
+    {
+      "name": "Dumpling & Seafood Restaurant",
+      "source": "geocode",
+      "distM": 7305,
+      "before": {
+        "lat": "33.7737386",
+        "lng": "-78.7989471"
+      },
+      "after": {
+        "lat": "33.7228655",
+        "lng": "-78.8489335"
+      }
+    },
+    {
+      "name": "Muslim Community Center - East Bay (MCC East Bay)",
+      "source": "geocode",
+      "distM": 969,
+      "before": {
+        "lat": "37.6855552",
+        "lng": "-121.8911403"
+      },
+      "after": {
+        "lat": "37.6818191",
+        "lng": "-121.901094"
+      }
+    },
+    {
+      "name": "Red Pepper Indian Cuisine",
+      "source": "geocode",
+      "distM": 5392,
+      "before": {
+        "lat": "40.6644785",
+        "lng": "-74.3878156"
+      },
+      "after": {
+        "lat": "40.6305085",
+        "lng": "-74.4334308"
+      }
+    },
+    {
+      "name": "Odo",
+      "source": "geocode",
+      "distM": 1488,
+      "before": {
+        "lat": "40.7404094",
+        "lng": "-73.9921692"
+      },
+      "after": {
+        "lat": "40.7467946",
+        "lng": "-74.0076971"
+      }
+    },
+    {
+      "name": "Green Pheasant",
+      "source": "geocode",
+      "distM": 617,
+      "before": {
+        "lat": "36.1606339",
+        "lng": "-86.7733571"
+      },
+      "after": {
+        "lat": "36.1650818",
+        "lng": "-86.7774755"
+      }
+    },
+    {
+      "name": "The Peninsula Beverly Hills",
+      "source": "geocode",
+      "distM": 1536,
+      "before": {
+        "lat": "34.0679346",
+        "lng": "-118.4082522"
+      },
+      "after": {
+        "lat": "34.077025",
+        "lng": "-118.395698"
+      }
+    },
+    {
+      "name": "Beverly Wilshire, A Four Seasons Hotel",
+      "source": "geocode",
+      "distM": 1378,
+      "before": {
+        "lat": "34.0668881",
+        "lng": "-118.4003735"
+      },
+      "after": {
+        "lat": "34.0666993",
+        "lng": "-118.3854206"
+      }
+    },
+    {
+      "name": "Muse Hotel New York",
+      "source": "geocode",
+      "distM": 474,
+      "before": {
+        "lat": "40.7577833",
+        "lng": "-73.9837764"
+      },
+      "after": {
+        "lat": "40.759867",
+        "lng": "-73.9886905"
+      }
+    },
+    {
+      "name": "Ritz-Carlton Battery Park New York",
+      "source": "geocode",
+      "distM": 706,
+      "before": {
+        "lat": "40.7056235",
+        "lng": "-74.0176820"
+      },
+      "after": {
+        "lat": "40.7023329",
+        "lng": "-74.0105146"
+      }
+    },
+    {
+      "name": "The Catbird Seat",
+      "source": "geocode",
+      "distM": 1676,
+      "before": {
+        "lat": "36.1559",
+        "lng": "-86.7786"
+      },
+      "after": {
+        "lat": "36.140829",
+        "lng": "-86.778706"
+      }
+    },
+    {
+      "name": "Omakase Table",
+      "source": "geocode",
+      "distM": 305,
+      "before": {
+        "lat": "33.8489",
+        "lng": "-84.3728"
+      },
+      "after": {
+        "lat": "33.8461645",
+        "lng": "-84.3730923"
+      }
+    },
+    {
+      "name": "Ryokou",
+      "source": "geocode",
+      "distM": 2615,
+      "before": {
+        "lat": "33.7355",
+        "lng": "-84.4045"
+      },
+      "after": {
+        "lat": "33.7588566",
+        "lng": "-84.4011662"
+      }
+    },
+    {
+      "name": "Red Rock Casino Resort & Spa",
+      "source": "geocode",
+      "distM": 265,
+      "before": {
+        "lat": "36.1590408",
+        "lng": "-115.3346854"
+      },
+      "after": {
+        "lat": "36.1568415",
+        "lng": "-115.3335588"
+      }
+    },
+    {
+      "name": "Courtyard by Marriott Monterey Park",
+      "source": "geocode",
+      "distM": 2919,
+      "before": {
+        "lat": "34.0614302",
+        "lng": "-118.1341224"
+      },
+      "after": {
+        "lat": "34.0373955",
+        "lng": "-118.1468576"
+      }
+    },
+    {
+      "name": "Hotel Madonna San Luis Obispo",
+      "source": "geocode",
+      "distM": 801,
+      "before": {
+        "lat": "35.2612089",
+        "lng": "-120.6804219"
+      },
+      "after": {
+        "lat": "35.2669947",
+        "lng": "-120.6751646"
+      }
+    },
+    {
+      "name": "Doshi",
+      "source": "geocode",
+      "distM": 1005,
+      "before": {
+        "lat": "28.6071629",
+        "lng": "-81.3653846"
+      },
+      "after": {
+        "lat": "28.5981313",
+        "lng": "-81.3657107"
+      }
+    },
+    {
+      "name": "Oceans",
+      "source": "geocode",
+      "distM": 274,
+      "before": {
+        "lat": "40.7375",
+        "lng": "-73.9877"
+      },
+      "after": {
+        "lat": "40.7360371",
+        "lng": "-73.9903229"
+      }
+    },
+    {
+      "name": "XV Beacon",
+      "source": "geocode",
+      "distM": 754,
+      "before": {
+        "lat": "42.3584",
+        "lng": "-71.0627"
+      },
+      "after": {
+        "lat": "42.3559525",
+        "lng": "-71.0712576"
+      }
+    },
+    {
+      "name": "Islamic Center of America",
+      "source": "geocode",
+      "distM": 4422,
+      "before": {
+        "lat": "42.322",
+        "lng": "-83.1765"
+      },
+      "after": {
+        "lat": "42.330594",
+        "lng": "-83.2290214"
+      }
+    },
+    {
+      "name": "Islamic Center of Irvine",
+      "source": "manual",
+      "before": {
+        "name": "Islamic Center of Irvine",
+        "address": "2 Truman St, Irvine, CA 92620",
+        "latitude": "33.696526",
+        "longitude": "-117.765513",
+        "city": "Irvine, CA",
+        "country": "USA",
+        "type": "mosque",
+        "bidetStatus": "verified",
+        "access": "public"
+      },
+      "after": {
+        "lat": "33.696526",
+        "lng": "-117.765513",
+        "address": "2 Truman St, Irvine, CA 92620"
+      }
+    }
+  ],
+  "noGeocode": [
+    "Sushi House Hayakawa",
+    "Aburiya Raku",
+    "Kaiseki Yuzu",
+    "Cha-an",
+    "Aburiya Raku Las Vegas",
+    "The Banking Hall",
+    "Ling Wu at Lantana Place",
+    "Pierce Hardware Dallas Showroom",
+    "Westheimer Plumbing Showroom (TC Jester)",
+    "Jarrell Company Showroom (Grapevine)",
+    "Jarrell Company Showroom (Lubbock)",
+    "NaRa-Ya",
+    "Haidilao Hot Pot Seattle",
+    "GYU Plus (Chinatown)"
+  ]
+}
