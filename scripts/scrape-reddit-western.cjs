@@ -102,6 +102,13 @@ async function main() {
   }
 
   const rows = [...seen.values()].sort((a, b) => a.name.localeCompare(b.name));
+  if (rows.length === 0 && fs.existsSync(OUT)) {
+    const prior = JSON.parse(fs.readFileSync(OUT, 'utf8'));
+    if (prior.length > 0) {
+      console.warn('No new hits (API may be rate-limited); keeping', prior.length, 'existing rows in', OUT);
+      return;
+    }
+  }
   fs.writeFileSync(OUT, JSON.stringify(rows, null, 2) + '\n');
   console.log('Wrote', rows.length, 'raw Reddit venue candidates to', OUT);
 }
