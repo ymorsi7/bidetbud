@@ -8,9 +8,9 @@
     "type": "hotel",
     "bidetStatus": "warmed",
     "bidetType": "TOTO WASHLET SG",
-    "sourceUrl": "https://eu.toto.com/en/company-information/references/lotte-hotel-moscow",
-    "sourceQuote": "TOTO Europe reference: WASHLET SG in public areas and guest rooms. Travel review (TravelSort): \"The Toto toilet is quintessentially Asian, with a heated toilet seat and various controls.\"",
-    "verifiedMethod": "manufacturer-reference",
+    "sourceUrl": "https://luxeadventuretraveler.com/luxe-lotte-hotel-moscow/",
+    "sourceQuote": "Guest review (Luxe Adventure Traveler): \"We had our first experience with a fancy Asian toilet. The Toto Washlet intrigued us… we had to try out all the buttons.\" Also confirmed by TOTO Europe manufacturer reference.",
+    "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests and patrons"
   },
@@ -70,8 +70,8 @@
     "type": "hotel",
     "bidetStatus": "warmed",
     "bidetType": "Smart toilet with bidet feature",
-    "sourceUrl": "https://lottehotelstpetersburg.ru/en/rooms/superior-king/",
-    "sourceQuote": "Official hotel site lists \"Smart toilet with bidet feature\" and \"Large bathroom with heated flooring and a bidet\" in Superior/Deluxe rooms",
+    "sourceUrl": "https://lifepart2andbeyond.com/hotel-lotte-saint-petersburg-russia/",
+    "sourceQuote": "Guest review (LifePart2andBeyond): \"A huge bathtub, a separate rain shower and Japanese style toilet.\" Hotel site also lists smart toilet with bidet feature.",
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only"
@@ -200,5 +200,21 @@
     "access": "public",
     "accessNote": "Restaurant patrons; chain rebranded to Maru (2024) — verify TOTO still installed before visiting",
     "searchAliases": ["Marukame udon", "Марукамэ", "Maru Belorusskaya"]
+  },
+  {
+    "name": "Radisson Collection Hotel Moscow",
+    "address": "2/1 Kutuzovsky Prospekt, Moscow 121248",
+    "latitude": "55.7514562",
+    "longitude": "37.5654894",
+    "city": "Moscow",
+    "type": "hotel",
+    "bidetStatus": "verified",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://irecommend.ru/content/den-vesennego-ravnodenstviya-v-vysotke-radisson-collection-moskva-izmenil-moe-mnenie",
+    "sourceQuote": "Guest review (iRecommend): \"Ванная комната оснащена… унитаз, бидэ\" — guest describes bidet in room bathroom at Radisson Collection Moscow",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": ["Radisson Royal Hotel Moscow", "Hotel Ukraina"]
   }
 ]
