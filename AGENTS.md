@@ -24,10 +24,12 @@ index.html                          App shell, inline JS, seed data (large file 
 css/app.css                         All UI styles (Inter font, zinc palette)
 css/github-star.css                 Footer link styles
 images/                             Logo and favicons
-data/singapore-bidets.geolocation.json   Cached SG source dataset
+data/singapore-bidets.geolocation.json   Cached SG source (community bidet sightings only)
+data/france-verified-bidets.json         Curated FR rows with cited evidence (not bulk OSM)
 scripts/
   apply-address-fixes.cjs           Re-geocode seed; manual coordinate overrides
-  import-singapore.cjs              Merge SG dataset into BIDETBEACON_SEED
+  import-singapore.cjs              Merge @toiletswithbidetsg / Bidet Beacon SG JSON
+  import-france.cjs                 Merge only rows from france-verified-bidets.json
   address-fix-report.json           Output from geocode script (optional)
 ```
 
@@ -46,6 +48,21 @@ scripts/
 - Vanilla JS in `index.html` (inside the main `<script>` block after seed data)
 - Styles in `css/app.css` — avoid large new inline style blocks
 - Node scripts in `scripts/` for one-off data maintenance only
+
+---
+
+## Verification policy (critical)
+
+**Only add locations where a bidet is explicitly confirmed — never assume.**
+
+| OK | Not OK |
+|----|--------|
+| User personally verified (`bidetStatus: "verified"`) | Bulk-importing all mosques from OSM “because wudu exists” |
+| Community bidet-only lists (e.g. [@toiletswithbidetsg](https://www.instagram.com/toiletswithbidetsg/)) | Generic halal restaurant or public toilet directories |
+| Manufacturer case studies naming WASHLET/bidet install | Places “likely” to have bidets based on country/culture |
+| Reviews/articles that explicitly mention bidet, washlet, douchette, or handheld spray | Ablution/wudu alone without bidet/spray evidence |
+
+Every `internet` or `warmed` entry **must** have `sourceUrl` + `sourceQuote` citing the evidence. Use `verifiedMethod` when helpful (`community-sighting`, `manufacturer-reference`, `web-source`).
 
 ---
 
@@ -130,13 +147,23 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 
 Source: `https://www.bidetbeacon.com/data/bidets.geolocation.json` (584 locations, synced from [@toiletswithbidetsg](https://www.instagram.com/toiletswithbidetsg/)).
 
+This is a **bidet-only** community map — each row is a user-submitted sighting (photo + location), not a generic toilet directory. Safe to import in bulk.
+
 ```bash
 curl -sL "https://www.bidetbeacon.com/data/bidets.geolocation.json" \
   -o data/singapore-bidets.geolocation.json
 node scripts/import-singapore.cjs
 ```
 
-The import script maps SG types → `hotel` / `public`, sets `bidetStatus: "internet"`, and dedupes by name+coordinates.
+Sets `bidetStatus: "internet"`, `verifiedMethod: "community-sighting"`, and replaces existing Singapore rows on re-run.
+
+## France data import
+
+**Do not** bulk-scrape OSM mosques. Add rows only to `data/france-verified-bidets.json` with explicit evidence, then:
+
+```bash
+node scripts/import-france.cjs
+```
 
 ---
 
@@ -170,6 +197,7 @@ When changing layout, test filter chips, three-dots menu, search dropdown, and m
 - Adding secrets (.env, API keys) to the repo
 - Bloating `index.html` with unrelated refactors — keep diffs focused
 - Using `type: "restaurant"` for SG public restrooms — use `public` or `hotel` as appropriate
+- Bulk-importing places of worship or restaurants without bidet-specific evidence
 
 ---
 

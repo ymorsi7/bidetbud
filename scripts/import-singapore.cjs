@@ -1,13 +1,22 @@
 #!/usr/bin/env node
 /**
- * Import Singapore bidet locations from Bidet Beacon SG / @toiletswithbidetsg dataset.
+ * Import Singapore bidet locations from Bidet Beacon SG / @toiletswithbidetsg.
+ *
+ * VERIFICATION: Every row in this dataset is a community-reported bidet sighting.
+ * @toiletswithbidetsg only documents toilets confirmed to have bidets (user photos
+ * + location DMs). This is NOT a generic toilet or mosque directory.
+ *
  * Source: https://www.bidetbeacon.com/data/bidets.geolocation.json
+ *         (synced from the public Google Sheet behind @toiletswithbidetsg)
  */
 const fs = require('fs');
 const path = require('path');
 
 const htmlPath = path.join(__dirname, '../index.html');
-const dataPath = path.join(__dirname, '../data/singapore-bidets.geolocation.json');
+const dataPath = path.join(
+  __dirname,
+  '../data/singapore-bidets.geolocation.json'
+);
 
 const SOURCE_URL = 'https://www.bidetbeacon.com/data/bidets.geolocation.json';
 const INSTAGRAM_URL = 'https://www.instagram.com/toiletswithbidetsg/';
@@ -28,7 +37,9 @@ function mapType(sgType) {
 function mapAccess(remarks) {
   const r = (remarks || '').toLowerCase();
   if (
-    /handicap|hotel room|all rooms|members only|staff only|private|showroom/.test(r)
+    /handicap|hotel room|all rooms|members only|staff only|private|showroom/.test(
+      r
+    )
   ) {
     return 'limited';
   }
@@ -43,7 +54,7 @@ function mapBidetType(sgType, remarks) {
   return 'Handheld sprayer';
 }
 
-function buildName(location, sgType, remarks) {
+function buildName(location, sgType) {
   let name = location.trim();
   if (sgType && sgType !== 'Hotel') {
     name += ` (${sgType})`;
@@ -51,15 +62,20 @@ function buildName(location, sgType, remarks) {
   return name;
 }
 
-function buildAccessNote(remarks) {
-  if (!remarks) return '';
-  return remarks.trim();
+function buildSourceQuote(remarks) {
+  const base =
+    'Community bidet report — @toiletswithbidetsg (user-submitted sighting with photo/location)';
+  if (!remarks?.trim()) {
+    return `${base}. Listed on community bidet map.`;
+  }
+  return `${base}. Reporter note: ${remarks.trim()}`;
 }
 
 function toSeedRow(row) {
   const access = mapAccess(row.Remarks);
-  const accessNote = access === 'limited' ? buildAccessNote(row.Remarks) : '';
-  const name = buildName(row.Location, row.Type, row.Remarks);
+  const accessNote =
+    access === 'limited' ? (row.Remarks || '').trim() : '';
+  const name = buildName(row.Location, row.Type);
   const address = (row.Address || row.geocoded_address || '').trim();
 
   return {
@@ -73,9 +89,8 @@ function toSeedRow(row) {
     bidetStatus: 'internet',
     bidetType: mapBidetType(row.Type, row.Remarks),
     sourceUrl: SOURCE_URL,
-    sourceQuote: row.Remarks
-      ? `@toiletswithbidetsg — ${row.Remarks}`
-      : '@toiletswithbidetsg community map',
+    sourceQuote: buildSourceQuote(row.Remarks),
+    verifiedMethod: 'community-sighting',
     searchAliases: [row.Location, row.Region, row.Type, INSTAGRAM_URL]
       .filter(Boolean)
       .join(' '),
@@ -85,11 +100,7 @@ function toSeedRow(row) {
 }
 
 function dedupeKey(row) {
-  return [
-    row.name.toLowerCase(),
-    row.latitude,
-    row.longitude,
-  ].join('|');
+  return [row.name.toLowerCase(), row.latitude, row.longitude].join('|');
 }
 
 const html = fs.readFileSync(htmlPath, 'utf8');
@@ -103,22 +114,27 @@ const existing = JSON.parse(match[1]);
 const sgRaw = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 const sgRows = sgRaw.map(toSeedRow);
 
-const seen = new Set(existing.map(dedupeKey));
+// Replace existing Singapore rows (refresh metadata) and add any new ones
+const nonSg = existing.filter((r) => r.country !== 'Singapore');
+const seen = new Set(nonSg.map(dedupeKey));
+const merged = [...nonSg];
 let added = 0;
 for (const row of sgRows) {
   const key = dedupeKey(row);
   if (seen.has(key)) continue;
   seen.add(key);
-  existing.push(row);
+  merged.push(row);
   added++;
 }
 
-const newSeed = JSON.stringify(existing);
+const newSeed = JSON.stringify(merged);
 const newHtml = html.replace(
   /window\.BIDETBEACON_SEED\s*=\s*\[[\s\S]*?\];/,
   `window.BIDETBEACON_SEED = ${newSeed};`
 );
 
 fs.writeFileSync(htmlPath, newHtml);
-console.log(`Imported ${added} Singapore locations (${sgRows.length} in source).`);
-console.log(`Total seed entries: ${existing.length}`);
+console.log(
+  `Singapore: ${sgRows.length} community-verified bidet rows (${added} new vs prior seed).`
+);
+console.log(`Total seed entries: ${merged.length}`);
