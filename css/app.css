@@ -289,15 +289,3 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .btn-icon{display:none!important}
   .btn-label-short{display:none!important}
 }
-.map-country-label.leaflet-div-icon{background:transparent;border:none}
-.map-country-label--palestine span{
-  display:inline-block;
-  font:400 11px/1.2 "Helvetica Neue",Helvetica,Arial,sans-serif;
-  letter-spacing:.02em;
-  color:#697b8c;
-  padding:1px 10px 2px;
-  background:rgba(242,239,233,.95);
-  box-shadow:0 0 0 1px rgba(242,239,233,.95),0 0 14px 8px rgba(242,239,233,.9);
-  white-space:nowrap;
-  transform:translate(-50%,-50%);
-}

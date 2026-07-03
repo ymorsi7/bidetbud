@@ -1062,74 +1062,12 @@ window.BIDETBEACON_SEED = [{"name":"Berkeley Masjid","address":"2716 Derby St, B
     Serbia: 'Republic of Serbia'
   }[name] || name)));
   const BIDET_COUNTRY_GEOJSON_URL = 'https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson';
-  const PALESTINE_MAP_LABEL = { lat: 31.45, lng: 35.15, minZoom: 4, maxZoom: 8 };
-
-  function polygonCoords(geometry){
-    if(geometry.type === 'Polygon') return [geometry.coordinates];
-    if(geometry.type === 'MultiPolygon') return geometry.coordinates;
-    return [];
-  }
-
-  // Tile labels still come from CARTO/OSM; merge Israel into Palestine for our country layer + label overlay.
-  function remapCountryGeoJson(geo){
-    const features = geo.features.slice();
-    const palestineIdx = features.findIndex(f => f.properties.name === 'Palestine');
-    const israelIdx = features.findIndex(f => f.properties.name === 'Israel');
-    if(palestineIdx < 0 || israelIdx < 0) return geo;
-    const mergedCoords = [
-      ...polygonCoords(features[palestineIdx].geometry),
-      ...polygonCoords(features[israelIdx].geometry)
-    ];
-    const merged = {
-      type: 'Feature',
-      properties: { ...features[palestineIdx].properties, name: 'Palestine' },
-      geometry: { type: 'MultiPolygon', coordinates: mergedCoords }
-    };
-    return {
-      ...geo,
-      features: features
-        .filter((_, i) => i !== israelIdx && i !== palestineIdx)
-        .concat(merged)
-    };
-  }
-
-  function attachPalestineMapLabel(targetMap){
-    if(!targetMap || targetMap._palestineLabel) return;
-    if(!targetMap.getPane('mapLabelsPane')){
-      targetMap.createPane('mapLabelsPane');
-      const pane = targetMap.getPane('mapLabelsPane');
-      pane.style.zIndex = 700;
-      pane.style.pointerEvents = 'none';
-    }
-    const marker = L.marker([PALESTINE_MAP_LABEL.lat, PALESTINE_MAP_LABEL.lng], {
-      pane: 'mapLabelsPane',
-      interactive: false,
-      keyboard: false,
-      icon: L.divIcon({
-        className: 'map-country-label map-country-label--palestine',
-        html: '<span>Palestine</span>',
-        iconSize: [0, 0]
-      })
-    });
-    function updateVisibility(){
-      const z = targetMap.getZoom();
-      if(z >= PALESTINE_MAP_LABEL.minZoom && z <= PALESTINE_MAP_LABEL.maxZoom){
-        if(!targetMap.hasLayer(marker)) marker.addTo(targetMap);
-      } else if(targetMap.hasLayer(marker)){
-        targetMap.removeLayer(marker);
-      }
-    }
-    targetMap.on('zoomend', updateVisibility);
-    updateVisibility();
-    targetMap._palestineLabel = marker;
-  }
 
   function addCartoVoyagerTiles(targetMap, showAttribution){
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
       attribution: showAttribution ? '© OpenStreetMap · © CARTO' : undefined
     }).addTo(targetMap);
-    attachPalestineMapLabel(targetMap);
   }
 
   function stableSeedId(row){
@@ -1765,7 +1703,7 @@ window.BIDETBEACON_SEED = [{"name":"Berkeley Masjid","address":"2716 Derby St, B
       .then(geo => {
         if(!map) return;
         if(countriesLayer) map.removeLayer(countriesLayer);
-        countriesLayer = L.geoJSON(remapCountryGeoJson(geo), {
+        countriesLayer = L.geoJSON(geo, {
           style: bidetCountryStyle,
           onEachFeature: onBidetCountryFeature,
           pane: 'countriesPane'
