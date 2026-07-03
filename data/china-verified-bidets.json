@@ -1,0 +1,1359 @@
+[
+  {
+    "name": "InterContinental Beijing Sanlitun",
+    "address": "北京三里屯通盈中心洲际酒店,  南三里屯路,  北京市,  中国",
+    "latitude": "39.9312369",
+    "longitude": "116.4487857",
+    "city": "Beijing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/78.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 北京三里屯通盈中心洲际酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "北京三里屯通盈中心洲际酒店"
+    ]
+  },
+  {
+    "name": "Mandarin Oriental Wangfujing, Beijing",
+    "address": "269 Wangfujing Street, Dongcheng District, Beijing",
+    "latitude": "39.914800",
+    "longitude": "116.410200",
+    "city": "Beijing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/85.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 北京王府井文华东方酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "北京王府井文华东方酒店"
+    ]
+  },
+  {
+    "name": "MUJI Hotel Beijing",
+    "address": "北京无印良品酒店,  前门西河沿街,  北京市,  中国",
+    "latitude": "39.8971635",
+    "longitude": "116.389268",
+    "city": "Beijing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/81.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 无印良品酒店·北京 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "无印良品酒店·北京"
+    ]
+  },
+  {
+    "name": "Rosewood Beijing",
+    "address": "北京瑰丽酒店,  朝阳门外大街,  北京市,  中国",
+    "latitude": "39.9188259",
+    "longitude": "116.4545206",
+    "city": "Beijing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "诺锐斯特 智",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/20250530BJ.pdf",
+    "sourceQuote": "TOTO China case study PDF: 时，彰显高端奢华的 TOTO 诺锐斯特 智 能坐便器以及卫洗丽 系列产品，更是让 智能洁净系统：",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "北京瑰丽酒店"
+    ]
+  },
+  {
+    "name": "The PuXuan Hotel & Spa",
+    "address": "1 Wangfujing Street, Dongcheng District, Beijing 100006",
+    "latitude": "39.923583",
+    "longitude": "116.410583",
+    "city": "Beijing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST (诺锐斯特)",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/87.pdf",
+    "sourceQuote": "TOTO China case study PDF: all guestrooms and suites use TOTO NEOREST smart toilets (models CES9787WCS, CW762B)",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "北京璞瑄酒店",
+      "PuXuan Beijing"
+    ]
+  },
+  {
+    "name": "The St. Regis Changsha",
+    "address": "谁主沉浮雕像群,  橘洲路,  岳麓区,  湖南省,  中国",
+    "latitude": "28.1739987",
+    "longitude": "112.95529",
+    "city": "Changsha",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/79.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 长沙瑞吉酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "长沙瑞吉酒店"
+    ]
+  },
+  {
+    "name": "W Changsha",
+    "address": "Changsha IFS Tower T1,  解放西路,  长沙市,  湖南省,  中国",
+    "latitude": "28.1953589",
+    "longitude": "112.973523",
+    "city": "Changsha",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST AH",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/104.pdf",
+    "sourceQuote": "TOTO China case study PDF: NEOREST AH 智能全自动一体型电子坐便器 智能洁净系统：",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "长沙W酒店"
+    ]
+  },
+  {
+    "name": "Hyatt Centric The Langbo Chengdu",
+    "address": "Near Chunxi Road, Jinjiang District, Chengdu",
+    "latitude": "30.657000",
+    "longitude": "104.080000",
+    "city": "Chengdu",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet",
+    "sourceUrl": "https://www.flyert.com.cn/portal.php?aid=521490&mod=view",
+    "sourceQuote": "Flyert review: ensuite bathroom equipped with smart toilet (智能马桶)",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "成都瑯珀凯悦臻选酒店",
+      "成都瑯珀酒店"
+    ]
+  },
+  {
+    "name": "The Ritz-Carlton, Chengdu",
+    "address": "成都富力丽思卡尔顿酒店,  顺城大街,  成都市,  四川省,  中国",
+    "latitude": "30.6664017",
+    "longitude": "104.0675133",
+    "city": "Chengdu",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "诺锐斯特®智能全自动坐便器",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/9.pdf",
+    "sourceQuote": "TOTO China case study PDF: 用了TOTO诺锐斯特®智能全自动坐便器，住客于此能轻松享受，现代 hotel. Lastly, TOTO’s NEOREST® series are equipped to offer 坐便器：TOTO诺锐斯特® CES9683JCS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "成都富力丽思卡尔顿"
+    ]
+  },
+  {
+    "name": "The St. Regis Chengdu",
+    "address": "成都瑞吉酒店,  太升南路,  成都市,  四川省,  中国",
+    "latitude": "30.6634959",
+    "longitude": "104.0721824",
+    "city": "Chengdu",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "诺锐斯特®智能全自动坐便器",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/10.pdf",
+    "sourceQuote": "TOTO China case study PDF: 的是TOTO的诺锐斯特®智能全自动坐便器，为住客奉上了一份独特 ensures privacy. TOTO NEOREST® series are equipped to deliver 坐便器：TOTO诺锐斯特®CES9683JCS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "成都瑞吉酒店"
+    ]
+  },
+  {
+    "name": "W Chengdu",
+    "address": "成都地铁3号线,  老马路,  成都市,  四川省,  中国",
+    "latitude": "30.6476135",
+    "longitude": "104.0724808",
+    "city": "Chengdu",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/100.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 成都W酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "成都W酒店"
+    ]
+  },
+  {
+    "name": "Waldorf Astoria Chengdu",
+    "address": "1199 Tianfu Avenue North, Hi-tech Zone, Chengdu",
+    "latitude": "30.655200",
+    "longitude": "104.082400",
+    "city": "Chengdu",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/75.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 成都华尔道夫酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "成都华尔道夫酒店"
+    ]
+  },
+  {
+    "name": "InterContinental Chongqing TFT",
+    "address": "TFT Building, Yuzhong District, Chongqing",
+    "latitude": "29.556000",
+    "longitude": "106.578000",
+    "city": "Chongqing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet",
+    "sourceUrl": "https://www.flyert.com.cn/portal.php?aid=521545&mod=view",
+    "sourceQuote": "Flyert review: all guest rooms include smart toilets (智能马桶) as standard in-room amenity",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "洲至奢选重庆TFT酒店",
+      "重庆TFT酒店"
+    ]
+  },
+  {
+    "name": "Four Seasons Hotel Dalian",
+    "address": "大连鲁能四季酒店,  长江东路,  中山区,  辽宁省,  中国",
+    "latitude": "38.9248827",
+    "longitude": "121.6597663",
+    "city": "Dalian",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "卫洗丽 系列产品",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/20250530DL.pdf",
+    "sourceQuote": "TOTO China case study PDF: 锐斯特 系列以及卫洗丽 系列产品，智能 TOTO NEOREST DH 智能全自动一体型电子坐便器",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "大连四季酒店"
+    ]
+  },
+  {
+    "name": "Four Seasons Hotel Guangzhou",
+    "address": "广州四季酒店,  珠江西路,  广州市,  广东省,  中国",
+    "latitude": "23.1204288",
+    "longitude": "113.3179702",
+    "city": "Guangzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/2.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 广州四季酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "广州四季酒店"
+    ]
+  },
+  {
+    "name": "Holiday Inn Express Guangzhou Baiyun Airport T2",
+    "address": "Guangzhou Baiyun International Airport Terminal 2, Guangzhou",
+    "latitude": "23.392000",
+    "longitude": "113.299000",
+    "city": "Guangzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO Washlet (卫洗丽)",
+    "sourceUrl": "https://www.flyert.com.cn/a-527614-1.html",
+    "sourceQuote": "Flyert review: even standard HIX rooms include TOTO Washlet smart toilet (智能马桶卫洗丽) with auto lid, wash, and warm-air dry",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "广州白云机场智选假日"
+    ]
+  },
+  {
+    "name": "Park Hyatt Guangzhou",
+    "address": "广州起义烈士陵园,  中山二路,  广州市,  广东省,  中国",
+    "latitude": "23.1311788",
+    "longitude": "113.27878",
+    "city": "Guangzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/1.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 广州柏悦酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "广州柏悦酒店"
+    ]
+  },
+  {
+    "name": "The Ritz-Carlton, Guangzhou",
+    "address": "丽思卡尔顿酒店,  冼村路,  广州市,  广东省,  中国",
+    "latitude": "23.1190423",
+    "longitude": "113.3218208",
+    "city": "Guangzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/93.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 广州富力丽思卡尔顿酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "广州富力丽思卡尔顿酒店"
+    ]
+  },
+  {
+    "name": "Four Seasons Hotel Hangzhou at Centre",
+    "address": "杭州中心四季酒店,  中山北路,  杭州,  浙江,  中国",
+    "latitude": "30.2753406",
+    "longitude": "120.1613583",
+    "city": "Hangzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "诺锐斯特 系列坐便器、",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/20250530HZ.pdf",
+    "sourceQuote": "TOTO China case study PDF: 华住宿体验。卫浴空间更是配备了 TOTO 诺锐斯特 系列坐便器、 卫洗丽 TOTO WASHLET G5 Lite",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "杭州中心四季酒店"
+    ]
+  },
+  {
+    "name": "Kempinski Hotel Hangzhou",
+    "address": "钱江新城万豪酒店,  Juyuan Road,  Hangzhou,  Zhejiang,  中国",
+    "latitude": "30.2482661",
+    "longitude": "120.2131968",
+    "city": "Hangzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/97.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 杭州远洋凯宾斯基酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "杭州远洋凯宾斯基酒店"
+    ]
+  },
+  {
+    "name": "Park Hyatt Hangzhou",
+    "address": "民心路,  杭州市,  浙江省,  中国",
+    "latitude": "30.2561373",
+    "longitude": "120.2105595",
+    "city": "Hangzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/70.pdf",
+    "sourceQuote": "TOTO China case study PDF: 造的水疗式浴室配备独立大理石浴缸、双人梳妆盥洗盆、豪华沐浴用品及智能全自动坐便器。",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "杭州柏悦酒店"
+    ]
+  },
+  {
+    "name": "Banyan Tree Huangshan",
+    "address": "白羊山,  黄山市,  安徽省,  中国",
+    "latitude": "29.685905",
+    "longitude": "117.927497",
+    "city": "Huangshan",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "卫洗丽产品,更为住客们提供了独特的洁净与",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/11.pdf",
+    "sourceQuote": "TOTO China case study PDF: 卫浴间采用了 TOTO 的卫洗丽产品,更为住客们提供了独特的洁净与 are all equipped with TOTO washlet for unique, clean and 卫洗丽：TCF6432CS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "黄山悦榕庄"
+    ]
+  },
+  {
+    "name": "Hyatt Regency Jingdezhen Taoxichuan",
+    "address": "Taoxichuan, Jingdezhen, Jiangxi",
+    "latitude": "29.293000",
+    "longitude": "117.214000",
+    "city": "Jingdezhen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Kohler smart toilet",
+    "sourceUrl": "https://www.flyert.com.cn/forum.php?mod=viewthread&tid=4568783",
+    "sourceQuote": "Flyert review: bathroom has fully sensor-activated Kohler smart toilet (科勒智能马桶) with full washlet functions",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "景德镇陶溪川凯悦臻选酒店"
+    ]
+  },
+  {
+    "name": "Wyndham Grand Plaza Royale Hot Springs Tianmu Lake",
+    "address": "Nanshan Bamboo Sea Scenic Area, Liyang, Changzhou, Jiangsu",
+    "latitude": "31.178000",
+    "longitude": "119.574000",
+    "city": "Liyang",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO intelligent bathroom",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/127.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 溧阳温德姆至尊豪廷温泉酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "溧阳温德姆至尊豪廷温泉酒店",
+      "天目湖温泉"
+    ]
+  },
+  {
+    "name": "Banyan Tree Nanjing Garden Expo",
+    "address": "南宁园博园,  蒲兴大道,  南宁市,  广西壮族自治区,  中国",
+    "latitude": "22.7275935",
+    "longitude": "108.4744329",
+    "city": "Nanjing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST AH",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/109.pdf",
+    "sourceQuote": "TOTO China case study PDF: TOTO NEOREST AH 智能全自动一体型电子坐便器 智能洁净系统：",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "南京园博园悦榕庄"
+    ]
+  },
+  {
+    "name": "Courtyard by Marriott Nanjing Jiangning",
+    "address": "88 Shengzhou Road, Jiangning District, Nanjing",
+    "latitude": "31.953000",
+    "longitude": "118.839000",
+    "city": "Nanjing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO smart toilet",
+    "sourceUrl": "https://www.flyert.com.cn/portal.php?aid=497809&mod=view",
+    "sourceQuote": "Flyert review: executive suite has smart toilets in both guest and main bathrooms; main bath fixtures are TOTO",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "南京金轮万怡酒店"
+    ]
+  },
+  {
+    "name": "The Lalu Nanjing",
+    "address": "侵华日军南京大屠杀遇难同胞纪念馆,  水西门大街,  南京市,  江苏省,  中国",
+    "latitude": "32.0377328",
+    "longitude": "118.7369076",
+    "city": "Nanjing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/84.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 南京涵碧楼 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "南京涵碧楼"
+    ]
+  },
+  {
+    "name": "The Ritz-Carlton, Nanjing",
+    "address": "The Ritz-Carlton,  Nanjing,  糖坊桥,  南京市,  江苏省",
+    "latitude": "32.0469789",
+    "longitude": "118.7798615",
+    "city": "Nanjing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/95.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 南京丽思卡尔顿酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "南京丽思卡尔顿酒店"
+    ]
+  },
+  {
+    "name": "The Westin Nanjing Resort & Spa",
+    "address": "威斯汀大酒店,  Zhongyang Road,  Nanjing,  Jiangsu,  中国",
+    "latitude": "32.0742691",
+    "longitude": "118.7779467",
+    "city": "Nanjing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST AH",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/112.pdf",
+    "sourceQuote": "TOTO China case study PDF: TOTO NEOREST AH 智能全自动一体型电子坐便器 智能洁净系统：",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "南京威斯汀温泉度假酒店"
+    ]
+  },
+  {
+    "name": "The Luxury Collection Nanning",
+    "address": "66 Jinhu Road, Qingxiu District, Nanning",
+    "latitude": "22.817400",
+    "longitude": "108.366800",
+    "city": "Nanning",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/99.pdf",
+    "sourceQuote": "TOTO China case study PDF: 南宁龙光那莲豪华精选酒店 — TOTO NEOREST intelligent bidet toilet products documented in manufacturer project PDF",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "南宁龙光那莲豪华精选酒店"
+    ]
+  },
+  {
+    "name": "Diaoyutai Hotel Qingdao",
+    "address": "钓鱼台美高梅酒店,  深圳路,  青岛市,  山东省,  中国",
+    "latitude": "36.0981217",
+    "longitude": "120.4605903",
+    "city": "Qingdao",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST® 智能全自",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/116.pdf",
+    "sourceQuote": "TOTO China case study PDF: 色彩气韵。客房内，TOTO NEOREST® 智能全自 NEOREST® AH1 智能洁净系统：",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "青岛钓鱼台酒店"
+    ]
+  },
+  {
+    "name": "MGM Qingdao",
+    "address": "钓鱼台美高梅酒店,  深圳路,  青岛市,  山东省,  中国",
+    "latitude": "36.0981217",
+    "longitude": "120.4605903",
+    "city": "Qingdao",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST® 智能全自动坐便器",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/120.pdf",
+    "sourceQuote": "TOTO China case study PDF: 而 TOTO NEOREST® 智能全自动坐便器，也成为客房卫浴空间 NEOREST® NX1 智能洁净系统：",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "青岛美高梅酒店"
+    ]
+  },
+  {
+    "name": "Capella Sanya",
+    "address": "Tufu Bay, Haitang Bay, Sanya, Hainan",
+    "latitude": "18.312000",
+    "longitude": "109.742000",
+    "city": "Sanya",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://www.flyert.com.cn/forum.php?mod=viewthread&tid=4709663",
+    "sourceQuote": "Flyert review (pool villa): smart toilet is standard in luxury hotel bathrooms (智能马桶也是奢华酒店的标配)",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "三亚嘉佩乐",
+      "土福湾嘉佩乐",
+      "Capella Tufu Bay"
+    ]
+  },
+  {
+    "name": "Rosewood Sanya",
+    "address": "三亚市,  海南省,  中国",
+    "latitude": "18.2534658",
+    "longitude": "109.5034392",
+    "city": "Sanya",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/82.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 三亚保利瑰丽酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "三亚保利瑰丽酒店"
+    ]
+  },
+  {
+    "name": "The Sanya EDITION",
+    "address": "The Taikang Sanya,  a Tribute Portfolio Resort,  海棠南路,  三亚市,  海南省",
+    "latitude": "18.3082693",
+    "longitude": "109.7210723",
+    "city": "Sanya",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST AH",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/107.pdf",
+    "sourceQuote": "TOTO China case study PDF: TOTO NEOREST AH 智能全自动一体型电子坐便器 智能洁净系统：",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "三亚艾迪逊酒店"
+    ]
+  },
+  {
+    "name": "Amara Shanghai",
+    "address": "Jing'an District, Shanghai",
+    "latitude": "31.247000",
+    "longitude": "121.440000",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet",
+    "sourceUrl": "https://www.laughtraveleat.com/asia/amara-shanghai-hotel-review/",
+    "sourceQuote": "Travel review: all rooms include a smart toilet in the bathroom",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "Andaz Xintiandi, Shanghai",
+    "address": "88 Songshan Road, Huangpu District, Shanghai",
+    "latitude": "31.222800",
+    "longitude": "121.473500",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO electronic bidet toilet",
+    "sourceUrl": "https://www.luxurytraveldiary.com/2022/11/andaz-xintiandi-shanghai-review/",
+    "sourceQuote": "Travel review: bathroom outfitted with electronic Toto toilet (bidet seat); motion-controlled lid and wash functions",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "Bellagio by Shanghai Bellagio",
+    "address": "上海苏宁宝丽嘉酒店,  天潼路,  虹口区,  上海市,  中国",
+    "latitude": "31.2470304",
+    "longitude": "121.4822742",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/77.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 上海苏宁宝丽嘉酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "上海苏宁宝丽嘉酒店"
+    ]
+  },
+  {
+    "name": "Bvlgari Hotel Shanghai",
+    "address": "108 North Shanxi Road, Jing'an District, Shanghai",
+    "latitude": "31.247500",
+    "longitude": "121.454800",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO smart toilet",
+    "sourceUrl": "https://www.michelinkeyhotels.com/hotels/bvlgari-hotel-shanghai",
+    "sourceQuote": "Michelin Keys hotel guide: marble bathrooms feature Toto smart toilets (bidet-style electronic seats)",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "Conrad Shanghai",
+    "address": "Shimao International Plaza, 5 Nanjing East Road, Shanghai",
+    "latitude": "31.234500",
+    "longitude": "121.473800",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Japanese bidet toilet seat",
+    "sourceUrl": "https://www.theflightclub.it/en/2025/04/conrad-shanghai-review/",
+    "sourceQuote": "Hotel review (2025): circular bathroom includes Japanese toilet seat with bidet/washlet functions",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "Howard Johnson Huaihai Hotel Shanghai",
+    "address": "1 Fenyang Road, Xuhui District, Shanghai 200031",
+    "latitude": "31.210000",
+    "longitude": "121.447000",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet / electronic bidet seat",
+    "sourceUrl": "https://us.trip.com/hotels/shanghai-hotel-detail-427622/howard-johnson-huaihai-hotel-shanghai/",
+    "sourceQuote": "Trip.com room categories list Smart Toilet; guest review: updated room with automatic toilet (electronic bidet seat)",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "上海淮海宾馆",
+      "Huai Hai Hotel Shanghai"
+    ]
+  },
+  {
+    "name": "InterContinental Shanghai Wonderland",
+    "address": "上海洲际世茂仙境酒店,  辰花路,  松江区,  上海市,  中国",
+    "latitude": "31.0613123",
+    "longitude": "121.1497957",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "卫洗丽产品",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/85.pdf",
+    "sourceQuote": "TOTO China case study PDF: 很周到，都采用了TOTO的卫洗丽产品，带给住客更多的 器与卫洗丽巧妙搭配组合，带给住客全新的洁净体验。 温水冲洗坐便器（WASHLET+）：CW188CB+TCF6631C2CS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "上海佘山世茂洲际酒店"
+    ]
+  },
+  {
+    "name": "J Hotel Shanghai Tower",
+    "address": "上海中心J酒店,  东泰路,  浦东新区,  上海市,  中国",
+    "latitude": "31.235435",
+    "longitude": "121.5013841",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST 智",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/113.pdf",
+    "sourceQuote": "TOTO China case study PDF: 所有客房全部采用TOTO NEOREST 智 能坐便器，优雅造型加上搭载的智能洁净 TOTO NEOREST AH",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "J酒店上海中心"
+    ]
+  },
+  {
+    "name": "Park Hyatt Shanghai",
+    "address": "100 Century Avenue, Pudong, Shanghai (check-in 87th floor)",
+    "latitude": "31.2365768",
+    "longitude": "121.5030406",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO Washlet",
+    "sourceUrl": "https://onetechtraveller.com/park-hyatt-shanghai-review/",
+    "sourceQuote": "Guest review: rooms fitted with automatic bidet toilets (Toto washlet) that lift the lid when you enter; separate powder room houses Toto washlet",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "Shanghai Pudong Airport T3 Satellite Terminal",
+    "address": "浦东1号2号航站楼,  P2,  浦东新区,  上海市,  中国",
+    "latitude": "31.1524464",
+    "longitude": "121.8017619",
+    "city": "Shanghai",
+    "type": "public",
+    "bidetStatus": "warmed",
+    "bidetType": "诺锐斯特智能全自动坐便器",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/92.pdf",
+    "sourceQuote": "TOTO China case study PDF: 的诺锐斯特智能全自动坐便器，国际出发 智能全自动电子坐便器：诺锐斯特CES9787WCS 卫洗丽：TCF6632CS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "public",
+    "accessNote": "Airport terminal — ticketed passengers",
+    "searchAliases": [
+      "上海浦东机场T3卫星厅"
+    ]
+  },
+  {
+    "name": "Shanghai Rezen Estelle Hotel (Nanjing Road)",
+    "address": "337 Shandong Middle Road, Huangpu District, Shanghai",
+    "latitude": "31.2381767",
+    "longitude": "121.4798713",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet with bidet function",
+    "sourceUrl": "https://rezenestellehotel.com/ux_room/tranquil-double-bed-room/",
+    "sourceQuote": "Official hotel site: room bathroom has smart toilet with heated seat, bidet function, and auto-flush",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Rezen Estelle Bund",
+      "丽呈东谷酒店"
+    ]
+  },
+  {
+    "name": "Shangri-La Qiantan, Shanghai",
+    "address": "551 West Haiyang Road, Pudong, Shanghai 200124",
+    "latitude": "31.1530741",
+    "longitude": "121.4783816",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST AH",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/108.pdf",
+    "sourceQuote": "TOTO China case study PDF: 智能洁净系统： 智能洁净系统： 智能洁净系统：",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "上海前滩香格里拉"
+    ]
+  },
+  {
+    "name": "The Langham, Shanghai, Xintiandi",
+    "address": "99 Madang Road, Huangpu District, Shanghai",
+    "latitude": "31.221500",
+    "longitude": "121.475800",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Automated bidet toilet",
+    "sourceUrl": "https://www.forbestravelguide.com/hotels/shanghai-china/the-langham-shanghai-xintiandi",
+    "sourceQuote": "Forbes Travel Guide: bathroom includes an automated toilet (bidet-style smart seat)",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "The St. Regis Shanghai Jing An",
+    "address": "1008 West Beijing Road, Jing'an District, Shanghai",
+    "latitude": "31.242800",
+    "longitude": "121.445500",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "http://www.qiantaohotel.com/homeweb/NewHomeWeb/M1362197.html",
+    "sourceQuote": "Qiantao hotel listing for St. Regis Shanghai Jing An: bathroom amenities include 智能马桶 across room categories",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "上海静安瑞吉酒店",
+      "St Regis Jing An"
+    ]
+  },
+  {
+    "name": "The St. Regis Shanghai Pudong",
+    "address": "528 Pudong South Road, Pudong, Shanghai",
+    "latitude": "31.228500",
+    "longitude": "121.505500",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Japanese-style smart toilet",
+    "sourceUrl": "https://www.travelarbitrage.net/en/blog/st-regis-shanghai-pudong-2026/",
+    "sourceQuote": "Travel review (2026): Grand Deluxe rooms and above include a Japanese-style smart toilet in the bathroom",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only; Grand Deluxe category and above"
+  },
+  {
+    "name": "W Shanghai — The Bund",
+    "address": "外滩,  黄浦区,  上海市,  中国",
+    "latitude": "31.2353356",
+    "longitude": "121.487632",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "诺锐斯特CES9683",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/74.pdf",
+    "sourceQuote": "TOTO China case study PDF: 坐便器：诺锐斯特CES9683",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "上海外滩W酒店"
+    ]
+  },
+  {
+    "name": "Waldorf Astoria Shanghai Qiantan",
+    "address": "550 Haiyang West Road, Qiantan, Pudong, Shanghai",
+    "latitude": "31.1530741",
+    "longitude": "121.4783816",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST ® LS智能全自动坐便器",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/20260522SH.pdf",
+    "sourceQuote": "TOTO China case study PDF: 客房采用TOTO的NEOREST ® LS智能全自动坐便器，优雅 智能全自动一体型电子坐便器 NEOREST ® LS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "上海前滩华尔道夫酒店"
+    ]
+  },
+  {
+    "name": "Wanda Reign on the Bund Shanghai",
+    "address": "上海万达瑞华酒店,  中山东二路,  上海市,  上海市,  中国",
+    "latitude": "31.2298041",
+    "longitude": "121.4922746",
+    "city": "Shanghai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/72.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 上海万达瑞华酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "上海万达瑞华酒店"
+    ]
+  },
+  {
+    "name": "Ahn Luh Shaoxing",
+    "address": "邵岗乡,  六安市,  安徽省,  中国",
+    "latitude": "32.3109",
+    "longitude": "116.144",
+    "city": "Shaoxing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/80.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 绍兴兰亭安麓酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "绍兴兰亭安麓酒店"
+    ]
+  },
+  {
+    "name": "Conrad Shenyang",
+    "address": "康莱德酒店,  青年大街,  沈阳市,  辽宁省,  中国",
+    "latitude": "41.7995107",
+    "longitude": "123.4276751",
+    "city": "Shenyang",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "诺锐斯特CES9787WCS",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/89.pdf",
+    "sourceQuote": "TOTO China case study PDF: 智能全自动电子坐便器：诺锐斯特CES9787WCS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "沈阳康莱德酒店"
+    ]
+  },
+  {
+    "name": "Andaz Shenzhen Bay",
+    "address": "深湛线,  广深沿江高速,  东莞市,  广东省,  中国",
+    "latitude": "22.7507865",
+    "longitude": "113.7467514",
+    "city": "Shenzhen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST AH",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/106.pdf",
+    "sourceQuote": "TOTO China case study PDF: 智能洁净系统： NEOREST AH 智能全自动一体型电子坐便器",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "深圳湾安达仕酒店"
+    ]
+  },
+  {
+    "name": "MUJI Hotel Shenzhen",
+    "address": "深圳无印良品酒店,  皇岗路,  深圳市,  广东省,  中国",
+    "latitude": "22.5598156",
+    "longitude": "114.0631229",
+    "city": "Shenzhen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/83.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 无印良品酒店·深圳 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "无印良品酒店·深圳"
+    ]
+  },
+  {
+    "name": "The Ritz-Carlton, Shenzhen",
+    "address": "深圳星河丽思卡尔顿酒店,  福华三路,  深圳市,  广东省,  中国",
+    "latitude": "22.5362402",
+    "longitude": "114.05644",
+    "city": "Shenzhen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/20250530SZ.pdf",
+    "sourceQuote": "TOTO China case study PDF: TOTO NEOREST LS 智能全自动一体型电子坐便器，这 TOTO NEOREST LS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "深圳星河丽思卡尔顿酒店"
+    ]
+  },
+  {
+    "name": "Four Seasons Hotel Suzhou",
+    "address": "1 Suxie Road, Suzhou Industrial Park, Suzhou",
+    "latitude": "31.298500",
+    "longitude": "120.585200",
+    "city": "Suzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/115.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 苏州四季酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "苏州四季酒店"
+    ]
+  },
+  {
+    "name": "Park Hyatt Suzhou",
+    "address": "Park Hyatt Suzhou,  西洲路,  苏州市,  江苏省,  中国",
+    "latitude": "31.315524",
+    "longitude": "120.7149605",
+    "city": "Suzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/96.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 苏州柏悦酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "苏州柏悦酒店"
+    ]
+  },
+  {
+    "name": "The Ritz-Carlton, Suzhou",
+    "address": "Suzhou Industrial Park, Suzhou, Jiangsu",
+    "latitude": "31.323200",
+    "longitude": "120.702800",
+    "city": "Suzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/20260701SZ.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 苏州丽思卡尔顿 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "苏州丽思卡尔顿"
+    ]
+  },
+  {
+    "name": "Holiday Inn Express Taizhou Jiaoji",
+    "address": "Jiaoji, Taizhou, Zhejiang",
+    "latitude": "28.656000",
+    "longitude": "121.420000",
+    "city": "Taizhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet",
+    "sourceUrl": "https://www.flyert.com.cn/portal.php?aid=521794&mod=view",
+    "sourceQuote": "Flyert review: newly opened hotel rooms include smart toilet (智能马桶) in bathroom",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "台州椒江智选假日酒店"
+    ]
+  },
+  {
+    "name": "Conrad Tianjin",
+    "address": "天津康莱德酒店,  天塔道,  天津市,  天津,  中国",
+    "latitude": "39.0920163",
+    "longitude": "117.1696989",
+    "city": "Tianjin",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/94.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 天津康莱德酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "天津康莱德酒店"
+    ]
+  },
+  {
+    "name": "Kasuitei Tiantai",
+    "address": "天泰路,  天泰路,  河北区,  天津,  中国",
+    "latitude": "39.1673103",
+    "longitude": "117.177395",
+    "city": "Tiantai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST LE",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/105.pdf",
+    "sourceQuote": "TOTO China case study PDF: 智能洁净系统： NEOREST LE 智能全自动一体型电子坐便器",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "天台山嘉助酒店"
+    ]
+  },
+  {
+    "name": "Dielai Wangjing, Wuyi",
+    "address": "王庆坨镇,  武清区,  天津,  中国",
+    "latitude": "39.1712182",
+    "longitude": "116.9259106",
+    "city": "Wuyi",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "诺锐斯特CES9787WCS",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/90.pdf",
+    "sourceQuote": "TOTO China case study PDF: 智能全自动电子坐便器：诺锐斯特CES9787WCS 温水冲洗坐便器（WASHLET+）：CW188CB+TCF6531C2CS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "武义璟园· 蝶来望境"
+    ]
+  },
+  {
+    "name": "Alila Wuzhen",
+    "address": "乌镇镇,  嘉兴市,  浙江省,  中国",
+    "latitude": "30.7464875",
+    "longitude": "120.4819022",
+    "city": "Wuzhen",
+    "type": "public",
+    "bidetStatus": "warmed",
+    "bidetType": "卫洗丽产品",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/86.pdf",
+    "sourceQuote": "TOTO China case study PDF: 出发，比如我们客房采用了TOTO的卫洗丽产品。我们相信 卫洗丽能给我们的住客带来更加舒适、洁净的体验。同时， 温水冲洗坐便器（WASHLET+）：CW188CB+TCF6631C2CS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Verify public access before visiting",
+    "searchAliases": [
+      "阿丽拉乌镇"
+    ]
+  },
+  {
+    "name": "Canopy by Hilton Xi'an Qujiang",
+    "address": "深圳宝安体育馆希尔顿欢朋酒店,  新湖路,  深圳市,  广东省,  中国",
+    "latitude": "22.5795384",
+    "longitude": "113.8575012",
+    "city": "Xi'an",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST® 智能坐便器",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/119.pdf",
+    "sourceQuote": "TOTO China case study PDF: NEOREST® 智能坐便器，守护旅途中的一份洁净。 NEOREST® AH 智能洁净系统：",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "西安曲江希尔顿嘉悦里酒店"
+    ]
+  },
+  {
+    "name": "JW Marriott Hotel Xi'an Gaoxin",
+    "address": "333 Fengcheng 9th Road, High-tech Zone, Xi'an",
+    "latitude": "34.232000",
+    "longitude": "108.895000",
+    "city": "Xi'an",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://www.flyert.com.cn/a-525646-1.html",
+    "sourceQuote": "Flyert review: bathroom has smart toilet that works well (智能马桶好用), plus separate tub and rain shower",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "西安高新JW万豪酒店"
+    ]
+  },
+  {
+    "name": "Sheraton Xi'an Chanba",
+    "address": "8 Chanhe East Road, Chanba Ecological District, Xi'an",
+    "latitude": "34.320000",
+    "longitude": "109.060000",
+    "city": "Xi'an",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://www.flyert.com.cn/forum.php?mod=viewthread&tid=4844472",
+    "sourceQuote": "Flyert review: ensuite has separate bathtub plus smart toilet (智能马桶); Dyson hair dryer also noted",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "西安浐灞喜来登酒店",
+      "西安灞河喜来登"
+    ]
+  },
+  {
+    "name": "The Ritz-Carlton, Xi'an",
+    "address": "西安丽思卡尔顿酒店,  科技二路,  西安,  陕西,  中国",
+    "latitude": "34.2252383",
+    "longitude": "108.8929647",
+    "city": "Xi'an",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/98.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 西安丽思卡尔顿酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "西安丽思卡尔顿酒店"
+    ]
+  },
+  {
+    "name": "Conrad Xiamen",
+    "address": "厦门康莱德酒店,  Yanwuxi Road,  Xiamen,  福建省,  中国",
+    "latitude": "24.4377684",
+    "longitude": "118.0843789",
+    "city": "Xiamen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/71.pdf",
+    "sourceQuote": "TOTO China case study PDF: 电视、Wi-Fi与有线互联网接入、智能坐便器。宾客也可选择套房和行政客房，专享54层行政酒廊，尽情领略厦门文化、艺术、美食和风情。",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "厦门康莱德酒店"
+    ]
+  },
+  {
+    "name": "Curio Collection by Hilton Xiamen",
+    "address": "厦门佳逸希尔顿格芮精选酒店,  龙虎山路,  厦门市,  福建省,  中国",
+    "latitude": "24.4321505",
+    "longitude": "118.1162656",
+    "city": "Xiamen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "诺锐斯特智能全自动坐便器",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/91.pdf",
+    "sourceQuote": "TOTO China case study PDF: 值得一提的是卫浴间更是采用了TOTO的诺锐斯特智能全自动坐便器，让每一位宾客都感受到智能科技带来的洁 智能全自动电子坐便器：诺锐斯特CES9787WCS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "厦门佳逸希尔顿格芮精选酒店"
+    ]
+  },
+  {
+    "name": "W Xiamen",
+    "address": "厦门,  厦门站南广场,  厦门市,  福建省,  中国",
+    "latitude": "24.4703348",
+    "longitude": "118.1110988",
+    "city": "Xiamen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST @DH",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/111.pdf",
+    "sourceQuote": "TOTO China case study PDF: TOTO NEOREST @DH 智能洁净系统： 些酒店的公共区域，具有智能洁净系统的TOTO的",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "厦门W酒店"
+    ]
+  },
+  {
+    "name": "Waldorf Astoria Xiamen",
+    "address": "Xiamen Center, Siming District, Xiamen",
+    "latitude": "24.478200",
+    "longitude": "118.089400",
+    "city": "Xiamen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST / WASHLET",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/101.pdf",
+    "sourceQuote": "TOTO China high-end project case study (智能洁净系统产品已做标注案例): 厦门华尔道夫酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "厦门华尔道夫酒店"
+    ]
+  },
+  {
+    "name": "The Westin Yantai",
+    "address": "市委党校,  港城东大街,  烟台市,  山东省,  中国",
+    "latitude": "37.4592263",
+    "longitude": "121.4463635",
+    "city": "Yantai",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "NEOREST® 智能坐便器",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/117.pdf",
+    "sourceQuote": "TOTO China case study PDF: NEOREST® 智能坐便器，安心、舒适的 NEOREST® DH2 智能洁净系统：",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "烟台威斯汀酒店"
+    ]
+  },
+  {
+    "name": "Shangri-La Yiwu",
+    "address": "香格里拉酒店,  北一环路,  合肥市,  安徽省,  中国",
+    "latitude": "31.8813436",
+    "longitude": "117.2631342",
+    "city": "Yiwu",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "卫洗丽：TCF6632CS",
+    "sourceUrl": "https://www.toto.com.cn/cn/resource/pdf/project/76.pdf",
+    "sourceQuote": "TOTO China case study PDF: 卫洗丽：TCF6632CS",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "义乌香格里拉大酒店"
+    ]
+  }
+]
