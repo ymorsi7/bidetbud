@@ -32,7 +32,7 @@ function sleep(ms) {
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, { headers: { 'User-Agent': 'BidetBeaconResearch/1.0' } }, (res) => {
+      .get(url, { headers: { 'User-Agent': 'BidetBudResearch/1.0' } }, (res) => {
         let data = '';
         res.on('data', (c) => (data += c));
         res.on('end', () => {

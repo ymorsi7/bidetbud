@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Import TOTO Japan hotel case studies into BIDETBEACON_SEED (additive).
+ * Import TOTO Japan hotel case studies into BIDETBUD_SEED (additive).
  */
 const fs = require('fs');
 const path = require('path');
@@ -61,9 +61,9 @@ if (!fs.existsSync(dataPath)) {
 }
 
 const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBEACON_SEED\s*=\s*(\[[\s\S]*?\]);/);
+const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
 if (!match) {
-  console.error('BIDETBEACON_SEED not found');
+  console.error('BIDETBUD_SEED not found');
   process.exit(1);
 }
 
@@ -103,8 +103,8 @@ for (const item of japan) {
 }
 
 const newHtml = html.replace(
-  /window\.BIDETBEACON_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBEACON_SEED = ${JSON.stringify(merged)};`
+  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
+  `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
 );
 fs.writeFileSync(htmlPath, newHtml);
 

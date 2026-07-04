@@ -136,7 +136,7 @@ const MANUAL = {
 function fetchText(url) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, { headers: { 'User-Agent': 'BidetBeacon/1.0' } }, (res) => {
+      .get(url, { headers: { 'User-Agent': 'BidetBud/1.0' } }, (res) => {
         let d = '';
         res.on('data', (c) => (d += c));
         res.on('end', () => resolve(d));

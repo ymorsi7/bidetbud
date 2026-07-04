@@ -82,7 +82,7 @@ function sleep(ms) {
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, { headers: { 'User-Agent': 'BidetBeacon/1.0' } }, (res) => {
+      .get(url, { headers: { 'User-Agent': 'BidetBud/1.0' } }, (res) => {
         let data = '';
         res.on('data', (c) => (data += c));
         res.on('end', () => {
@@ -142,7 +142,7 @@ if (!fs.existsSync(rawPath)) {
 
 async function main() {
 const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBEACON_SEED\s*=\s*(\[[\s\S]*?\]);/);
+const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
 if (!match) process.exit(1);
 
 const existing = JSON.parse(match[1]);
@@ -206,8 +206,8 @@ for (const lead of raw) {
 }
 
 const newHtml = html.replace(
-  /window\.BIDETBEACON_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBEACON_SEED = ${JSON.stringify(merged)};`
+  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
+  `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
 );
 fs.writeFileSync(htmlPath, newHtml);
 

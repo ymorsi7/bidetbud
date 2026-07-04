@@ -38,7 +38,7 @@ function fetchText(url) {
         url,
         {
           headers: {
-            'User-Agent': 'BidetBeacon/1.0 (github.com/bidetbeacon; toto-import)',
+            'User-Agent': 'BidetBud/1.0 (github.com/bidetbud; toto-import)',
             Accept: 'text/html',
           },
         },
@@ -100,7 +100,7 @@ async function geocode(query, cache) {
       'https://nominatim.openstreetmap.org/search?format=json&limit=1&q=' +
       encodeURIComponent(query);
     const res = await fetch(url, {
-      headers: { 'User-Agent': 'BidetBeacon/1.0 (github.com/bidetbeacon)' },
+      headers: { 'User-Agent': 'BidetBud/1.0 (github.com/bidetbud)' },
     });
     const j = await res.json();
     const hit = j[0];

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Geocode and import PointFu missing washlet hotels into BIDETBEACON_SEED.
+ * Geocode and import PointFu missing washlet hotels into BIDETBUD_SEED.
  * Reads data/pointfu-missing-bidets.json
  */
 const fs = require('fs');
@@ -69,7 +69,7 @@ function sleep(ms) {
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, { headers: { 'User-Agent': 'BidetBeacon/1.0 (pointfu-import)' } }, (res) => {
+      .get(url, { headers: { 'User-Agent': 'BidetBud/1.0 (pointfu-import)' } }, (res) => {
         let data = '';
         res.on('data', (c) => (data += c));
         res.on('end', () => {
@@ -156,9 +156,9 @@ async function main() {
   }
 
   const html = fs.readFileSync(htmlPath, 'utf8');
-  const match = html.match(/window\.BIDETBEACON_SEED\s*=\s*(\[[\s\S]*?\]);/);
+  const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
   if (!match) {
-    console.error('BIDETBEACON_SEED not found');
+    console.error('BIDETBUD_SEED not found');
     process.exit(1);
   }
 
@@ -220,8 +220,8 @@ async function main() {
   }
 
   const newHtml = html.replace(
-    /window\.BIDETBEACON_SEED\s*=\s*\[[\s\S]*?\];/,
-    `window.BIDETBEACON_SEED = ${JSON.stringify(merged)};`
+    /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
+    `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
   );
   fs.writeFileSync(htmlPath, newHtml);
 

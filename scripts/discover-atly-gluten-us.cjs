@@ -74,7 +74,7 @@ function sleep(ms) {
 function fetchText(url) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, { headers: { 'User-Agent': 'BidetBeacon/1.0 (atly-gluten)' } }, (res) => {
+      .get(url, { headers: { 'User-Agent': 'BidetBud/1.0 (atly-gluten)' } }, (res) => {
         let data = '';
         res.on('data', (c) => (data += c));
         res.on('end', () => resolve(data));

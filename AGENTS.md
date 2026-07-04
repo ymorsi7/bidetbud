@@ -1,19 +1,19 @@
-# AGENTS.md — BidetBeacon
+# AGENTS.md — BidetBud
 
 Guide for AI agents and contributors working in this repository.
 
 ## Project summary
 
-**BidetBeacon** is a static, client-only map for finding bidet-equipped restrooms — masajid, restaurants, hotels, and public spots — in the **USA, UK, Canada, and Singapore**.
+**BidetBud** is a static, client-only map for finding bidet-equipped restrooms — masajid, restaurants, hotels, and public spots — in the **USA, UK, Canada, and Singapore**.
 
-- **Live:** [bidetbeacon.netlify.app](https://bidetbeacon.netlify.app/)
+- **Live:** [bidetbud.com](https://bidetbud.com/)
 - **Stack:** Single HTML page + CSS. No build step, no backend, no framework.
 - **Map:** Leaflet + MarkerCluster (bundled inline in `index.html`)
-- **Data:** Embedded JSON array `window.BIDETBEACON_SEED` (~998 entries)
+- **Data:** Embedded JSON array `window.BIDETBUD_SEED` (~998 entries)
 - **Submissions:** Airtable form (opens in new tab; URL in `index.html`)
-- **Analytics:** GoatCounter (`bidetbeacon.goatcounter.com`)
+- **Analytics:** GoatCounter (`bidetbud.goatcounter.com`)
 
-Related but separate project: [bidetbeacon.com](https://www.bidetbeacon.com/) is the Singapore-only PWA (“Bidet Beacon SG”). Singapore data for this repo is imported from its public JSON export.
+Related but separate project: [bidetbud.com](https://www.bidetbud.com/) is the Singapore-only PWA (“Bidet Bud SG”). Singapore data for this repo is imported from its public JSON export.
 
 ---
 
@@ -28,11 +28,11 @@ data/singapore-bidets.geolocation.json   Cached SG source (community bidet sight
 data/france-verified-bidets.json         Curated FR rows with cited evidence (not bulk OSM)
 scripts/
   apply-address-fixes.cjs           Re-geocode seed; manual coordinate overrides
-  import-singapore.cjs              Merge @toiletswithbidetsg / Bidet Beacon SG JSON
+  import-singapore.cjs              Merge @toiletswithbidetsg / Bidet Bud SG JSON
   import-france.cjs                 Merge only rows from france-verified-bidets.json
   scrape-toto-references.cjs        Fetch all TOTO Europe WASHLET case studies
   finish-toto-references.cjs        Append manual coords for ambiguous TOTO venues
-  import-toto-references.cjs        Merge TOTO references into BIDETBEACON_SEED
+  import-toto-references.cjs        Merge TOTO references into BIDETBUD_SEED
   address-fix-report.json           Output from geocode script (optional)
 ```
 
@@ -69,7 +69,7 @@ Every `internet` or `warmed` entry **must** have `sourceUrl` + `sourceQuote` cit
 
 ---
 
-## Seed data (`BIDETBEACON_SEED`)
+## Seed data (`BIDETBUD_SEED`)
 
 Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `warmed`, or `internet` appear on the map.
 
@@ -116,10 +116,10 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 
 ### Editing the seed
 
-- The seed is a **single minified JSON array** on one line in `index.html` (search for `window.BIDETBEACON_SEED =`).
+- The seed is a **single minified JSON array** on one line in `index.html` (search for `window.BIDETBUD_SEED =`).
 - Prefer **scripts** for bulk adds (see `scripts/import-singapore.cjs`) rather than hand-editing hundreds of entries.
 - After coordinate changes, run `node scripts/apply-address-fixes.cjs` and add `MANUAL` overrides in that script for known-good coords.
-- Validate after edits: `node -e "JSON.parse(require('fs').readFileSync('index.html','utf8').match(/BIDETBEACON_SEED\\s*=\\s*(\\[[\\s\\S]*?\\]);/)[1])"`
+- Validate after edits: `node -e "JSON.parse(require('fs').readFileSync('index.html','utf8').match(/BIDETBUD_SEED\\s*=\\s*(\\[[\\s\\S]*?\\]);/)[1])"`
 
 ---
 
@@ -134,7 +134,7 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 | Map | Leaflet map, `createIcon`, cluster group |
 | Types UI | `typeLabel` — maps `mosque` / `restaurant` / `hotel` / `public` |
 | Friendly countries | `BIDET_FRIENDLY_COUNTRIES` + GeoJSON overlay (bidets common nationally) |
-| Analytics | `window.trackEvent(name, props)` — events: `bidetbeacon_view`, `bidetbeacon_add_open`, `bidetbeacon_promo_show`, `bidetbeacon_spot_open` |
+| Analytics | `window.trackEvent(name, props)` — events: `bidetbud_view`, `bidetbud_add_open`, `bidetbud_promo_show`, `bidetbud_spot_open` |
 
 ---
 
@@ -148,12 +148,12 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 
 ## Singapore data import
 
-Source: `https://www.bidetbeacon.com/data/bidets.geolocation.json` (584 locations, synced from [@toiletswithbidetsg](https://www.instagram.com/toiletswithbidetsg/)).
+Source: `https://www.bidetbud.com/data/bidets.geolocation.json` (584 locations, synced from [@toiletswithbidetsg](https://www.instagram.com/toiletswithbidetsg/)).
 
 This is a **bidet-only** community map — each row is a user-submitted sighting (photo + location), not a generic toilet directory. Safe to import in bulk.
 
 ```bash
-curl -sL "https://www.bidetbeacon.com/data/bidets.geolocation.json" \
+curl -sL "https://www.bidetbud.com/data/bidets.geolocation.json" \
   -o data/singapore-bidets.geolocation.json
 node scripts/import-singapore.cjs
 ```
@@ -220,7 +220,7 @@ When changing layout, test filter chips, three-dots menu, search dropdown, and m
 
 | Task | Approach |
 |------|----------|
-| Add one verified spot | Append to `BIDETBEACON_SEED`; set coords; optional `MANUAL` override |
+| Add one verified spot | Append to `BIDETBUD_SEED`; set coords; optional `MANUAL` override |
 | Bulk import region | Write a `scripts/import-*.cjs` patterned on `import-singapore.cjs` |
 | Fix coordinates | `MANUAL` in `apply-address-fixes.cjs`, then run script |
 | New filter/country | Update chip HTML, `updateFilterUi`, click handler, and `applyUrlState` |
