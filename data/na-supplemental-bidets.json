@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Hotel Mousai Puerto Vallarta",
+    "address": "Carretera a Barra de Navidad Km 7.5, Mismaloya, 48294 Puerto Vallarta, Jalisco",
+    "latitude": "20.5550",
+    "longitude": "-105.2630",
+    "city": "Puerto Vallarta, Jalisco",
+    "country": "Mexico",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Automated TOTO bidet toilet",
+    "sourceUrl": "https://puertovallarta.hotelmousai.com/ultra-suites/ultra-mousai-suite-south",
+    "sourceQuote": "Hotel Mousai Puerto Vallarta Ultra Suite: en suite bathroom includes \"automated bidet toilet\" and \"Separate automated bidet Toto toilet\" listed among suite amenities.",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests"
+  },
+  {
+    "name": "Yosaku",
+    "address": "1 Danforth St, Portland, ME 04101",
+    "latitude": "43.6565",
+    "longitude": "-70.2520",
+    "city": "Portland, ME",
+    "country": "USA",
+    "type": "restaurant",
+    "bidetStatus": "warmed",
+    "bidetType": "Japanese bidet toilet with heated seat",
+    "sourceUrl": "https://wjbq.com/restaurant-bidet-portland-maine/",
+    "sourceQuote": "WJBQ review of Yosaku Portland: \"this is a bidet\" with a \"WARM\" heated seat at this Japanese restaurant bathroom — \"bidets are the dominant cleaning method\" and the writer describes the all-in-one toilet bidet system.",
+    "verifiedMethod": "web-source",
+    "access": "public"
+  }
+]

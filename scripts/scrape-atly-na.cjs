@@ -8,8 +8,10 @@ const path = require('path');
 const https = require('https');
 
 const OUT = path.join(__dirname, '../data/atly-na-bidets.json');
+const DISCOVERED = path.join(__dirname, '../data/atly-discovered-urls.json');
+const ALL_URLS = path.join(__dirname, '../data/atly-all-urls.json');
 
-const LIST_URLS = [
+const BASE_LIST_URLS = [
   'https://www.atly.com/united-states/best-bathroom-fine-dining',
   'https://www.atly.com/united-states/best-bathroom-gluten-free',
   'https://www.atly.com/united-states/best-bathroom-coffee',
@@ -43,6 +45,22 @@ const LIST_URLS = [
   'https://www.atly.com/united-states/nevada/best-bathroom-coffee',
   'https://www.atly.com/united-states/michigan/best-bathroom-hotel',
   'https://www.atly.com/united-states/michigan/best-bathroom-coffee',
+  'https://www.atly.com/mexico/best-bathroom-coffee',
+  'https://www.atly.com/best/gluten-free/dinner-canada-british-columbia-vancouver-fairview',
+  'https://www.atly.com/best/gluten-free/dinner-canada-ontario-mississauga',
+  'https://www.atly.com/best/gluten-free/dinner-canada-alberta-calgary',
+  'https://www.atly.com/best/gluten-free/hotel-canada',
+  'https://www.atly.com/united-states/best-bathroom-tasting-menu',
+  'https://www.atly.com/united-states/new-york/new-york/greenwich-village/best-bathroom-food',
+  'https://www.atly.com/united-states/new-york/new-york/flushing/best-bathroom-dinner-spots',
+];
+
+const LIST_URLS = [
+  ...new Set([
+    ...BASE_LIST_URLS,
+    ...(fs.existsSync(DISCOVERED) ? JSON.parse(fs.readFileSync(DISCOVERED, 'utf8')) : []),
+    ...(fs.existsSync(ALL_URLS) ? JSON.parse(fs.readFileSync(ALL_URLS, 'utf8')) : []),
+  ]),
 ];
 
 const COUNTRY_MAP = {
@@ -97,41 +115,63 @@ function cleanQuote(raw) {
   return q;
 }
 
+function quoteFromWindow(window) {
+  let quote = '';
+  const bathPara = window.match(
+    /editorial-section-label-v2">Bathroom<\/div><p>([\s\S]*?)<\/p>/i
+  );
+  if (bathPara && BIDET_RE.test(bathPara[1])) {
+    quote = cleanQuote(bathPara[1]);
+  }
+  if (!quote) {
+    const stmt = window.match(/statement-content"><p>&quot;([\s\S]*?)&quot;<\/p>/i);
+    if (stmt && BIDET_RE.test(stmt[1])) quote = cleanQuote(stmt[1]);
+  }
+  if (!quote) {
+    const blurb = window.match(/"blurb":"([^"]{20,300})"/);
+    if (blurb && BIDET_RE.test(blurb[1])) quote = cleanQuote(blurb[1]);
+  }
+  if (!quote) {
+    const idx = window.search(BIDET_RE);
+    if (idx >= 0) quote = cleanQuote(window.slice(Math.max(0, idx - 60), idx + 180));
+  }
+  return quote && BIDET_RE.test(quote) ? quote : '';
+}
+
 function extractBidetCandidates(html, listUrl) {
   const candidates = new Map();
+
+  function addFromWindow(window, url) {
+    if (candidates.has(url)) return;
+    if (!BIDET_RE.test(window)) return;
+    const quote = quoteFromWindow(window);
+    if (!quote) return;
+    candidates.set(url, { url, quote, listUrl });
+  }
+
   const slugRe = /\/location\/([A-Za-z0-9_-]+)/g;
   let m;
   while ((m = slugRe.exec(html))) {
     const slug = m[1];
     const url = `https://www.atly.com/location/${slug}`;
-    if (candidates.has(url)) continue;
     const start = Math.max(0, m.index - 4000);
-    const end = Math.min(html.length, m.index + 12000);
-    const window = html.slice(start, end);
-    if (!BIDET_RE.test(window)) continue;
-
-    let quote = '';
-    const bathPara = window.match(
-      /editorial-section-label-v2">Bathroom<\/div><p>([\s\S]*?)<\/p>/i
-    );
-    if (bathPara && BIDET_RE.test(bathPara[1])) {
-      quote = cleanQuote(bathPara[1]);
-    }
-    if (!quote) {
-      const stmt = window.match(/statement-content"><p>&quot;([\s\S]*?)&quot;<\/p>/i);
-      if (stmt && BIDET_RE.test(stmt[1])) quote = cleanQuote(stmt[1]);
-    }
-    if (!quote) {
-      const blurb = window.match(/"blurb":"([^"]{20,300})"/);
-      if (blurb && BIDET_RE.test(blurb[1])) quote = cleanQuote(blurb[1]);
-    }
-    if (!quote) {
-      const idx = window.search(BIDET_RE);
-      quote = cleanQuote(window.slice(Math.max(0, idx - 60), idx + 180));
-    }
-    if (!quote || !BIDET_RE.test(quote)) continue;
-    candidates.set(url, { url, quote, listUrl });
+    const end = Math.min(html.length, m.index + 20000);
+    addFromWindow(html.slice(start, end), url);
   }
+
+  // Pass 2: bidet mention may sit far from slug in large list pages — walk to nearest slug
+  const bidetWalk = new RegExp(BIDET_RE.source, 'gi');
+  let bm;
+  while ((bm = bidetWalk.exec(html))) {
+    const start = Math.max(0, bm.index - 12000);
+    const end = Math.min(html.length, bm.index + 12000);
+    const window = html.slice(start, end);
+    const slugMatch = window.match(/\/location\/([A-Za-z0-9_-]+)/);
+    if (!slugMatch) continue;
+    const url = `https://www.atly.com/location/${slugMatch[1]}`;
+    addFromWindow(window, url);
+  }
+
   return [...candidates.values()];
 }
 
@@ -178,6 +218,13 @@ function parseLocationPage(html) {
 }
 
 async function main() {
+  const priorRows = fs.existsSync(OUT)
+    ? JSON.parse(fs.readFileSync(OUT, 'utf8'))
+    : [];
+  const knownLocUrls = new Set(
+    priorRows.filter((r) => r.sourceUrl).map((r) => r.sourceUrl.replace(/\/$/, ''))
+  );
+
   const allCandidates = new Map();
 
   for (const listUrl of LIST_URLS) {
@@ -203,6 +250,10 @@ async function main() {
   let i = 0;
   for (const cand of allCandidates.values()) {
     i++;
+    const locKey = cand.url.replace(/\/$/, '');
+    if (knownLocUrls.has(locKey)) {
+      continue;
+    }
     process.stderr.write(`[${i}/${allCandidates.size}] ${cand.url}\n`);
     try {
       const html = await fetchText(cand.url);
@@ -220,12 +271,25 @@ async function main() {
     }
   }
 
-  fs.writeFileSync(OUT, JSON.stringify(rows, null, 2) + '\n');
-  const byCountry = rows.reduce((a, r) => {
+  const prior = fs.existsSync(OUT)
+    ? JSON.parse(fs.readFileSync(OUT, 'utf8'))
+    : [];
+  const merged = new Map();
+  for (const row of prior) {
+    const key = `${row.name}|${Number(row.latitude).toFixed(5)}|${Number(row.longitude).toFixed(5)}`;
+    merged.set(key, row);
+  }
+  for (const row of rows) {
+    const key = `${row.name}|${Number(row.latitude).toFixed(5)}|${Number(row.longitude).toFixed(5)}`;
+    if (!merged.has(key)) merged.set(key, row);
+  }
+  const outRows = [...merged.values()];
+  fs.writeFileSync(OUT, JSON.stringify(outRows, null, 2) + '\n');
+  const byCountry = outRows.reduce((a, r) => {
     a[r.country] = (a[r.country] || 0) + 1;
     return a;
   }, {});
-  console.log(`Wrote ${rows.length} entries to ${OUT}`, byCountry);
+  console.log(`Wrote ${outRows.length} entries to ${OUT} (+${outRows.length - prior.length} new)`, byCountry);
 }
 
 main().catch((e) => {
