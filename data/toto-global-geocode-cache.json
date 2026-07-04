@@ -1,0 +1,519 @@
+{
+  "PARK HYATT KUALA LUMPUR, Malaysia": {
+    "lat": "3.1419163",
+    "lon": "101.700827",
+    "display": "Jalan Merdeka, Kuala Lumpur, Malaysia"
+  },
+  "HYATT REGENCY KUALA LUMPUR AT KL MIDTOWN, Malaysia": {
+    "lat": "3.1814304",
+    "lon": "101.669166",
+    "display": "Mont Kiara / KLCC via B2, Kuala Lumpur, Malaysia"
+  },
+  "HYATT CENTRIC CITY CENTRE KUALA LUMPUR, Malaysia": {
+    "lat": "3.1531026",
+    "lon": "101.7080775",
+    "display": "17, Jalan Sultan Ismail, Kuala Lumpur, Malaysia"
+  },
+  "INTERCONTINENTAL TAICHUNG, Taiwan": {
+    "lat": "24.199331",
+    "lon": "120.6850059",
+    "display": "835, 崇德路三段, 臺中市, 臺灣"
+  },
+  "COURTYARD BY MARRIOTT DANANG HAN RIVER, Vietnam": {
+    "lat": "16.0722046",
+    "lon": "108.2244378",
+    "display": "Đường Bạch Đằng, Đà Nẵng, Việt Nam"
+  },
+  "DUSIT THANI BANGKOK, Thailand": {
+    "lat": "13.6973063",
+    "lon": "100.6487544",
+    "display": "ซอยศรีนครินทร์ 49, กรุงเทพมหานคร, ประเทศไทย"
+  },
+  "THE RITZ-CARLTON SHENZHEN, China": {
+    "lat": "22.5362402",
+    "lon": "114.05644",
+    "display": "116号, 福华三路, 深圳市, 中国"
+  },
+  "THE CLARIDGES NEW DELHI, India": {
+    "lat": "28.6005688",
+    "lon": "77.2163447",
+    "display": "Doctor A.P.J. Abdul Kalam Marg, Delhi, India"
+  },
+  "ROSEWOOD BEIJING, China": {
+    "lat": "39.9188259",
+    "lon": "116.4545206",
+    "display": "1, 朝阳门外大街, 北京市, 中国"
+  },
+  "HÔTEL PLAZA ATHÉNÉE PARIS, France": {
+    "lat": "48.8663815",
+    "lon": "2.3038926",
+    "display": "Rue du Boccador, Paris, France"
+  },
+  "XV BEACON, USA": {
+    "lat": "42.3583866",
+    "lon": "-71.0619489",
+    "display": "15, Beacon Street, Boston, United States"
+  },
+  "GRAND HYATT ATLANTA IN BUCKHEAD, USA": {
+    "lat": "33.8452063",
+    "lon": "-84.370458",
+    "display": "3300, Peachtree Road Northeast, Atlanta, United States"
+  },
+  "WELLSPRING BY SILKS, Taiwan": {
+    "lat": "24.8287283",
+    "lon": "121.7730442",
+    "display": "溫泉路, 礁溪鄉, 臺灣"
+  },
+  "HOTEL BARRI&Egrave;RE LE FOUQUET&rsquo;S, France": null,
+  "SOFITEL LEGEND METROPOLE HANOI, Vietnam": {
+    "lat": "21.0254884",
+    "lon": "105.8559784",
+    "display": "15, Phố Ngô Quyền, Hà Nội, Việt Nam"
+  },
+  "GRAND MERCURE HANOI, Vietnam": {
+    "lat": "21.0276976",
+    "lon": "105.8334582",
+    "display": "9, Phố Cát Linh, Hà Nội, Việt Nam"
+  },
+  "LE MERIDIEN, Thailand": {
+    "lat": "8.8048789",
+    "lon": "98.2583789",
+    "display": "คึกคัก, ประเทศไทย"
+  },
+  "REGENT HONG KONG, Hong Kong": {
+    "lat": "22.293893",
+    "lon": "114.1738373",
+    "display": "18, 梳士巴利道 Salisbury Road, 中国"
+  },
+  "WYNDHAM GRAND PLAZA ROYALE HOT SPRINGS RESORT TIANMU LAKE, China": null,
+  "PARK HYATT CHICAGO, USA": {
+    "lat": "41.8972351",
+    "lon": "-87.6252667",
+    "display": "800, North Michigan Avenue, Chicago, United States"
+  },
+  "THE WESTIN YANTAI, China": {
+    "lat": "26.0543765",
+    "lon": "119.3376771",
+    "display": "366, Jiangbin Zhong Avenue, Fuzhou, 中国"
+  },
+  "DIAOYUTAI HOTEL QINGDAO, China": {
+    "lat": "36.0981217",
+    "lon": "120.4605903",
+    "display": "深圳路, 青岛市, 中国"
+  },
+  "INTERCONTINENTAL KAOHSIUNG, Taiwan": {
+    "lat": "24.199331",
+    "lon": "120.6850059",
+    "display": "835, 崇德路三段, 臺中市, 臺灣"
+  },
+  "GRAND HYATT GURGAON, India": {
+    "lat": "28.4145909",
+    "lon": "77.1021115",
+    "display": "Dayma Road, Gurgaon, India"
+  },
+  "SIX SENSES ULUWATU, BALI, Indonesia": {
+    "lat": "-8.8445739",
+    "lon": "115.1299307",
+    "display": "The Boulevard, Kuta Selatan, Indonesia"
+  },
+  "MARRIOTT HOTEL CITY WEST, MUNICH, Germany": {
+    "lat": "48.1409125",
+    "lon": "11.5259233",
+    "display": "Landsberger Straße, München, Deutschland"
+  },
+  "AKI HONG KONG MGALLERY, Hong Kong": {
+    "lat": "22.2792427",
+    "lon": "114.1769438",
+    "display": "239-243, 謝斐道 Jaffe Road, 香港 Hong Kong, 中国"
+  },
+  "THE WESTIN NANJING RESORT & SPA, China": {
+    "lat": "18.4165319",
+    "lon": "109.9495854",
+    "display": "清水湾大道, Lingshui, 中国"
+  },
+  "W XIAMEN, China": {
+    "lat": "24.4703348",
+    "lon": "118.1110988",
+    "display": "厦门站南广场, 厦门市, 中国"
+  },
+  "EASTIN HOTEL&RESIDENCES HANOI, Vietnam": {
+    "lat": "21.0520947",
+    "lon": "105.8366952",
+    "display": "76, Phố Yên Phụ, Hà Nội, Việt Nam"
+  },
+  "THE BILTMORE MAYFAIR LONDON, London UK": {
+    "lat": "51.51057",
+    "lon": "-0.1511723",
+    "display": "44, Grosvenor Square, London, United Kingdom"
+  },
+  "MAISON ALBAR-IMPERATOR HOTEL, France": {
+    "lat": "48.8753905",
+    "lon": "2.2944392",
+    "display": "Rue de Tilsitt, Paris, France"
+  },
+  "LONDON HILTON ON PARK LANE, London UK": {
+    "lat": "51.5055929",
+    "lon": "-0.1498249",
+    "display": "22, Park Lane, London, United Kingdom"
+  },
+  "MAISON ALBAR LE PONT NEUF, France": {
+    "lat": "44.0236477",
+    "lon": "3.3595283",
+    "display": "Rue du Trauquet, Saint-Jean-du-Bruel, France"
+  },
+  "HOTEL CHOUCHOU PARIS, France": {
+    "lat": "48.8564263",
+    "lon": "2.3525276",
+    "display": "Place de l’Hotel de Ville, Paris, France"
+  },
+  "HOTEL INDIGO ALISHAN, Taiwan": {
+    "lat": "23.4437912",
+    "lon": "120.6722109",
+    "display": "20, 龍頭, 嘉義縣, 臺灣"
+  },
+  "LE MERIDIEN TAICHUNG, Taiwan": {
+    "lat": "23.9792255",
+    "lon": "121.6091533",
+    "display": "599, 中正路, 花蓮縣, 臺灣"
+  },
+  "HOSHINO RESORTS KASUKE TIANTAI, China": null,
+  "SHANGRI-LA QIANTAN, SHANGHAI, China": {
+    "lat": "31.2249373",
+    "lon": "121.4461444",
+    "display": "Jing'An, 久光延安中路1218号 邮政编码: 200040, 静安区, 中国"
+  },
+  "Hotel Nikko San Francisco, USA": {
+    "lat": "37.785813",
+    "lon": "-122.4093408",
+    "display": "222, Mason Street, San Francisco, United States"
+  },
+  "FOUR SEASONS HOTEL LONDON AT PARK LANE, London UK": {
+    "lat": "51.504433",
+    "lon": "-0.1497859",
+    "display": "Hamilton Mews, London, United Kingdom"
+  },
+  "THE LONDONER, London UK": {
+    "lat": "55.850311",
+    "lon": "-4.23045",
+    "display": "513A, London Road, Glasgow, United Kingdom"
+  },
+  "HOTEL SAINT LOUIS, USA": {
+    "lat": "38.6300076",
+    "lon": "-90.1921114",
+    "display": "421, North 8th Street, Saint Louis, United States"
+  },
+  "THE WARRIOR, USA": {
+    "lat": "64.8273081",
+    "lon": "-147.6259719",
+    "display": "3205, Santiago Avenue, Fort Wainwright, United States"
+  },
+  "Novotel Hanoi Thai Ha, Vietnam": {
+    "lat": "21.0099402",
+    "lon": "105.8240078",
+    "display": "2, Phố Thái Hà, Hà Nội, Việt Nam"
+  },
+  "The Langham Nymphenburg Residence, Germany": null,
+  "W MELBOURNE, Australia": {
+    "lat": "-37.819909",
+    "lon": "144.983225",
+    "display": "120, Brunton Avenue, Australia"
+  },
+  "ANDAZ VIENNA AM BELVEDERE, Austria": {
+    "lat": "48.1847748",
+    "lon": "16.3828055",
+    "display": "10, Arsenalstraße, Wien, Österreich"
+  },
+  "Great Scotland Yard Hotel, London UK": {
+    "lat": "51.5063788",
+    "lon": "-0.1263579",
+    "display": "3-5, Great Scotland Yard, London, United Kingdom"
+  },
+  "Halekulani, USA": {
+    "lat": "26.1444353",
+    "lon": "-81.8043309",
+    "display": "Naples, United States"
+  },
+  "Jal Lounge, Frankfurt Airport, Germany": {
+    "lat": "50.0482808",
+    "lon": "8.5640579",
+    "display": "Airportring, Frankfurt am Main, Deutschland"
+  },
+  "Park Hyatt Paris-Vendome Hotel, France": {
+    "lat": "48.8690233",
+    "lon": "2.330489",
+    "display": "5, Rue de la Paix, Paris, France"
+  },
+  "Lotte Hotel Moscow, Russia": {
+    "lat": "55.7501358",
+    "lon": "37.5837586",
+    "display": "переулок Каменная Слобода, Москва, Россия"
+  },
+  "May Fair Hotel, London, London UK": {
+    "lat": "51.5083198",
+    "lon": "-0.1440845",
+    "display": "Stratton Street, London, United Kingdom"
+  },
+  "Hotel Connaught, London, London UK": {
+    "lat": "51.5158253",
+    "lon": "-0.120125",
+    "display": "61-65, Great Queen Street, London, United Kingdom"
+  },
+  "Mandarin Oriental, Munich, Germany": {
+    "lat": "48.1372989",
+    "lon": "11.5807333",
+    "display": "1, Neuturmstraße, München, Deutschland"
+  },
+  "Hotel Sanssouci Vienna, Austria": {
+    "lat": "48.2108257",
+    "lon": "16.3565728",
+    "display": "1, Rathausplatz, Wien, Österreich"
+  },
+  "The Okura Prestige Bangkok Hotel, Thailand": {
+    "lat": "13.7426085",
+    "lon": "100.5476474",
+    "display": "57, ถนนวิทยุ, กรุงเทพมหานคร, ประเทศไทย"
+  },
+  "JW Marriott Hotel, Vietnam": {
+    "lat": "21.091162",
+    "lon": "105.8618501",
+    "display": "Hà Nội, Việt Nam"
+  },
+  "Eastern Mangroves Anantara Resort, UAE": null,
+  "Conrad Hotels & Resort Dubai, UAE": null,
+  "Chikusenso, Japan": {
+    "lat": "33.6164641",
+    "lon": "130.7384038",
+    "display": "飯塚市, 日本"
+  },
+  "Karuizawa Villa, Japan": {
+    "lat": "36.3541978",
+    "lon": "138.6340692",
+    "display": "軽井沢本通り, 軽井沢町, 日本"
+  },
+  "The Okura Prestige Taipei, Taiwan": {
+    "lat": "25.052519",
+    "lon": "121.5233831",
+    "display": "9, 南京東路一段, 臺北市, 臺灣"
+  },
+  "Le Meridien Taipei, Taiwan": {
+    "lat": "25.0379741",
+    "lon": "121.5679496",
+    "display": "38, 松仁路, 台北市, 臺灣"
+  },
+  "Marinella, Hong Kong": {
+    "lat": "22.245927",
+    "lon": "114.1639689",
+    "display": "9, 惠福道 Welfare Road, 香港 Hong Kong, 中国"
+  },
+  "Lakeville Regency, China": {
+    "lat": "31.2204868",
+    "lon": "121.4742516",
+    "display": "黄浦区, 中国"
+  },
+  "Kempinski Hotel Yixing, China": {
+    "lat": "40.3855438",
+    "lon": "116.6714536",
+    "display": "北京市, 中国"
+  },
+  "Four Seasons Hotel Pudong, China": {
+    "lat": "22.2866255",
+    "lon": "114.156663",
+    "display": "8, 金融街 Finance Street, 中国"
+  },
+  "Waldorf Astoria Shanghai On The Bund, China": {
+    "lat": "31.2357815",
+    "lon": "121.486544",
+    "display": "2, 中山东一路, 黄浦区, 中国"
+  },
+  "Banyan Tree Chongqing Beibei, China": {
+    "lat": "29.8587621",
+    "lon": "106.3766488",
+    "display": "渝南路, 澄江镇, 中国"
+  },
+  "Palace Hotel Tokyo, Japan": {
+    "lat": "35.6845039",
+    "lon": "139.7612448",
+    "display": "内堀通り, 東京都, 日本"
+  },
+  "The Tokyo Station Hotel, Japan": {
+    "lat": "35.6809135",
+    "lon": "139.7339748",
+    "display": "1, 4, 千代田区, 日本"
+  },
+  "Hoshinoya Okinawa, Japan": {
+    "lat": "26.4179943",
+    "lon": "127.7143079",
+    "display": "読谷村, 日本"
+  },
+  "Taj Palace, New Delhi, India": {
+    "lat": "28.5954911",
+    "lon": "77.1705891",
+    "display": "Alexander Mikhailovich Kadakin Marg, Delhi, India"
+  },
+  "Park Hyatt Hyderabad, India": {
+    "lat": "17.4247923",
+    "lon": "78.429606",
+    "display": "Road No. 3, India"
+  },
+  "Waldorf Astoria Dubai Palm Jumeirah, Dubai UAE": {
+    "lat": "25.1346112",
+    "lon": "55.1504049",
+    "display": "Crescent Road, The Palm Jumeirah, Dubai, United Arab Emirates, Dubai, الإمارات العربية المتحدة"
+  },
+  "Madison Taipei, Taiwan": {
+    "lat": "25.0340129",
+    "lon": "121.5493832",
+    "display": "敦化南路一段329巷, 臺北市, 臺灣"
+  },
+  "Xanadu Beijing, China": {
+    "lat": "42.3598022",
+    "lon": "116.1797732",
+    "display": "正蓝旗 ᠰᠢᠯᠤᠭᠤᠨ ᠬᠥᠬᠡ, 中国"
+  },
+  "Conrad Beijing, China": {
+    "lat": "39.9258566",
+    "lon": "116.4541975",
+    "display": "29, North Dongsanhuan Road, Beijing, 中国"
+  },
+  "The Westin Chongqing Liberation Square, China": {
+    "lat": "29.5598956",
+    "lon": "106.5763499",
+    "display": "222, Xinhua Road, Chongqing, 中国"
+  },
+  "Waldorf Astoria Beijing, China": {
+    "lat": "39.9145988",
+    "lon": "116.4077835",
+    "display": "5-15, Jinyu Hutong, Beijing, 中国"
+  },
+  "Banyan Tree Shanghai On The Bund, China": {
+    "lat": "31.2357815",
+    "lon": "121.486544",
+    "display": "2, 中山东一路, 黄浦区, 中国"
+  },
+  "Park Hyatt Sanya Sunny Bay Resort, China": {
+    "lat": "18.1906818",
+    "lon": "109.6061302",
+    "display": "5, Sunny Bay Road, Sanya, 中国"
+  },
+  "Brushstroke Restaurant, USA": {
+    "lat": "38.8885706",
+    "lon": "-77.0229412",
+    "display": "Hirshhorn Museum Tunnel, Washington, United States"
+  },
+  "Fairmont Miramar Hotel & Bungalows, USA": {
+    "lat": "34.0180222",
+    "lon": "-118.5016131",
+    "display": "101, Wilshire Boulevard, Santa Monica, United States"
+  },
+  "The Ritz-Carlton, Montreal, Canada": {
+    "lat": "45.5000856",
+    "lon": "-73.5779239",
+    "display": "Rue Drummond, Montréal, Canada"
+  },
+  "Park Hyatt Sydney, Australia": {
+    "lat": "-33.8559936",
+    "lon": "151.2088969",
+    "display": "7, Hickson Road, Sydney, Australia"
+  },
+  "Buddha Bar Hotel, Paris, France": {
+    "lat": "48.8680799",
+    "lon": "2.3215688",
+    "display": "8-12, Rue Boissy d'Anglas, Paris, France"
+  },
+  "Rosewood Hotel, London, London UK": {
+    "lat": "51.5110945",
+    "lon": "-0.1532269",
+    "display": "24, Grosvenor Square, London, United Kingdom"
+  },
+  "Schloss Elmau, Germany": {
+    "lat": "47.4621412",
+    "lon": "11.1864855",
+    "display": "2, In Elmau, Krün, Deutschland"
+  },
+  "Lotte Hotel Hanoi, Vietnam": {
+    "lat": "21.0321679",
+    "lon": "105.8124934",
+    "display": "Phố Đào Tấn, Hà Nội, Việt Nam"
+  },
+  "Andaz Maui at Wailea Resort, USA": {
+    "lat": "20.6927452",
+    "lon": "-156.4424695",
+    "display": "Wailea Alanui Drive, Wailea, United States"
+  },
+  "Palace Hotel, A Luxury Collection Hotel, USA": {
+    "lat": "47.4923593",
+    "lon": "19.0540551",
+    "display": "36, Váci utca, Budapest, Magyarország"
+  },
+  "Novotel Yangon Max, Myanmar": {
+    "lat": "16.8198596",
+    "lon": "96.131712",
+    "display": "459, ပြည်လမ်း, Yangon, မြန်မာ"
+  },
+  "Hotel 7132, Vals Switzerland, Switzerland": {
+    "lat": "46.6223117",
+    "lon": "9.1809738",
+    "display": "Soladürastrasse, Vals, Schweiz/Suisse/Svizzera/Svizra"
+  },
+  "Taj Falaknuma Palace, Hyderabad, India": {
+    "lat": "17.3309283",
+    "lon": "78.4672623",
+    "display": "Falaknuma Road, India"
+  },
+  "The Ritz-Carlton, Kyoto, Japan": {
+    "lat": "35.0137788",
+    "lon": "135.7708519",
+    "display": "京都市, 日本"
+  },
+  "Banyan Tree Huangshan, China": {
+    "lat": "23.1304676",
+    "lon": "113.2545388",
+    "display": "87, 六榕路, Guangzhou, 中国"
+  },
+  "The St. Regis Chengdu, China": {
+    "lat": "30.6634959",
+    "lon": "104.0721824",
+    "display": "88, 太升南路, 成都市, 中国"
+  },
+  "The Ritz-Carlton, Chengdu, China": {
+    "lat": "30.6664017",
+    "lon": "104.0675133",
+    "display": "269, 顺城大街, 成都市, 中国"
+  },
+  "Le Meurice, France": {
+    "lat": "48.8652754",
+    "lon": "2.3282212",
+    "display": "Rue de Rivoli, Paris, France"
+  },
+  "London Marriott Park Lane, London UK": {
+    "lat": "51.513194",
+    "lon": "-0.1578872",
+    "display": "140, Park Lane, London, United Kingdom"
+  },
+  "The Reverie Saigon, Vietnam": {
+    "lat": "10.7738731",
+    "lon": "106.704865",
+    "display": "22-36, Nguyễn Huệ, Thành phố Hồ Chí Minh, Việt Nam"
+  },
+  "Banana Island Resort Doha by Anantara, Qatar": null,
+  "Bardessono Napa Valley California, USA": {
+    "lat": "38.4030503",
+    "lon": "-122.3602376",
+    "display": "Ghirardi Place, Yountville, United States"
+  },
+  "Moana Surfrider, A Westin Resort & Spa, USA": {
+    "lat": "21.276499",
+    "lon": "-157.8268852",
+    "display": "2365, Kalākaua Avenue, Honolulu, United States"
+  },
+  "Four Seasons Hotel Guangzhou, China": {
+    "lat": "23.1204288",
+    "lon": "113.3179702",
+    "display": "5号, 珠江西路, 广州市, 中国"
+  },
+  "Park Hyatt Guangzhou, China": {
+    "lat": "23.1311788",
+    "lon": "113.27878",
+    "display": "92号, 中山二路, 广州市, 中国"
+  }
+}
