@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Coast Seattle Downtown Hotel by APA",
+    "address": "900 Pine St, Seattle, WA 98101",
+    "latitude": "47.6129",
+    "longitude": "-122.3315",
+    "city": "Seattle, WA",
+    "country": "USA",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET electric bidet seat",
+    "sourceUrl": "https://www.coasthotels.com/coast-seattle-downtown-hotel-by-apa",
+    "sourceQuote": "Coast Seattle Downtown Hotel by APA official site: each room includes \"an electric bidet seat (TOTO® Washlet)\" — a signature APA Hotels amenity.",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests"
+  }
+]

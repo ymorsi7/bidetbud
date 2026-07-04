@@ -1,0 +1,50 @@
+[
+  {
+    "name": "Hotel Mousai Cancun",
+    "address": "Blvd. Kukulcan Km 16, Zona Hotelera, 77500 Cancún, Quintana Roo",
+    "latitude": "21.0742",
+    "longitude": "-86.7778",
+    "city": "Cancún, Quintana Roo",
+    "country": "Mexico",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO automated bidet toilet with heated seat",
+    "sourceUrl": "https://beachresortsinmexico.com/room/mousai-jacuzzi-suite",
+    "sourceQuote": "Hotel Mousai Cancun suite description: \"The sleek, modern bathroom features a Toto bidet and heated toilet for additional luxury\" with \"Automated bidet Toto toilet with heated seat\" listed in room features.",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests"
+  },
+  {
+    "name": "Garza Blanca Resort & Spa Cancun",
+    "address": "Carretera a Punta Sam Km 5.2, 77400 Cancún, Quintana Roo",
+    "latitude": "21.2106",
+    "longitude": "-86.8028",
+    "city": "Cancún, Quintana Roo",
+    "country": "Mexico",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "State-of-the-art bidet toilet",
+    "sourceUrl": "https://www.garzablancaresort.com/cancun/suites/one-bedroom-swim-up",
+    "sourceQuote": "Garza Blanca Cancun One Bedroom Swim Up suite: ensuite bathroom with \"a state-of-the-art bidet toilet\"; booking listings also list bidet among in-room bathroom amenities.",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests"
+  },
+  {
+    "name": "Las Alcobas, a Luxury Collection Hotel, Mexico City",
+    "address": "Av. Presidente Masaryk 390, Polanco, 11560 Ciudad de México, CDMX",
+    "latitude": "19.4320",
+    "longitude": "-99.1945",
+    "city": "Mexico City, CDMX",
+    "country": "Mexico",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO water closet with integrated bidet",
+    "sourceUrl": "https://www.lasalcobas.com/our-property/services-amenities",
+    "sourceQuote": "Las Alcobas official amenities list includes \"TOTO water closets with integrated bidets\" in spa-inspired bathrooms.",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests"
+  }
+]

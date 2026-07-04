@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Freshslice Pizza",
+    "address": "818 W Broadway, Vancouver, BC V5Z 1J8",
+    "latitude": "49.2632021",
+    "longitude": "-123.1223617",
+    "city": "Vancouver, BC",
+    "country": "Canada",
+    "type": "restaurant",
+    "bidetStatus": "internet",
+    "bidetType": "Bidet",
+    "sourceUrl": "https://www.atly.com/gluten-free/location/FreshslicePizza9",
+    "sourceQuote": "Atly community listing: \"thoughtful amenities like a bidet in the bathroom\" at this Vancouver Freshslice Pizza location.",
+    "verifiedMethod": "web-source",
+    "access": "public"
+  },
+  {
+    "name": "Indian Ocean Restaurant",
+    "address": "2102 Glenmore Ct SE, Calgary, AB T2C 2E6",
+    "latitude": "50.9810317",
+    "longitude": "-113.996726",
+    "city": "Calgary, AB",
+    "country": "Canada",
+    "type": "restaurant",
+    "bidetStatus": "internet",
+    "bidetType": "Bidet",
+    "sourceUrl": "https://www.atly.com/gluten-free/location/IndianOceanRestaurant4",
+    "sourceQuote": "Atly celiac community review: \"One star off for the dark hallway to the bathroom, although they had a bidet, which is awesome!\"",
+    "verifiedMethod": "web-source",
+    "access": "public"
+  },
+  {
+    "name": "Blackstone Steakhouse and Grill (Mississauga)",
+    "address": "6435 Erin Mills Pkwy, Mississauga, ON L5N 4H4",
+    "latitude": "43.5870653",
+    "longitude": "-79.7406758",
+    "city": "Mississauga, ON",
+    "country": "Canada",
+    "type": "restaurant",
+    "bidetStatus": "internet",
+    "bidetType": "Handheld bidet shower (shattaf)",
+    "sourceUrl": "https://www.atly.com/gluten-free/location/Blackstone-Steakhouse-and-Grill---Mississauga",
+    "sourceQuote": "Atly listing: \"The washroom has a Muslim bidet hand shower available.\"",
+    "verifiedMethod": "web-source",
+    "access": "public"
+  }
+]
