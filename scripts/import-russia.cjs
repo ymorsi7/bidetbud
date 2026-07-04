@@ -58,9 +58,9 @@ if (!fs.existsSync(verifiedPath)) {
 }
 
 const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBEACON_SEED\s*=\s*(\[[\s\S]*?\]);/);
+const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
 if (!match) {
-  console.error('BIDETBEACON_SEED not found');
+  console.error('BIDETBUD_SEED not found');
   process.exit(1);
 }
 
@@ -85,8 +85,8 @@ for (const item of verified) {
 }
 
 const newHtml = html.replace(
-  /window\.BIDETBEACON_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBEACON_SEED = ${JSON.stringify(withoutRussia)};`
+  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
+  `window.BIDETBUD_SEED = ${JSON.stringify(withoutRussia)};`
 );
 fs.writeFileSync(htmlPath, newHtml);
 

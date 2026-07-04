@@ -113,7 +113,7 @@ const MANUAL = {
 function fetchBuffer(url) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, { headers: { 'User-Agent': 'BidetBeacon/1.0' } }, (res) => {
+      .get(url, { headers: { 'User-Agent': 'BidetBud/1.0' } }, (res) => {
         if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
           const next = res.headers.location.startsWith('http')
             ? res.headers.location

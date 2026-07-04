@@ -73,7 +73,7 @@ function sleep(ms) {
 function fetchBuffer(url) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, { headers: { 'User-Agent': 'BidetBeacon/1.0 (toto-global-import)' } }, (res) => {
+      .get(url, { headers: { 'User-Agent': 'BidetBud/1.0 (toto-global-import)' } }, (res) => {
         if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
           const next = res.headers.location.startsWith('http')
             ? res.headers.location
@@ -115,7 +115,7 @@ function decodeHtml(s) {
 function fetchJson(url) {
   return new Promise((resolve, reject) => {
     https
-      .get(url, { headers: { 'User-Agent': 'BidetBeacon/1.0' } }, (res) => {
+      .get(url, { headers: { 'User-Agent': 'BidetBud/1.0' } }, (res) => {
         let data = '';
         res.on('data', (c) => (data += c));
         res.on('end', () => {

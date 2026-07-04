@@ -8,7 +8,7 @@ const path = require('path');
 
 const htmlPath = path.join(__dirname, '../index.html');
 const html = fs.readFileSync(htmlPath, 'utf8');
-const seed = JSON.parse(html.match(/window\.BIDETBEACON_SEED\s*=\s*(\[[\s\S]*?\]);/)[1]);
+const seed = JSON.parse(html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/)[1]);
 
 /** Official / verified coordinates — override geocoder when present */
 const MANUAL = {
@@ -126,7 +126,7 @@ async function nominatim(q) {
     'https://nominatim.openstreetmap.org/search?' +
     new URLSearchParams({ q, format: 'json', limit: '1' });
   const r = await fetch(url, {
-    headers: { 'User-Agent': 'BidetBeacon-Validator/1.0 (bidetbeacon)' },
+    headers: { 'User-Agent': 'BidetBud-Validator/1.0 (bidetbud)' },
   });
   const d = await r.json();
   if (!d[0]) return null;
@@ -180,8 +180,8 @@ async function geocodeEntry(x) {
 
   const newSeedJson = JSON.stringify(seed);
   const newHtml = html.replace(
-    /window\.BIDETBEACON_SEED\s*=\s*\[[\s\S]*?\];/,
-    `window.BIDETBEACON_SEED = ${newSeedJson};`
+    /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
+    `window.BIDETBUD_SEED = ${newSeedJson};`
   );
   fs.writeFileSync(htmlPath, newHtml);
 

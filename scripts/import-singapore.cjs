@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
- * Import Singapore bidet locations from Bidet Beacon SG / @toiletswithbidetsg.
+ * Import Singapore bidet locations from Bidet Bud SG / @toiletswithbidetsg.
  *
  * VERIFICATION: Every row in this dataset is a community-reported bidet sighting.
  * @toiletswithbidetsg only documents toilets confirmed to have bidets (user photos
  * + location DMs). This is NOT a generic toilet or mosque directory.
  *
- * Source: https://www.bidetbeacon.com/data/bidets.geolocation.json
+ * Source: https://www.bidetbud.com/data/bidets.geolocation.json
  *         (synced from the public Google Sheet behind @toiletswithbidetsg)
  */
 const fs = require('fs');
@@ -18,7 +18,7 @@ const dataPath = path.join(
   '../data/singapore-bidets.geolocation.json'
 );
 
-const SOURCE_URL = 'https://www.bidetbeacon.com/data/bidets.geolocation.json';
+const SOURCE_URL = 'https://www.bidetbud.com/data/bidets.geolocation.json';
 const INSTAGRAM_URL = 'https://www.instagram.com/toiletswithbidetsg/';
 
 function formatRegion(region) {
@@ -104,9 +104,9 @@ function dedupeKey(row) {
 }
 
 const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBEACON_SEED\s*=\s*(\[[\s\S]*?\]);/);
+const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
 if (!match) {
-  console.error('Could not find BIDETBEACON_SEED in index.html');
+  console.error('Could not find BIDETBUD_SEED in index.html');
   process.exit(1);
 }
 
@@ -129,8 +129,8 @@ for (const row of sgRows) {
 
 const newSeed = JSON.stringify(merged);
 const newHtml = html.replace(
-  /window\.BIDETBEACON_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBEACON_SEED = ${newSeed};`
+  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
+  `window.BIDETBUD_SEED = ${newSeed};`
 );
 
 fs.writeFileSync(htmlPath, newHtml);

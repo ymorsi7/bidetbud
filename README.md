@@ -1,12 +1,12 @@
-# BidetBeacon
+# BidetBud
 
 Community map of masajid and restaurants with bidets, washlets, and handheld sprayers — focused on the US, Canada, and the UK.
 
-**Live site:** [bidetbeacon.netlify.app](https://bidetbeacon.netlify.app/)
+**Live site:** [bidetbud.com](https://bidetbud.com/)
 
 ## What it is
 
-BidetBeacon is a static single-page app (no build step). Location data lives in `index.html` as `window.BIDETBEACON_SEED`. Users can suggest new spots via the embedded Airtable form.
+BidetBud is a static single-page app (no build step). Location data lives in `index.html` as `window.BIDETBUD_SEED`. Users can suggest new spots via the embedded Airtable form.
 
 ## Run locally
 
@@ -31,7 +31,7 @@ scripts/
 
 ## Adding or fixing locations
 
-1. **Quick add:** append an object to the `BIDETBEACON_SEED` array in `index.html`:
+1. **Quick add:** append an object to the `BIDETBUD_SEED` array in `index.html`:
 
    ```js
    {
