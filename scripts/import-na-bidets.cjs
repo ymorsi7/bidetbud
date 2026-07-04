@@ -12,6 +12,7 @@ const SOURCES = [
   path.join(__dirname, '../data/mexico-verified-bidets.json'),
   path.join(__dirname, '../data/coast-hotels-na.json'),
   path.join(__dirname, '../data/canada-atly-bidets.json'),
+  path.join(__dirname, '../data/na-supplemental-bidets.json'),
 ];
 
 const NA = new Set(['USA', 'Canada', 'Mexico']);
