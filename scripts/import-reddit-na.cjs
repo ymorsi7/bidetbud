@@ -140,6 +140,7 @@ if (!fs.existsSync(rawPath)) {
   process.exit(1);
 }
 
+async function main() {
 const html = fs.readFileSync(htmlPath, 'utf8');
 const match = html.match(/window\.BIDETBEACON_SEED\s*=\s*(\[[\s\S]*?\]);/);
 if (!match) process.exit(1);
@@ -216,3 +217,9 @@ merged.filter((r) => counts[r.country] !== undefined).forEach((r) => counts[r.co
 console.log(`Reddit NA import: +${added} new (${skipped} skipped, ${raw.length} leads).`);
 console.log('NA totals:', counts);
 console.log(`Total seed entries: ${merged.length}`);
+}
+
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});
