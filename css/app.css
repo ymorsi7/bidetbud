@@ -242,10 +242,19 @@ body.modal-open{overflow:hidden}
 .promo-dialog .dialog-actions .btn{width:100%;min-height:44px}
 .promo-dialog .promo-skip{border:none;background:transparent;color:var(--muted);font:inherit;font-size:.8125rem;font-weight:600;cursor:pointer;padding:8px}
 
-.about-dialog{max-width:440px;padding:24px}
-.about-dialog .about-body{font-size:.875rem;line-height:1.6;color:#52525b}
-.about-dialog .about-body p{margin:0 0 12px}
-.about-dialog .about-body p:last-child{margin-bottom:0;font-weight:600;color:var(--brand-deep)}
+.about-dialog{max-width:460px;padding:28px}
+.about-head{display:flex;align-items:center;gap:14px;padding-right:36px;margin-bottom:18px}
+.about-logo{width:52px;height:52px;flex-shrink:0;border-radius:14px;object-fit:contain;background:var(--brand-soft);padding:7px}
+.about-head-text h2{padding-right:0;margin:0;font-size:1.25rem;letter-spacing:-.03em}
+.about-tagline{margin:3px 0 0;font-size:.8125rem;color:var(--muted);font-weight:500;line-height:1.4}
+.about-dialog .about-body{font-size:.9375rem;line-height:1.65;color:#52525b}
+.about-dialog .about-body p{margin:0 0 14px}
+.about-legend{margin:18px 0 4px;padding:16px;background:#fafafa;border:1px solid var(--line);border-radius:var(--radius-sm)}
+.about-legend-title{display:block;font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:12px}
+.about-legend-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:10px 16px}
+.about-legend-list li{display:flex;align-items:center;gap:9px;font-size:.8125rem;font-weight:500;color:var(--text);line-height:1.3}
+.about-legend-list .legend-dot{width:11px;height:11px}
+.about-signoff{margin:20px 0 0;padding-top:18px;border-top:1px solid var(--line);text-align:center;font-size:.9375rem;font-weight:600;font-style:italic;color:var(--brand-deep)}
 
 .overlay-sheet.open{align-items:flex-end;padding:0;background:rgba(0,0,0,.28)}
 .detail-dialog{max-height:min(52dvh,440px)}

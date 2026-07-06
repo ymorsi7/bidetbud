@@ -891,17 +891,31 @@ svg.leaflet-image-layer.leaflet-interactive path {
   <div class="overlay" id="aboutOverlay" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
     <div class="dialog about-dialog" id="aboutDialog">
       <button type="button" class="dialog-close" id="aboutClose" aria-label="Close">×</button>
-      <h2 id="aboutTitle">About BidetBud</h2>
+      <div class="about-head">
+        <img class="about-logo" src="images/bidetbud-logo.png" alt="" width="52" height="52" decoding="async">
+        <div class="about-head-text">
+          <h2 id="aboutTitle">About BidetBud</h2>
+          <p class="about-tagline">A community map for bidet-friendly spots</p>
+        </div>
+      </div>
       <div class="about-body">
         <p>I have a habit of getting annoyed at minor inconveniences and then trying to build a solution for them.</p>
-        <p>As someone who travels regularly between the US and the Middle East, I noticed one thing the West evidently still hasn't figured out: Bidets.</p>
-        <p>In the Middle East, bidets are something you just don't have to think about. A convenience we don't realize we're spoiled with until we return to the West.</p>
-        <p>This has been ruffling my feathers for years now.. so I built BidetBud. A free map where you can find masajid, restaurants, hotels, and public spots that actually have bidets / washlets in the US, Canada, and the UK.</p>
-        <p>So far, there are hundreds of pins on the map, but the usefulness of this map is directly proportional to the suggestions filled on the site's form.</p>
-        <p>If you know a spot, add it. Takes a minute. Name, address, done.</p>
-        <p><strong>Pin colors:</strong> ✓ user verified · 🌐 web source · 🔥 heated/TOTO · 🔒 limited access</p>
-        <p>Sadaqah jariyah of hygiene.</p>
+        <p>As someone who travels regularly between the US and the Middle East, I noticed one thing the West evidently still hasn't figured out: bidets.</p>
+        <p>In the Middle East, bidets are something you just don't have to think about &mdash; a convenience we don't realize we're spoiled with until we return to the West.</p>
+        <p>This has been ruffling my feathers for years, so I built BidetBud: a free map where you can find masajid, restaurants, hotels, and public spots that actually have bidets / washlets across the US, Canada, and the UK.</p>
+        <p>There are hundreds of pins on the map already, but its usefulness grows with every spot the community adds. If you know one, add it &mdash; it takes a minute. Name, address, done.</p>
+        <div class="about-legend">
+          <span class="about-legend-title">Pin colors</span>
+          <ul class="about-legend-list">
+            <li><span class="legend-dot verified"></span> User verified</li>
+            <li><span class="legend-dot internet"></span> Web source</li>
+            <li><span class="legend-dot warmed"></span> Heated / TOTO</li>
+            <li><span class="legend-dot limited"></span> Limited access</li>
+            <li><span class="legend-dot none"></span> No bidet</li>
+          </ul>
+        </div>
       </div>
+      <p class="about-signoff">Sadaqah jariyah of hygiene.</p>
     </div>
   </div>
 
