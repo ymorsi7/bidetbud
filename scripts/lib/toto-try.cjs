@@ -37,6 +37,21 @@ const TLD_COUNTRY = {
   lt: 'Lithuania',
 };
 
+// Country-letter prefix on a postcode ("A-6414", "DK-3400", "D-50354").
+const PREFIX_COUNTRY = {
+  A: 'Austria',
+  D: 'Germany',
+  F: 'France',
+  DK: 'Denmark',
+  CH: 'Switzerland',
+  B: 'Belgium',
+  L: 'Luxembourg',
+  NL: 'Netherlands',
+  LV: 'Latvia',
+  LT: 'Lithuania',
+  IRL: 'Ireland',
+};
+
 // ISO country code for geocoder biasing
 const COUNTRY_CODE = {
   Germany: 'de',
@@ -142,6 +157,8 @@ function baseCity(city) {
   c = c.replace(/\s*[\/,]?\s*OT\s+.+$/i, ''); // "Borna/OT Zedtlitz" -> "Borna"
   c = c.replace(/\s*-\s*OT\s+.+$/i, '');
   c = c.replace(/,.*$/, ''); // "Bray, Berkshire" -> "Bray"
+  c = c.replace(/\s+Cedex\b.*$/i, ''); // French "DAX Cedex" -> "DAX"
+  c = c.replace(/\s+\d+$/, ''); // "Dublin 24" -> "Dublin"
   return c.trim();
 }
 
@@ -149,6 +166,7 @@ module.exports = {
   PHONE_COUNTRY,
   TLD_COUNTRY,
   COUNTRY_CODE,
+  PREFIX_COUNTRY,
   countryFromPhone,
   countryFromWebsite,
   countryFromCity,

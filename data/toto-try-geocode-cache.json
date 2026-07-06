@@ -5522,5 +5522,74 @@
     "lat": "48.9146078",
     "lon": "2.3821895",
     "cc": "fr"
+  },
+  "noms:{\"street\":\"Riga\",\"city\":\"Riga\",\"countrycodes\":\"lv\"}": null,
+  "noms:{\"city\":\"Riga\",\"countrycodes\":\"lv\"}": {
+    "lat": "56.9493977",
+    "lon": "24.1051846",
+    "cc": "lv"
+  },
+  "noms:{\"street\":\"Obermieming 141\",\"postalcode\":\"6414\",\"city\":\"Obermieming\",\"countrycodes\":\"at\"}": {
+    "lat": "47.3071555",
+    "lon": "10.9861074",
+    "cc": "at"
+  },
+  "noms:{\"street\":\"Wagerberg 125\",\"postalcode\":\"8271\",\"city\":\"Bad Waltersdorf\",\"countrycodes\":\"at\"}": {
+    "lat": "47.1680880",
+    "lon": "16.0302809",
+    "cc": "at"
+  },
+  "noms:{\"street\":\"Strand\",\"postalcode\":\"W2CR 0EZ\",\"city\":\"London\",\"countrycodes\":\"gb\"}": null,
+  "noms:{\"postalcode\":\"W2CR 0EZ\",\"city\":\"London\",\"countrycodes\":\"gb\"}": null,
+  "noms:{\"postalcode\":\"W2CR 0EZ\",\"countrycodes\":\"gb\"}": null,
+  "noms:{\"city\":\"London\",\"countrycodes\":\"gb\"}": {
+    "lat": "51.5074456",
+    "lon": "-0.1277653",
+    "cc": "gb"
+  },
+  "noms:{\"street\":\"Ballymount Rd Upper\",\"postalcode\":\"D24 X39K\",\"city\":\"Dublin\",\"countrycodes\":\"ie\"}": {
+    "lat": "53.3092201",
+    "lon": "-6.3522006",
+    "cc": "ie"
+  },
+  "noms:{\"street\":\"11 Um Lënster Bierg\",\"postalcode\":\"6125\",\"city\":\"Junglinster\",\"countrycodes\":\"lu\"}": {
+    "lat": "49.7159041",
+    "lon": "6.2683638",
+    "cc": "lu"
+  },
+  "noms:{\"street\":\"Kranebitter Allee 88\",\"postalcode\":\"6020\",\"city\":\"Innsbruck\",\"countrycodes\":\"at\"}": {
+    "lat": "47.2641217",
+    "lon": "11.3606433",
+    "cc": "at"
+  },
+  "noms:{\"street\":\"Svalehøjvej 5\",\"postalcode\":\"3650\",\"city\":\"Ølstykke\",\"countrycodes\":\"dk\"}": {
+    "lat": "55.7669850",
+    "lon": "12.1361040",
+    "cc": "dk"
+  },
+  "noms:{\"street\":\"Industrivænget 19\",\"postalcode\":\"3400\",\"city\":\"Hillerød\",\"countrycodes\":\"dk\"}": {
+    "lat": "55.9322750",
+    "lon": "12.2785710",
+    "cc": "dk"
+  },
+  "noms:{\"street\":\"Rønnevej 5\",\"postalcode\":\"4060\",\"city\":\"Kirke Såby\",\"countrycodes\":\"dk\"}": {
+    "lat": "55.6433750",
+    "lon": "11.8722560",
+    "cc": "dk"
+  },
+  "noms:{\"street\":\"Krasta 68A\",\"postalcode\":\"1019\",\"city\":\"Riga\",\"countrycodes\":\"lv\"}": {
+    "lat": "56.9297576",
+    "lon": "24.1557089",
+    "cc": "lv"
+  },
+  "noms:{\"street\":\"1\",\"postalcode\":\"6484\",\"city\":\"Echternach\",\"countrycodes\":\"lu\"}": {
+    "lat": "49.8020889",
+    "lon": "6.3975012",
+    "cc": "lu"
+  },
+  "noms:{\"street\":\"3 Bd Roland Garros\",\"city\":\"DAX\",\"countrycodes\":\"fr\"}": {
+    "lat": "43.6975795",
+    "lon": "-1.0596150",
+    "cc": "fr"
   }
 }

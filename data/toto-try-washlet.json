@@ -1374,7 +1374,7 @@
     "address": "An der Becke 11, 45527 Hattingen",
     "postcode": "45527",
     "city": "Hattingen",
-    "country": "Czech Republic",
+    "country": null,
     "bidetType": "WASHLET® GL",
     "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
     "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® GL in the guest toilet",
@@ -3713,6 +3713,19 @@
     "longitude": "12.3983288"
   },
   {
+    "name": "Restaurant: Gastronome Riga",
+    "address": "Riga",
+    "postcode": "",
+    "city": "Riga",
+    "country": "Latvia",
+    "bidetType": "Giovannoni WASHLET®",
+    "website": "www.gastronome.lv",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
+    "sourceQuote": "TOTO \"Try WASHLET\" finder: Giovannoni WASHLET® in the guest toilet",
+    "latitude": "56.9493977",
+    "longitude": "24.1051846"
+  },
+  {
     "name": "Büncker GmbH Dorsten",
     "address": "Feldmarkstraße 6, 46282 Dorsten",
     "postcode": "46282",
@@ -3851,6 +3864,20 @@
     "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® EK 2.0 with hidd… WASHLET® RW , WC RP, wall-hung in the guest toilet",
     "latitude": "51.5477683",
     "longitude": "7.0889098"
+  },
+  {
+    "name": "Alpenresort Schwarz",
+    "address": "Obermieming 141, 6414 Obermieming",
+    "postcode": "6414",
+    "city": "Obermieming",
+    "country": "Austria",
+    "bidetType": "WASHLET® SG",
+    "phone": "+43 5264 52120",
+    "website": "www.schwarz.at",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
+    "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® SG in the guest toilet",
+    "latitude": "47.3071555",
+    "longitude": "10.9861074"
   },
   {
     "name": "Zank-Service ohne Grenzen SoG",
@@ -4060,6 +4087,20 @@
     "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® GL in the guest toilet",
     "latitude": "50.8618354",
     "longitude": "8.3980806"
+  },
+  {
+    "name": "Steierhof",
+    "address": "Wagerberg 125, 8271 Bad Waltersdorf",
+    "postcode": "8271",
+    "city": "Bad Waltersdorf",
+    "country": "Austria",
+    "bidetType": "WASHLET® GL",
+    "phone": "+43 3333 32110",
+    "website": "www.dersteirerhof.at",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
+    "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® GL in the guest toilet",
+    "latitude": "47.1680880",
+    "longitude": "16.0302809"
   },
   {
     "name": "Epping GmbH Bocholt",
@@ -4564,6 +4605,20 @@
     "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® GL WASHLET® GL in all rooms in the guest toilet",
     "latitude": "51.5033368",
     "longitude": "-0.0782017"
+  },
+  {
+    "name": "The Savoy Hotel Ltd.",
+    "address": "Strand, W2CR 0EZ London",
+    "postcode": "W2CR 0EZ",
+    "city": "London",
+    "country": "UK",
+    "bidetType": "NEOREST® WASHLET® EW , WASHLET® SG in some rooms",
+    "phone": "+44 20 7836 4343",
+    "website": "www.fairmont.com/savoy-london",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
+    "sourceQuote": "TOTO \"Try WASHLET\" finder: NEOREST® WASHLET® EW , WASHLET® SG in some rooms in the guest toilet",
+    "latitude": "51.5074456",
+    "longitude": "-0.1277653"
   },
   {
     "name": "The Connaught Hotel Ltd",
@@ -10505,6 +10560,20 @@
     "longitude": "10.2778141"
   },
   {
+    "name": "TileStyle Ltd",
+    "address": "Ballymount Rd Upper, D24 X39K Dublin 24",
+    "postcode": "D24 X39K",
+    "city": "Dublin 24",
+    "country": "Ireland",
+    "bidetType": "WASHLET® RW",
+    "phone": "+353 1 855 5200",
+    "website": "www.tilestyle.ie",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
+    "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RW in the guest toilet",
+    "latitude": "53.3092201",
+    "longitude": "-6.3522006"
+  },
+  {
     "name": "Xaver Blösch GmbH & Co. KG",
     "address": "Am Moosberg 3, 87666 Pforzen",
     "postcode": "87666",
@@ -11550,8 +11619,8 @@
   },
   {
     "name": "SCHLIEN Sàrl",
-    "address": "11 Um Lënster Bierg, L-6125 Junglinster",
-    "postcode": "L-6125",
+    "address": "11 Um Lënster Bierg, 6125 Junglinster",
+    "postcode": "6125",
     "city": "Junglinster",
     "country": "Luxembourg",
     "bidetType": "WASHLET® RX",
@@ -11559,8 +11628,8 @@
     "website": "www.schlien.lu",
     "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
     "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RX in the guest toilet",
-    "latitude": "49.7118482",
-    "longitude": "6.2522878"
+    "latitude": "49.7159041",
+    "longitude": "6.2683638"
   },
   {
     "name": "Bad36+ Vertriebs-GmbH & Co. KG",
@@ -12003,6 +12072,20 @@
     "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RW auto flush in the guest toilet",
     "latitude": "48.5076178",
     "longitude": "11.7570392"
+  },
+  {
+    "name": "Terra-Bad-Design GmbH",
+    "address": "Kranebitter Allee 88, 6020 Innsbruck",
+    "postcode": "6020",
+    "city": "Innsbruck",
+    "country": "Austria",
+    "bidetType": "WASHLET® RW",
+    "phone": "+43 664 2342586",
+    "website": "WWW.TERRABADDESIGN.AT",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
+    "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RW in the guest toilet",
+    "latitude": "47.2641217",
+    "longitude": "11.3606433"
   },
   {
     "name": "Kniffka GmbH",
@@ -13267,6 +13350,34 @@
     "longitude": "10.2889724"
   },
   {
+    "name": "MTN vvs Aps",
+    "address": "Svalehøjvej 5, 3650 Ølstykke",
+    "postcode": "3650",
+    "city": "Ølstykke",
+    "country": "Denmark",
+    "bidetType": "WASHLET® RW auto flush , WASHLET® RG",
+    "phone": "+45 70444 202",
+    "website": "mtnvvs.dk",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
+    "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RW auto flush , WASHLET® RG in the guest toilet",
+    "latitude": "55.7669850",
+    "longitude": "12.1361040"
+  },
+  {
+    "name": "Invita",
+    "address": "Industrivænget 19, 3400 Hillerød",
+    "postcode": "3400",
+    "city": "Hillerød",
+    "country": "Denmark",
+    "bidetType": "WASHLET® RG Lite with sid… , NEOREST® WX2",
+    "phone": "+45 4824 5040",
+    "website": "www.invita.dk",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
+    "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RG Lite with sid… , NEOREST® WX2 in the guest toilet",
+    "latitude": "55.9322750",
+    "longitude": "12.2785710"
+  },
+  {
     "name": "Styding VVS",
     "address": "Tingvejen 30 N, 6500 Vojens",
     "postcode": "6500",
@@ -13292,6 +13403,19 @@
     "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RG Lite with sid… in the guest toilet",
     "latitude": "54.8568436",
     "longitude": "11.8840358"
+  },
+  {
+    "name": "Bad Experten A/S",
+    "address": "Rønnevej 5, 4060 Kirke Såby",
+    "postcode": "4060",
+    "city": "Kirke Såby",
+    "country": "Denmark",
+    "bidetType": "WASHLET® RG , WASHLET® RW",
+    "website": "vvsfirmaet.com",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
+    "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RG , WASHLET® RW in the guest toilet",
+    "latitude": "55.6433750",
+    "longitude": "11.8722560"
   },
   {
     "name": "G.U.T Bach & Wesco - ABEX Würselen",
@@ -14703,8 +14827,8 @@
   },
   {
     "name": "SIA Reaton Ltd - mc2 Decorum",
-    "address": "Krasta 68A, LV-1019 Riga",
-    "postcode": "LV-1019",
+    "address": "Krasta 68A, 1019 Riga",
+    "postcode": "1019",
     "city": "Riga",
     "country": "Latvia",
     "bidetType": "WASHLET® RW auto flush",
@@ -15203,16 +15327,16 @@
   },
   {
     "name": "Brandt S.á.r.l.",
-    "address": "1, rue de la Sùre, L-6484 Echternach",
-    "postcode": "L-6484",
+    "address": "1, rue de la Sùre, 6484 Echternach",
+    "postcode": "6484",
     "city": "Echternach",
     "country": "Luxembourg",
     "bidetType": "WASHLET® RW",
     "phone": "+352 2768111",
     "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
     "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RW in the guest toilet",
-    "latitude": "49.8120961",
-    "longitude": "6.4214859"
+    "latitude": "49.8020889",
+    "longitude": "6.3975012"
   },
   {
     "name": "Lumina Badausstellung Gotha",
@@ -17624,6 +17748,19 @@
     "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RW , WASHLET® RG , NEOREST® WX1 in the guest toilet",
     "latitude": "48.8793837",
     "longitude": "2.3146415"
+  },
+  {
+    "name": "Richardson Dax",
+    "address": "3 Bd Roland Garros, DAX Cedex",
+    "postcode": "",
+    "city": "DAX Cedex",
+    "country": "France",
+    "bidetType": "WASHLET® RG",
+    "phone": "+33 558901992",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm",
+    "sourceQuote": "TOTO \"Try WASHLET\" finder: WASHLET® RG in the guest toilet",
+    "latitude": "43.6975795",
+    "longitude": "-1.0596150"
   },
   {
     "name": "Balitrand Grasse",
