@@ -1,0 +1,156 @@
+{
+  "The Londoner Hotel Leicester Square London": {
+    "latitude": "51.5096612",
+    "longitude": "-0.1304438",
+    "address": "38, Leicester Square, London, England, WC2H 7NA",
+    "city": "London",
+    "country": "UK"
+  },
+  "Morimoto restaurant 88 10th Avenue New York": {
+    "latitude": "40.7687413",
+    "longitude": "-73.9886105",
+    "address": "862, 10th Avenue, New York, NY, 10019",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "NIOS restaurant New York NY": {
+    "latitude": "40.8054509",
+    "longitude": "-73.9654163",
+    "address": "2880, Broadway, New York, NY, 10025",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "Japan Society 333 East 47th Street New York": {
+    "latitude": "40.7525569",
+    "longitude": "-73.9682461",
+    "address": "333, East 47th Street, New York, NY, 10017",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "Henn na Hotel New York 35th Street": {
+    "latitude": "40.7523859",
+    "longitude": "-73.991201",
+    "address": "235, West 35th Street, New York, New York, 10001",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "Oceans restaurant 233 Park Avenue South New York": {
+    "latitude": "40.7375364",
+    "longitude": "-73.9880227",
+    "address": "233, Park Avenue South, New York, New York, 10003",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "Hi-Collar cafe New York East Village": {
+    "latitude": "40.7295825",
+    "longitude": "-73.9878389",
+    "address": "231, East 9th Street, New York, NY, 10003",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "The Chatwal Hotel New York": {
+    "latitude": "40.7564397",
+    "longitude": "-73.9846261",
+    "address": "130, West 44th Street, New York, NY, 10036",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "The Kitano Hotel New York": {
+    "latitude": "40.7552496",
+    "longitude": "-73.9859797",
+    "address": "6, Times Square, New York, NY, 10036",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "Andaz 5th Avenue New York": {
+    "latitude": "40.7528315",
+    "longitude": "-73.9810928",
+    "address": "485, 5th Avenue, New York, NY, 10017",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "Millennium Hilton New York Downtown 55 Church Street": {
+    "latitude": "40.7111143",
+    "longitude": "-74.0101869",
+    "address": "55, Church Street, New York, NY, 10007",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "Park Hyatt New York": {
+    "latitude": "40.7654216",
+    "longitude": "-73.9793143",
+    "address": "153, West 57th Street, New York, NY, 10019",
+    "city": "New York, NY",
+    "country": "USA"
+  },
+  "Ayat restaurant Brooklyn New York": {
+    "latitude": "40.5975023",
+    "longitude": "-74.0841629",
+    "address": "1250, Hylan Boulevard, New York, New York, 10305",
+    "city": "Brooklyn, NY",
+    "country": "USA"
+  },
+  "Samyan Thai Prospect Heights Brooklyn": {
+    "latitude": "40.6756968",
+    "longitude": "-73.9600205",
+    "address": "500, Prospect Place, New York, New York, 11238",
+    "city": "Brooklyn, NY",
+    "country": "USA"
+  },
+  "Sushi San Chicago omakase": {
+    "latitude": "41.4035591",
+    "longitude": "2.1430349",
+    "address": "108, Carrer de Pàdua, Barcelona, Catalunya, 08006",
+    "city": "Chicago, IL",
+    "country": "USA"
+  },
+  "ARIA Sky Suites Las Vegas": {
+    "latitude": "36.2638717",
+    "longitude": "-115.2519379",
+    "address": "5701, Sky Pointe Drive, Las Vegas, NV, 89130",
+    "city": "Las Vegas, NV",
+    "country": "USA"
+  },
+  "Adventure Suites North Conway New Hampshire": {
+    "latitude": "44.0277081",
+    "longitude": "-71.1202755",
+    "address": "1788, White Mountain Highway, North Conway, NH, 03860",
+    "city": "North Conway, NH",
+    "country": "USA"
+  },
+  "The Doctor's Office bar Seattle Capitol Hill": {
+    "latitude": "47.6194168",
+    "longitude": "-122.3242875",
+    "address": "1631, East Olive Way, Seattle, Washington, 98102",
+    "city": "Seattle, WA",
+    "country": "USA"
+  },
+  "Miyabi Seattle Japanese restaurant": {
+    "latitude": "47.5814601",
+    "longitude": "-122.3862323",
+    "address": "2352, California Avenue Southwest, Seattle, WA, 98116",
+    "city": "Seattle, WA",
+    "country": "USA"
+  },
+  "Blue Water Cafe Vancouver BC": {
+    "latitude": "49.2760962",
+    "longitude": "-123.121114",
+    "address": "Hamilton Street, Vancouver, BC, V6B 2X6",
+    "city": "Vancouver, BC",
+    "country": "Canada"
+  },
+  "% Arabica Berlin coffee": {
+    "latitude": "16.4525759",
+    "longitude": "120.5700389",
+    "address": "La Trinidad, Benguet",
+    "city": "Berlin",
+    "country": "Germany"
+  },
+  "W Hotel Melbourne Australia": {
+    "latitude": "-37.8205345",
+    "longitude": "144.9551367",
+    "address": "16, Spencer Street, Victoria, 3000",
+    "city": "Melbourne",
+    "country": "Australia"
+  }
+}
