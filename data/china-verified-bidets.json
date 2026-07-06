@@ -326,6 +326,66 @@
     ]
   },
   {
+    "name": "全季酒店(成都太古里春熙路店)",
+    "address": "全季酒店(成都太古里春熙路店)",
+    "city": "Chengdu",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/133457358.html",
+    "sourceQuote": "携程 Ctrip: 全屋智能化太懂懒人需求，呼叫“hello华住”就能控制窗帘、灯光和空调，床头USB快充接口、智能马桶（冬季还能加热）一应俱全，实用性拉满",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "31.8545736",
+    "longitude": "117.2270935"
+  },
+  {
+    "name": "成都天府院子酒店(春熙路天府广场店)",
+    "address": "成都天府院子酒店(春熙路天府广场店)",
+    "city": "Chengdu",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/81827261.html",
+    "sourceQuote": "携程 Ctrip: 2026年6月10日 升级了带院子的房间 空间挺大的 有个大桌子放东西很方便 空调风力足 全屋小度智能操作 叫外卖有机器人送到房间 而且很快 超方便 加了微信 有求必应 工作人员服务态度很好 点赞 智能马桶好用 卫生也OK 酒店位置超好 去哪儿都方便 忘了拍房间照片了 住了2天 较满意 下次还会考虑入住 送了手串 M294908**** 2026年6月4日 前台接待服务特别好，特别是我带小孩没有带车，酒店还提供了免费的口袋车，很方便好用",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "30.6698351",
+    "longitude": "104.0677333"
+  },
+  {
+    "name": "成都木棉花·凯悦臻选酒店",
+    "address": "四川成都成华区万年场街道双成二路38号",
+    "city": "Chengdu",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/105094171.html",
+    "sourceQuote": "携程 Ctrip: 客房内现代化设施一应俱全，配备华为5G智慧屏电视、智能语音控制“小棉”、胶囊咖啡机、臻选品牌欧珑洗漱备品、智能马桶、四川当地小食等，诠释令人难忘的旅居体验",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "34.8945273",
+    "longitude": "106.8522283"
+  },
+  {
+    "name": "隐栖堂美学生活院子酒店(成都宽窄巷子人民公园地铁站店)",
+    "address": "四川成都青羊区将军街5号",
+    "city": "Chengdu",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/119474237.html",
+    "sourceQuote": "携程 Ctrip: 全屋智能设施齐全，智能马桶、干湿分离��浴配置精致，还贴心配备了独立茶席、茶具，闲暇时可以泡一壶茶慢享时光",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "30.6622365",
+    "longitude": "104.0565003"
+  },
+  {
     "name": "InterContinental Chongqing TFT",
     "address": "TFT Building, Yuzhong District, Chongqing",
     "latitude": "29.556000",
@@ -562,6 +622,36 @@
     "searchAliases": [
       "杭州柏悦酒店"
     ]
+  },
+  {
+    "name": "杭州友好饭店(西湖店)",
+    "address": "浙江杭州上城区平海路53号",
+    "city": "Hangzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/346313.html",
+    "sourceQuote": "携程 Ctrip: 店是刷卡式上楼，很安全，叫外卖送到门口可以让楼下前台帮忙送上来，前台工作人员们都很周到 有求必应尽量满足需求～一开始还在担心酒店开业时间比较长，担心房间内比较老旧，但是应该都翻新过，智能设备都有配备，智能马桶也有的",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "30.2519501",
+    "longitude": "120.1632476"
+  },
+  {
+    "name": "杭州马可波罗假日酒店(西湖店)",
+    "address": "浙江杭州上城区平海路38号",
+    "city": "Hangzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/435383.html",
+    "sourceQuote": "携程 Ctrip: 客房宽敞温馨，配备优质床上用品及高级洗浴用品，所有客房配备消毒柜、智能马桶盖",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "30.2566959",
+    "longitude": "120.1635329"
   },
   {
     "name": "Banyan Tree Huangshan",
@@ -1336,6 +1426,36 @@
     "searchAliases": [
       "深圳星河丽思卡尔顿酒店"
     ]
+  },
+  {
+    "name": "深圳南山香格里拉酒店",
+    "address": "广东深圳南山区白石三道深湾汇云中心五期J座",
+    "city": "Shenzhen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/114945873.html",
+    "sourceQuote": "携程 Ctrip: 客房设计延续了“海上森林”的自然主题，细节也经得起推敲——标配戴森吹风机、智能马桶、JBL蓝牙音响，还有贴心的直饮水系统，比传统烧水壶方便卫生太多了",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "22.5445741",
+    "longitude": "114.0545429"
+  },
+  {
+    "name": "深圳彭年万丽酒店",
+    "address": "广东深圳罗湖区嘉宾路2002号 (毗邻金光华购物广场)",
+    "city": "Shenzhen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/425224.html",
+    "sourceQuote": "携程 Ctrip: 设施配置齐全，客房装修简约大气，超大落地窗视野开阔，浴缸、智能马桶、高压淋浴出水稳定，50楼云端旋转餐厅体验感绝佳",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "22.5438297",
+    "longitude": "114.1173197"
   },
   {
     "name": "深圳福田中洲湾城际酒店",

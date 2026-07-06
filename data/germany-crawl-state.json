@@ -1,0 +1,149 @@
+{
+  "urlQueue": [
+    {
+      "url": "https://www.mandarinoriental.com/de/munich/alter-hof",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.schloss-elmau.de/de/zimmer-suiten",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.bachmair-weissach.de/zimmer-suiten",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.badeparadies-schwarzwald.de/",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.riku-hotel.de/",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.hotel-rosenhof.de/",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.hotel-hoeri.de/",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.radissonhotels.com/de-de/hotels/radisson-blu-koeln",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.marriott.com/de/hotels/mucwi-munich-marriott-hotel-city-west/rooms/",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.marriott.com/de/hotels/frajw-jw-marriott-hotel-frankfurt/rooms/",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.treschers-schwarzwaldhotel.de/zimmer-preise/",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.schlosshotel-velen.de/zimmer/",
+      "city": "",
+      "via": "seed"
+    },
+    {
+      "url": "https://www.holidaycheck.de/hi/sofitel-muenchen-bayerpost/0a0a0a0a-0a0a-0a0a-0a0a-0a0a0a0a0a0a",
+      "city": "",
+      "via": "seed"
+    }
+  ],
+  "totoQueue": [
+    "franziskus-hospital-bielefeld"
+  ],
+  "geberitQueue": [],
+  "processedUrls": {
+    "https://www.geberit.de/know-how/referenzen/the-fontenay-hamburg/": 1783345978391,
+    "https://www.geberit.de/know-how/referenzen/riku-hotel-pfullendorf/": 1783345980240,
+    "https://www.geberit.de/know-how/referenzen/hotel-hoeri/": 1783345982404,
+    "https://www.geberit.de/know-how/referenzen/hotel-rosenhof/": 1783345983831,
+    "https://www.geberit.de/badezimmerprodukte/wcs-urinale/dusch-wcs-geberit-aquaclean/testen/hotels-mit-dusch-wc/": 1783345984941,
+    "https://eu.toto.com/de/unternehmen/referenzen/jw-marriott-hotel-frankfurt": 1783345988946,
+    "https://eu.toto.com/de/unternehmen/referenzen/marriott-hotel-city-west-munchen": 1783345990616,
+    "https://eu.toto.com/de/unternehmen/referenzen/vier-jahreszeiten-kempinski-munchen": 1783345991879,
+    "https://eu.toto.com/de/unternehmen/referenzen/sofitel-bayernpost-munich": 1783345992705,
+    "https://eu.toto.com/de/unternehmen/referenzen/mandarin-oriental-munchen": 1783345993484,
+    "https://eu.toto.com/de/unternehmen/referenzen/schwarzwaldhotel-treschers-titisee-neustadt": 1783345994113,
+    "https://eu.toto.com/de/unternehmen/referenzen/hotel-schloss-elmau": 1783345994886,
+    "https://eu.toto.com/de/unternehmen/referenzen/spa-resort-bachmair-weissach-am-tegernsee": 1783346007273,
+    "https://eu.toto.com/de/unternehmen/referenzen/badeparadies-schwarzwald": 1783346008908,
+    "https://eu.toto.com/de/unternehmen/referenzen/jal-lounge-airport-frankfurt": 1783346010380,
+    "https://eu.toto.com/de/unternehmen/referenzen/langham-nymphenburg-residence-munchen": 1783346011853,
+    "https://eu.toto.com/de/unternehmen/referenzen/klinikum-darmstadt-gmbh": 1783346012639,
+    "https://eu.toto.com/de/unternehmen/referenzen/seegalerie-berlin-tegel": 1783346013571,
+    "https://eu.toto.com/de/unternehmen/referenzen/die-komische-oper-berlin": 1783346014386,
+    "https://eu.toto.com/de/unternehmen/referenzen/dahlem-paradise-berlin": 1783346015240,
+    "https://eu.toto.com/de/unternehmen/referenzen/ko-19-berlin": 1783346016026,
+    "https://eu.toto.com/de/unternehmen/referenzen/the-metropolitan-gardens-berlin-dahlem": 1783346016817,
+    "https://eu.toto.com/de/unternehmen/referenzen/deutsches-krebsforschungszentrum": 1783346017591,
+    "https://eu.toto.com/de/unternehmen/referenzen/mods-hair-salon-dusseldorf": 1783346018395,
+    "https://eu.toto.com/de/unternehmen/referenzen/schlosshotel-velen": 1783346029962,
+    "https://eu.toto.com/de/unternehmen/referenzen/franziskus-hospital-bielefeld": 1783346031043,
+    "https://eu.toto.com/de/unternehmen/referenzen/generationen-kult-haus-geku-haus-essen": 1783346032289,
+    "https://eu.toto.com/de/unternehmen/referenzen/landhotel-knippschild-sauerland": 1783346033238,
+    "https://eu.toto.com/de/unternehmen/referenzen/weberhaus": 1783346034019,
+    "https://www.shk-profi.de/artikel/shk_Dusch-WC_im_Luxus-Hotel-3052137.html": 1783346035386,
+    "https://www.baulinks.de/badezimmer/dusch-wc.php": 1783346037219,
+    "https://www.wasnichtpasst-wirdpassendgemacht.de/unser-dusch-wc-washlet-als-echtes-super-klo-der-spitzenklasse/": 1783346038814,
+    "https://www.thefontenay.de/": 1783346041940,
+    "https://www.thefontenay.de/zimmer/": 1783346044724,
+    "https://www.sofitel-munich.com/de/zimmer/": 1783346046363,
+    "https://www.kempinski.com/de/munich/hotel-vier-jahreszeiten/": 1783346049614
+  },
+  "processedToto": {
+    "schwarzwaldhotel-treschers-titisee-neustadt": 1783345958576,
+    "spa-resort-bachmair-weissach-am-tegernsee": 1783345961153,
+    "jw-marriott-hotel-frankfurt": 1783345963131,
+    "klinikum-darmstadt-gmbh": 1783345964619,
+    "sofitel-bayernpost-munich": 1783345966141,
+    "seegalerie-berlin-tegel": 1783345967576,
+    "die-komische-oper-berlin": 1783345999190,
+    "dahlem-paradise-berlin": 1783346000873,
+    "koe-19-berlin": 1783346002383,
+    "hotel-schloss-elmau": 1783346003749,
+    "the-metropolitan-gardensr-berlin-dahlem": 1783346004757,
+    "deutsches-krebsforschungszentrum": 1783346005971,
+    "mods-hair-salon-duesseldorf": 1783346021294,
+    "schlosshotel-velen": 1783346023414,
+    "landhotel-knippschild-sauerland": 1783346025252,
+    "badeparadies-schwarzwald": 1783346026933,
+    "jal-lounge-airport-frankfurt": 1783346027861,
+    "generationen-kult-haus-geku-haus-essen": 1783346028714
+  },
+  "processedGeberit": {
+    "https://www.geberit.de/know-how/referenzen/the-fontenay-hamburg/": 1783345969214,
+    "https://www.geberit.de/know-how/referenzen/riku-hotel-pfullendorf/": 1783345971764,
+    "https://www.geberit.de/know-how/referenzen/hotel-hoeri/": 1783345974513,
+    "https://www.geberit.de/know-how/referenzen/hotel-rosenhof/": 1783345976479
+  },
+  "cityIndex": 0,
+  "queryIndex": 3,
+  "seedsDone": true,
+  "stats": {
+    "toto": 42,
+    "geberit": 8,
+    "generic": 4,
+    "added": 48
+  },
+  "totoDiscovered": true,
+  "geberitDiscovered": true,
+  "updatedAt": "2026-07-06T13:54:12.342Z"
+}

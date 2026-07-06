@@ -168,6 +168,22 @@ Sets `bidetStatus: "internet"`, `verifiedMethod: "community-sighting"`, and repl
 node scripts/import-france.cjs
 ```
 
+## Africa data import
+
+African venues are **not** bidet-friendly by default, so each row needs explicit
+per-venue evidence (a web source that names a bidet in the bathroom). Add rows to
+`data/africa-verified-bidets.json` (with `sourceUrl` + `sourceQuote`), then:
+
+```bash
+node scripts/import-africa.cjs
+```
+
+Sets `bidetStatus: "internet"`, `verifiedMethod: "web-source"`, and only adds
+net-new rows (dedupes on name+coords and on `sourceUrl`). Covers Kenya, Uganda,
+Nigeria, Chad, Niger, Ethiopia, Somalia, South Africa, and Tanzania (extend the
+`AFRICA` set in the script to add more countries). Do **not** bulk-import from
+generic hotel directories — only rows where the source explicitly mentions a bidet.
+
 ## TOTO Europe references (all WASHLET case studies)
 
 TOTO publishes ~100 verified install locations at [eu.toto.com/references](https://eu.toto.com/en/company-information/references). Re-import with:

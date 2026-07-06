@@ -1,0 +1,134 @@
+{
+  "Schwarzwaldhotel Treschers, Titisee-Neustadt, , Deutschland": {
+    "lat": "47.9001858",
+    "lon": "8.15124",
+    "display": "Treschers Schwarzwald-Hotel, Seestraße, Titisee-Neustadt, Baden-Württemberg, Deutschland",
+    "city": "Titisee-Neustadt"
+  },
+  "JW Marriott Hotel Frankfurt, , Deutschland": {
+    "lat": "50.114955",
+    "lon": "8.6807695",
+    "display": "JW Marriott Hotel Frankfurt, Thurn-und-Taxis-Platz, Frankfurt am Main, Hessen, Deutschland",
+    "city": "Frankfurt am Main"
+  },
+  "Klinikum Darmstadt GmbH, , Deutschland": {
+    "lat": "49.8741517",
+    "lon": "8.6461188",
+    "display": "Klinikum Darmstadt, Grafenstraße, Darmstadt, Hessen, Deutschland",
+    "city": "Darmstadt"
+  },
+  "Sofitel Bayernpost, Munich, , Deutschland": {
+    "lat": "48.1395141",
+    "lon": "11.5567932",
+    "display": "Sofitel Munich Bayerpost, Bayerstraße, München, Bayern, Deutschland",
+    "city": "München"
+  },
+  "Seegalerie Berlin-Tegel, , Deutschland": {
+    "lat": "52.5873891",
+    "lon": "13.2790461",
+    "display": "Tegel, Berlin, Deutschland",
+    "city": "Berlin"
+  },
+  "Theuerbachstraße 1, Deutschland": {
+    "lat": "52.4802472",
+    "lon": "13.3373218",
+    "display": "Deutschlandfunk Kultur, Hans-Rosenthal-Platz, Berlin, Deutschland",
+    "city": "Berlin"
+  },
+  "RiKu Budget, , Deutschland": {
+    "lat": "50.8793979",
+    "lon": "7.1213874",
+    "display": "Budget.Avis, Heinrich-Steinmann-Straße, Köln, Nordrhein-Westfalen, Deutschland",
+    "city": "Köln"
+  },
+  "Geberit Dusch, , Deutschland": {
+    "lat": "47.9183087",
+    "lon": "9.2614193",
+    "display": "GEBERIT ARENA, Tiefental, Pfullendorf, Baden-Württemberg, Deutschland",
+    "city": "Pfullendorf"
+  },
+  "TOTO 404, , Deutschland": {
+    "lat": "51.2741786",
+    "lon": "6.7447399",
+    "display": "Lotto, Toto & mehr V. Wiesweg, Niederrheinstraße, Düsseldorf, Nordrhein-Westfalen, Deutschland",
+    "city": "Düsseldorf"
+  },
+  "Hotel Schloss Elmau, , Deutschland": {
+    "lat": "47.4621412",
+    "lon": "11.1864855",
+    "display": "Schloss Elmau, In Elmau, Krün, Bayern, Deutschland",
+    "city": "Krün"
+  },
+  "Die Komische Oper, Berlin, , Deutschland": {
+    "lat": "52.5156648",
+    "lon": "13.3869856",
+    "display": "Komische Oper Berlin, Behrenstraße, Berlin, Deutschland",
+    "city": "Berlin"
+  },
+  "Dahlem Paradise, Berlin, , Deutschland": {
+    "lat": "52.4573805",
+    "lon": "13.2810976",
+    "display": "Dahlem, Berlin, Deutschland",
+    "city": "Berlin"
+  },
+  "KÖ 19, Berlin, , Deutschland": {
+    "lat": "51.7495456",
+    "lon": "14.2457762",
+    "display": "Gemeinde Amt Kolkwitz, Berliner Straße, Kolkwitz, Brandenburg, Deutschland",
+    "city": "Kolkwitz"
+  },
+  "Deutsches Krebsforschungszentrum, , Deutschland": {
+    "lat": "49.4147316",
+    "lon": "8.6732292",
+    "display": "Deutsches Krebsforschungszentrum, Langgewann, Heidelberg, Baden-Württemberg, Deutschland",
+    "city": "Heidelberg"
+  },
+  "Badeparadies Schwarzwald, , Deutschland": {
+    "lat": "47.9068575",
+    "lon": "8.1599657",
+    "display": "Badeparadies Schwarzwald, Am Badeparadies, Titisee-Neustadt, Baden-Württemberg, Deutschland",
+    "city": "Titisee-Neustadt"
+  },
+  "JAL Lounge, Airport Frankfurt, , Deutschland": {
+    "lat": "50.0482808",
+    "lon": "8.5640579",
+    "display": "Camel Smoking Lounge, Airportring, Frankfurt am Main, Hessen, Deutschland",
+    "city": "Frankfurt am Main"
+  },
+  "Mod’s Hair Salon, Düsseldorf, , Deutschland": {
+    "lat": "51.2224985",
+    "lon": "6.7898643",
+    "display": "mod's hair, Immermannstraße, Düsseldorf, Nordrhein-Westfalen, Deutschland",
+    "city": "Düsseldorf"
+  },
+  "Schlosshotel Velen, , Deutschland": {
+    "lat": "48.7373367",
+    "lon": "12.1899818",
+    "display": "Schlosshotel Neufahrn, Schloßweg, Neufahrn in Niederbayern, Bayern, Deutschland",
+    "city": "Neufahrn in Niederbayern"
+  },
+  "Landhotel Knippschild, Sauerland, , Deutschland": {
+    "lat": "51.4518299",
+    "lon": "8.4234885",
+    "display": "Romantik Landhotel Knippschild, Theodor-Ernst-Straße, Rüthen, Nordrhein-Westfalen, Deutschland",
+    "city": "Rüthen"
+  },
+  "Generationen Kult Haus (GeKu Haus), Essen, , Deutschland": {
+    "lat": "51.4592809",
+    "lon": "7.0131811",
+    "display": "GenerationenKult / Haus (GeKu-Haus), Viehofer Straße, Essen, Nordrhein-Westfalen, Deutschland",
+    "city": "Essen"
+  },
+  "Franziskus Hospital, Bielefeld, , Deutschland": {
+    "lat": "52.0226864",
+    "lon": "8.5227616",
+    "display": "Franziskus Hospital, Kiskerstraße, Bielefeld, Nordrhein-Westfalen, Deutschland",
+    "city": "Bielefeld"
+  },
+  "WeberHaus, , Deutschland": {
+    "lat": "52.2273206",
+    "lon": "8.3439845",
+    "display": "Weberhaus, Melle, Niedersachsen, Deutschland",
+    "city": "Melle"
+  }
+}
