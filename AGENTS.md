@@ -41,7 +41,9 @@ scripts/
   import-toto-references.cjs        Merge TOTO references into BIDETBUD_SEED
   scrape-toto-try.cjs               Parse eu.toto.com "Try WASHLET" finder listing
   geocode-toto-try.cjs              Geocode Try-WASHLET rows (Photon/Nominatim, cached)
+  geocode-toto-try-retry.cjs        Smarter retry for unresolved Try-WASHLET rows
   import-toto-try.cjs               Merge Try-WASHLET showrooms/dealers into BIDETBUD_SEED
+  lib/toto-try.cjs                  Shared country inference + address helpers
   address-fix-report.json           Output from geocode script (optional)
 ```
 
@@ -238,6 +240,51 @@ exponential backoff when rate-limited. Shared parsing/geocoding logic lives in
 `scripts/lib/africa-web.cjs`. To add countries, extend `COUNTRIES` in the crawler
 and the `AFRICA` set in `import-africa.cjs`.
 
+## Iceland & Greenland data import
+
+Iceland (IS) and Greenland (GL) are **not** bidet-friendly by default, so each row
+needs explicit per-venue evidence (a web source that names a bidet in the
+bathroom). Curated rows live in `data/iceland-greenland-verified-bidets.json`
+(each with `sourceUrl` + `sourceQuote` + country-verified coords), then:
+
+```bash
+node scripts/import-iceland-greenland.cjs
+```
+
+Sets `bidetStatus: "internet"`, `verifiedMethod: "web-source"`, and only adds
+net-new rows (dedupes on name+coords, on `sourceUrl`, and on a normalized name
+key). `import-iceland-greenland.cjs` merges two sources: the curated
+`iceland-greenland-verified-bidets.json` **and** the crawler output
+`nordic-web-crawl-bidets.json` (below). Do **not** bulk-import from generic hotel
+directories — only rows where the source explicitly mentions a bidet. Bidets are
+rare here (mostly a handful of Reykjavik/Golden-Circle hotels and the Ilulissat
+hotels in Greenland).
+
+### Nordic web crawler (long-running, "leave no stone unturned")
+
+`scripts/crawl-nordic-web.cjs` discovers hotels/guesthouses/restaurants across
+Iceland and Greenland whose pages explicitly name a bidet / washlet / neorest /
+Geberit AquaClean / handheld sprayer. It reuses the generic Africa web-parsing
+helpers (`scripts/lib/africa-web.cjs`) — venue-schema requirement, e-commerce
+filtering, evidence-sentence extraction — and geocodes via photon **restricted to
+IS/GL** so venues can't drift into the wrong nation.
+
+```bash
+# 90-minute crawl, then merge results into the seed:
+node scripts/crawl-nordic-web.cjs --minutes=90 --import
+
+# crawl only (writes data/nordic-web-crawl-bidets.json), import later:
+node scripts/crawl-nordic-web.cjs --minutes=90
+node scripts/import-iceland-greenland.cjs
+
+# start over (clears queue/state):
+node scripts/crawl-nordic-web.cjs --reset --minutes=90
+```
+
+It is **resumable**: progress lives in `data/nordic-crawl-state.json` and the
+geocode cache in `data/nordic-geocode-cache.json`; rows stream to
+`data/nordic-web-crawl-bidets.json` as they're found.
+
 ## UK data import (TOTO "Try WASHLET" finder)
 
 UK WASHLET showrooms/hotels listed on TOTO's [Try WASHLET finder](https://eu.toto.com/en/service/try-washlettm) live in `data/uk-toto-finder.json` (each row has coords geocoded from its postcode via api.postcodes.io + a `sourceQuote`). Import with:
@@ -270,8 +317,14 @@ plain-fetched). Re-import with:
 ```bash
 node scripts/scrape-toto-try.cjs [path/to/try-washlettm.md]  # parse -> data/toto-try-washlet.json
 node scripts/geocode-toto-try.cjs                            # fill lat/lon (cached)
+node scripts/geocode-toto-try-retry.cjs                      # smarter pass for stragglers
 node scripts/import-toto-try.cjs                             # replaces prior try-washlettm rows in seed
 ```
+
+The retry pass uses structured Nominatim queries (street + postcode + base
+city), a postcode-centroid fallback, German street-abbreviation and city-district
+cleanup, and UK house-number reordering; it also re-reads the country from the
+geocoder to fix guesses and skips permanently-closed ("geschlossen") listings.
 
 All get `type: "public"`, `bidetStatus: "warmed"`, `verifiedMethod: "manufacturer-reference"`,
 `access: "public"` with a showroom `accessNote`, and the finder URL. Country is
@@ -279,35 +332,40 @@ inferred per row from phone dialling code, then website TLD, then postcode/city.
 
 ## Geberit AquaClean hotels import
 
-Geberit publishes per-country "hotels with a Geberit AquaClean shower toilet"
-reference pages (each hotel = a manufacturer-confirmed AquaClean install). Those
-pages share Geberit's server-rendered "gdds" markup, so one parser covers all
-languages. Currently scraped: **Netherlands, Germany, Denmark, Austria,
-Switzerland** (page URLs live in `SOURCES` in `scripts/lib/geberit-web.cjs`).
+Geberit's interactive AquaClean **Hotel Locator** (the Google-Maps widget that
+advertises "500+ hotels") is powered by a single **static JSON feed** — the
+complete European dataset of ~495 venues across ~17 countries, each row already
+carrying name, address, coordinates, phone, website and the installed AquaClean
+models. Every locale site serves an identical copy, e.g.
+`https://www.geberit.de/_assets/local-media/locators/2026-q2-hotellocator-de.json`
+(candidates listed in `LOCATOR_URLS` in `scripts/lib/geberit-web.cjs`). No
+headless browser or geocoding is needed — coordinates come straight from the feed.
 
 ```bash
-node scripts/scrape-geberit-hotels.cjs    # parse pages -> data/geberit-hotels.json
-node scripts/geocode-geberit-hotels.cjs   # fill lat/lon (photon/nominatim, cached, country-bbox checked)
-node scripts/import-geberit-hotels.cjs    # merge into BIDETBUD_SEED
+node scripts/scrape-geberit-locator.cjs   # fetch feed -> data/geberit-locator-hotels.json (~495 rows, w/ coords)
+node scripts/import-geberit-hotels.cjs     # merge into BIDETBUD_SEED (idempotent)
 ```
 
 All get `type: "hotel"`, `bidetStatus: "warmed"`,
 `verifiedMethod: "manufacturer-reference"`, `access: "limited"` (hotel guests),
-`bidetType: "Geberit AquaClean shower toilet"`, and the country reference-page
-URL. `import-geberit-hotels.cjs` also merges the curated
-`data/geberit-france-hotels.json` (from `scrape-geberit-france-hotels.cjs`) and
-dedupes on coords **and** a normalized name key (so hotels already present from
-the TOTO references aren't re-added). Geocoder drift is rejected via a per-country
-bounding box; the few venues the geocoders miss/misplace have manual coordinate
-overrides in `geocode-geberit-hotels.cjs` (verified against OSM).
+`bidetType` set to the installed AquaClean model, and the Hotel-Locator page as
+`sourceUrl`. `import-geberit-hotels.cjs` **purges** previously-imported locator
+rows first (identified by the `AquaClean Hotel Locator` marker in `sourceQuote`)
+so re-running replaces them with the latest feed, then merges the locator rows
+with the curated `data/geberit-france-hotels.json` and the legacy reference-page
+scrape, deduping on coords **and** a normalized name key (so venues already
+present from the TOTO references or reference pages aren't re-added). The feed's
+`zip_location` ("ZIP City") is parsed to a clean city (postcode stripped without
+slicing city letters; falls back to the address town when the field is
+postcode-only), and dirty coordinate strings (e.g. a stray trailing comma) are
+sanitized in `locatorRowToSeed`.
 
-**Scope note:** the fully comprehensive "500+ hotels" list lives only in Geberit's
-interactive Hotel Locator — a Google-Maps widget backed by a server-side
-(`x-geb-api-req`) elasticsearch API — which isn't statically fetchable without a
-headless browser (out of scope for this dependency-free, static repo). These
-country reference pages are the officially-published, citable subset. France is
-intentionally omitted from the scraper (geberit.fr routes hotels through the
-JS-only locator); curated French hotels live in `scrape-geberit-france-hotels.cjs`.
+**Legacy secondary source (optional):** per-country reference pages (Netherlands,
+Germany, Denmark, Austria, Switzerland — `SOURCES` in `geberit-web.cjs`) are
+still parseable as a human-readable cross-check via
+`scrape-geberit-hotels.cjs` + `geocode-geberit-hotels.cjs`, but the locator feed
+supersedes them (more venues, exact coordinates). Curated French hotels remain in
+`scrape-geberit-france-hotels.cjs`.
 
 ---
 
