@@ -268,5 +268,20 @@
     "accessNote": "Hotel guests only — verify before visiting",
     "latitude": "30.2566959",
     "longitude": "120.1635329"
+  },
+  {
+    "name": "杭州友好饭店(西湖店)",
+    "address": "浙江杭州上城区平海路53号",
+    "city": "Hangzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/346313.html",
+    "sourceQuote": "携程 Ctrip: 店是刷卡式上楼，很安全，叫外卖送到门口可以让楼下前台帮忙送上来，前台工作人员们都很周到 有求必应尽量满足需求～一开始还在担心酒店开业时间比较长，担心房间内比较老旧，但是应该都翻新过，智能设备都有配备，智能马桶也有的",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "30.2519501",
+    "longitude": "120.1632476"
   }
 ]
