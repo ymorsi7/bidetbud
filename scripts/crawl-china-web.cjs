@@ -148,25 +148,31 @@ function mergeRow(rows, row) {
 
 async function geocode(query, cache) {
   if (cache[query]) return cache[query];
-  const url = 'https://photon.komoot.io/api/?limit=1&q=' + encodeURIComponent(query);
-  const res = await fetch(url);
-  const j = await res.json();
-  const f = j.features?.[0];
-  if (!f) return null;
-  const [lon, lat] = f.geometry.coordinates;
-  const p = f.properties;
-  const cc = p.countrycode === 'CN' ? 'China' : p.country;
-  if (cc !== 'China' && p.countrycode !== 'CN') return null;
-  const result = {
-    lat: String(lat),
-    lon: String(lon),
-    display: [p.name, p.street, p.city, p.state, p.country].filter(Boolean).join(', '),
-    city: p.city || '',
-  };
-  cache[query] = result;
-  saveCache(cache);
-  await sleep(200);
-  return result;
+  try {
+    const url = 'https://photon.komoot.io/api/?limit=1&q=' + encodeURIComponent(query);
+    const res = await fetch(url);
+    const text = await res.text();
+    if (!text.trim().startsWith('{')) return null;
+    const j = JSON.parse(text);
+    const f = j.features?.[0];
+    if (!f) return null;
+    const [lon, lat] = f.geometry.coordinates;
+    const p = f.properties;
+    const cc = p.countrycode === 'CN' ? 'China' : p.country;
+    if (cc !== 'China' && p.countrycode !== 'CN') return null;
+    const result = {
+      lat: String(lat),
+      lon: String(lon),
+      display: [p.name, p.street, p.city, p.state, p.country].filter(Boolean).join(', '),
+      city: p.city || '',
+    };
+    cache[query] = result;
+    saveCache(cache);
+    await sleep(200);
+    return result;
+  } catch {
+    return null;
+  }
 }
 
 async function geocodeRow(name, address, city, cityCn, cache) {

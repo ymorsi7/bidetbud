@@ -472,7 +472,7 @@ async function processUrlBatch(state, rows, cache, batch = 10) {
         const slug = url.split('/').pop();
         const html = await fetchText(url);
         const parsed = parseTotoDeReference(html, slug, url);
-        if (!parsed?.hasBidet || !isGermanyRelevant(html, item.city)) continue;
+        if (!parsed?.hasBidet || !isGermanyRelevant(html, item.city, slug)) continue;
         state.stats.toto++;
         const geo = await geocodeRow(parsed.name, parsed.address, item.city, cache);
         if (!geo) continue;
