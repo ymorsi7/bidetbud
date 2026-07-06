@@ -139,7 +139,12 @@ function extractEvidence(html) {
 function parseGenericGermanPage(html, url) {
   const evidence = extractEvidence(html);
   if (!evidence.length) return null;
-  const name = extractH1(html) || extractTitle(html) || guessNameFromUrl(url);
+  let name = extractH1(html) || extractTitle(html) || guessNameFromUrl(url);
+  // Prefer hotel brand over room type on German hotel sites
+  if (/zimmer|suite|doppelzimmer|apartment/i.test(name) && /hotel-|\.de\/hotel/i.test(url)) {
+    const brand = extractTitle(html).replace(/\s*[-|–].*$/, '').trim();
+    if (brand && brand.length > 8) name = brand;
+  }
   const address = extractAddress(html);
   return {
     name,
@@ -209,8 +214,23 @@ function extractUrlsFromSearch(html) {
 function parseGeberitReference(html, url) {
   const text = plainText(html);
   if (!/Dusch[\s-]?WC|AquaClean/i.test(text)) return null;
-  const h1 = extractH1(html) || extractTitle(html);
-  const name = h1.replace(/\s*\|.*$/, '').replace(/^#+\s*/, '').trim();
+
+  const slug = (url.match(/referenzen\/([^/]+)/) || [])[1] || '';
+  const slugNames = {
+    'the-fontenay-hamburg': 'The Fontenay, Hamburg',
+    'riku-hotel-pfullendorf': 'RiKu Budget-Design Hotel, Pfullendorf',
+    'hotel-hoeri': 'Hotel Hoeri, Bodensee',
+    'hotel-rosenhof': 'Hotel Rosenhof, Isenbüttel',
+  };
+  let name = slugNames[slug] || '';
+  if (!name) {
+    const og = html.match(/property="og:title"\s+content="([^"]+)"/i);
+    name = og ? decodeHtml(og[1].replace(/\s*\|.*$/, '').trim()) : '';
+  }
+  if (!name) name = extractH1(html) || extractTitle(html);
+  name = name.replace(/\s*\|.*$/, '').replace(/^#+\s*/, '').replace(/\s+/g, ' ').trim();
+  if (name.length < 6 || /^\d+$/.test(name)) return null;
+
   const evidence = extractGermanSentences(text, 'AquaClean');
   if (!evidence.length) evidence.push(...extractGermanSentences(text, 'Dusch-WC'));
   if (!evidence.length) return null;
@@ -227,13 +247,23 @@ function parseGeberitReference(html, url) {
 }
 
 function parseTotoDeReference(html, slug, url) {
-  const titleMatch = html.match(/<h1[^>]*>([^<]+)<\/h1>/i);
-  const name = decodeHtml(titleMatch ? titleMatch[1].trim() : slug.replace(/-/g, ' '));
+  const title = extractH1(html) || extractTitle(html);
+  if (/404|not found|seite nicht|nicht gefunden/i.test(title)) return null;
+
   const text = plainText(html);
   if (!/WASHLET|Washlet|NEOREST|Dusch[\s-]?WC/i.test(text)) return null;
+  if (/Persönliche Hygiene Sauberkeit Design Nachhaltigkeit Komfort Produkte Showroom/i.test(text) && !/Category|Product\(s\)|Opened|Located/i.test(text)) {
+    return null;
+  }
 
-  const products =
-    (text.match(/WASHLET[^.]{0,120}/i) || text.match(/NEOREST[^.]{0,120}/i) || [])[0] || 'TOTO WASHLET';
+  const titleMatch = html.match(/<h1[^>]*>([^<]+)<\/h1>/i);
+  const name = decodeHtml(titleMatch ? titleMatch[1].trim() : slug.replace(/-/g, ' '));
+  if (name.length < 4 || /404/i.test(name)) return null;
+
+  const block = text.match(/Product\(s\)\s+(.+?)\s+(?:Following|Opened|The |Located|Considered|Since|In |After|Details|Category)/i);
+  const products = block
+    ? block[1].trim().slice(0, 120)
+    : (text.match(/WASHLET[^.]{0,120}/i) || text.match(/NEOREST[^.]{0,120}/i) || [])[0] || 'TOTO WASHLET';
 
   return {
     name,
@@ -247,12 +277,24 @@ function parseTotoDeReference(html, slug, url) {
   };
 }
 
+function isValidRowName(name) {
+  if (!name || name.length < 6) return false;
+  if (/^\d+$/.test(name)) return false;
+  if (/404|not found|toto 404/i.test(name)) return false;
+  return true;
+}
+
 function extractTotoDeSlugs(html) {
   return [
     ...new Set(
-      [...html.matchAll(/href="(\/de\/unternehmen\/referenzen\/[^"#?]+)"/g)]
-        .map((m) => m[1].replace('/de/unternehmen/referenzen/', ''))
-        .filter((s) => s.includes('-') && !/^(hotels|gesundheit|restaurants|shops|wohnen|buero)/i.test(s))
+      [
+        ...[...html.matchAll(/href="(\/de\/unternehmen\/referenzen\/[^"#?]+)"/g)].map((m) =>
+          m[1].replace('/de/unternehmen/referenzen/', '')
+        ),
+        ...[...html.matchAll(/href="(\/en\/company-information\/references\/[^"#?]+)"/g)].map((m) =>
+          m[1].replace('/en/company-information/references/', '')
+        ),
+      ].filter((s) => s.includes('-') && !/^(hotels|gesundheit|health|restaurants|shops|wohnen|buero|office)/i.test(s))
     ),
   ];
 }
@@ -271,7 +313,15 @@ function extractGeberitRefUrls(html) {
 const GERMANY_SLUG_RE =
   /munich|munchen|münchen|berlin|frankfurt|hamburg|dusseldorf|duesseldorf|düsseldorf|essen|bielefeld|darmstadt|elmau|tegernsee|titisee|schwarzwald|velen|sauerland|knippschild|heidelberg|krebs|weberhaus|geku|koln|koeln|köln|pfullendorf|rosenhof|fontenay|deutsch|german|badeparadies|bachmair|kreuth|krün|kruen|mönchen|moenchen/i;
 
-function isGermanyRelevant(text, city, slug) {
+function isGermanyRelevant(text, city, slug, url) {
+  if (url) {
+    try {
+      const h = new URL(url).hostname;
+      if (/\.de$/.test(h) && /hotel|gasthof|pension|resort|wellness/i.test(h + url)) return true;
+    } catch {
+      /* skip */
+    }
+  }
   const t = `${text} ${city || ''} ${slug || ''}`;
   if (GERMANY_SLUG_RE.test(t)) return true;
   if (/\b(Deutschland|Germany|Berlin|München|Munich|Hamburg|Frankfurt|Köln|Cologne|Düsseldorf|Stuttgart|Dresden|Leipzig|Hannover|Nürnberg|Bremen|Heidelberg|Elmau|Tegernsee|Pfullendorf|Isenbüttel|Bielefeld|Darmstadt|Essen|Velen|Sauerland|Baden-Württemberg|Bayern|Nordrhein)\b/i.test(t)) {
@@ -308,6 +358,7 @@ module.exports = {
   parseGenericGermanPage,
   parseGeberitReference,
   parseTotoDeReference,
+  isValidRowName,
   extractTotoDeSlugs,
   extractGeberitRefUrls,
   extractUrlsFromSearch,

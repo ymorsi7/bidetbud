@@ -1,0 +1,46 @@
+{
+  "Baslerstrasse 118, 8048 Zürich, Switzerland": {
+    "lat": "47.3883089",
+    "lon": "8.4913203"
+  },
+  "Kantonsstrasse 21, 3930 Visp, Switzerland": {
+    "lat": "46.2924934",
+    "lon": "7.8836121"
+  },
+  "Via Muraccio 142, 6612 Ascona, Switzerland": {
+    "lat": "46.1521041",
+    "lon": "8.7927531"
+  },
+  "Rue de Lyon 109/111, 1203 Genève, Switzerland": {
+    "lat": "46.2091711",
+    "lon": "6.1214012"
+  },
+  "La Maillarde 3, 1680 Romont, Switzerland": {
+    "lat": "46.682057",
+    "lon": "6.9017898"
+  },
+  "Rue Plaisance 7, 1227 Carouge, Switzerland": {
+    "lat": "46.1784842",
+    "lon": "6.1340108"
+  },
+  "Avenue de la Praille 45, 1227 Carouge, Switzerland": {
+    "lat": "46.1864382",
+    "lon": "6.1325577"
+  },
+  "Alustrasse 28, 3940 Steg, Switzerland": {
+    "lat": "46.3115702",
+    "lon": "7.7500521"
+  },
+  "Chem. du Champ-des-Filles 4b, 1228 Plan-les-Ouates, Switzerland": {
+    "lat": "46.1671648",
+    "lon": "6.1086272"
+  },
+  "Route de Denges 6, 1027 Lonay, Switzerland": {
+    "lat": "46.5246245",
+    "lon": "6.52198"
+  },
+  "Silostrasse 9, 5606 Dintikon, Switzerland": {
+    "lat": "47.376298",
+    "lon": "8.226947"
+  }
+}

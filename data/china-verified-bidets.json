@@ -386,6 +386,21 @@
     "longitude": "104.0565003"
   },
   {
+    "name": "Asiam亚美国际酒店(重庆解放碑洪崖洞店)",
+    "address": "重庆渝中区新华路328号恒大解放碑中心销售中心1层",
+    "city": "Chongqing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/75538760.html",
+    "sourceQuote": "携程 Ctrip: 就是智能马桶不是很方便，冲屁屁功能��不了",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "29.5617797",
+    "longitude": "106.5758599"
+  },
+  {
     "name": "InterContinental Chongqing TFT",
     "address": "TFT Building, Yuzhong District, Chongqing",
     "latitude": "29.556000",
@@ -405,6 +420,36 @@
     ]
   },
   {
+    "name": "千合智选高空酒店(洪崖洞店)",
+    "address": "重庆渝中区筷子街2号21楼",
+    "city": "Chongqing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/103758568.html",
+    "sourceQuote": "携程 Ctrip: 全屋都是智能设备，语音控制窗帘和灯光，床垫软硬适中，高层房间隔音很好，设施维护得很新，吹风机、智能马桶一应俱全，整体居住体验远超同价位酒店，性价比拉满，下次来还会继续入住",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "29.5650738",
+    "longitude": "106.5753425"
+  },
+  {
+    "name": "重庆Indition英迪逊高空酒店",
+    "address": "重庆渝中区新华路1号38F",
+    "city": "Chongqing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/88308956.html",
+    "sourceQuote": "携程 Ctrip: 客房配备智能声控客房系统，马歇尔音响，极米H3S投影仪，100寸超大幕布，智能马桶，迷你吧，洗衣机等设施设备",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "30.05518",
+    "longitude": "107.8748712"
+  },
+  {
     "name": "Four Seasons Hotel Dalian",
     "address": "大连鲁能四季酒店,  长江东路,  中山区,  辽宁省,  中国",
     "latitude": "38.9248827",
@@ -421,6 +466,96 @@
     "searchAliases": [
       "大连四季酒店"
     ]
+  },
+  {
+    "name": "大连香格里拉大酒店",
+    "address": "辽宁大连中山区人民路66号",
+    "city": "Dalian",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/400693.html",
+    "sourceQuote": "携程 Ctrip: 智能马桶很方便，卫生和服务也都很到位",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "38.9216608",
+    "longitude": "121.6277343"
+  },
+  {
+    "name": "美豪丽致酒店(大连站中山广场店)",
+    "address": "辽宁大连中山区解放路8号",
+    "city": "Dalian",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/6327325.html",
+    "sourceQuote": "携程 Ctrip: 酒店客房采用的是美国“金可儿” 床垫，轻柔贴身的羽绒被，免费迷你吧、分体空调、无线 WIFI、保险柜、射频门禁系统、公共区域智能监控系统、免费洗漱用品、部分房间还配备智能马桶、空气清新器，给您温馨而安全的高品质入住体验",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "31.7209268",
+    "longitude": "118.0926614"
+  },
+  {
+    "name": "佛山王府井紫薇港逸扉酒店",
+    "address": "广东佛山禅城区季华四路68号一座",
+    "city": "Foshan",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/114670078.html",
+    "sourceQuote": "携程 Ctrip: 客房配备智能语音客服系统、智能电视、智能马桶等时尚设施，打造舒适入住体验",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "23.0239788",
+    "longitude": "113.1159558"
+  },
+  {
+    "name": "佛山顺德清晖园亚朵酒店",
+    "address": "广东佛山顺德区大良街道清晖路156号",
+    "city": "Foshan",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/119371777.html",
+    "sourceQuote": "携程 Ctrip: 房间设施也很完备，一进去崽子就说好香好喜欢，老人也觉得枕头很舒服，卫生间干湿分离很好，还有智能马桶，小朋友很爱这个",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "23.0239788",
+    "longitude": "113.1159558"
+  },
+  {
+    "name": "华美达安可酒店(佛山创意产业园王府井店)",
+    "address": "广东佛山禅城区石湾镇街道佛山大道中93号",
+    "city": "Foshan",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/100364949.html",
+    "sourceQuote": "携程 Ctrip: ) 还想再住 (227) 购物方便 (161) 适合出差 (151) 健身房很棒 (86) 差评 (49) 住客印象 M319064**** 2026年6月7日 前台小周服务特别好，房间也很宽敞，带有智能马桶设施，酒店还特别贴心地入住送水果、酸奶和小零食 ，退房时也送小礼物🎁，早餐品种丰富多样，酒店停车场都是免费的",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "22.9292656",
+    "longitude": "113.2120751"
+  },
+  {
+    "name": "百合壹庭酒店(佛山祖庙创意产业园店)",
+    "address": "广东佛山禅城区汾江西路4号",
+    "city": "Foshan",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/119142448.html",
+    "sourceQuote": "携程 Ctrip: 酒店设有中式高端客房，配备智能客控系统、智能马桶、恒温恒压热水、极速WiFi、多功能会议室、健身房、洗衣房、中式餐厅、露台花园等",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "34.2655007",
+    "longitude": "108.9304598"
   },
   {
     "name": "Four Seasons Hotel Guangzhou",
@@ -690,6 +825,36 @@
     ]
   },
   {
+    "name": "城市便捷酒店(昆明长水国际机场云立方店)",
+    "address": "城市便捷酒店(昆明长水国际机场云立方店)",
+    "city": "Kunming",
+    "type": "public",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/119315008.html",
+    "sourceQuote": "携程 Ctrip: 查看更多 4.8 超棒 酒店离机场不远，服务态度好，安排去机场大巴非常方便，酒店干净卫生，提供早餐，酒店环境安静，智能马桶、吹风机都不错",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "34.3092428",
+    "longitude": "108.9337799"
+  },
+  {
+    "name": "無闊有居(滇池店)",
+    "address": "云南昆明晋宁区上蒜镇牛恋小渔村",
+    "city": "Kunming",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/110508671.html",
+    "sourceQuote": "携程 Ctrip: 不仅洗护用品很好闻，居然还有智能马桶，精致的餐具、茶具，完全不输五星级酒店",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "24.8466152",
+    "longitude": "102.7190378"
+  },
+  {
     "name": "Wyndham Grand Plaza Royale Hot Springs Tianmu Lake",
     "address": "Nanshan Bamboo Sea Scenic Area, Liyang, Changzhou, Jiangsu",
     "latitude": "31.178000",
@@ -799,6 +964,81 @@
     ]
   },
   {
+    "name": "南京南站万达美华酒店",
+    "address": "江苏南京江宁区南京南站南广场金兰路4号2幢",
+    "city": "Nanjing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/67493524.html",
+    "sourceQuote": "携程 Ctrip: 高级豪华房型及以上配备迷你吧赠饮（首晚赠送）、智能马桶、干湿分离，高品质羽绒被芯加亲肤级床上用品为您带来越级式入住体验",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "32.0438284",
+    "longitude": "118.7788631"
+  },
+  {
+    "name": "南京奥体博览中心优逸酒店",
+    "address": "江苏南京建邺区云龙山路康缘智汇港B座",
+    "city": "Nanjing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/65186629.html",
+    "sourceQuote": "携程 Ctrip: 客房配备定制品牌家具、恒温智能电热晾衣架、自动智能马桶、美国进口金可儿人体功能学独立弹簧乳胶床垫、四季恒温鹅绒被、高清电视、极速WiFi及电子消防系统等��代化设施",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "32.0438284",
+    "longitude": "118.7788631"
+  },
+  {
+    "name": "南京归来兮桠溪庄园酒店",
+    "address": "江苏南京高淳区桠溪街道桠云路1800号",
+    "city": "Nanjing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/85296705.html",
+    "sourceQuote": "携程 Ctrip: 独栋别墅内超大的私享空间、中央空调、整屋地暖、智能马桶、独立浴缸、欧珑的洗漱用品，带给您舒适避世、低调奢华的入住体验",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "32.0438284",
+    "longitude": "118.7788631"
+  },
+  {
+    "name": "南京金鹰世界G酒店",
+    "address": "江苏南京建邺区应天大街888号",
+    "city": "Nanjing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/48562332.html",
+    "sourceQuote": "携程 Ctrip: 客房空间大，布局合理，干湿分离，智能马桶、备品细节到位",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "32.0438284",
+    "longitude": "118.7788631"
+  },
+  {
+    "name": "南京钟山宾馆(江苏省会议中心)",
+    "address": "南京钟山宾馆(江苏省会议中心)",
+    "city": "Nanjing",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/689773.html",
+    "sourceQuote": "携程 Ctrip: 虽然没有智能马桶、投屏这些现代设施，但是空调和热水很足，调节灵敏",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "32.0522714",
+    "longitude": "118.824594"
+  },
+  {
     "name": "The Luxury Collection Nanning",
     "address": "66 Jinhu Road, Qingxiu District, Nanning",
     "latitude": "22.817400",
@@ -815,6 +1055,21 @@
     "searchAliases": [
       "南宁龙光那莲豪华精选酒店"
     ]
+  },
+  {
+    "name": "宁波鄞州雷迪森酒店(东部新城店)",
+    "address": "浙江宁波鄞州区兴宁东路330弄20号",
+    "city": "Ningbo",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/114885114.html",
+    "sourceQuote": "携程 Ctrip: 其他都非常好 铁甲雄心leo 2026年5月31日 来参加展会，酒店位置在东部新城区，离宁波国际会展中心4公里左右，其次高级双人房升级了豪华双人房，房间面积还算较大，智能马桶，整体非常干净，唯一感觉1.2或1.35米还是有点小，服务员也很热情，送了水果，餐厅在二楼，早餐比较丰富新鲜，有健身房和洗衣机设备",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "29.8670248",
+    "longitude": "121.6262084"
   },
   {
     "name": "Diaoyutai Hotel Qingdao",
@@ -1527,6 +1782,21 @@
     ]
   },
   {
+    "name": "苏州金鸡湖美居酒店",
+    "address": "江苏苏州苏州工业园区星都街72号宏海大厦",
+    "city": "Suzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/22774616.html",
+    "sourceQuote": "携程 Ctrip: 网名多 2026年6月5日 点赞硬件设施的确定性和软件服务的不打扰，隔音很好，带臀洗的智能马桶尤其好评，6点半就能吃早餐更是超级好评",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "31.311123",
+    "longitude": "120.6212881"
+  },
+  {
     "name": "Holiday Inn Express Taizhou Jiaoji",
     "address": "Jiaoji, Taizhou, Zhejiang",
     "latitude": "28.656000",
@@ -1561,6 +1831,21 @@
     "searchAliases": [
       "天津康莱德酒店"
     ]
+  },
+  {
+    "name": "天津之眼逸扉酒店",
+    "address": "天津河北区望海楼街道海河东路1号",
+    "city": "Tianjin",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/106537467.html",
+    "sourceQuote": "携程 Ctrip: 多间各式客房全房型配备智能设施、智能马桶、智能音箱、65英寸智能电视、胶囊咖啡机等，另设有河景客房、会议室、全日餐厅、24小时健身房及洗衣房，宴会厅可同时容纳300位宾客，满足宾客的商务及休闲出游中的各项需求",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "39.3032619",
+    "longitude": "117.4163641"
   },
   {
     "name": "Kasuitei Tiantai",
@@ -1690,6 +1975,21 @@
     ]
   },
   {
+    "name": "西安钟楼诺富特酒店(钟鼓楼回民街店)",
+    "address": "西安钟楼诺富特酒店(钟鼓楼回民街店)",
+    "city": "Xi'an",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/54597222.html",
+    "sourceQuote": "携程 Ctrip: 😍 内尔赫拉贝克赵武灵王 2026年6月21日 出行第一需求是酒店干净并且有智能马桶，本来在携程订的万达美华，然后到他们前台后被告知他们定义的智能马桶是有座圈加热，无冲洗，怎么说都说不明白，退了，改订到钟楼诺富特，前台礼貌加热情，特地领我看了房型，赶紧整洁，智能马桶都有，住了三天，非常满意，位置也比较好，地铁方便",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "34.2622959",
+    "longitude": "108.9451948"
+  },
+  {
     "name": "Conrad Xiamen",
     "address": "厦门康莱德酒店,  Yanwuxi Road,  Xiamen,  福建省,  中国",
     "latitude": "24.4377684",
@@ -1796,5 +2096,20 @@
     "searchAliases": [
       "义乌香格里拉大酒店"
     ]
+  },
+  {
+    "name": "郑州二七广场大卫城亚朵酒店",
+    "address": "河南郑州管城回族区西大街与北顺城街交叉口东北角郑州商会大厦",
+    "city": "Zhengzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/116620359.html",
+    "sourceQuote": "携程 Ctrip: _WeChat289808**** 2026年6月20日 还是相当不错的，该有的全都有���洗澡��来的立马就是热水，温度也很恒定，非常不错，健身房是真的有哑铃，然后智能马桶也不错，不过看个人习惯",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "34.7475076",
+    "longitude": "113.6536663"
   }
 ]

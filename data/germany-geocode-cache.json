@@ -130,5 +130,77 @@
     "lon": "8.3439845",
     "display": "Weberhaus, Melle, Niedersachsen, Deutschland",
     "city": "Melle"
+  },
+  "Marriott Hotel City West, Munich, , Deutschland": {
+    "lat": "48.1409125",
+    "lon": "11.5259233",
+    "display": "München Marriott Hotel City West, Landsberger Straße, München, Bayern, Deutschland",
+    "city": "München"
+  },
+  "Langham Nymphenburg Residence, Munich, , Deutschland": {
+    "lat": "48.1597293",
+    "lon": "11.5085562",
+    "display": "Kempinski Royal Residence Nymphenburg, Nördliches Schloßrondell, München, Bayern, Deutschland",
+    "city": "München"
+  },
+  "Vier Jahreszeiten Kempinski, Munich, , Deutschland": {
+    "lat": "48.1391684",
+    "lon": "11.5819647",
+    "display": "Hotel Vier Jahreszeiten Kempinski München, Maximilianstraße, München, Bayern, Deutschland",
+    "city": "München"
+  },
+  "The Komische Oper, Berlin, , Deutschland": {
+    "lat": "52.5156648",
+    "lon": "13.3869856",
+    "display": "Komische Oper Berlin, Behrenstraße, Berlin, Deutschland",
+    "city": "Berlin"
+  },
+  "German Cancer Research Center, , Deutschland": {
+    "lat": "49.2569205",
+    "lon": "7.0419508",
+    "display": "Deutsches Forschungszentrum für Künstliche Intelligenz, Stuhlsatzenhaus, Saarbrücken, Saarland, Deutschland",
+    "city": "Saarbrücken"
+  },
+  "Generationen Kult Haus (“GeKu Haus”), Essen, , Deutschland": {
+    "lat": "51.4592809",
+    "lon": "7.0131811",
+    "display": "GenerationenKult / Haus (GeKu-Haus), Viehofer Straße, Essen, Nordrhein-Westfalen, Deutschland",
+    "city": "Essen"
+  },
+  "WC Magazin: Dusch-WC, , Deutschland": {
+    "lat": "49.0029988",
+    "lon": "9.0977805",
+    "display": "Dusch, WC, Umkleidekabinen, Badweg, Löchgau, Baden-Württemberg, Deutschland",
+    "city": "Löchgau"
+  },
+  "Mandarin Oriental, Munich, , Deutschland": {
+    "lat": "48.1372989",
+    "lon": "11.5807333",
+    "display": "Mandarin Oriental, Neuturmstraße, München, Bayern, Deutschland",
+    "city": "München"
+  },
+  "JAL Lounge, Frankfurt Airport, , Deutschland": {
+    "lat": "50.0482808",
+    "lon": "8.5640579",
+    "display": "Camel Smoking Lounge, Airportring, Frankfurt am Main, Hessen, Deutschland",
+    "city": "Frankfurt am Main"
+  },
+  "Max-Holder-Straße 41, Deutschland": {
+    "lat": "50.1924288",
+    "lon": "8.6440927",
+    "display": "Micro Gewerbepark, Max-Holder-Straße, Frankfurt am Main, Hessen, Deutschland",
+    "city": "Frankfurt am Main"
+  },
+  "August-Schanz-Straße 31, Deutschland": {
+    "lat": "50.1630944",
+    "lon": "8.6852582",
+    "display": "August-Schanz-Straße, Frankfurt am Main, Hessen, Deutschland",
+    "city": "Frankfurt am Main"
+  },
+  "Reisholzer Werftstraße 39, Deutschland": {
+    "lat": "51.1666587",
+    "lon": "6.8407486",
+    "display": "Reisholzer Werftstraße, Düsseldorf, Nordrhein-Westfalen, Deutschland",
+    "city": "Düsseldorf"
   }
 }

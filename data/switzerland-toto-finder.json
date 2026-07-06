@@ -1,0 +1,101 @@
+[
+  {
+    "name": "Dusch-WC Center GmbH",
+    "address": "Baslerstrasse 118, 8048 Zürich, Switzerland",
+    "city": "Zürich",
+    "type": "public",
+    "product": "WASHLET® RW",
+    "productNote": "in the guest toilet",
+    "website": "www.duschwc-center.ch"
+  },
+  {
+    "name": "Bringhen AG",
+    "address": "Kantonsstrasse 21, 3930 Visp, Switzerland",
+    "city": "Visp",
+    "type": "public",
+    "product": "WASHLET® SG",
+    "productNote": "in the guest toilet",
+    "website": "www.bringhen.ch"
+  },
+  {
+    "name": "Castello del Sole Ascona",
+    "address": "Via Muraccio 142, 6612 Ascona, Switzerland",
+    "city": "Ascona",
+    "type": "hotel",
+    "product": "WASHLET® SG",
+    "productNote": "in some rooms",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons",
+    "website": "www.castellodelsole.ch"
+  },
+  {
+    "name": "SABAG Biel/Bienne AG - Ausstellung Genf",
+    "address": "Rue de Lyon 109/111, 1203 Genève, Switzerland",
+    "city": "Genève",
+    "type": "public",
+    "product": "WASHLET® RW auto flush, NEOREST® WX1",
+    "website": "www.sabag.ch/fr/succursales#geneve"
+  },
+  {
+    "name": "Framo SA",
+    "address": "La Maillarde 3, 1680 Romont, Switzerland",
+    "city": "Romont",
+    "type": "public",
+    "product": "WASHLET® RG Lite, NEOREST® WX1, WASHLET® RG, WASHLET® RW",
+    "productNote": "in the guest toilet",
+    "website": "www.framo.ch"
+  },
+  {
+    "name": "Bringhen by Arte Matto Sàrl",
+    "address": "Rue Plaisance 7, 1227 Carouge, Switzerland",
+    "city": "Carouge",
+    "type": "public",
+    "product": "WASHLET® RW",
+    "productNote": "in the guest toilet"
+  },
+  {
+    "name": "Leoska SA",
+    "address": "Avenue de la Praille 45, 1227 Carouge, Switzerland",
+    "city": "Carouge",
+    "type": "public",
+    "product": "NEOREST® WX1",
+    "productNote": "in the guest toilet",
+    "website": "www.leoska.ch"
+  },
+  {
+    "name": "SAB Sanitär-Apparate-Burgener AG",
+    "address": "Alustrasse 28, 3940 Steg, Switzerland",
+    "city": "Steg",
+    "type": "public",
+    "product": "WASHLET® RW",
+    "productNote": "in the guest toilet",
+    "website": "www.sab-steg.ch"
+  },
+  {
+    "name": "Sabag Genève",
+    "address": "Chem. du Champ-des-Filles 4b, 1228 Plan-les-Ouates, Switzerland",
+    "city": "Plan-les-Ouates",
+    "type": "public",
+    "product": "WASHLET® RW",
+    "productNote": "in the guest toilet",
+    "website": "www.sabag.ch"
+  },
+  {
+    "name": "Saneo by Bringhen SA",
+    "address": "Route de Denges 6, 1027 Lonay, Switzerland",
+    "city": "Lonay",
+    "type": "public",
+    "product": "WASHLET® RW",
+    "productNote": "in the guest toilet",
+    "website": "www.bringhen.ch"
+  },
+  {
+    "name": "Edles Bad GmbH",
+    "address": "Silostrasse 9, 5606 Dintikon, Switzerland",
+    "city": "Dintikon",
+    "type": "public",
+    "product": "WASHLET® RW",
+    "productNote": "in the guest toilet",
+    "website": "www.edles-bad.ch"
+  }
+]

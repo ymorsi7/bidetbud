@@ -6,8 +6,6 @@ const BIDET_FRIENDLY_COUNTRIES = new Set([
   'South Korea',
   'Taiwan',
   'Italy',
-  'Portugal',
-  'Spain',
   'Greece',
   'Turkey',
   'Syria',

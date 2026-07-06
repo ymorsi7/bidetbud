@@ -1,0 +1,70 @@
+{
+  "NG|N0 2, lake valencia crescent, off limpopo street maitama": null,
+  "NG|The Duchess Hotel and Spa, Abuja, Nigeria": null,
+  "NG|The Duchess Hotel and Spa, Nigeria": null,
+  "NG|Abuja, Nigeria": {
+    "lat": "9.0643305",
+    "lon": "7.4892974",
+    "city": "Municipal Area Council",
+    "display": "Abuja, Federal Capital Territory, Nigeria"
+  },
+  "KE|Wood Avenue, 00100 Nairobi, Kenya": {
+    "lat": "-1.286295",
+    "lon": "36.8196418",
+    "city": "Nairobi",
+    "display": "Nairobi General Post Office, Kenyatta Avenue, Nairobi, Nairobi, Kenya"
+  },
+  "KE|Kenyatta Avenue, Valley Road, 00100 Nairobi, Kenya": {
+    "lat": "-1.1780981",
+    "lon": "36.9364194",
+    "city": "Nairobi",
+    "display": "Kenyatta University Post Mordern Library, Thika Road, Nairobi, Nairobi, Kenya"
+  },
+  "KE|Lantana Road Westlands": {
+    "lat": "-1.267663",
+    "lon": "36.7994186",
+    "city": "Nairobi",
+    "display": "Hotel RiverView, Westlands, Lantana Road, Nairobi, Nairobi, Kenya"
+  },
+  "KE|38, Muthithi Road": {
+    "lat": "-1.2675417",
+    "lon": "36.808103",
+    "city": "Nairobi",
+    "display": "Hyatt Regency Nairobi Westlands, Muthithi Rd, Nairobi, Nairobi, Kenya"
+  },
+  "KE|Ngong Road, Nairobi": {
+    "lat": "-1.3019386",
+    "lon": "36.7531222",
+    "city": "Nairobi",
+    "display": "Ngong Road, Nairobi, Nairobi, Kenya"
+  },
+  "KE|Ngara Road ENKEI ANNEX BUILDING, FIRTS FLOOR (NEXT TO KCB NGARA), 00600 Nairobi, Kenya": null,
+  "KE|Toque Hotel, Nairobi, Kenya": {
+    "lat": "-1.2872567",
+    "lon": "36.8143511",
+    "city": "Nairobi",
+    "display": "Nairobi Serena Hotel, Kenyatta Avenue, Nairobi, Nairobi, Kenya"
+  },
+  "KE|& Contact": null,
+  "KE|Severin Sea Lodge, Mombasa, Kenya": {
+    "lat": "-3.9869817",
+    "lon": "39.7392875",
+    "city": "Mombasa",
+    "display": "Severin Sea Lodge, Malindi Road, Mombasa, Mombasa, Kenya"
+  },
+  "KE|Serena Road": null,
+  "KE|Travellers Beach Hotel & Club, Mombasa, Kenya": {
+    "lat": "-3.992121",
+    "lon": "39.7344232",
+    "city": "Mombasa",
+    "display": "Travellers Beach Hotel, Malindi Road, Mombasa, Mombasa, Kenya"
+  },
+  "KE|www.travelmatch.co.uk, Mombasa, Kenya": null,
+  "KE|www.travelmatch.co.uk, Kenya": null,
+  "KE|Mombasa, Kenya": {
+    "lat": "-4.05052",
+    "lon": "39.667169",
+    "city": "Tononoka ward",
+    "display": "Mombasa, Tononoka ward, Mombasa, Kenya"
+  }
+}

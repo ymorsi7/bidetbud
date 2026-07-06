@@ -9,8 +9,8 @@
     "bidetStatus": "warmed",
     "bidetType": "TOTO WASHLET SG",
     "sourceUrl": "https://newtoto.ru/category/projects/lotte-hotel-moscow/",
-    "sourceQuote": "TOTO Russia dealer project (newtoto.ru): Lotte Hotel Moscow equipped with WASHLET SG. Guest review also confirms Toto Washlet in rooms.",
-    "verifiedMethod": "web-source",
+    "sourceQuote": "TOTO Russia dealer (newtoto.ru): Lotte Hotel Moscow rooms equipped with TOTO washlets (вошлеты) in Superior through Royal Suite categories",
+    "verifiedMethod": "manufacturer-reference",
     "access": "limited",
     "accessNote": "Hotel guests and patrons"
   },
@@ -43,7 +43,10 @@
     "verifiedMethod": "manufacturer-reference",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["The Official State Hermitage Hotel", "Отель Эрмитаж"]
+    "searchAliases": [
+      "The Official State Hermitage Hotel",
+      "Отель Эрмитаж"
+    ]
   },
   {
     "name": "Hotel Continental",
@@ -59,7 +62,10 @@
     "verifiedMethod": "manufacturer-reference",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["InterContinental Moscow Tverskaya", "Continental Hotel Moscow"]
+    "searchAliases": [
+      "InterContinental Moscow Tverskaya",
+      "Continental Hotel Moscow"
+    ]
   },
   {
     "name": "Lotte Hotel St. Petersburg",
@@ -90,7 +96,10 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["СтандАрт Отель", "StandArt design hotel"]
+    "searchAliases": [
+      "СтандАрт Отель",
+      "StandArt design hotel"
+    ]
   },
   {
     "name": "Hotel Baltschug Kempinski Moscow",
@@ -151,7 +160,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Президент-Отель"]
+    "searchAliases": [
+      "Президент-Отель"
+    ]
   },
   {
     "name": "Hotel Moscow Saint Petersburg",
@@ -167,7 +178,10 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Гостиница Москва", "Hotel Moscow on Nevsky"]
+    "searchAliases": [
+      "Гостиница Москва",
+      "Hotel Moscow on Nevsky"
+    ]
   },
   {
     "name": "Petroff Palace Boutique Hotel",
@@ -183,7 +197,10 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Petroff Palace", "Петровский Путевой Дворец"]
+    "searchAliases": [
+      "Petroff Palace",
+      "Петровский Путевой Дворец"
+    ]
   },
   {
     "name": "Marukame (Belorusskaya)",
@@ -199,7 +216,11 @@
     "verifiedMethod": "manufacturer-reference",
     "access": "public",
     "accessNote": "Restaurant patrons; chain rebranded to Maru (2024) — verify TOTO still installed before visiting",
-    "searchAliases": ["Marukame udon", "Марукамэ", "Maru Belorusskaya"]
+    "searchAliases": [
+      "Marukame udon",
+      "Марукамэ",
+      "Maru Belorusskaya"
+    ]
   },
   {
     "name": "Radisson Collection Hotel Moscow",
@@ -215,7 +236,10 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Radisson Royal Hotel Moscow", "Hotel Ukraina"]
+    "searchAliases": [
+      "Radisson Royal Hotel Moscow",
+      "Hotel Ukraina"
+    ]
   },
   {
     "name": "Helvetia Hotel",
@@ -231,7 +255,10 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Гельвеция", "Helvetia Hotel SPb"]
+    "searchAliases": [
+      "Гельвеция",
+      "Helvetia Hotel SPb"
+    ]
   },
   {
     "name": "AKYAN St. Petersburg",
@@ -262,7 +289,10 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Бридж Резорт", "Bridge Resort Sochi"]
+    "searchAliases": [
+      "Бридж Резорт",
+      "Bridge Resort Sochi"
+    ]
   },
   {
     "name": "Hotel Astrakhanskaya",
@@ -278,7 +308,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Гостиница Астраханская"]
+    "searchAliases": [
+      "Гостиница Астраханская"
+    ]
   },
   {
     "name": "Russkiy Dvorik Hotel",
@@ -294,7 +326,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Русский дворик"]
+    "searchAliases": [
+      "Русский дворик"
+    ]
   },
   {
     "name": "Petro Palace Hotel",
@@ -325,7 +359,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Гостиница Пионер"]
+    "searchAliases": [
+      "Гостиница Пионер"
+    ]
   },
   {
     "name": "Krymsky Briz Hotel",
@@ -341,7 +377,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Крымский Бриз"]
+    "searchAliases": [
+      "Крымский Бриз"
+    ]
   },
   {
     "name": "Moskovsky Kvartal Hotel",
@@ -357,7 +395,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Московский квартал"]
+    "searchAliases": [
+      "Московский квартал"
+    ]
   },
   {
     "name": "Hotel Diona Sukko",
@@ -373,7 +413,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Гостевой дом Диона"]
+    "searchAliases": [
+      "Гостевой дом Диона"
+    ]
   },
   {
     "name": "Hotel Bravo Vityazevo",
@@ -389,7 +431,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Отель Браво"]
+    "searchAliases": [
+      "Отель Браво"
+    ]
   },
   {
     "name": "Apart-Hotel Bristol Lazarevskoye",
@@ -405,7 +449,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Бристоль Апарт-Отель"]
+    "searchAliases": [
+      "Бристоль Апарт-Отель"
+    ]
   },
   {
     "name": "Hotel Complex Lidia",
@@ -421,7 +467,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Гостиничный комплекс Лидия"]
+    "searchAliases": [
+      "Гостиничный комплекс Лидия"
+    ]
   },
   {
     "name": "Rodina Hotel and SPA Essentuki",
@@ -437,7 +485,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Родина Отель и СПА"]
+    "searchAliases": [
+      "Родина Отель и СПА"
+    ]
   },
   {
     "name": "Barvikha Hotel and Spa",
@@ -453,7 +503,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Барвиха отель и спа"]
+    "searchAliases": [
+      "Барвиха отель и спа"
+    ]
   },
   {
     "name": "Hotel Astoria Saint Petersburg",
@@ -469,7 +521,10 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only — Ambassador Suite and similar categories",
-    "searchAliases": ["Отель Астория", "Astoria Hotel SPb"]
+    "searchAliases": [
+      "Отель Астория",
+      "Astoria Hotel SPb"
+    ]
   },
   {
     "name": "Sanatorium Sochi",
@@ -485,7 +540,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Sanatorium guests — luxe room categories",
-    "searchAliases": ["Санаторий Сочи"]
+    "searchAliases": [
+      "Санаторий Сочи"
+    ]
   },
   {
     "name": "Villa Grand Hotel Polyana",
@@ -516,7 +573,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Отель Волга"]
+    "searchAliases": [
+      "Отель Волга"
+    ]
   },
   {
     "name": "Gostinitsa Rossiya Nalchik",
@@ -532,7 +591,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Гостиница Россия Нальчик"]
+    "searchAliases": [
+      "Гостиница Россия Нальчик"
+    ]
   },
   {
     "name": "Biznes-Otel Rossiya Belokuriha",
@@ -548,7 +609,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Бизнес-отель Россия"]
+    "searchAliases": [
+      "Бизнес-отель Россия"
+    ]
   },
   {
     "name": "Sanatorium Revital Park",
@@ -564,7 +627,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Sanatorium guests only",
-    "searchAliases": ["Санаторий Ревиталь Парк"]
+    "searchAliases": [
+      "Санаторий Ревиталь Парк"
+    ]
   },
   {
     "name": "Marton Palace Kaliningrad",
@@ -580,6 +645,486 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests only",
-    "searchAliases": ["Мартон Пэлас", "Marton Pelas"]
+    "searchAliases": [
+      "Мартон Пэлас",
+      "Marton Pelas"
+    ]
+  },
+  {
+    "name": "Hotel Medovaya Adler",
+    "address": "41 Medovaya Street, Adler, Sochi 354340",
+    "latitude": "43.4385000",
+    "longitude": "39.9235000",
+    "city": "Adler",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://broni.travel/hotel-otel-medovaja-adler/rooms/",
+    "sourceQuote": "Broni.travel (Russian): room descriptions list санузел оборудован ванной, биде for Medovaya Hotel Adler",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Отель Медовая"
+    ]
+  },
+  {
+    "name": "Lavicon Hotel Collection",
+    "address": "10 Novorossiyskoye Highway, Nebug 352831",
+    "latitude": "44.1650000",
+    "longitude": "38.9830000",
+    "city": "Nebug",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://lavinn.broni.travel/rooms/",
+    "sourceQuote": "Broni.travel (Russian): Lavikon rooms list ванной, душем, биде и феном; suites have bidet in both bathrooms",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Лавикон",
+      "Lavicon Nebug"
+    ]
+  },
+  {
+    "name": "KS Klub Hostel Kislovodsk",
+    "address": "91 Kalinina Street, Kislovodsk 357700",
+    "latitude": "43.9055000",
+    "longitude": "42.7165000",
+    "city": "Kislovodsk",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://101hotels.com/main/cities/kislovodsk/hostel_ks_klub.html",
+    "sourceQuote": "101Hotels.com (Russian): guests use shared bathroom with биде and hair dryer at KS Klub hostel",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Guests only"
+  },
+  {
+    "name": "Pulsar Villa Deluxe",
+    "address": "2 Tsimlyanskaya Street, Sirius 354350",
+    "latitude": "43.4050000",
+    "longitude": "39.9550000",
+    "city": "Sirius",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://level.travel/hotels/9161552-Pulsar_Villa_Deluxe",
+    "sourceQuote": "Level.Travel (Russian): all rooms amenities include биде, shower, robes, and slippers at Pulsar Villa Deluxe",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "Sanatorium Izvestiya Adler",
+    "address": "282 Lenina Street, Adler, Sochi 354340",
+    "latitude": "43.4320000",
+    "longitude": "39.9200000",
+    "city": "Adler",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://level.travel/hotels/9026737-Sanatorij_Izvestiya",
+    "sourceQuote": "Level.Travel (Russian): sanatorium room descriptions list с/у с ванной и биде in Acacia building rooms",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Sanatorium guests only",
+    "searchAliases": [
+      "Санаторий Известия"
+    ]
+  },
+  {
+    "name": "Nadezhda i K Hotel",
+    "address": "57 Kirova Street, Novokuznetsk 654000",
+    "latitude": "53.7594000",
+    "longitude": "87.1362000",
+    "city": "Novokuznetsk",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://level.travel/hotels/9109487-Nadezhda_i_K",
+    "sourceQuote": "Level.Travel (Russian): all 14 rooms equipped with shower or bath, биде, hair dryer, and bathrobes",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Надежда и К"
+    ]
+  },
+  {
+    "name": "Park Rodnik Hotel Pyatigorsk",
+    "address": "135 Rodnikovoye Highway, Pyatigorsk 357502",
+    "latitude": "44.0480000",
+    "longitude": "43.0120000",
+    "city": "Pyatigorsk",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/pyatigorsk/park_rodnik/",
+    "sourceQuote": "Sletat.ru (Russian): apartment room listing Санузел: биде, с ванной и душевой кабиной at Park Rodnik",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Парк Родник"
+    ]
+  },
+  {
+    "name": "Ostrova Spa Hotel Sochi",
+    "address": "4 Kurortny Prospekt, Sochi 354000",
+    "latitude": "43.5785000",
+    "longitude": "39.7265000",
+    "city": "Sochi",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/sochi/ostrova_spa-hotel/",
+    "sourceQuote": "Sletat.ru (Russian): multiple room categories list Биде in bathroom amenities at Ostrova Spa Hotel",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Острова Спа"
+    ]
+  },
+  {
+    "name": "Aristocrat Boutique Hotel",
+    "address": "61 Liteyny Prospekt, Saint Petersburg 191025",
+    "latitude": "59.9395000",
+    "longitude": "30.3485000",
+    "city": "Saint Petersburg",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/saint-petersburg/aristocrat_boutique_hotel/",
+    "sourceQuote": "Sletat.ru (Russian): Presidential Suite Санузел: биде, с душем at Aristocrat Boutique Hotel",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Аристократ",
+      "Aristocrat SPb"
+    ]
+  },
+  {
+    "name": "Odisseya Wellness Resort",
+    "address": "37 Lazurnaya Street, Lazarevskoye 354200",
+    "latitude": "43.9040000",
+    "longitude": "39.3320000",
+    "city": "Lazarevskoye",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/lazarevskoye/odisseya_wellness_resort/",
+    "sourceQuote": "Sletat.ru (Russian): rooms have ванная комната с ванной, биде; multiple categories list Биде amenity",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Одиссея Веллнесс Ризот"
+    ]
+  },
+  {
+    "name": "Hotel Onegin Yekaterinburg",
+    "address": "49 Rozy Luxemburg Street, Yekaterinburg 620026",
+    "latitude": "56.8389000",
+    "longitude": "60.5973000",
+    "city": "Yekaterinburg",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/yekaterinburg/onegin/",
+    "sourceQuote": "Sletat.ru (Russian): Romantic room Санузел: биде, с джакузи at Hotel Onegin Yekaterinburg",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Онегин"
+    ]
+  },
+  {
+    "name": "Hotel Arbat Moscow",
+    "address": "12 Plotnikov Lane, Moscow 119002",
+    "latitude": "55.7478000",
+    "longitude": "37.5832000",
+    "city": "Moscow",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://irecommend.ru/content/otlichnaya-gostinitsa-v-tsentre-moskvy-deistvitelno-nedorogo-s-prostornymi-nomerami-vkusnymi",
+    "sourceQuote": "Guest review (iRecommend, Russian): \"Отдельный плюс - просторная ванная комната с биде\" at Hotel Arbat Moscow",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Гостиница Арбат"
+    ]
+  },
+  {
+    "name": "Sochi Marriott Krasnaya Polyana",
+    "address": "1 Vremena Goda Embankment, Esto-Sadok, Sochi 354392",
+    "latitude": "43.6855000",
+    "longitude": "40.2565000",
+    "city": "Krasnaya Polyana",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://broni.travel/hotel-otel-marriott-krasnaya-polyana/",
+    "sourceQuote": "Broni.travel (Russian): multiple suite and deluxe room listings list Санузел: биде with bathtub and shower at Sochi Marriott Krasnaya Polyana",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Марриотт Красная Поляна"
+    ]
+  },
+  {
+    "name": "Bor Wellness Complex",
+    "address": "Okinzovo Village, Bor Territory, Domodedovo 142073",
+    "latitude": "55.2680000",
+    "longitude": "37.7160000",
+    "city": "Domodedovo, Moscow Oblast",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://broni.travel/hotel-ok-bor/rooms/standart-2-komn-4-mest-otel/",
+    "sourceQuote": "Broni.travel (Russian): Standard and luxe hotel rooms include отдельный санузел с биде at Bor wellness complex",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Resort guests only",
+    "searchAliases": [
+      "ОК Бор",
+      "Бор УДП РФ"
+    ]
+  },
+  {
+    "name": "Hotel Dvor Podznoeva Pskov",
+    "address": "2/2 Oktyabrsky Prospekt, Pskov 180000",
+    "latitude": "57.8196000",
+    "longitude": "28.3316000",
+    "city": "Pskov",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://broni.travel/hotel-otel-dvor-podznoeva-glavnyj-korpus-pskov/rooms/nomer-polulyuks--s-zavtrakom-/",
+    "sourceQuote": "Broni.travel (Russian): semi-luxe room bathroom includes ванна с гидромассажем, биде at Hotel Dvor Podznoeva",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Двор Подзноева"
+    ]
+  },
+  {
+    "name": "Hotel Na Tverskoy Saratov",
+    "address": "53 Tverskaya Street, Saratov 410015",
+    "latitude": "51.5789000",
+    "longitude": "46.0346000",
+    "city": "Saratov",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://101hotels.com/opinions/hotel/saratov/gostinitsa_na_tverskoy.html",
+    "sourceQuote": "Guest review on 101Hotels.com (Russian): \"Не многие гостиницы такой ценовой категории могут похвастаться наличием биде\" at Hotel Na Tverskoy Saratov",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "На Тверской"
+    ]
+  },
+  {
+    "name": "Dolphin Resort Sochi",
+    "address": "19 Chernomorskaya Street, Sochi 354000",
+    "latitude": "43.5803000",
+    "longitude": "39.7208000",
+    "city": "Sochi",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://level.travel/hotels/9023731-Dolphin_Resort",
+    "sourceQuote": "Level.Travel (Russian): all rooms include ванная комната: большая ванна, биде, фен at Dolphin Resort Sochi",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "Demetra Art Hotel",
+    "address": "11 Vosstaniya Street, Saint Petersburg 191036",
+    "latitude": "59.9441000",
+    "longitude": "30.3608000",
+    "city": "Saint Petersburg",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/saint-petersburg/demetra_art_hotel/",
+    "sourceQuote": "Sletat.ru (Russian): Deluxe room Санузел: биде, с ванной at Demetra Art Hotel Saint Petersburg",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Деметра Арт"
+    ]
+  },
+  {
+    "name": "Ambassador Hotel Saint Petersburg",
+    "address": "64 Rimsky-Korsakov Avenue, Saint Petersburg 190000",
+    "latitude": "59.9286000",
+    "longitude": "30.3089000",
+    "city": "Saint Petersburg",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/saint-petersburg/ambassador/",
+    "sourceQuote": "Sletat.ru (Russian): Studio room amenities list Биде and Ванна at Ambassador Hotel Saint Petersburg",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Studio category rooms; hotel guests only",
+    "searchAliases": [
+      "Амбассадор"
+    ]
+  },
+  {
+    "name": "Taleon Imperial Hotel",
+    "address": "15 Nevsky Prospekt, Saint Petersburg 191186",
+    "latitude": "59.9356000",
+    "longitude": "30.3142000",
+    "city": "Saint Petersburg",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://broni.travel/hotel-otel-taleon-imperial-hotel-talion-imperial-sankt-peterburg/",
+    "sourceQuote": "Broni.travel (Russian): multiple room categories list Санузел: биде with bathtub and shower at Taleon Imperial Hotel",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Талион Империал"
+    ]
+  },
+  {
+    "name": "Grumant Resort and SPA",
+    "address": "Grumant Village, Shchyokino District, Tula Oblast 301247",
+    "latitude": "54.0050000",
+    "longitude": "37.5120000",
+    "city": "Tula Oblast",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://broni.travel/hotel-park-otel-grumant-resort-spa-grumant/rooms/polulyuks-business-2-mestnyy-2-komnatnyy/",
+    "sourceQuote": "Broni.travel (Russian): Business semi-luxe and other room categories list Санузел: биде at Grumant Resort & SPA",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Resort guests only",
+    "searchAliases": [
+      "Грумант"
+    ]
+  },
+  {
+    "name": "Hotel MIO Adler",
+    "address": "1A Chkalova Street, Adler, Sochi 354364",
+    "latitude": "43.4308000",
+    "longitude": "39.9235000",
+    "city": "Adler, Sochi",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://broni.travel/hotel-otel-mio-mio-adler/",
+    "sourceQuote": "Broni.travel (Russian): Standard and other room categories list Санузел: биде, с душем at Hotel MIO Adler",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Мио Адлер"
+    ]
+  },
+  {
+    "name": "Sanatorium Istok Essentuki",
+    "address": "23 Andzhiyevskogo Street, Essentuki 357600",
+    "latitude": "44.0440000",
+    "longitude": "42.8640000",
+    "city": "Essentuki",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/yessentuki/istok/",
+    "sourceQuote": "Sletat.ru (Russian): Suite room Санузел: биде, с ванной at Sanatorium Istok Essentuki",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Sanatorium guests only",
+    "searchAliases": [
+      "Истокъ"
+    ]
+  },
+  {
+    "name": "Hotel Baden-Baden Astrakhan",
+    "address": "191B Admiral Nakhimov Street, Astrakhan 414018",
+    "latitude": "46.3580000",
+    "longitude": "48.0420000",
+    "city": "Astrakhan",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/astrakhan/baden-baden/",
+    "sourceQuote": "Sletat.ru (Russian): Luxe room Санузел: биде, с душевой кабиной at Hotel Baden-Baden Astrakhan",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "Sanatorium Akvamarin Anapa",
+    "address": "42 Gorkogo Street, Vityazevo, Anapa 353417",
+    "latitude": "44.9890000",
+    "longitude": "37.2560000",
+    "city": "Anapa",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/anapa/sanatoriy_akvamarin/",
+    "sourceQuote": "Sletat.ru (Russian): two-room luxe bathrooms include душем, биде, феном at Sanatorium Akvamarin Anapa",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Sanatorium guests only",
+    "searchAliases": [
+      "Аквамарин"
+    ]
+  },
+  {
+    "name": "Park-Hotel Kulibin",
+    "address": "121 Maksima Gorkogo Street, Nizhny Novgorod 603006",
+    "latitude": "56.3152460",
+    "longitude": "44.0050880",
+    "city": "Nizhny Novgorod",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/nizhny_novgorod/park-otel_kulibin/",
+    "sourceQuote": "Sletat.ru (Russian): Classic and Presidential luxe bathrooms equipped with джакузи and биде at Park-Hotel Kulibin",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Luxe categories; hotel guests only",
+    "searchAliases": [
+      "Кулибин"
+    ]
+  },
+  {
+    "name": "Author Boutique Hotel",
+    "address": "9A Vladimirsky Prospekt, Saint Petersburg 191025",
+    "latitude": "59.9285000",
+    "longitude": "30.3470000",
+    "city": "Saint Petersburg",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://sletat.ru/russia/saint_petersburg/author_boutique_hotel/",
+    "sourceQuote": "Sletat.ru (Russian): Improved and suite rooms have ванная комната with ванной and биде at Author Boutique Hotel",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Improved room category and above; hotel guests only",
+    "searchAliases": [
+      "Автор"
+    ]
   }
 ]

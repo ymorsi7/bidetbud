@@ -79,6 +79,18 @@ const MANUAL = {
     latitude: '41.4504216',
     longitude: '-72.8228924',
   },
+  'Maison Albar Hotels Le Pont-Neuf': {
+    address: '23-25 Rue du Pont Neuf, 75001 Paris',
+    city: 'Paris',
+    latitude: '48.858889',
+    longitude: '2.341667',
+  },
+  'Maison Albar – Imperator': {
+    address: '3 Quai de la Fontaine, 30000 Nîmes',
+    city: 'Nîmes',
+    latitude: '43.838889',
+    longitude: '4.360556',
+  },
   'Islamic Center of Riverside': {
     latitude: '33.9788570',
     longitude: '-117.3344300',

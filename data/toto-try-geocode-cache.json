@@ -1,0 +1,4928 @@
+{
+  "An der Eickesmühle 49, 41238 Mönchengladbach, Mönchengladbach, Germany": {
+    "lat": "51.1569154",
+    "lon": "6.4556366"
+  },
+  "Am gebackenen Stein 2, 61250 Usingen, Usingen, Germany": {
+    "lat": "50.3285617",
+    "lon": "8.5258803"
+  },
+  "Am Dörrenhof 2, 85131 Pollenfeld, Pollenfeld, Germany": {
+    "lat": "48.9118477",
+    "lon": "11.1980385"
+  },
+  "Queenstown Road 41b, SW8 3RE London, London, UK": null,
+  "Baslerstrasse 118, 8048 Zürich, Zürich, Switzerland": {
+    "lat": "47.3883089",
+    "lon": "8.4913203"
+  },
+  "Jöhlingerstr. 10, 76356 Weingarten, Weingarten, Germany": {
+    "lat": "49.0520377",
+    "lon": "8.5357555"
+  },
+  "Kirchheimer Str. 139, 73265 Dettingen unter Teck, Dettingen unter Teck, Germany": {
+    "lat": "48.6203514",
+    "lon": "9.4534475"
+  },
+  "Goethestr. 59, 68753 Waghäusel, Waghäusel, Germany": {
+    "lat": "49.2476248",
+    "lon": "8.5320421"
+  },
+  "Im Bauertle 1, 79238 Ehrenkirchen, Ehrenkirchen, Germany": {
+    "lat": "47.9203165",
+    "lon": "7.7254379"
+  },
+  "Pforzheimer Str. 15, 76227 Karlsruhe, Karlsruhe, Germany": {
+    "lat": "49.0025666",
+    "lon": "8.4670364"
+  },
+  "Gutenbergstr. 6, 86399 Bobingen, Bobingen, Germany": {
+    "lat": "48.2670698",
+    "lon": "10.8448290"
+  },
+  "An der Spielleite 17a, 97294 Unterpleichfeld, Unterpleichfeld, Germany": {
+    "lat": "49.8650594",
+    "lon": "10.0412281"
+  },
+  "Ahorner Berg 2, 96482 Ahorn, Ahorn, Germany": {
+    "lat": "50.2421615",
+    "lon": "10.9613518"
+  },
+  "Imostr. 2, 91350 Gremsdorf, Gremsdorf, Germany": {
+    "lat": "49.6932654",
+    "lon": "10.8346251"
+  },
+  "Brumersweg 52, 89233 Neu-Ulm, Neu-Ulm, Germany": {
+    "lat": "48.4105868",
+    "lon": "10.0248544"
+  },
+  "Sassenberger Straße 73, 48231 Warendorf, Warendorf, Germany": {
+    "lat": "51.9563213",
+    "lon": "8.0051070"
+  },
+  "Bahnhofstr. 56, 88316 Isny im Allgäu, Isny im Allgäu, Germany": {
+    "lat": "47.6972260",
+    "lon": "10.0430582"
+  },
+  "Backeswiese 3, 56412 Welschneudorf, Welschneudorf, Germany": {
+    "lat": "50.3698656",
+    "lon": "7.7933335"
+  },
+  "Borsigstraße 21, 48599 Gronau, Gronau, Germany": {
+    "lat": "52.2089699",
+    "lon": "7.0556059"
+  },
+  "Burgstr. 17, 74357 Bönnigheim, Bönnigheim, Germany": {
+    "lat": "49.0385812",
+    "lon": "9.0907596"
+  },
+  "Wettringer Str. 12, 97488 Wettringen, Wettringen, Germany": {
+    "lat": "50.1679322",
+    "lon": "10.4160812"
+  },
+  "Max-Planck-Str. 4, 89407 Dillingen, Dillingen, Germany": {
+    "lat": "48.5842972",
+    "lon": "10.5093187"
+  },
+  "Albrecht-Berblinger-Str. 11, 89231 Neu-Ulm, Neu-Ulm, Germany": {
+    "lat": "48.3851167",
+    "lon": "10.0237469"
+  },
+  "Margetshöchheimer Str. 93, 97299 Zell am Main, Zell am Main, Germany": {
+    "lat": "49.8214039",
+    "lon": "9.8671895"
+  },
+  "Am Weidensatz 16, 76756 Bellheim, Bellheim, Germany": {
+    "lat": "49.1945825",
+    "lon": "8.3001976"
+  },
+  "Zepziger Weg 1d, 06406 Bernburg, Bernburg, Germany": {
+    "lat": "51.7831427",
+    "lon": "11.7497150"
+  },
+  "Wegelinstr. 12, 50354 Hürh, Hürh, Germany": null,
+  "Ronsdorfer Str. 135, 40233 Düsseldorf, Düsseldorf, Germany": {
+    "lat": "51.2146382",
+    "lon": "6.8168269"
+  },
+  "Brückes 30+32, 55545 Bad Kreuznach, Bad Kreuznach, Germany": {
+    "lat": "49.8501125",
+    "lon": "7.8622323"
+  },
+  "Carl-Zeiss-Str. 11, 77656 Offenburg, Offenburg, Germany": {
+    "lat": "48.4367314",
+    "lon": "7.9278642"
+  },
+  "Altenburger Straße 76, 04626 Schmölln, Schmölln, Germany": {
+    "lat": "50.9072269",
+    "lon": "12.3692705"
+  },
+  "Am Schänzel 2, 76829 Landau, Landau, Germany": {
+    "lat": "49.2088384",
+    "lon": "8.1166229"
+  },
+  "Im Schleif 10/1, 77855 Achern, Achern, Germany": null,
+  "Siemensstraße 13, 46359 Heiden, Heiden, Germany": {
+    "lat": "51.8219903",
+    "lon": "6.9520247"
+  },
+  "Parallelweg 33, 4878 AH Etten-Leur, Etten-Leur, Netherlands": {
+    "lat": "51.5631538",
+    "lon": "4.6032048"
+  },
+  "Chiemsee Str. 11, 83093 Bad Endorf, Bad Endorf, Germany": {
+    "lat": "47.9031667",
+    "lon": "12.3055463"
+  },
+  "Dottinger Str. 36/1, 72525 Münsingen, Münsingen, Germany": {
+    "lat": "48.4149714",
+    "lon": "9.4822691"
+  },
+  "Herrschaftsgartenstraße 27 - 29, 71032 Böblingen, Böblingen, Germany": {
+    "lat": "48.6846991",
+    "lon": "9.0215791"
+  },
+  "Castroper Str. 192-194, 44791 Bochum, Bochum, Germany": {
+    "lat": "51.4851143",
+    "lon": "7.2283405"
+  },
+  "Wiesseer Str. 126, 83707 Bad Wiessee, Bad Wiessee, Germany": {
+    "lat": "47.7007035",
+    "lon": "11.6841798"
+  },
+  "Türmergasse 12, 69115 Heidelberg, Heidelberg, Germany": {
+    "lat": "49.3777820",
+    "lon": "8.6679605"
+  },
+  "Fabrikstraße 4A, 01683 Nossen, Nossen, Germany": {
+    "lat": "51.0634372",
+    "lon": "13.2976467"
+  },
+  "Watzlikstr.10, 92526 Oberviechtach, Oberviechtach, Germany": {
+    "lat": "49.4579782",
+    "lon": "12.4157550"
+  },
+  "Ziegelstr. 4, 76185 Karlsruhe, Karlsruhe, Germany": {
+    "lat": "49.0071386",
+    "lon": "8.3598115"
+  },
+  "Emil-Richter-Str. 1, 94036 Passau, Passau, Germany": {
+    "lat": "48.5579376",
+    "lon": "13.3817862"
+  },
+  "Sattling 3, 94577 Winzer, Winzer, Germany": {
+    "lat": "48.7006895",
+    "lon": "13.1131495"
+  },
+  "Grove Road Bladon, OX20 1FX Woodstock, Woodstock, UK": null,
+  "Westerfeldweg 3, 83043 Bad Aibling, Bad Aibling, Germany": {
+    "lat": "47.8740178",
+    "lon": "11.9997450"
+  },
+  "Aßlarer Str. 1, 35586 Wetzlar, Wetzlar, Germany": {
+    "lat": "50.5795426",
+    "lon": "8.4901814"
+  },
+  "Römerstraße 23, 87654 Eggenthal, Eggenthal, Germany": {
+    "lat": "47.9130824",
+    "lon": "10.5105928"
+  },
+  "Irlmauth 2a, 93055 Regensburg, Regensburg, Germany": {
+    "lat": "49.0114539",
+    "lon": "12.1599272"
+  },
+  "Amberger Str. 9, 92431 Neunburg, Neunburg, Germany": {
+    "lat": "49.3464271",
+    "lon": "12.3771869"
+  },
+  "Bunsenstr. 4, 64293 Darmstadt, Darmstadt, Germany": {
+    "lat": "49.8886222",
+    "lon": "8.6214058"
+  },
+  "Attentalstraße 4, 75045 Walzbachtal, Walzbachtal, Germany": {
+    "lat": "49.0253409",
+    "lon": "8.5731015"
+  },
+  "Wildstr. 18, 47053 Duisburg, Duisburg, Germany": {
+    "lat": "51.4194731",
+    "lon": "6.7875441"
+  },
+  "Gewerbering 34, 91341 Röttenbach, Röttenbach, Germany": {
+    "lat": "49.6587519",
+    "lon": "10.9168244"
+  },
+  "Am Krebsbach 2E, 79241 Ihringen, Ihringen, Germany": {
+    "lat": "48.0370708",
+    "lon": "7.6430991"
+  },
+  "Oppauer Str. 81, 67069 Ludwigshafen, Ludwigshafen, Germany": {
+    "lat": "49.5308241",
+    "lon": "8.3917785"
+  },
+  "Josef-Deuber-Str. 24, 72393 Burladingen, Burladingen, Germany": {
+    "lat": "48.3609890",
+    "lon": "9.1441441"
+  },
+  "Heinkelstr. 5, 67346 Speyer, Speyer, Germany": {
+    "lat": "49.3108316",
+    "lon": "8.4444062"
+  },
+  "Jakob-Fugger-Str. 1, 54595 Prüm, Prüm, Germany": {
+    "lat": "50.2157126",
+    "lon": "6.4422613"
+  },
+  "Niewisch 2, 22848 Norderstedt, Norderstedt, Germany": {
+    "lat": "53.6635660",
+    "lon": "9.9757555"
+  },
+  "Mühlenweg 24, 7532 Litzelsdorf, Litzelsdorf, Austria": {
+    "lat": "47.2123987",
+    "lon": "16.1619135"
+  },
+  "Untere Dorfstraße 69, 8472 Obervogau, Obervogau, Austria": {
+    "lat": "46.7341488",
+    "lon": "15.5826116"
+  },
+  "Westring 5, 4600 Wels, Wels, Austria": {
+    "lat": "48.1498888",
+    "lon": "13.9851911"
+  },
+  "Mannspergerstr. 22, 70619 Stuttgart, Stuttgart, Germany": {
+    "lat": "48.7464987",
+    "lon": "9.2371336"
+  },
+  "Altstadt 4, 6143 Mühlbachl, Mühlbachl, Austria": {
+    "lat": "47.1374937",
+    "lon": "11.4524781"
+  },
+  "Odenwaldring 8, 68723 Schwetzingen, Schwetzingen, Germany": {
+    "lat": "49.3795080",
+    "lon": "8.5857876"
+  },
+  "Robert-Bosch-Str. 1-3, 55232 Alzey, Alzey, Germany": {
+    "lat": "49.7523924",
+    "lon": "8.1364750"
+  },
+  "Sportplatzweg 15, 6414 Mieming, Mieming, Austria": {
+    "lat": "47.2984656",
+    "lon": "10.9804213"
+  },
+  "Stuttgarter Str. 53, 70825 Korntal-Münchingen, Korntal-Münchingen, Germany": {
+    "lat": "48.8535942",
+    "lon": "9.0944964"
+  },
+  "Birkenallee 1, 85452 Moosinning, Moosinning, Germany": {
+    "lat": "48.2782764",
+    "lon": "11.8421773"
+  },
+  "Gewerbering 38, 91341 Röttenbach, Röttenbach, Germany": {
+    "lat": "49.6588476",
+    "lon": "10.9156721"
+  },
+  "Bucherstraße 31, 89195 Staig, Staig, Germany": {
+    "lat": "48.3032037",
+    "lon": "10.0031154"
+  },
+  "Robert Hesse Str. 3, 30827 Garbsen, Garbsen, Germany": {
+    "lat": "52.4271606",
+    "lon": "9.6227712"
+  },
+  "Hertichstr. 53, 71206 Leonberg, Leonberg, Germany": {
+    "lat": "48.7859938",
+    "lon": "8.9994820"
+  },
+  "Fichtenweg 2, 99098 Erfurt, Erfurt, Germany": {
+    "lat": "51.0006501",
+    "lon": "11.0907363"
+  },
+  "Am Autobahnkreuz 2a, 74248 Ellhofen, Ellhofen, Germany": {
+    "lat": "49.1435480",
+    "lon": "9.3098021"
+  },
+  "Amselweg 5, 68766 Hockenheim, Hockenheim, Germany": {
+    "lat": "49.3158264",
+    "lon": "8.5612412"
+  },
+  "August-Horch-Str. 24, 55129 Mainz-Hechtsheim, Mainz-Hechtsheim, Germany": {
+    "lat": "49.9603226",
+    "lon": "8.2511313"
+  },
+  "Im Wang 25, 87634 Obergünzburg, Obergünzburg, Germany": {
+    "lat": "47.8376951",
+    "lon": "10.4282476"
+  },
+  "Frühlingsstraße 7, 97502 Euerbach-Obbach, Euerbach-Obbach, Germany": {
+    "lat": "50.0754717",
+    "lon": "10.0949184"
+  },
+  "Industriestr. 26, 78647 Trossingen, Trossingen, Germany": {
+    "lat": "48.0746966",
+    "lon": "8.6113678"
+  },
+  "Welbhäuser Weg 3, 97258 Gollhofen, Gollhofen, Germany": {
+    "lat": "49.5659244",
+    "lon": "10.1926284"
+  },
+  "Bahnhofstr. 17, 86983 Lechbruck am See, Lechbruck am See, Germany": {
+    "lat": "47.6976961",
+    "lon": "10.7936230"
+  },
+  "Rudolf-Diesel-Str. 28, 97424 Schweinfurt, Schweinfurt, Germany": {
+    "lat": "50.0340612",
+    "lon": "10.2415752"
+  },
+  "Schützenstr. 2, 97318 Kitzingen, Kitzingen, Germany": {
+    "lat": "49.7376432",
+    "lon": "10.1537278"
+  },
+  "Max-Eyth-Str. 12, 89415 Lauingen, Lauingen, Germany": {
+    "lat": "48.5795470",
+    "lon": "10.4337737"
+  },
+  "Willy-Brandt-Str. 20, 97877 Wertheim / Main, Wertheim / Main, Germany": {
+    "lat": "49.7561515",
+    "lon": "9.4962853"
+  },
+  "Rappenweg 21, 42329 Wuppertal, Wuppertal, Germany": {
+    "lat": "51.2197874",
+    "lon": "7.0671459"
+  },
+  "Am Sandbuckel 4, 68809 Neulußheim, Neulußheim, Germany": {
+    "lat": "49.2862334",
+    "lon": "8.5122819"
+  },
+  "Bahnhofstr. 51-53, 97215 Uffenheim, Uffenheim, Germany": {
+    "lat": "49.5484822",
+    "lon": "10.2392531"
+  },
+  "Steinbuckelweg 12, 72293 Glatten, Glatten, Germany": {
+    "lat": "48.4407609",
+    "lon": "8.5059642"
+  },
+  "Eichbergstr. 1, 91186 Büchenbach-Götzenreuth, Büchenbach-Götzenreuth, Germany": null,
+  "Etzelstr. 25, 74076 Heilbronn, Heilbronn, Germany": {
+    "lat": "49.1517671",
+    "lon": "9.2181091"
+  },
+  "Gewerbepark Hügelmühle, 91174 Spalt, Spalt, Germany": {
+    "lat": "49.1682881",
+    "lon": "10.9657392"
+  },
+  "Langendorfer Str. 35, 06667 Weißenfels, Weißenfels, Germany": {
+    "lat": "51.1916348",
+    "lon": "11.9690149"
+  },
+  "Holger-Crafoord-Str. 31, 72379 Hechingen, Hechingen, Germany": {
+    "lat": "48.3503597",
+    "lon": "8.9820839"
+  },
+  "An der Becke 11, 45527 Hattingen, Hattingen, Czech Republic": null,
+  "Auf der Staig 9, 88422 Bad Buchau, Bad Buchau, Germany": {
+    "lat": "48.0672680",
+    "lon": "9.6098563"
+  },
+  "Noordervaart 127, 2012 NH Haarlem, Haarlem, Netherlands": null,
+  "Industrieweg 15, 9501 CR Stadskanaal, Stadskanaal, Netherlands": null,
+  "Gewerbestr. 5, 08233 Treuen, Treuen, Germany": {
+    "lat": "50.5502846",
+    "lon": "12.2849475"
+  },
+  "In der Hagenbeck 37, 45143 Essen, Essen, Germany": {
+    "lat": "51.4562324",
+    "lon": "6.9669697"
+  },
+  "Daimlerstr. 24, 71083 Herrenberg, Herrenberg, Germany": {
+    "lat": "48.6026478",
+    "lon": "8.8708976"
+  },
+  "Ohrestr. 16-18, 39124 Magdeburg, Magdeburg, Germany": {
+    "lat": "52.1571950",
+    "lon": "11.6582583"
+  },
+  "Iserlohner Landstraße 163, 58706 Menden, Menden, Germany": {
+    "lat": "51.4194813",
+    "lon": "7.7920423"
+  },
+  "Wisselsheimer Hauptstraße 20, 61231 Bad Nauheim, Bad Nauheim, Germany": {
+    "lat": "50.3752728",
+    "lon": "8.7650204"
+  },
+  "Münchener Str. 16, 82131 Gauting, Gauting, Germany": {
+    "lat": "48.0660670",
+    "lon": "11.3844707"
+  },
+  "Frechenrieder Str. 28, 87776 Sontheim, Sontheim, Germany": {
+    "lat": "48.0046152",
+    "lon": "10.3571188"
+  },
+  "Zum Finkenberg 22, 31629 Estorf, Estorf, Germany": {
+    "lat": "52.5936005",
+    "lon": "9.1548768"
+  },
+  "Gewerbegebiet Morgensonne 10, 07580 Braunichswalde, Braunichswalde, Germany": {
+    "lat": "50.7950938",
+    "lon": "12.2428350"
+  },
+  "Piechlerstr. 2, 86356 Neusäß, Neusäß, Germany": {
+    "lat": "48.3906365",
+    "lon": "10.8302172"
+  },
+  "Boeierstraat 2, 5423 SP Handel, Handel, Netherlands": null,
+  "Energieweg 5, 5511 AE Knegsel, Knegsel, Netherlands": null,
+  "Auenblick 2, 09221 Neukirchen, Neukirchen, Germany": {
+    "lat": "50.7719984",
+    "lon": "12.8564058"
+  },
+  "140 St John Street, EC1V 4UA London, London, UK": {
+    "lat": "51.5228324",
+    "lon": "-0.1021592"
+  },
+  "Paul-Winter-Str. 20, 86633 Neuburg an der Donau, Neuburg an der Donau, Germany": {
+    "lat": "48.7251718",
+    "lon": "11.1976865"
+  },
+  "Schäftersheimer Str. 54, 97990 Weikersheim, Weikersheim, Germany": {
+    "lat": "49.4880196",
+    "lon": "9.9021223"
+  },
+  "Bensberger Straße 64, 51515 Kürten, Kürten, Germany": {
+    "lat": "51.0067849",
+    "lon": "7.1991941"
+  },
+  "Grotrian-Steinweg-Straße 1A, 38112 Braunschweig, Braunschweig, Germany": {
+    "lat": "52.3167968",
+    "lon": "10.4968579"
+  },
+  "Röcker Feld 3, 31675 Bückeburg, Bückeburg, Germany": {
+    "lat": "52.2611796",
+    "lon": "9.0141951"
+  },
+  "Oosthuizerweg 13, 3911 CX Rhenen, Rhenen, Netherlands": null,
+  "Paul-Pfleiderer-Str. 46, 92318 Neumarkt, Neumarkt, Germany": {
+    "lat": "49.2560389",
+    "lon": "11.4583416"
+  },
+  "Wiedemannstraße 1, 31157 Sarstedt, Sarstedt, Germany": {
+    "lat": "52.2493146",
+    "lon": "9.8603930"
+  },
+  "Brauweiler Str. 96, 50859 Köln, Köln, Germany": {
+    "lat": "50.9480058",
+    "lon": "6.8270859"
+  },
+  "Reckendorfer Weg 32, 96161 Gerach, Gerach, Germany": {
+    "lat": "50.0280306",
+    "lon": "10.8098748"
+  },
+  "Im Michelreis 20, 72124 Pliezhausen, Pliezhausen, Germany": {
+    "lat": "48.5606022",
+    "lon": "9.1703156"
+  },
+  "Bremer Str. 5, 65760 Eschborn, Eschborn, Germany": {
+    "lat": "50.1370865",
+    "lon": "8.5687641"
+  },
+  "Gewerbestraße 5, 86875 Waal, Waal, Germany": {
+    "lat": "47.9965112",
+    "lon": "10.7693674"
+  },
+  "Zum Rabenfels 2, 86643 Rennertshofen-Hütting, Rennertshofen-Hütting, Germany": {
+    "lat": "48.7990001",
+    "lon": "11.1122159"
+  },
+  "Hinrichsdorfer Str. 5, 18146 Rostock, Rostock, Germany": {
+    "lat": "54.1092261",
+    "lon": "12.1597108"
+  },
+  "Robert-Bosch-Str. 11, 88450 Berkheim, Berkheim, Germany": {
+    "lat": "48.0484616",
+    "lon": "10.0796888"
+  },
+  "Oberer Luß 3, 89155 Erbach, Erbach, Germany": {
+    "lat": "48.3312194",
+    "lon": "9.9052137"
+  },
+  "An der Schwärze 1, 88317 Aichstetten, Aichstetten, Germany": {
+    "lat": "47.8890411",
+    "lon": "10.0495474"
+  },
+  "Irsinger Str. 3, 86825 Bad Wörishofen, Bad Wörishofen, Germany": {
+    "lat": "48.0078868",
+    "lon": "10.5980263"
+  },
+  "Buchenring 25 - 29, 21272 Egestorf, Egestorf, Germany": {
+    "lat": "53.1960118",
+    "lon": "10.0766617"
+  },
+  "Kitzberger Feld 22, 85405 Nandlstadt, Nandlstadt, Germany": {
+    "lat": "48.5274671",
+    "lon": "11.8018788"
+  },
+  "Dorfstraße 16, 48480 Spelle, Spelle, Germany": {
+    "lat": "52.3575324",
+    "lon": "7.4479343"
+  },
+  "Urfeyerstr. 24, 53894 Mechernich, Mechernich, Germany": {
+    "lat": "50.5436029",
+    "lon": "6.6378344"
+  },
+  "Knickchaussee 1, 27356 Rotenburg / Wümme, Rotenburg / Wümme, Germany": {
+    "lat": "53.0959502",
+    "lon": "9.4040365"
+  },
+  "Fürstenrieder Str. 38, 80686 München, München, Germany": {
+    "lat": "48.1382249",
+    "lon": "11.5027423"
+  },
+  "Gewerbezentrum 9, 64732 Bad König OT Zell, Bad König OT Zell, Germany": null,
+  "Eislebener Str. 63, 06126 Halle, Halle, Germany": {
+    "lat": "51.4833685",
+    "lon": "11.8975091"
+  },
+  "Borgfelder Str. 19, 20537 Hamburg, Hamburg, Germany": {
+    "lat": "53.5540175",
+    "lon": "10.0297007"
+  },
+  "Petersbrunner Str. 8a, 82319 Starnberg, Starnberg, Germany": {
+    "lat": "48.0026810",
+    "lon": "11.3530908"
+  },
+  "Kirchendemenreuth 4, 92665 Kirchendemenreuth, Kirchendemenreuth, Germany": {
+    "lat": "49.7771801",
+    "lon": "12.0919340"
+  },
+  "Loipertshausener Str. 2, 85301 Sünzhausen, Sünzhausen, Germany": {
+    "lat": "48.5202347",
+    "lon": "11.6579642"
+  },
+  "Wilhelmstr. 130, 89518 Heidenheim, Heidenheim, Germany": {
+    "lat": "48.6801246",
+    "lon": "10.1320741"
+  },
+  "Degernpoint G 2, 85368 Moosburg, Moosburg, Germany": {
+    "lat": "48.4691100",
+    "lon": "11.9636633"
+  },
+  "Hebbelstraße 1-5, 37412 Herzberg am Harz, Herzberg am Harz, Germany": {
+    "lat": "51.6503722",
+    "lon": "10.3431681"
+  },
+  "Nelkenweg 11, 71144 Steinenbronn, Steinenbronn, Germany": {
+    "lat": "48.6621770",
+    "lon": "9.1203164"
+  },
+  "Bürgermeister-Fleischmann Str. 24-26, 91781 Weißenburg, Weißenburg, Germany": {
+    "lat": "49.0271114",
+    "lon": "10.9655613"
+  },
+  "Untertorstr. 31, 97834 Birkenfeld-Billingshausen, Birkenfeld-Billingshausen, Germany": {
+    "lat": "49.8715543",
+    "lon": "9.7193257"
+  },
+  "Woltorfer Str. 121, 31224 Peine, Peine, Germany": {
+    "lat": "52.3196426",
+    "lon": "10.2537165"
+  },
+  "Erlanger Str. 6, 90542 Eckenthal, Eckenthal, Germany": null,
+  "Franz-Grashof-Straße 6-8, 68199 Mannheim, Mannheim, Germany": {
+    "lat": "49.4576822",
+    "lon": "8.5064221"
+  },
+  "Sankt-Peter-Str. 9, 97535 Brebersdorf, Brebersdorf, Germany": {
+    "lat": "50.0489679",
+    "lon": "10.0730198"
+  },
+  "Milanstr. 3, 04435 Leipzig-Radefeld, Leipzig-Radefeld, Germany": null,
+  "Hofstr. 2, 63589 Linsengericht, Linsengericht, Germany": {
+    "lat": "50.1903352",
+    "lon": "9.1988452"
+  },
+  "Dannenkamp 12, 22869 Schenefeld, Schenefeld, Germany": {
+    "lat": "53.5945629",
+    "lon": "9.8271135"
+  },
+  "Ilsfelder Str. 12, 74354 Besigheim-Ottmarsheim, Besigheim-Ottmarsheim, Germany": {
+    "lat": "49.0163113",
+    "lon": "9.2035271"
+  },
+  "Marienstraße 62- 64, 95028 Hof, Hof, Germany": {
+    "lat": "50.3155697",
+    "lon": "11.9129568"
+  },
+  "Carl-Zeiss-Str. 7, 72250 Freudenstadt, Freudenstadt, Germany": {
+    "lat": "48.4673695",
+    "lon": "8.4407225"
+  },
+  "Pellheimer Straße 1A, 85244 Röhrmoos, Röhrmoos, Germany": {
+    "lat": "48.3180215",
+    "lon": "11.4123095"
+  },
+  "Hindenburgstr. 39, 73450 Neresheim, Neresheim, Germany": {
+    "lat": "48.7927847",
+    "lon": "10.2552551"
+  },
+  "Forsthausstr. 1, 85540 Haar, Haar, Germany": {
+    "lat": "48.1040376",
+    "lon": "11.7353134"
+  },
+  "Siemensstr. 1, 71149 Bondorf, Bondorf, Germany": {
+    "lat": "48.5232033",
+    "lon": "8.8383940"
+  },
+  "Ketschenbacher Straße 110, 96465 Neustadt bei Coburg, Neustadt bei Coburg, Germany": {
+    "lat": "50.3311008",
+    "lon": "11.1023478"
+  },
+  "Johannisstr. 80, 90419 Nürnberg, Nürnberg, Germany": {
+    "lat": "49.4600937",
+    "lon": "11.0588560"
+  },
+  "Alte Bahnhofstr. 15, 08606 Oelsnitz, Oelsnitz, Germany": {
+    "lat": "50.4134788",
+    "lon": "12.1642511"
+  },
+  "Nordring 69, 90409 Nürnberg, Nürnberg, Germany": {
+    "lat": "49.4698973",
+    "lon": "11.0811774"
+  },
+  "Waltgeristr. 69A, 32049 Herford, Herford, Germany": {
+    "lat": "52.1262852",
+    "lon": "8.6801950"
+  },
+  "Am Dörrenhof 25, 85131 Preith, Preith, Germany": {
+    "lat": "48.9123559",
+    "lon": "11.1976533"
+  },
+  "Jahnstr. 34, 86931 Prittriching, Prittriching, Germany": {
+    "lat": "48.2020058",
+    "lon": "10.9312398"
+  },
+  "Fokkerstr. 1, 85399 Hallbergmoos, Hallbergmoos, Germany": {
+    "lat": "48.3278157",
+    "lon": "11.7351616"
+  },
+  "Thüringer Str. 13, 61279 Grävenwiesbach, Grävenwiesbach, Germany": {
+    "lat": "50.3841633",
+    "lon": "8.4644247"
+  },
+  "Justus-von-Liebig Str. 8, 76684 Östringen, Östringen, Germany": {
+    "lat": "49.2149774",
+    "lon": "8.6952276"
+  },
+  "Gewerbepark 3, 91238 Offenhausen, Offenhausen, Germany": {
+    "lat": "49.4490858",
+    "lon": "11.4030612"
+  },
+  "Külsheimer Str. 10, 91438 Bad Windsheim, Bad Windsheim, Germany": {
+    "lat": "49.5124869",
+    "lon": "10.4176144"
+  },
+  "Am Steinbach 12, 94496 Ortenburg, Ortenburg, Germany": {
+    "lat": "48.5257067",
+    "lon": "13.2384870"
+  },
+  "Industriestr. 10, 46419 Isselburg, Isselburg, Germany": {
+    "lat": "51.8387692",
+    "lon": "6.4617823"
+  },
+  "Heinrich-Lueckenkoetter-Str. 19, 59302 Oelde, Oelde, Germany": {
+    "lat": "51.8391646",
+    "lon": "8.1621418"
+  },
+  "Alt-Schönow 4, 14165 Berlin, Berlin, Germany": {
+    "lat": "52.4070228",
+    "lon": "13.2659506"
+  },
+  "Teuringer Str. 47, 88045 Friedrichshafen, Friedrichshafen, Germany": {
+    "lat": "47.6749454",
+    "lon": "9.4798946"
+  },
+  "Moosacher Weg 3, 85604 Zorneding, Zorneding, Germany": {
+    "lat": "48.0809491",
+    "lon": "11.8313102"
+  },
+  "Ludwigstr. 6, 97816 Lohr am Main, Lohr am Main, Germany": {
+    "lat": "49.9951358",
+    "lon": "9.5708318"
+  },
+  "Neustädter Str. 40, 92685 Floß, Floß, Germany": {
+    "lat": "49.7245118",
+    "lon": "12.2656788"
+  },
+  "Moosweg 4, 87545 Burgberg, Burgberg, Germany": {
+    "lat": "47.5411803",
+    "lon": "10.2757845"
+  },
+  "Bamberger Straße 10, 96114 Hirschaid, Hirschaid, Germany": {
+    "lat": "49.8178260",
+    "lon": "10.9878903"
+  },
+  "Walberberger Str. 8, 53332 Bornheim, Bornheim, Germany": {
+    "lat": "50.7954447",
+    "lon": "6.9190994"
+  },
+  "Goethestr. 81, 89150 Laichingen, Laichingen, Germany": {
+    "lat": "48.4889536",
+    "lon": "9.7018108"
+  },
+  "Nürnberger Str. 62, 96114 Hirschaid, Hirschaid, Germany": {
+    "lat": "49.8132861",
+    "lon": "10.9943047"
+  },
+  "Raitenbucher Str. 31, 79853 Lenzkirch, Lenzkirch, Germany": {
+    "lat": "47.8636054",
+    "lon": "8.1420132"
+  },
+  "In der Seel 18, 91611 Lehrberg, Lehrberg, Germany": {
+    "lat": "49.3432497",
+    "lon": "10.5017400"
+  },
+  "Buschfeldstr. 88, 51067 Köln, Köln, Germany": {
+    "lat": "50.9739543",
+    "lon": "7.0401878"
+  },
+  "Auholzweg 21c, 89407 Dillingen an der Donau, Dillingen an der Donau, Germany": {
+    "lat": "48.5725330",
+    "lon": "10.4943873"
+  },
+  "Gnas 135, 8342 Gnas, Gnas, Austria": {
+    "lat": "46.8891992",
+    "lon": "15.7926805"
+  },
+  "Niedergasse 42a, 76877 Offenbach, Offenbach, Germany": {
+    "lat": "49.1910997",
+    "lon": "8.1967753"
+  },
+  "Chemnitzer Straße 117, 09212 Limbach, Limbach, Germany": {
+    "lat": "50.8554456",
+    "lon": "12.7765105"
+  },
+  "Ludwig-Erhard-Straße 80, 74564 Crailsheim, Crailsheim, Germany": {
+    "lat": "49.1358922",
+    "lon": "10.0481941"
+  },
+  "Sebastiansweiler Str. 13, 72116 Mössingen Belsen, Mössingen Belsen, Germany": {
+    "lat": "48.3967270",
+    "lon": "9.0283181"
+  },
+  "Mittelstr. 31, 06347 Gerbstedt OT Siersleben, Gerbstedt OT Siersleben, Germany": null,
+  "Priener Str. 1, 83209 Prien/Bachham, Prien/Bachham, Germany": {
+    "lat": "47.8459159",
+    "lon": "12.3168939"
+  },
+  "Münchener Str. 12, 85653 Aying, Aying, Germany": {
+    "lat": "47.9711214",
+    "lon": "11.7770080"
+  },
+  "Friedrich-Mohr-Str 13-15, 56070 Koblenz, Koblenz, Germany": {
+    "lat": "50.3805091",
+    "lon": "7.5725764"
+  },
+  "Alfred-Mozer-Straße 9, 48527 Nordhorn, Nordhorn, Germany": {
+    "lat": "52.4255490",
+    "lon": "7.0355967"
+  },
+  "Holzhauser Str. 25, 83317 Teisendorf, Teisendorf, Germany": {
+    "lat": "47.8537566",
+    "lon": "12.8190438"
+  },
+  "Am Wetterschacht 21, 44534 Lünen, Lünen, Germany": {
+    "lat": "51.6333829",
+    "lon": "7.5023811"
+  },
+  "Plattlinger Straße 52, 94486 Osterhofen, Osterhofen, Germany": {
+    "lat": "48.7061601",
+    "lon": "13.0126374"
+  },
+  "Donnerbachweg 6, 53332 Bornheim Waldorf, Bornheim Waldorf, Germany": {
+    "lat": "50.7666795",
+    "lon": "6.9487263"
+  },
+  "Blumberger Damm 170, 12679 Berlin, Berlin, Germany": {
+    "lat": "52.5482492",
+    "lon": "13.5731202"
+  },
+  "Dösham 68 1/2, 84553 Halsbach, Halsbach, Germany": {
+    "lat": "48.1336839",
+    "lon": "12.6942541"
+  },
+  "Brucker Str. 21, 93149 Nittenau, Nittenau, Germany": {
+    "lat": "49.2030408",
+    "lon": "12.2803314"
+  },
+  "Münsinger Straße 5, 89584 Ehingen, Ehingen, Germany": {
+    "lat": "48.2850509",
+    "lon": "9.7184951"
+  },
+  "Hatschekstr. 16, 69126 Heidelberg, Heidelberg, Germany": {
+    "lat": "49.3632359",
+    "lon": "8.6826819"
+  },
+  "Dresdener Straße 11, 91058 Erlangen, Erlangen, Germany": {
+    "lat": "49.5807711",
+    "lon": "10.9868610"
+  },
+  "Lohe 56, 22941 Bargteheide, Bargteheide, Germany": {
+    "lat": "53.7225024",
+    "lon": "10.2664313"
+  },
+  "Am Schlichtfeld 1, 82541 Münsing, Münsing, Germany": {
+    "lat": "47.9042073",
+    "lon": "11.3810705"
+  },
+  "Bürgermeister-Berger-Straße 2, 92436 Bruck, Bruck, Germany": {
+    "lat": "49.2427723",
+    "lon": "12.3010989"
+  },
+  "Friedrich-Abert-Str. 2b, 97702 Münnerstadt, Münnerstadt, Germany": {
+    "lat": "50.2485719",
+    "lon": "10.1896711"
+  },
+  "Am Isinger Berg 4, 18442 Martensdorf, Martensdorf, Germany": {
+    "lat": "54.2996303",
+    "lon": "12.9374012"
+  },
+  "Steinstr. 51, 51379 Leverkusen, Leverkusen, Germany": {
+    "lat": "51.0637480",
+    "lon": "6.9933443"
+  },
+  "Gabelweg 3, 88046 Friedrichshafen, Friedrichshafen, Germany": {
+    "lat": "47.6717914",
+    "lon": "9.5015519"
+  },
+  "Kiefernweg 15, 52076 Aachen, Aachen, Germany": {
+    "lat": "50.7172583",
+    "lon": "6.1404442"
+  },
+  "Dieselstr.16/1, 72582 Grabenstetten, Grabenstetten, Germany": {
+    "lat": "48.5256915",
+    "lon": "9.4714012"
+  },
+  "Grüninger Str. 5, 70599 Stuttgart, Stuttgart, Germany": {
+    "lat": "48.7214961",
+    "lon": "9.2082081"
+  },
+  "Heinrich-Lanz-Allee 36, 60437 Frankfurt, Frankfurt, Germany": {
+    "lat": "50.1912122",
+    "lon": "8.6514934"
+  },
+  "Im Zwiesel 3, 92318 Neumarkt, Neumarkt, Germany": {
+    "lat": "49.2998559",
+    "lon": "11.4035155"
+  },
+  "Gewerbering Nord 3, 01900 Bretnig, Bretnig, Germany": {
+    "lat": "51.1609589",
+    "lon": "14.0514605"
+  },
+  "Kriegerstr. 26, 68307 Mannheim (Sandhofen), Mannheim (Sandhofen), Germany": {
+    "lat": "49.5455300",
+    "lon": "8.4441732"
+  },
+  "Mühlentannen 2, 49762 Lathen / Ems, Lathen / Ems, Germany": {
+    "lat": "52.8677731",
+    "lon": "7.3335040"
+  },
+  "Bonholzstr. 1, 71111 Waldenbuch, Waldenbuch, Germany": {
+    "lat": "48.6290336",
+    "lon": "9.1363184"
+  },
+  "Am Stillflecken 9, 86609 Donauwörth, Donauwörth, Germany": {
+    "lat": "48.7133403",
+    "lon": "10.7573934"
+  },
+  "Silostr. 52 a, 65929 Frankfurt am Main, Frankfurt am Main, Germany": {
+    "lat": "50.0998045",
+    "lon": "8.5248851"
+  },
+  "Poststraße 22, 09439 Amtsberg OT Dittersdorf, Amtsberg OT Dittersdorf, Germany": null,
+  "Friedrich-Engels-Allee 155, 42285 Wuppertal, Wuppertal, Germany": {
+    "lat": "51.2611115",
+    "lon": "7.1708344"
+  },
+  "Miersdorfer Chaussee 08, 15738 Zeuthen, Zeuthen, Germany": {
+    "lat": "52.3473777",
+    "lon": "13.6237914"
+  },
+  "Eppelheimer Str. 22, 69115 Heidelberg, Heidelberg, Germany": {
+    "lat": "49.4061186",
+    "lon": "8.6631113"
+  },
+  "Hauptstr. 60, 71263 Weil der Stadt, Weil der Stadt, Germany": {
+    "lat": "48.7634757",
+    "lon": "8.8537471"
+  },
+  "Am Stettebach 7, 35083 Wetter, Wetter, Germany": {
+    "lat": "50.9033742",
+    "lon": "8.7371524"
+  },
+  "Am Baggerwerk 1, 49716 Meppen, Meppen, Germany": {
+    "lat": "52.6915070",
+    "lon": "7.3046367"
+  },
+  "Kantonsstrasse 21, 3930 Visp, Visp, Switzerland": {
+    "lat": "46.2950164",
+    "lon": "7.9079144"
+  },
+  "Schlachthausstraße 13, 26506 Norden, Norden, Germany": {
+    "lat": "53.5895216",
+    "lon": "7.2097701"
+  },
+  "Max-Planck-Str. 7, 49661 Cloppenburg, Cloppenburg, Germany": {
+    "lat": "52.8388631",
+    "lon": "8.0713014"
+  },
+  "Narzissenweg 2, 89129 Langenau, Langenau, Germany": {
+    "lat": "48.5003954",
+    "lon": "10.1077533"
+  },
+  "Hörvelsinger Weg 15, 89081 Ulm, Ulm, Germany": {
+    "lat": "48.4257446",
+    "lon": "9.9881255"
+  },
+  "Unterweingartenfeld 2, 76135 Karlsruhe, Karlsruhe, Germany": {
+    "lat": "48.9910363",
+    "lon": "8.3731821"
+  },
+  "August-Horch-Str. 22, 08141 Reinsdorf, Reinsdorf, Germany": {
+    "lat": "50.6887539",
+    "lon": "12.5606163"
+  },
+  "Obere Leimbach 15, 57074 Siegen, Siegen, Germany": {
+    "lat": "50.8468027",
+    "lon": "8.0433111"
+  },
+  "Karlsfeldstr. 15, 76297 Stutensee-Friedrichstal, Stutensee-Friedrichstal, Germany": {
+    "lat": "49.1117695",
+    "lon": "8.4740448"
+  },
+  "Kochstedter Kreisstr. 61, 06847 Dessau, Dessau, Germany": {
+    "lat": "51.8122469",
+    "lon": "12.2215087"
+  },
+  "Neuburger Straße 17, 86564 Brunnen, Brunnen, Germany": {
+    "lat": "48.6447936",
+    "lon": "11.3262726"
+  },
+  "Gökerstr. 45-47, 26384 Wilhelmshaven, Wilhelmshaven, Germany": {
+    "lat": "53.5279552",
+    "lon": "8.1259894"
+  },
+  "Oggersheimer Str. 97, 67227 Frankenthal, Frankenthal, Germany": {
+    "lat": "49.5003349",
+    "lon": "8.3649635"
+  },
+  "Hirschenhausener Straße 3, 86567 Hilgertshausen, Hilgertshausen, Germany": {
+    "lat": "48.4316460",
+    "lon": "11.3537830"
+  },
+  "Wittland 14-18, 24109 Kiel, Kiel, Germany": {
+    "lat": "54.3269073",
+    "lon": "10.0785396"
+  },
+  "Stauseestr. 17, 84130 Dingolfing, Dingolfing, Germany": {
+    "lat": "48.6393115",
+    "lon": "12.4817678"
+  },
+  "Sandstraße 7, 97209 Veitshöchheim, Veitshöchheim, Germany": {
+    "lat": "49.8334722",
+    "lon": "9.8954198"
+  },
+  "Von Behring Str. 2, 76297 Stutensee, Stutensee, Germany": {
+    "lat": "49.0761641",
+    "lon": "8.4615067"
+  },
+  "Cecil-Taylor Ring 21, 68309 Mannheim, Mannheim, Germany": {
+    "lat": "49.5153100",
+    "lon": "8.5509738"
+  },
+  "Bremer Straße 49, 01067 Dresden-Friedrichstadt, Dresden-Friedrichstadt, Germany": {
+    "lat": "51.0609419",
+    "lon": "13.7020561"
+  },
+  "Altnossener Str. 2, 01156 Dresden, Dresden, Germany": {
+    "lat": "51.0415450",
+    "lon": "13.6446395"
+  },
+  "Friesenstr. 20, 26632 Ihlow, Ihlow, Germany": {
+    "lat": "53.4123219",
+    "lon": "7.3746822"
+  },
+  "High Street, SL6 2AQ Bray, Berkshire, Bray, Berkshire, UK": null,
+  "Richard Lehmann Straße 120, 4277 Leipzig, Leipzig, Germany": {
+    "lat": "51.3142585",
+    "lon": "12.3983288"
+  },
+  "Feldmarkstraße 6, 46282 Dorsten, Dorsten, Germany": {
+    "lat": "51.6548208",
+    "lon": "6.9746503"
+  },
+  "Kirchbergstr. 9a, 90613 Großhabersdorf, Großhabersdorf, Germany": {
+    "lat": "49.4134957",
+    "lon": "10.8186110"
+  },
+  "Kleinschmidtstr. 16, 69115 Heidelberg, Heidelberg, Germany": {
+    "lat": "49.4040916",
+    "lon": "8.6869455"
+  },
+  "Obere Wank 6, 87484 Nesselwang, Nesselwang, Germany": {
+    "lat": "47.6167779",
+    "lon": "10.5085352"
+  },
+  "Krugerstraße 3, 1010 Wien, Wien, Austria": {
+    "lat": "48.2041137",
+    "lon": "16.3710880"
+  },
+  "Am Hof 2, 1010 Wien, Wien, Austria": {
+    "lat": "48.2104340",
+    "lon": "16.3684103"
+  },
+  "Schurwaldstr. 19, 73765 Neuhausen, Neuhausen, Germany": {
+    "lat": "48.6903805",
+    "lon": "9.2710562"
+  },
+  "Donaustaufer Str. 172A, 93059 Regensburg, Regensburg, Germany": {
+    "lat": "49.0283265",
+    "lon": "12.1278247"
+  },
+  "Rampenstraße 52-54, 56743 Thür, Thür, Germany": {
+    "lat": "50.3583278",
+    "lon": "7.2811773"
+  },
+  "Emscherstr. 56a, 45891 Gelsenkirchen, Gelsenkirchen, Germany": {
+    "lat": "51.5477683",
+    "lon": "7.0889098"
+  },
+  "Friedrich List Strasse 15, 47178 Dinslaken, Dinslaken, Germany": {
+    "lat": "51.5622551",
+    "lon": "6.7546165"
+  },
+  "Gradner Straße 100, 8055 Graz, Graz, Austria": {
+    "lat": "47.0211888",
+    "lon": "15.4158987"
+  },
+  "Am Sägewerk 11, 68526 Ladenburg, Ladenburg, Germany": {
+    "lat": "49.4826304",
+    "lon": "8.5983926"
+  },
+  "Reilsheimer Weg 1, 69251 Gaiberg, Gaiberg, Germany": {
+    "lat": "49.3650452",
+    "lon": "8.7525167"
+  },
+  "Untere Eulenscheich 24, 69151 Neckargemünd, Neckargemünd, Germany": {
+    "lat": "49.3767031",
+    "lon": "8.7663123"
+  },
+  "Robert-Bosch-Str. 19, 73431 Aalen, Aalen, Germany": {
+    "lat": "48.8247072",
+    "lon": "10.0754234"
+  },
+  "Schleswiger Str. 9, 41068 Mönchengladbach, Mönchengladbach, Germany": {
+    "lat": "51.1956993",
+    "lon": "6.4146859"
+  },
+  "Mühlenweg 4, 97294 Dörfles-Esbach, Dörfles-Esbach, Germany": {
+    "lat": "50.2782485",
+    "lon": "10.9913386"
+  },
+  "Daimlerstraße 13, 71083 Herrenberg, Herrenberg, Germany": {
+    "lat": "48.6023593",
+    "lon": "8.8694721"
+  },
+  "Clemens-August-Straße 8, 59320 Ennigerloh, Ennigerloh, Germany": {
+    "lat": "51.8355305",
+    "lon": "8.0243118"
+  },
+  "Kiran House, 53 Park Royal Road, NW10 7LR London, London, UK": null,
+  "Dorfstraße 24, 47589 Uedem, Uedem, Germany": {
+    "lat": "51.6899940",
+    "lon": "6.2673592"
+  },
+  "Göppersdorfer Str. 82, 09217 Burgstädt, Burgstädt, Germany": {
+    "lat": "50.9051341",
+    "lon": "12.8045111"
+  },
+  "Steinäckernstraße 1, 37671 Höxter-Ottbergen, Höxter-Ottbergen, Germany": {
+    "lat": "51.7108396",
+    "lon": "9.2927341"
+  },
+  "Lahn-Dill-Straße 2, 35236 Breidenbach-Achenbach, Breidenbach-Achenbach, Germany": {
+    "lat": "50.8618354",
+    "lon": "8.3980806"
+  },
+  "Isarstraße 15-17, 46395 Bocholt, Bocholt, Germany": {
+    "lat": "51.8215390",
+    "lon": "6.6190074"
+  },
+  "Rubensstraße 40, 4050 Linz, Linz, Austria": {
+    "lat": "48.2380151",
+    "lon": "14.2751344"
+  },
+  "Schaffeldstr. 92, 46395 Bocholt, Bocholt, Germany": {
+    "lat": "51.8203921",
+    "lon": "6.6027833"
+  },
+  "Hochstadenstr. 23a, 41469 Neuss, Neuss, Germany": {
+    "lat": "51.1442674",
+    "lon": "6.7028329"
+  },
+  "Weinstr. 2, 88161 Lindenberg, Lindenberg, Germany": {
+    "lat": "47.6005054",
+    "lon": "9.8870234"
+  },
+  "Fritz-Müller-Str. 136, 73734 Esslingen, Esslingen, Germany": {
+    "lat": "48.7231578",
+    "lon": "9.3487921"
+  },
+  "Fuchsmühlweg 21, 97688 Bad Kissingen, Bad Kissingen, Germany": {
+    "lat": "50.1703518",
+    "lon": "10.0807918"
+  },
+  "Industriestraße 7, 07907 Schleitz, Schleitz, Germany": null,
+  "Raimunderhof 1, 79809 Weilheim-Brunnadern, Weilheim-Brunnadern, Germany": null,
+  "Güterbahnhofstraße 30, 8371 Glauchau, Glauchau, Germany": {
+    "lat": "50.8251623",
+    "lon": "12.5418781"
+  },
+  "Präsidentstraße 24, 44787 Bochum, Bochum, Germany": {
+    "lat": "51.4867055",
+    "lon": "7.2084284"
+  },
+  "In der Mörschgewanne 16, 67065 Ludwigshafen-Rheingönhem, Ludwigshafen-Rheingönhem, Germany": null,
+  "Robert-Bosch-Str. 14, 74182 Obersulm, Obersulm, Germany": {
+    "lat": "49.1347600",
+    "lon": "9.3611777"
+  },
+  "Parksteiner Str. 53, 92637 Weiden in der Oberpfalz, Weiden in der Oberpfalz, Germany": {
+    "lat": "49.6933824",
+    "lon": "12.1386968"
+  },
+  "Schallershofer Str. 86, 91056 Erlangen, Erlangen, Germany": {
+    "lat": "49.5861816",
+    "lon": "10.9731855"
+  },
+  "Muthgasse 56-68, 1190 Wien, Wien, Austria": {
+    "lat": "48.2459910",
+    "lon": "16.3667466"
+  },
+  "Mariazeller Str. 256, 3100 St. Pölten, St. Pölten, Austria": {
+    "lat": "48.1602276",
+    "lon": "15.6142284"
+  },
+  "Salinenstraße 34, 74177 Bad Friedrichshall, Bad Friedrichshall, Germany": {
+    "lat": "49.2289789",
+    "lon": "9.1991167"
+  },
+  "Zwickauer Straße 54, 04103 Leipzig, Leipzig, Germany": {
+    "lat": "51.3170974",
+    "lon": "12.3943794"
+  },
+  "Grenzstraße 227, 46562 Voerde, Voerde, Germany": {
+    "lat": "51.6165406",
+    "lon": "6.6838066"
+  },
+  "Donauwörther Straße 3a, 09114 Chemnitz, Chemnitz, Germany": {
+    "lat": "50.8587514",
+    "lon": "12.8711728"
+  },
+  "Viehofer Straße 31, 45127 Essen, Essen, Germany": {
+    "lat": "51.4592809",
+    "lon": "7.0131811"
+  },
+  "Frankfurt Flughafen, 60549 Frankfurt, Frankfurt, Germany": {
+    "lat": "50.0539347",
+    "lon": "8.5861683"
+  },
+  "Cadogan Place, SW1X 9PY London, London, UK": {
+    "lat": "51.4983776",
+    "lon": "-0.1586429"
+  },
+  "Herrgottwiesgasse 125, 8020 Graz, Graz, Austria": {
+    "lat": "47.0464904",
+    "lon": "15.4332394"
+  },
+  "Gut Steinberg 1-4, 83666 Waakirchen, Waakirchen, Germany": null,
+  "30 Portman Square, W1H7BH London, London, UK": {
+    "lat": "51.5153584",
+    "lon": "-0.1571926"
+  },
+  "7132 Vals, Vals, Switzerland": {
+    "lat": "46.6164787",
+    "lon": "9.1798454"
+  },
+  "Via Muraccio 142, 6612 Ascona, Ascona, Switzerland": {
+    "lat": "46.1521041",
+    "lon": "8.7927531"
+  },
+  "Stratton Street Mayfair, W1J7LT London, London, UK": {
+    "lat": "51.5067648",
+    "lon": "-0.1431146"
+  },
+  "Beethoven-Straße 21, 8002 Zürich, Zürich, Switzerland": {
+    "lat": "47.3664228",
+    "lon": "8.5360401"
+  },
+  "Straßburger Allee 14, 41812 Erkelenz, Erkelenz, Germany": {
+    "lat": "51.0596498",
+    "lon": "6.3110075"
+  },
+  "252 High Holborn, WC1V7EN London, London, UK": {
+    "lat": "51.5174168",
+    "lon": "-0.1182219"
+  },
+  "6 Waterloo Place, SW1Y 4AN London, London, UK": {
+    "lat": "51.5077406",
+    "lon": "-0.1323879"
+  },
+  "Burggasse 2, 1070 Wien, Wien, Austria": {
+    "lat": "48.2045915",
+    "lon": "16.3565061"
+  },
+  "181 Tooley Street, SE1 2JR London, London, UK": {
+    "lat": "51.5033368",
+    "lon": "-0.0782017"
+  },
+  "Carlos Place, Mayfair, W1K 2AL London, London, UK": {
+    "lat": "51.5104354",
+    "lon": "-0.1495438"
+  },
+  "Maximilianstr. 17, 80539 München, München, Germany": {
+    "lat": "48.1391684",
+    "lon": "11.5819647"
+  },
+  "Oudezijds Voorburgwal 197, 1012 EX Amsterdam, Amsterdam, Netherlands": {
+    "lat": "52.3709275",
+    "lon": "4.8952550"
+  },
+  "16-18 St James’s Place, SW1A 1NJ London, London, UK": {
+    "lat": "51.5056852",
+    "lon": "-0.1405277"
+  },
+  "Bayerstr. 12, 80335 München, München, Germany": {
+    "lat": "48.1395315",
+    "lon": "11.5567982"
+  },
+  "Wendelin-Rauch-Str. 4, 97896 Freudenberg, Freudenberg, Germany": {
+    "lat": "49.7567490",
+    "lon": "9.3248260"
+  },
+  "Im Sichert 20, 74613 Öhringen, Öhringen, Germany": {
+    "lat": "49.1947356",
+    "lon": "9.4788025"
+  },
+  "Rheinberger Str. 361, 47475 Kamp-Lintfort, Kamp-Lintfort, Germany": {
+    "lat": "51.5129658",
+    "lon": "6.5393926"
+  },
+  "Böbinger Straße 52, 73540 Heubach, Heubach, Germany": {
+    "lat": "48.7990466",
+    "lon": "9.9356683"
+  },
+  "Ostendstr. 1, 76337 Waldbronn, Waldbronn, Germany": {
+    "lat": "48.9333913",
+    "lon": "8.4727614"
+  },
+  "Breitenloher Weg 19, 91166 Georgensgmünd, Georgensgmünd, Germany": {
+    "lat": "49.1720450",
+    "lon": "11.0118675"
+  },
+  "Ernst-Abbe Straße 2, 89079 Ulm, Ulm, Germany": {
+    "lat": "48.3537109",
+    "lon": "9.9257076"
+  },
+  "Ferdinandstraße 2, 01662 Meißen, Meißen, Germany": {
+    "lat": "51.1660727",
+    "lon": "13.4930256"
+  },
+  "Barmer Straße 32, 42899 Remscheid, Remscheid, Germany": {
+    "lat": "51.2160898",
+    "lon": "7.2418786"
+  },
+  "Steinkamp 8, 21643 Beckdorf, Beckdorf, Germany": {
+    "lat": "53.4200068",
+    "lon": "9.6105759"
+  },
+  "Bonner Str. 46a/2, 50389 Wesseling, Wesseling, Germany": {
+    "lat": "50.8202249",
+    "lon": "6.9888028"
+  },
+  "Dieks Wall 18-20, 46342 Velen, Velen, Germany": {
+    "lat": "51.8971115",
+    "lon": "7.0032165"
+  },
+  "Delfter Straße 5, 47533 Kleve, Kleve, Germany": {
+    "lat": "51.7724040",
+    "lon": "6.1190111"
+  },
+  "Neue Str. 115, 89073 Ulm, Ulm, Germany": {
+    "lat": "48.3978046",
+    "lon": "9.9971966"
+  },
+  "Baumkirchner Straße 29A, 81673 München, München, Germany": {
+    "lat": "48.1299054",
+    "lon": "11.6308758"
+  },
+  "Eupener Str. 18, 53879 Euskirchen, Euskirchen, Germany": {
+    "lat": "50.6706063",
+    "lon": "6.7695751"
+  },
+  "Mittelstraße 2, 36093 Künzell-Dietershausen, Künzell-Dietershausen, Germany": {
+    "lat": "50.5031085",
+    "lon": "9.7960396"
+  },
+  "Christine-Demmer-Str. 12, 53474 Ahrweiler, Ahrweiler, Germany": {
+    "lat": "50.5473747",
+    "lon": "7.1162072"
+  },
+  "Kölner Straße 89, 53894 Mechernich, Mechernich, Germany": {
+    "lat": "50.6156146",
+    "lon": "6.6522427"
+  },
+  "Birkenhof 1, 54317 Farschweiler, Farschweiler, Germany": {
+    "lat": "49.7236034",
+    "lon": "6.8219135"
+  },
+  "Tuscheider Str. 17, 54597 Roth, Roth, Germany": {
+    "lat": "50.3057397",
+    "lon": "6.3871141"
+  },
+  "Rastenweg 14, 53489 Sinzig, Sinzig, Germany": {
+    "lat": "50.5463460",
+    "lon": "7.2680872"
+  },
+  "Martinstr. 8, 54340 Ensch, Ensch, Germany": {
+    "lat": "49.8244530",
+    "lon": "6.8344144"
+  },
+  "Bahnhofstr. 13, 6380 St. Johann in Tirol, St. Johann in Tirol, Austria": {
+    "lat": "47.5208636",
+    "lon": "12.4310717"
+  },
+  "Fränkische Str. 9, 53229 Bonn, Bonn, Germany": {
+    "lat": "50.7520485",
+    "lon": "7.1539106"
+  },
+  "Rheinbabenstraße 5, 40476 Düsseldorf, Düsseldorf, Germany": {
+    "lat": "51.2463370",
+    "lon": "6.7859042"
+  },
+  "Auf'm Brinke 22, 59872 Meschede, Meschede, Germany": {
+    "lat": "51.3581029",
+    "lon": "8.2584331"
+  },
+  "Beikaule 16, 59929 Brilon, Brilon, Germany": null,
+  "Eisenbahnstr. 13, 76646 Bruchsal, Bruchsal, Germany": {
+    "lat": "49.1207671",
+    "lon": "8.5853439"
+  },
+  "Industriestraße 16, 76646 Bruchsal, Bruchsal, Germany": {
+    "lat": "49.1262760",
+    "lon": "8.5729388"
+  },
+  "Clemensänger Ring 6, 85356 Freising, Freising, Germany": {
+    "lat": "48.3810772",
+    "lon": "11.7556581"
+  },
+  "Gewerbering 5, 83607 Holzkirchen, Holzkirchen, Germany": {
+    "lat": "47.8798899",
+    "lon": "11.7162237"
+  },
+  "Allmannsweilerstr. 80, 88046 Friedrichshafen, Friedrichshafen, Germany": {
+    "lat": "47.6692256",
+    "lon": "9.4983357"
+  },
+  "Schützenstr. 59-61, 88212 Ravensburg, Ravensburg, Germany": {
+    "lat": "47.7949568",
+    "lon": "9.6220424"
+  },
+  "Bahnhofstr. 23, 37691 Boffzen, Boffzen, Germany": {
+    "lat": "51.7584185",
+    "lon": "9.4048242"
+  },
+  "Grambartstr. 30, 30165 Hannover, Hannover, Germany": {
+    "lat": "52.4090759",
+    "lon": "9.7043727"
+  },
+  "Marienhofweg 133-135, 25813 Husum, Husum, Germany": {
+    "lat": "54.4933164",
+    "lon": "9.0680825"
+  },
+  "Heinrich-Seidel-Straße 10, 17192 Waren / Müritz, Waren / Müritz, Germany": {
+    "lat": "53.5200294",
+    "lon": "12.7075797"
+  },
+  "Jacobsrade 3-21, 22962 Siek, Siek, Germany": {
+    "lat": "53.6460012",
+    "lon": "10.2864557"
+  },
+  "In der Hochstedter Ecke 4, 99098 Erfurt Hochstedt, Erfurt Hochstedt, Germany": {
+    "lat": "50.9760316",
+    "lon": "11.1300976"
+  },
+  "Neue Schichtstraße 8, 09366 Stollberg - Niederdorf, Stollberg - Niederdorf, Germany": {
+    "lat": "50.7223750",
+    "lon": "12.7817806"
+  },
+  "Zschochersche Straße 79a, 04229 Leipzig, Leipzig, Germany": {
+    "lat": "51.3246013",
+    "lon": "12.3352226"
+  },
+  "Kötzschenbroder Str. 139, 01139 Dresden, Dresden, Germany": {
+    "lat": "51.0873384",
+    "lon": "13.6791769"
+  },
+  "Föpplstr. 8, 04347 Leipzig, Leipzig, Germany": {
+    "lat": "51.3669455",
+    "lon": "12.4349493"
+  },
+  "Obere Aue 3, 98530 Wichtshausen, Wichtshausen, Germany": {
+    "lat": "50.6015005",
+    "lon": "10.5819033"
+  },
+  "Delitzscher Straße 63, 06112 Halle, Halle, Germany": {
+    "lat": "51.4791674",
+    "lon": "12.0054899"
+  },
+  "Glogauer Str. 1, 01587 Riesa, Riesa, Germany": {
+    "lat": "51.2992791",
+    "lon": "13.2708214"
+  },
+  "Zedtlitzer Dreieck 1, 04552 Borna/OT Zedtlitz, Borna/OT Zedtlitz, Germany": null,
+  "Alleebreite 7-8, 06295 Lutherstadt-Eisleben, Lutherstadt-Eisleben, Germany": {
+    "lat": "51.5134873",
+    "lon": "11.5856931"
+  },
+  "Helmestr. 26, 99734 Nordhausen, Nordhausen, Germany": {
+    "lat": "51.4861527",
+    "lon": "10.8042699"
+  },
+  "Niederkainaer Str. 20, 02625 Bautzen, Bautzen, Germany": {
+    "lat": "51.1903808",
+    "lon": "14.4696435"
+  },
+  "Kamen Karree 19, 59174 Kamen, Kamen, Germany": {
+    "lat": "51.5668942",
+    "lon": "7.6728916"
+  },
+  "Hans-Böckler-Str. 3, 59348 Lüdinghausen, Lüdinghausen, Germany": {
+    "lat": "51.7649983",
+    "lon": "7.4250796"
+  },
+  "Küferstraße 24, 59067 Hamm, Hamm, Germany": {
+    "lat": "51.6659443",
+    "lon": "7.7588931"
+  },
+  "Heuweg 3, 26389 Wilhelmshaven, Wilhelmshaven, Germany": {
+    "lat": "53.5260919",
+    "lon": "8.0647937"
+  },
+  "Nikolaus-Otto-Str. 7a, 59557 Lippstadt, Lippstadt, Germany": {
+    "lat": "51.6519550",
+    "lon": "8.3456017"
+  },
+  "Quickborner Str. 40, 13439 Berlin, Berlin, Germany": {
+    "lat": "52.6015879",
+    "lon": "13.3708060"
+  },
+  "Am Wasserturm 12 B, 44135 Dortmund, Dortmund, Germany": {
+    "lat": "51.5100027",
+    "lon": "7.4772117"
+  },
+  "Baarstraße 39, 58636 Iserlohn, Iserlohn, Germany": {
+    "lat": "51.3818661",
+    "lon": "7.6961593"
+  },
+  "Industriestraße 37, 53721 Siegburg, Siegburg, Germany": {
+    "lat": "50.7993082",
+    "lon": "7.1964918"
+  },
+  "Ritterstr. 5, 47805 Krefeld, Krefeld, Germany": {
+    "lat": "51.3272291",
+    "lon": "6.5794097"
+  },
+  "Rostocker Straße 4, 45770 Marl, Marl, Germany": {
+    "lat": "51.6434084",
+    "lon": "7.0937786"
+  },
+  "Jülicher Str. 425, 52070 Aachen, Aachen, Germany": {
+    "lat": "50.7913362",
+    "lon": "6.1169784"
+  },
+  "Berliner Straße 70, 44143 Dortmund, Dortmund, Germany": {
+    "lat": "51.5231843",
+    "lon": "7.4985303"
+  },
+  "Nünningstr. 1, 45141 Essen, Essen, Germany": {
+    "lat": "51.4693888",
+    "lon": "7.0561888"
+  },
+  "Dingdener Straße 177, 46395 Bocholt, Bocholt, Germany": {
+    "lat": "51.8106686",
+    "lon": "6.6116585"
+  },
+  "Vorgebirgsstraße 86, 53119 Bonn, Bonn, Germany": {
+    "lat": "50.7408236",
+    "lon": "7.0828542"
+  },
+  "Wittenberger Str. 4, 01591 Riesa, Riesa, Germany": {
+    "lat": "51.3286213",
+    "lon": "13.2743535"
+  },
+  "Str. d. Einheit 62, 99734 Nordhausen, Nordhausen, Germany": null,
+  "Schafjückenweg 1, 26180 Rastede, Rastede, Germany": {
+    "lat": "53.2197113",
+    "lon": "8.2416518"
+  },
+  "Christian-Herbst-Straße 15, 21339 Lüneburg, Lüneburg, Germany": {
+    "lat": "53.2706474",
+    "lon": "10.4189889"
+  },
+  "Rudolf-Moos-Str. 4-6, 14482 Potsdam, Potsdam, Germany": {
+    "lat": "52.3844868",
+    "lon": "13.0995597"
+  },
+  "Werner-von-Siemens-Ring 10, 39116 Magdeburg, Magdeburg, Germany": {
+    "lat": "52.0788262",
+    "lon": "11.5796810"
+  },
+  "Auenstraße 3a, 98529 Suhl, Suhl, Germany": {
+    "lat": "50.6086802",
+    "lon": "10.6806736"
+  },
+  "Fasaneninsel 2, 07548 Gera, Gera, Germany": {
+    "lat": "50.8954160",
+    "lon": "12.0676377"
+  },
+  "Keßlerstraße 19, 07745 Jena, Jena, Germany": {
+    "lat": "50.8991314",
+    "lon": "11.5920967"
+  },
+  "Am Pulverschuppen 1-3, 99085 Erfurt, Erfurt, Germany": {
+    "lat": "50.9799209",
+    "lon": "11.0600605"
+  },
+  "Edisonstr. 2, 02625 Bautzen, Bautzen, Germany": {
+    "lat": "51.1641497",
+    "lon": "14.4162602"
+  },
+  "Kauffahrtei 19, 09120 Chemnitz, Chemnitz, Germany": {
+    "lat": "50.8134334",
+    "lon": "12.9057262"
+  },
+  "Falkensteiner Str. 16, 08529 Plauen, Plauen, Germany": {
+    "lat": "50.4957528",
+    "lon": "12.1832084"
+  },
+  "Am Hopfenteich 10, 04420 Markranstädt, Markranstädt, Germany": {
+    "lat": "51.3088290",
+    "lon": "12.2121862"
+  },
+  "Rüschebrinkstraße 15, 44143 Dortmund, Dortmund, Germany": {
+    "lat": "51.5220759",
+    "lon": "7.5205999"
+  },
+  "Manfred-Roth-Straße 21, 90766 Fürth-West, Fürth-West, Germany": {
+    "lat": "49.4848738",
+    "lon": "10.9474622"
+  },
+  "Guten Änger 9, 85356 Freising, Freising, Germany": null,
+  "Giegler-Pascha-Str. 1, 97421 Schweinfurt Hainig, Schweinfurt Hainig, Germany": null,
+  "Ernst-Reuter-Straße 14, 51427 Bergisch Gladbach, Bergisch Gladbach, Germany": {
+    "lat": "50.9546543",
+    "lon": "7.1432529"
+  },
+  "An den Fördertürmen 9, 59075 Hamm, Hamm, Germany": {
+    "lat": "51.6879774",
+    "lon": "7.7655503"
+  },
+  "Dießemer Bruch 83, 47805 Krefeld, Krefeld, Germany": {
+    "lat": "51.3269711",
+    "lon": "6.5906544"
+  },
+  "Vogelsanger Straße 408, 50827 Köln, Köln, Germany": {
+    "lat": "50.9549941",
+    "lon": "6.8892350"
+  },
+  "Graf-Yorck-Str. 11, 19061 Schwerin, Schwerin, Germany": {
+    "lat": "53.5946753",
+    "lon": "11.4312340"
+  },
+  "Hansastraße 120, 44866 Bochum, Bochum, Germany": {
+    "lat": "51.4850192",
+    "lon": "7.1665628"
+  },
+  "Dieselstraße 11, 45661 Recklinghausen, Recklinghausen, Germany": {
+    "lat": "51.5704403",
+    "lon": "7.1984652"
+  },
+  "Ketzerbach 29, 35094 Lahntal, Lahntal, Germany": {
+    "lat": "50.8600819",
+    "lon": "8.7032086"
+  },
+  "Kampweg 9, 26160 Bad Zwischenahn, Bad Zwischenahn, Germany": {
+    "lat": "53.1914094",
+    "lon": "7.9773055"
+  },
+  "Hans-Böckler-Straße 20, 33442 Herzebrock-Clarholz, Herzebrock-Clarholz, Germany": {
+    "lat": "51.8777680",
+    "lon": "8.2181434"
+  },
+  "Marienloher Str. 20, 33104 Paderborn, Paderborn, Germany": {
+    "lat": "51.7417616",
+    "lon": "8.7206014"
+  },
+  "Lise-Meitner-Str. 1, 79211 Denzlingen, Denzlingen, Germany": {
+    "lat": "48.0741333",
+    "lon": "7.8776065"
+  },
+  "Gartenstraße 49, 71560 Sulzbach an der Murr, Sulzbach an der Murr, Germany": {
+    "lat": "49.0016640",
+    "lon": "9.4918681"
+  },
+  "Weberinnenstr. 7, 78467 Konstanz, Konstanz, Germany": {
+    "lat": "47.6715401",
+    "lon": "9.1538604"
+  },
+  "Xantener Straße 99I, 50733 Köln, Köln, Germany": {
+    "lat": "50.9666260",
+    "lon": "6.9665830"
+  },
+  "Haßberg 17 a, 24113 Kiel, Kiel, Germany": {
+    "lat": "54.2976057",
+    "lon": "10.0941592"
+  },
+  "Freiburger Str. 40, 88400 Biberach, Biberach, Germany": {
+    "lat": "48.1074175",
+    "lon": "9.7942954"
+  },
+  "Hessenhofstraße 25, 36154 Hosenfeld, Hosenfeld, Germany": {
+    "lat": "50.5407337",
+    "lon": "9.4981018"
+  },
+  "Rosenheimer Straße 11, 28219 Bremen, Bremen, Germany": {
+    "lat": "53.1087481",
+    "lon": "8.8021122"
+  },
+  "Hörnitzer Str. 5, 02763 Zittau, Zittau, Germany": {
+    "lat": "50.9030085",
+    "lon": "14.7730787"
+  },
+  "Reichenbacher Str. 128a, 08056 Zwickau, Zwickau, Germany": {
+    "lat": "50.7107245",
+    "lon": "12.4710820"
+  },
+  "Professor-Oehler-Str. 11, 40589 Düsseldorf, Düsseldorf, Germany": null,
+  "Rheinbarbenstraße 5, 40476 Düsseldorf, Düsseldorf, Germany": null,
+  "Diebesweg 47, 41065 Mönchengladbach, Mönchengladbach, Germany": {
+    "lat": "51.2080361",
+    "lon": "6.4699341"
+  },
+  "Weizengasse 1, 85354 Freising, Freising, Germany": {
+    "lat": "48.4018380",
+    "lon": "11.7478682"
+  },
+  "Sebastian-Mayr-Str. 1, 86316 Friedberg, Friedberg, Germany": {
+    "lat": "48.3676616",
+    "lon": "10.9564206"
+  },
+  "Nordwall 78, 47798 Krefeld, Krefeld, Germany": {
+    "lat": "51.3359623",
+    "lon": "6.5576428"
+  },
+  "Kreuztaler Str. 7, 57250 Netphen, Netphen, Germany": {
+    "lat": "50.9172291",
+    "lon": "8.0611365"
+  },
+  "Industriestraße 3, 51597 Morsbach, Morsbach, Germany": {
+    "lat": "50.8983185",
+    "lon": "7.7023311"
+  },
+  "Sensenbacher Str. 28a, 57614 Steimel, Steimel, Germany": {
+    "lat": "50.6190903",
+    "lon": "7.6276190"
+  },
+  "Schillerstr. 2, 49811 Lingen, Lingen, Germany": {
+    "lat": "52.5406937",
+    "lon": "7.3468936"
+  },
+  "Doktor-Gottfried-Cremer-Allee 24, 50226 Frechen, Frechen, Germany": null,
+  "Tischlerstraße 9, 26817 Rhauderfehn, Rhauderfehn, Germany": {
+    "lat": "53.1467312",
+    "lon": "7.5601519"
+  },
+  "Stellmacherweg 2, 48480 Lünne, Lünne, Germany": {
+    "lat": "52.4138520",
+    "lon": "7.4326748"
+  },
+  "Grashofstr. 15, 76275 Ettlingen, Ettlingen, Germany": {
+    "lat": "48.9380483",
+    "lon": "8.3673185"
+  },
+  "Pulverweg 1a, 21337 Lüneburg, Lüneburg, Germany": {
+    "lat": "53.2487657",
+    "lon": "10.4213687"
+  },
+  "Achter de Stadt 7, 48619 Heek-Nienborg, Heek-Nienborg, Germany": {
+    "lat": "52.1343189",
+    "lon": "7.1041386"
+  },
+  "Keyserswey 35, 2201 CW Noordwijk, Noordwijk, Netherlands": {
+    "lat": "52.2165455",
+    "lon": "4.4344197"
+  },
+  "Söhren 32, 24232 Schönkirchen, Schönkirchen, Germany": {
+    "lat": "54.3363480",
+    "lon": "10.2090349"
+  },
+  "An der Tagweide 14, 76139 Karlsruhe, Karlsruhe, Germany": {
+    "lat": "49.0236898",
+    "lon": "8.4615162"
+  },
+  "Deichstraße 26, 26789 Leer, Leer, Germany": {
+    "lat": "53.2311588",
+    "lon": "7.4338693"
+  },
+  "Diedenhofener Str. 17, 54294 Trier, Trier, Germany": {
+    "lat": "49.7304398",
+    "lon": "6.6120432"
+  },
+  "Batenburgstr. 14, 44319 Dortmund, Dortmund, Germany": {
+    "lat": "51.5307593",
+    "lon": "7.5797722"
+  },
+  "Meilenstraße 42, 54293 Trier, Trier, Germany": {
+    "lat": "49.8326683",
+    "lon": "6.7071455"
+  },
+  "Carl-Backhaus-Str. 16, 22926 Ahrensburg, Ahrensburg, Germany": {
+    "lat": "53.6804396",
+    "lon": "10.2707925"
+  },
+  "Bahnhofstraße 2, 8480 Mureck, Mureck, Austria": {
+    "lat": "46.7077443",
+    "lon": "15.7716272"
+  },
+  "Mayfarthstr. 14, 60314 Frankfurt am Main, Frankfurt am Main, Germany": {
+    "lat": "50.1086948",
+    "lon": "8.7104676"
+  },
+  "Halterner Str. 83, 45657 Recklinghausen, Recklinghausen, Germany": {
+    "lat": "51.6243339",
+    "lon": "7.1923952"
+  },
+  "Nosenhof 1, 47533 Kleve, Kleve, Germany": {
+    "lat": "51.7822108",
+    "lon": "6.1549594"
+  },
+  "Industriestr. 29, 78559 Gosheim, Gosheim, Germany": {
+    "lat": "48.1388481",
+    "lon": "8.7684227"
+  },
+  "Elisabethstr. 10A, 50226 Frechen, Frechen, Germany": {
+    "lat": "50.9129245",
+    "lon": "6.8195640"
+  },
+  "Adolf-Silverberg-Str. 30, 50181 Bedburg, Bedburg, Germany": {
+    "lat": "50.9886632",
+    "lon": "6.5676823"
+  },
+  "Solferinostr.39a, 41379 Brüggen, Brüggen, Germany": {
+    "lat": "51.2780772",
+    "lon": "6.1875420"
+  },
+  "Römerstraße 412, 47441 Moers, Moers, Germany": {
+    "lat": "51.4407870",
+    "lon": "6.6623777"
+  },
+  "Ihnestraße 22, 58540 Meinerzhagen Valbert, Meinerzhagen Valbert, Germany": {
+    "lat": "51.1200767",
+    "lon": "7.7514130"
+  },
+  "Uellendahler Straße 70-72, 42107 Wuppertal, Wuppertal, Germany": {
+    "lat": "51.2689989",
+    "lon": "7.1488153"
+  },
+  "An der Goymark 17-19, 44263 Dortmund, Dortmund, Germany": {
+    "lat": "51.4758337",
+    "lon": "7.4928562"
+  },
+  "Weinbecker Geist 3, 59227 Ahlen, Ahlen, Germany": {
+    "lat": "51.7928494",
+    "lon": "7.9584528"
+  },
+  "Hauptstr. 65, 53859 Niederkassel, Niederkassel, Germany": {
+    "lat": "50.8150671",
+    "lon": "7.0354979"
+  },
+  "Kruppstraße 44, 70469 Stuttgart, Stuttgart, Germany": {
+    "lat": "48.8173172",
+    "lon": "9.1741961"
+  },
+  "Vonderweg 28B, 7468 DC Enter, Enter, Netherlands": null,
+  "Haverstraat 70, 2153 GB Nieuw-Vennep, Nieuw-Vennep, Netherlands": {
+    "lat": "52.2705489",
+    "lon": "4.6445667"
+  },
+  "Bloemendalerweg 42, 1382 KC Weesp, Weesp, Netherlands": {
+    "lat": "52.3202673",
+    "lon": "5.0252310"
+  },
+  "Heuweg 18, 06886 Lutherstadt-Wittenberg, Lutherstadt-Wittenberg, Germany": {
+    "lat": "51.8836182",
+    "lon": "12.5758483"
+  },
+  "Bergholzstraße 3, 12099 Berlin-Tempelhof, Berlin-Tempelhof, Germany": {
+    "lat": "52.4576745",
+    "lon": "13.4185215"
+  },
+  "Peter-Dornier-Str. 4, 88131 Lindau, Lindau, Germany": {
+    "lat": "47.5497614",
+    "lon": "9.7299081"
+  },
+  "Wittelsbacher Weg 7, 86551 Aichach, Aichach, Germany": {
+    "lat": "48.4644901",
+    "lon": "11.1416251"
+  },
+  "Am Stadion 30, 45659 Recklinghausen, Recklinghausen, Germany": {
+    "lat": "51.5981030",
+    "lon": "7.1921579"
+  },
+  "Diedenhofenerstr. 1K, 54294 Trier, Trier, Germany": {
+    "lat": "49.7311986",
+    "lon": "6.6099673"
+  },
+  "Am Graben 3, 39167 Irxleben, Irxleben, Germany": {
+    "lat": "52.1705487",
+    "lon": "11.4877084"
+  },
+  "Isarstr. 3, 71522 Backnang, Backnang, Germany": {
+    "lat": "48.9159511",
+    "lon": "9.4278197"
+  },
+  "Pass-Thurn-Straße 17, 6380 St. Johann in Tirol, St. Johann in Tirol, Austria": {
+    "lat": "47.5187188",
+    "lon": "12.4151063"
+  },
+  "Hauptstraße 8, 84177 Gottfrieding, Gottfrieding, Germany": {
+    "lat": "48.6504494",
+    "lon": "12.5269429"
+  },
+  "Janshof 6, 50321 Brühl, Brühl, Germany": {
+    "lat": "50.8272880",
+    "lon": "6.9033355"
+  },
+  "Am langen Graben 20, 52353 Düren, Düren, Germany": {
+    "lat": "50.8352867",
+    "lon": "6.4610520"
+  },
+  "Borgergade 17A, 1300 Kopenhagen, Kopenhagen, Denmark": {
+    "lat": "55.6843030",
+    "lon": "12.5853130"
+  },
+  "Am Dorfplatz 4, 99192 Apfelstädt, Apfelstädt, Germany": {
+    "lat": "50.9029333",
+    "lon": "10.8891208"
+  },
+  "Schlettauer Straße 22, 09456 Annaberg Buchholz, Annaberg Buchholz, Germany": {
+    "lat": "50.5669799",
+    "lon": "12.9926444"
+  },
+  "Donaustraße 11, 76437 Rastatt, Rastatt, Germany": {
+    "lat": "48.8398235",
+    "lon": "8.1959296"
+  },
+  "Wullener Feld 12, 58454 Witten, Witten, Germany": {
+    "lat": "51.4567501",
+    "lon": "7.3615440"
+  },
+  "In den Schwarzwiesen 16, 61440 Oberursel, Oberursel, Germany": {
+    "lat": "50.1882280",
+    "lon": "8.5872340"
+  },
+  "Neuer Bahnhof 10 - 12, 54528 Salmtal, Salmtal, Germany": {
+    "lat": "49.9215214",
+    "lon": "6.8363547"
+  },
+  "Lindenweg 3, 85630 Grasbrunn, Grasbrunn, Germany": {
+    "lat": "48.0573722",
+    "lon": "11.7765483"
+  },
+  "Augenseestr. 2, 07381 Pößneck, Pößneck, Germany": {
+    "lat": "50.6988291",
+    "lon": "11.6204090"
+  },
+  "Christian-Schmidt-Straße 11, 07545 Gera, Gera, Germany": {
+    "lat": "50.8711156",
+    "lon": "12.0800475"
+  },
+  "Am Still 11, 98617 Sülzfeld, Sülzfeld, Germany": {
+    "lat": "50.5249437",
+    "lon": "10.3668168"
+  },
+  "Sandäcker 8, 97076 Würzburg, Würzburg, Germany": {
+    "lat": "49.7987764",
+    "lon": "9.9997816"
+  },
+  "Reuther Straße 18, 96272 Hochstadt, Hochstadt, Germany": {
+    "lat": "50.1477583",
+    "lon": "11.1687317"
+  },
+  "Sonnenberg 14, 97332 Volkach, Volkach, Germany": {
+    "lat": "49.8546223",
+    "lon": "10.2313006"
+  },
+  "Blütenstr. 91, 90480 Nürnberg, Nürnberg, Germany": {
+    "lat": "49.4586794",
+    "lon": "11.1329962"
+  },
+  "Georgenstr.12, 92507 Nabburg, Nabburg, Germany": {
+    "lat": "49.4517065",
+    "lon": "12.1809202"
+  },
+  "Gewerbegebiet Ost 13a, 91085 Weisendorf, Weisendorf, Germany": {
+    "lat": "49.6281495",
+    "lon": "10.8383536"
+  },
+  "Im Bodes 4, 97717 Euerdorf, Euerdorf, Germany": {
+    "lat": "50.1488561",
+    "lon": "10.0170393"
+  },
+  "Gewerbering 8, 96253 Untersiemau, Untersiemau, Germany": {
+    "lat": "50.1915538",
+    "lon": "10.9637525"
+  },
+  "Südbahnhofstr.10, 92681 Erbendorf, Erbendorf, Germany": {
+    "lat": "49.8343291",
+    "lon": "12.0576398"
+  },
+  "Am Kalvarienberg 26, 92536 Pfreimd, Pfreimd, Germany": {
+    "lat": "49.4779826",
+    "lon": "12.1926019"
+  },
+  "Aufeld 3 a, 95326 Kulmbach, Kulmbach, Germany": {
+    "lat": "50.1005198",
+    "lon": "11.4041324"
+  },
+  "Carl-Benz-Str. 1+3, 97424 Schweinfurt, Schweinfurt, Germany": {
+    "lat": "50.0364794",
+    "lon": "10.2377558"
+  },
+  "Nürnberger Straße 91, 91220 Schnaittach, Schnaittach, Germany": {
+    "lat": "49.5528799",
+    "lon": "11.3335220"
+  },
+  "Staufer Str. 47, 92318 Neumarkt, Neumarkt, Germany": {
+    "lat": "49.2709400",
+    "lon": "11.4383511"
+  },
+  "Heumarkt 5, 96047 Bamberg, Bamberg, Germany": {
+    "lat": "49.8947530",
+    "lon": "10.8872329"
+  },
+  "Reichsstr. 44, 58840 Plettenberg, Plettenberg, Germany": {
+    "lat": "51.2331439",
+    "lon": "7.8687158"
+  },
+  "Im Entenbad 16a, 79541 Lörrach-Hauingen, Lörrach-Hauingen, Germany": {
+    "lat": "47.6421832",
+    "lon": "7.7015180"
+  },
+  "Stolzhofstr. 7, 81825 München, München, Germany": {
+    "lat": "48.1194878",
+    "lon": "11.6838027"
+  },
+  "Windpassing 16, 94051 Hauzenberg, Hauzenberg, Germany": {
+    "lat": "48.6155237",
+    "lon": "13.6095743"
+  },
+  "Niederndorf 25, 84307 Eggenfelden, Eggenfelden, Germany": {
+    "lat": "48.3857147",
+    "lon": "12.7602661"
+  },
+  "Stahlgruberring 38, 81829 München, München, Germany": {
+    "lat": "48.1339973",
+    "lon": "11.6704408"
+  },
+  "Brauneckweg 4, 84034 Landshut, Landshut, Germany": {
+    "lat": "48.5331910",
+    "lon": "12.1210499"
+  },
+  "Schießstattweg 64, 94032 Passau, Passau, Germany": {
+    "lat": "48.5693219",
+    "lon": "13.4313254"
+  },
+  "Weidach-Siedlung 17, 87471 Durach, Durach, Germany": {
+    "lat": "47.6976945",
+    "lon": "10.3267626"
+  },
+  "Marktstr. 7, 91757 Treuchtlingen-Wettelsheim, Treuchtlingen-Wettelsheim, Germany": {
+    "lat": "48.9814433",
+    "lon": "10.8842682"
+  },
+  "Mühlweg 13, 86653 Monheim, Monheim, Germany": {
+    "lat": "48.8414105",
+    "lon": "10.8594259"
+  },
+  "An der Stemme 2, 91710 Gunzenhausen, Gunzenhausen, Germany": {
+    "lat": "49.1058409",
+    "lon": "10.7585436"
+  },
+  "Graf-Zeppelin-Str. 17, 86899 Landsberg, Landsberg, Germany": {
+    "lat": "48.0712050",
+    "lon": "10.8622256"
+  },
+  "Leutkircherstraße 27, 88239 Wangen i.A, Wangen i.A, Germany": {
+    "lat": "47.6909728",
+    "lon": "9.8376923"
+  },
+  "Rengoldshauser Str. 12, 88662 Überlingen, Überlingen, Germany": {
+    "lat": "47.7758596",
+    "lon": "9.1994386"
+  },
+  "Langbaurghstraße 2, 53842 Troisdorf, Troisdorf, Germany": {
+    "lat": "50.8216491",
+    "lon": "7.1117146"
+  },
+  "Am Kreisel West 14, 56814 Faid, Faid, Germany": {
+    "lat": "50.1514500",
+    "lon": "7.1149508"
+  },
+  "Wilhelm-Röntgen-Straße 23A, 77656 Offenburg, Offenburg, Germany": {
+    "lat": "48.4719943",
+    "lon": "7.9265304"
+  },
+  "Kirchstr. 11a, 78166 Donaueschingen, Donaueschingen, Germany": {
+    "lat": "47.9398250",
+    "lon": "8.5507394"
+  },
+  "Eckenerstraße 4, 78532 Tuttlingen, Tuttlingen, Germany": {
+    "lat": "47.9690565",
+    "lon": "8.7881233"
+  },
+  "Friedrich-Wilhelm-Raiffeisen-Str. 8, 72770 Reutlingen, Reutlingen, Germany": {
+    "lat": "48.4895238",
+    "lon": "9.1559799"
+  },
+  "Hauptstraße 51, 78588 Denkingen, Denkingen, Germany": {
+    "lat": "48.1099196",
+    "lon": "8.7352773"
+  },
+  "Bergäckerstr. 40, 72160 Horb, Horb, Germany": {
+    "lat": "48.4900840",
+    "lon": "8.6536477"
+  },
+  "Macairestraße 16, 78467 Konstanz, Konstanz, Germany": {
+    "lat": "47.6790714",
+    "lon": "9.1469983"
+  },
+  "Gartenweg 19, 72290 Loßburg, Loßburg, Germany": {
+    "lat": "48.4102879",
+    "lon": "8.4539808"
+  },
+  "Niederwaldstraße 2, 79336 Herbolzheim, Herbolzheim, Germany": {
+    "lat": "48.2279508",
+    "lon": "7.7629871"
+  },
+  "Ziegelstadel 14, 88416 Ochsenhausen, Ochsenhausen, Germany": {
+    "lat": "48.0638070",
+    "lon": "9.9361768"
+  },
+  "Bertha-Benz-Straße 3, 72108 Rottenburg, Rottenburg, Germany": {
+    "lat": "48.4826573",
+    "lon": "8.9533662"
+  },
+  "Brunnwiesenstr. 25, 73760 Ostfildern, Ostfildern, Germany": {
+    "lat": "48.7309811",
+    "lon": "9.2414302"
+  },
+  "Am Weingarten 4, 72555 Metzingen, Metzingen, Germany": {
+    "lat": "48.5334910",
+    "lon": "9.3080542"
+  },
+  "Waldmössinger Straße 2, 78733 Aichhalden, Aichhalden, Germany": {
+    "lat": "48.2681586",
+    "lon": "8.4027484"
+  },
+  "Schulstraße 30, 88416 Ochsenhausen, Ochsenhausen, Germany": {
+    "lat": "48.0705593",
+    "lon": "9.9486285"
+  },
+  "Enderwiesenstr. 9, 88069 Tettnang, Tettnang, Germany": {
+    "lat": "47.6595998",
+    "lon": "9.5953433"
+  },
+  "Rupert-App-Straße 5, 88299 Leutkirch, Leutkirch, Germany": {
+    "lat": "47.8383623",
+    "lon": "10.0160434"
+  },
+  "Buchenstr.16, 88099 Neukirch, Neukirch, Germany": {
+    "lat": "47.6564765",
+    "lon": "9.6973199"
+  },
+  "Haid 19, 88299 Leutkirch, Leutkirch, Germany": {
+    "lat": "47.8395092",
+    "lon": "9.9870073"
+  },
+  "Magirusstr. 42, 89077 Ulm, Ulm, Germany": {
+    "lat": "48.3935206",
+    "lon": "9.9637507"
+  },
+  "Hermann-Volz-Str. 40, 88400 Biberach, Biberach, Germany": {
+    "lat": "48.0819260",
+    "lon": "9.7769121"
+  },
+  "Talfinger Str. 3, 89073 Ulm, Ulm, Germany": {
+    "lat": "48.4044359",
+    "lon": "10.0057787"
+  },
+  "Mittelstr. 5, 39343 Hohe Börde, Hohe Börde, Germany": {
+    "lat": "52.1916078",
+    "lon": "11.4534380"
+  },
+  "Lavesstr. 11, 30159 Hannover, Hannover, Germany": {
+    "lat": "52.3734157",
+    "lon": "9.7483287"
+  },
+  "Walpersdorfer Straße 4, 91126 Schwabach, Schwabach, Germany": {
+    "lat": "49.3238310",
+    "lon": "11.0320785"
+  },
+  "Kaiserin-Augusta-Allee 14, 10553 Berlin-Charlottenburg, Berlin-Charlottenburg, Germany": {
+    "lat": "52.5257759",
+    "lon": "13.3148102"
+  },
+  "von-Braun-Str. 17-19, 48683 Ahaus, Ahaus, Germany": {
+    "lat": "52.0785006",
+    "lon": "7.0274432"
+  },
+  "Wilhelmsmühlenweg 61, 12621 Berlin, Berlin, Germany": {
+    "lat": "52.5114170",
+    "lon": "13.5927650"
+  },
+  "Schafhäuser Str. 13-15, 55232 Alzey, Alzey, Germany": {
+    "lat": "49.7513105",
+    "lon": "8.1208777"
+  },
+  "Lietzenburger Str. 49, 10789 Berlin, Berlin, Germany": {
+    "lat": "52.5000781",
+    "lon": "13.3323429"
+  },
+  "Jechtinger Str. 7, 79111 Freiburg, Freiburg, Germany": {
+    "lat": "47.9862367",
+    "lon": "7.7925624"
+  },
+  "Wilhelmstraße 43, 10117 Berlin, Berlin, Czech Republic": null,
+  "Fritz-Schofer-Straße 14, 74321 Bietigheim-Bissingen, Bietigheim-Bissingen, Czech Republic": null,
+  "Alpina-Ring 9, 86807 Buchloe, Buchloe, Germany": {
+    "lat": "48.0307908",
+    "lon": "10.7338419"
+  },
+  "Gewerbehof 1, 46395 Bocholt, Bocholt, Germany": {
+    "lat": "51.8331379",
+    "lon": "6.6236671"
+  },
+  "Dr.- C.- Otto Str. 7, 44809 Bochum, Bochum, Germany": {
+    "lat": "51.4252274",
+    "lon": "7.1592598"
+  },
+  "Fulham High Street 63 - 65, SW6 3JJ Fulham, Fulham, UK": null,
+  "London Road 5-7, AL1 1LA St. Albans, St. Albans, UK": null,
+  "103-105 Regent's Park Road, NW1 8UR London, London, UK": {
+    "lat": "51.5420943",
+    "lon": "-0.1564408"
+  },
+  "Friedberger Landstraße 308, 60389 Frankfurt am Main, Frankfurt am Main, Germany": {
+    "lat": "50.1340364",
+    "lon": "8.6962057"
+  },
+  "Willway House, Woodbridge Road, GU1 1DX Guildford, Guildford, UK": null,
+  "57-59 Alderley Road, SK9 1NZ Wilmslow, Wilmslow, UK": {
+    "lat": "53.3244968",
+    "lon": "-2.2342462"
+  },
+  "Newnham Terrace ,Hercules Road, SE1 7DR London, London, UK": null,
+  "Westbourne Park Road 223 - 225, W11 1EB London, London, UK": {
+    "lat": "51.5176317",
+    "lon": "-0.2017246"
+  },
+  "High Street 60-62, TN1 1XF Tunbridge Wells, Tunbridge Wells, UK": {
+    "lat": "51.1276203",
+    "lon": "0.2608403"
+  },
+  "Pappelweg 1, 39288 Burg, Burg, Germany": {
+    "lat": "52.2488880",
+    "lon": "11.8880747"
+  },
+  "Köbke Straße 31, 9217 Burgstädt, Burgstädt, Germany": {
+    "lat": "50.9105354",
+    "lon": "12.8037455"
+  },
+  "Grünstr. 15, 40212 Düsseldorf, Düsseldorf, Germany": {
+    "lat": "51.2210608",
+    "lon": "6.7808771"
+  },
+  "In Elmau 2, 82493 Krün, Krün, Germany": {
+    "lat": "47.4621412",
+    "lon": "11.1864855"
+  },
+  "Reichenbachstr. 62, 01217 Dresden, Dresden, Germany": {
+    "lat": "51.0313889",
+    "lon": "13.7449917"
+  },
+  "Karolingerstr. 51, 45141 Essen, Essen, Germany": {
+    "lat": "51.4692832",
+    "lon": "7.0177650"
+  },
+  "An der B5 Nr. 22, 25917 Enge Sande, Enge Sande, Germany": {
+    "lat": "54.7265727",
+    "lon": "8.9809116"
+  },
+  "Benrather Straße 7, 40213 Düsseldorf, Düsseldorf, Germany": {
+    "lat": "51.2229630",
+    "lon": "6.7726086"
+  },
+  "Steinhagen 17, 45527 Hattingen, Hattingen, Germany": {
+    "lat": "51.3968848",
+    "lon": "7.1852647"
+  },
+  "Erkrather Str. 341, 40212 Düsseldorf, Düsseldorf, Germany": {
+    "lat": "51.2147423",
+    "lon": "6.8206690"
+  },
+  "Klosterstraße 42, 40211 Düsseldorf, Düsseldorf, Germany": {
+    "lat": "51.2254302",
+    "lon": "6.7860995"
+  },
+  "Adolf-Hoyer-Str. 4, 37079 Göttingen, Göttingen, Germany": {
+    "lat": "51.5448416",
+    "lon": "9.9006726"
+  },
+  "Gaußstraße 37, 90766 Fürth, Fürth, Czech Republic": null,
+  "Gross Kienitzer Landstr. 1, 15831 Gross Kienitz, Gross Kienitz, Germany": {
+    "lat": "52.3276480",
+    "lon": "13.4564503"
+  },
+  "Praßerstraße 26, 01900 Großröhrsdorf, Großröhrsdorf, Germany": {
+    "lat": "51.1383427",
+    "lon": "14.0138353"
+  },
+  "Bornkampsweg 58, 22761 Hamburg, Hamburg, Germany": {
+    "lat": "53.5667797",
+    "lon": "9.9193923"
+  },
+  "Römerstr. 36, 59067 Hamm, Hamm, Germany": {
+    "lat": "51.6988419",
+    "lon": "7.7712186"
+  },
+  "Hauptstraße 13, 19243 Wittendörp, Wittendörp, Germany": {
+    "lat": "53.5833742",
+    "lon": "11.0354983"
+  },
+  "Eriagstr. 11, 85053 Ingolstadt, Ingolstadt, Germany": {
+    "lat": "48.7483272",
+    "lon": "11.4691041"
+  },
+  "Am Brookhafen 14, 25524 Itzehoe, Itzehoe, Germany": {
+    "lat": "53.9179615",
+    "lon": "9.5132762"
+  },
+  "Gertrud-Knebusch-Straße 8, 30167 Hannover, Hannover, Germany": {
+    "lat": "52.3876365",
+    "lon": "9.7286733"
+  },
+  "Friesenstraße 15-19, 30161 Hannover, Hannover, Germany": {
+    "lat": "52.3807071",
+    "lon": "9.7438054"
+  },
+  "Unit 3, Darts Business Park, Topsham, EX3 0QH Devon, Devon, UK": null,
+  "Flutstr. 41, 47533 Kleve, Kleve, Germany": {
+    "lat": "51.7949818",
+    "lon": "6.1391152"
+  },
+  "South Audley Street 45-46, W1K 2PY London, London, UK": {
+    "lat": "51.5103259",
+    "lon": "-0.1519947"
+  },
+  "Fujistr. 2, 47533 Kleve, Kleve, Germany": {
+    "lat": "51.8019157",
+    "lon": "6.1391669"
+  },
+  "Vogelsanger Straße 70, 50823 Köln, Köln, Czech Republic": null,
+  "Wiesenring 25, 07554 Korbußen, Korbußen, Germany": {
+    "lat": "50.8813212",
+    "lon": "12.1642921"
+  },
+  "Industriestr. 18a, 84030 Landshut, Landshut, Germany": {
+    "lat": "48.5574628",
+    "lon": "12.1552156"
+  },
+  "Oskar-von-Miller-Str. 3, 76829 Landau, Landau, Germany": {
+    "lat": "49.2115718",
+    "lon": "8.1210859"
+  },
+  "Turnham Green, W4 1NN London, London, UK": {
+    "lat": "51.4951314",
+    "lon": "-0.2546948"
+  },
+  "Brook Street, W1K 4HR London, London, UK": {
+    "lat": "51.5129586",
+    "lon": "-0.1468865"
+  },
+  "Walsroder Str. 260, 30855 Langenhagen, Langenhagen, Germany": {
+    "lat": "52.4613139",
+    "lon": "9.7404473"
+  },
+  "Deichstraße 30, 26789 Leer, Leer, Germany": {
+    "lat": "53.2333137",
+    "lon": "7.4195855"
+  },
+  "Plauensche Straße 7, 8115 Lichtentanne, Lichtentanne, Germany": null,
+  "Berliner Straße 56, 04105 Leipzig, Leipzig, Czech Republic": null,
+  "Lödlaer Straße 12, 4617 Lödla, Lödla, Germany": null,
+  "Hedwig-Laudien-Ring 45, 67071 Ludwigshafen am Rhein, Ludwigshafen am Rhein, Germany": {
+    "lat": "49.4835218",
+    "lon": "8.3644208"
+  },
+  "Hauptstraße 91, 09212 Limbach-Oberfrohna, Limbach-Oberfrohna, Germany": {
+    "lat": "50.8612739",
+    "lon": "12.8051188"
+  },
+  "Turbinenstraße 25, 68309 Mannheim, Mannheim, Germany": {
+    "lat": "49.5127688",
+    "lon": "8.4977709"
+  },
+  "Johann-Konrad-Schäfer-Str. 10, 35039 Marburg, Marburg, Germany": {
+    "lat": "50.7905482",
+    "lon": "8.7623725"
+  },
+  "Ringstr. 18, 32427 Minden, Minden, Germany": {
+    "lat": "52.2815182",
+    "lon": "8.9027628"
+  },
+  "Alte Sandtrift 35, 32425 Minden, Minden, Germany": {
+    "lat": "52.3000723",
+    "lon": "8.8954128"
+  },
+  "Schützenstr. 7, 88709 Meersburg, Meersburg, Germany": {
+    "lat": "47.6966205",
+    "lon": "9.2686792"
+  },
+  "Baumschulenweg 1, 49716 Meppen, Meppen, Germany": {
+    "lat": "52.6645553",
+    "lon": "7.3004645"
+  },
+  "Ladegaststr. 3, 06217 Merseburg, Merseburg, Germany": {
+    "lat": "51.3792515",
+    "lon": "11.9847162"
+  },
+  "71 Rue de Battenheim, 68170 Rixheim, Rixheim, France": {
+    "lat": "47.7542612",
+    "lon": "7.3964786"
+  },
+  "Gustav-Stresemann-Weg 52, 48155 Münster, Münster, Germany": {
+    "lat": "51.9303956",
+    "lon": "7.6496646"
+  },
+  "Parc d'Activités de la Plaine 223 Avenue de la Plaine, 06250 Mougins, Mougins, France": null,
+  "Rendsburger Str. 80, 24537 Neumünster, Neumünster, Germany": {
+    "lat": "54.0853409",
+    "lon": "9.9794378"
+  },
+  "Fridtjof-Nansen-Weg 10, 48155 Münster, Münster, Germany": {
+    "lat": "51.9332029",
+    "lon": "7.6536574"
+  },
+  "Hünenburg 49, 48165 Münster, Münster, Germany": {
+    "lat": "51.9128024",
+    "lon": "7.6207501"
+  },
+  "Robert-Koch-Str. 23, 22851 Norderstedt, Norderstedt, Germany": {
+    "lat": "53.6897324",
+    "lon": "10.0494386"
+  },
+  "Segeberger Chaussee 35, 22850 Norderstedt, Norderstedt, Germany": {
+    "lat": "53.6828275",
+    "lon": "10.0052012"
+  },
+  "Unter dem Birkenkopf 23, 70197 Stuttgart, Stuttgart, Germany": {
+    "lat": "48.7682563",
+    "lon": "9.1397183"
+  },
+  "Am Huxmühlenbach 7, 49084 Osnabrück, Osnabrück, Czech Republic": null,
+  "Radeberger Straße 6, 01458 Ottendorf-Okrilla, Ottendorf-Okrilla, Germany": {
+    "lat": "51.1873968",
+    "lon": "13.8328833"
+  },
+  "Gülichstr. 12, 75179 Pforzheim, Pforzheim, Germany": {
+    "lat": "48.8760182",
+    "lon": "8.6489146"
+  },
+  "Brückenmühle 43, 36100 Petersberg-Marbach, Petersberg-Marbach, Germany": {
+    "lat": "50.6084441",
+    "lon": "9.7201593"
+  },
+  "Flensburger Straße 5, 25421 Pinneberg, Pinneberg, Germany": {
+    "lat": "53.6731549",
+    "lon": "9.8009399"
+  },
+  "Hauptstraße 96, 08352 Raschau, Raschau, Germany": {
+    "lat": "50.5296633",
+    "lon": "12.8237679"
+  },
+  "Sieghütter Hauptweg 35, 57072 Siegen, Siegen, Germany": {
+    "lat": "50.8832889",
+    "lon": "8.0261995"
+  },
+  "Quantzstraße 67, 37127 Scheden, Scheden, Germany": {
+    "lat": "51.4602297",
+    "lon": "9.7402153"
+  },
+  "Bosteler Feld 2, 21218 Seevetal - Hittfeld, Seevetal - Hittfeld, Germany": null,
+  "Industriestr. 11, 78224 Singen, Singen, Germany": {
+    "lat": "47.7476591",
+    "lon": "8.8493893"
+  },
+  "Herknerstr. 14, 88250 Weingarten, Weingarten, Germany": {
+    "lat": "47.8184149",
+    "lon": "9.6372668"
+  },
+  "Mercatorstr. 13, 46485 Wesel, Wesel, Germany": {
+    "lat": "51.6705055",
+    "lon": "6.6315194"
+  },
+  "Rheingaustr. 74-76, 65203 Wiesbaden, Wiesbaden, Germany": {
+    "lat": "50.0414122",
+    "lon": "8.2176004"
+  },
+  "Marienthaler Straße 134, 8060 Zwickau, Zwickau, Germany": {
+    "lat": "50.7192081",
+    "lon": "12.4520768"
+  },
+  "Brennerstr. 49, 71229 Leonberg, Leonberg, Germany": {
+    "lat": "48.7934873",
+    "lon": "9.0031909"
+  },
+  "Lußhardtstr. 12, 76689 Karlsdorf-Neuthard, Karlsdorf-Neuthard, Germany": {
+    "lat": "49.1474419",
+    "lon": "8.5473529"
+  },
+  "Marylebone Road 1, NW1 4AQ London, London, UK": {
+    "lat": "51.5234636",
+    "lon": "-0.1518619"
+  },
+  "Wilton Place, SW1X 7RL London, London, UK": {
+    "lat": "51.5016929",
+    "lon": "-0.1563901"
+  },
+  "Hagenauerstr. 21a, 65203 Wiesbaden, Wiesbaden, Germany": {
+    "lat": "50.0490985",
+    "lon": "8.2277696"
+  },
+  "Pfnorstraße 11, 64293 Darmstadt, Darmstadt, Germany": {
+    "lat": "49.8874140",
+    "lon": "8.6318386"
+  },
+  "Limburger Str. 47, 65555 Limburg-Offheim, Limburg-Offheim, Germany": {
+    "lat": "50.4077665",
+    "lon": "8.0629669"
+  },
+  "Fröndenberger Str. 88, 58706 Menden, Menden, Germany": {
+    "lat": "51.4501793",
+    "lon": "7.7805871"
+  },
+  "Am Dreispitz 1, 79589 Binzen, Binzen, Germany": {
+    "lat": "47.6260840",
+    "lon": "7.6083387"
+  },
+  "Bamberger Straße 20, 96450 Coburg, Coburg, Germany": {
+    "lat": "50.2512738",
+    "lon": "10.9620043"
+  },
+  "Jadestr. 3a, 26605 Aurich, Aurich, Germany": {
+    "lat": "53.4576079",
+    "lon": "7.5007985"
+  },
+  "Emil-Heeder-Str. 1, 26316 Varel, Varel, Germany": {
+    "lat": "53.3973258",
+    "lon": "8.0975704"
+  },
+  "Am Neubergsweg 4a, 63868 Großwallstadt, Großwallstadt, Germany": {
+    "lat": "49.8797513",
+    "lon": "9.1498344"
+  },
+  "Zweibrückerstr. 136-140, 66953 Pirmasens, Pirmasens, Germany": {
+    "lat": "49.2154710",
+    "lon": "7.5969345"
+  },
+  "Reichenberger Straße 36, 10999 Berlin, Berlin, Germany": {
+    "lat": "52.4971457",
+    "lon": "13.4232918"
+  },
+  "Kronacher Straße 100, 96052 Bamberg, Bamberg, Germany": {
+    "lat": "49.9204390",
+    "lon": "10.9006909"
+  },
+  "Donaustr. 125, 90451 Nürnberg, Nürnberg, Germany": {
+    "lat": "49.4103874",
+    "lon": "11.0544254"
+  },
+  "Leitenäckerweg 6, 97084 Würzburg, Würzburg, Germany": {
+    "lat": "49.7643721",
+    "lon": "9.9370057"
+  },
+  "Brandisstraße 8, 06217 Merseburg, Merseburg, Germany": {
+    "lat": "51.3761489",
+    "lon": "11.9839346"
+  },
+  "Ulanenweg 2, 04758 Oschatz, Oschatz, Germany": {
+    "lat": "51.2912757",
+    "lon": "13.1373373"
+  },
+  "Weidenweg 2, 8580 Köflach, Köflach, Austria": {
+    "lat": "47.0502457",
+    "lon": "15.0717077"
+  },
+  "Friedhofstr. 40, 4020 Linz, Linz, Austria": {
+    "lat": "48.2929805",
+    "lon": "14.3032597"
+  },
+  "Bahnhofstr. 50, 92536 Pfreimd, Pfreimd, Germany": {
+    "lat": "49.4878097",
+    "lon": "12.1718110"
+  },
+  "Paul-Gerhardt-Str. 6, 76646 Bruchsal, Bruchsal, Germany": {
+    "lat": "49.1196298",
+    "lon": "8.5767047"
+  },
+  "Otto-Lilienthal-Str. 6/1, 71034 Böblingen, Böblingen, Germany": {
+    "lat": "48.6861979",
+    "lon": "8.9927610"
+  },
+  "Hanebergstr. 17, 87437 Kempten, Kempten, Germany": {
+    "lat": "47.7120160",
+    "lon": "10.3315924"
+  },
+  "Heiligkreuzer Feld 44, 6060 Hall, Hall, Austria": {
+    "lat": "47.2794101",
+    "lon": "11.4733544"
+  },
+  "F.W. Scherer Str. 40, 5020 Salzburg, Salzburg, Austria": null,
+  "Barnabas-Fink-Str. 2, 6845 Hohenems, Hohenems, Austria": {
+    "lat": "47.3676356",
+    "lon": "9.6694056"
+  },
+  "Nordweg 5, 8141 Premstätten, Premstätten, Austria": {
+    "lat": "46.9698939",
+    "lon": "15.4326335"
+  },
+  "Abelsberg Str. 51, 70188 Stuttgart, Stuttgart, Germany": {
+    "lat": "48.7863431",
+    "lon": "9.2125881"
+  },
+  "Waldemar-Hellmich-Str. 2, 79639 Grenzach-Wyhlen, Grenzach-Wyhlen, Germany": {
+    "lat": "47.5485566",
+    "lon": "7.6703404"
+  },
+  "Schwesterstraße 2-6, 87700 Memmingen, Memmingen, Germany": {
+    "lat": "47.9841327",
+    "lon": "10.1843128"
+  },
+  "Marktplatz 4, 91809 Wellheim, Wellheim, Germany": {
+    "lat": "48.8176824",
+    "lon": "11.0806956"
+  },
+  "Friedenstr. 12, 63927 Bürgstadt, Bürgstadt, Germany": {
+    "lat": "49.7069073",
+    "lon": "9.2663580"
+  },
+  "Im Gewerbepark 26, 93158 Teublitz, Teublitz, Germany": {
+    "lat": "49.2241740",
+    "lon": "12.0948163"
+  },
+  "Lochweg 10, 97318 Kitzingen, Kitzingen, Germany": {
+    "lat": "49.7486148",
+    "lon": "10.1766521"
+  },
+  "Schulze-Delitzsch-Weg 12, 89077 Ulm, Ulm, Germany": {
+    "lat": "48.3604596",
+    "lon": "9.9724222"
+  },
+  "Zerzabelshofer Hauptstr. 45, 90480 Nürnberg, Nürnberg, Germany": {
+    "lat": "49.4445606",
+    "lon": "11.1266014"
+  },
+  "Türkenstr. 28, 80333 München, München, Germany": {
+    "lat": "48.1475320",
+    "lon": "11.5742970"
+  },
+  "Oberfeldstr. 191, 12683 Berlin, Berlin, Germany": {
+    "lat": "52.5147009",
+    "lon": "13.5551024"
+  },
+  "Ragnitzstraße 303, 8047 Kainbach / Graz, Kainbach / Graz, Austria": {
+    "lat": "47.0750644",
+    "lon": "15.5069824"
+  },
+  "Üdersdorfer Str. 3A, 54570 Oberstadfeld, Oberstadfeld, Germany": null,
+  "Graf Bentzel Str.86, 72108 Rottenburg am Neckar, Rottenburg am Neckar, Germany": {
+    "lat": "48.4753474",
+    "lon": "8.9528662"
+  },
+  "Baierstraße 2A, 52428 Jülich, Jülich, Germany": {
+    "lat": "50.9226054",
+    "lon": "6.3590005"
+  },
+  "Altes Pastorat 3, 53947 Nettersheim, Nettersheim, Germany": {
+    "lat": "50.5132005",
+    "lon": "6.6549896"
+  },
+  "Pleysteinplatz 402, 8462 Gamlitz, Gamlitz, Austria": {
+    "lat": "46.7195154",
+    "lon": "15.5502483"
+  },
+  "Friedrichstr. 29, 01067 Dresden, Dresden, Germany": {
+    "lat": "51.0581974",
+    "lon": "13.7216632"
+  },
+  "Wechselstr. 15, 8243 Pinggau, Pinggau, Austria": {
+    "lat": "47.4469179",
+    "lon": "16.0675565"
+  },
+  "Am Kreuzbach 2, 91083 Baiersdorf, Baiersdorf, Germany": {
+    "lat": "49.6702462",
+    "lon": "11.0437084"
+  },
+  "Großenhainer Straße 34, 01097 Dresden, Dresden, Germany": {
+    "lat": "51.0743157",
+    "lon": "13.7348020"
+  },
+  "Flenklweg 14, 94139 Breitenberg, Breitenberg, Germany": {
+    "lat": "48.6905020",
+    "lon": "13.7940562"
+  },
+  "Paul-Kauzmann-Winkel 4, 87600 Kaufbeuren, Kaufbeuren, Germany": {
+    "lat": "47.8721030",
+    "lon": "10.5998981"
+  },
+  "Langensteiner Str. 2, 38820 Halberstadt, Halberstadt, Germany": {
+    "lat": "51.8866523",
+    "lon": "11.0299232"
+  },
+  "Hildesheimer Straße 20, 31137 Hildesheim, Hildesheim, Germany": {
+    "lat": "52.1574444",
+    "lon": "9.9170161"
+  },
+  "Rudolf-Diesel-Str. 16, 71397 Leutenbach, Leutenbach, Germany": {
+    "lat": "48.9064930",
+    "lon": "9.4116306"
+  },
+  "Im Fisserhook 7a, 46395 Bocholt, Bocholt, Germany": {
+    "lat": "51.8156738",
+    "lon": "6.5803644"
+  },
+  "Maria-Probst-Str. 35, 80930 Garching bei München, Garching bei München, Germany": null,
+  "Schulstr. 10, 46325 Borken, Borken, Germany": {
+    "lat": "51.8128711",
+    "lon": "6.9034996"
+  },
+  "Angerlohstraße 15, 80997 München, München, Germany": {
+    "lat": "48.1845139",
+    "lon": "11.4723909"
+  },
+  "Glescher Str. 7, 50126 Bergheim, Bergheim, Germany": {
+    "lat": "50.9619745",
+    "lon": "6.6102612"
+  },
+  "Robert-Bosch-Str. 8, 72160 Horb-Bildechingen, Horb-Bildechingen, Germany": {
+    "lat": "48.4634305",
+    "lon": "8.7142019"
+  },
+  "Gerhardstraße 21, 24105 Kiel, Kiel, Germany": {
+    "lat": "54.3334296",
+    "lon": "10.1353969"
+  },
+  "Gautinger Str. 51, 82152 Krailling, Krailling, Germany": {
+    "lat": "48.0942139",
+    "lon": "11.4124670"
+  },
+  "Bichlachweg 53, 6370 Kitzbühel, Kitzbühel, Austria": {
+    "lat": "47.4670862",
+    "lon": "12.3740893"
+  },
+  "Schillerstr. 54, 73312 Geislingen an der Steige, Geislingen an der Steige, Germany": {
+    "lat": "48.6084282",
+    "lon": "9.8425859"
+  },
+  "Edigheimer Straße 9a, 67227 Frankenthal, Frankenthal, Germany": {
+    "lat": "49.5340401",
+    "lon": "8.3588335"
+  },
+  "Kohlhunden 4, 87616 Marktoberdorf, Marktoberdorf, Germany": {
+    "lat": "47.7534371",
+    "lon": "10.6237585"
+  },
+  "Poggenweg 16/17, 17489 Greifswald, Greifswald, Germany": {
+    "lat": "54.0885467",
+    "lon": "13.3499441"
+  },
+  "Am Langenhorster Bahnhof 42 a, 48607 Ochtrup, Ochtrup, Germany": {
+    "lat": "52.2073984",
+    "lon": "7.2250308"
+  },
+  "Dorfstr. 14, 6123 Terfens, Terfens, Austria": {
+    "lat": "47.3234312",
+    "lon": "11.6448324"
+  },
+  "Dresdner Chaussee 43, 03130 Spremberg, Spremberg, Germany": null,
+  "Heinrich-Hertz-Str.12, 41516 Grevenbroich, Grevenbroich, Germany": {
+    "lat": "51.1331095",
+    "lon": "6.6149692"
+  },
+  "Schlachthausstr. 37, 89312 Günzburg, Günzburg, Germany": {
+    "lat": "48.4573204",
+    "lon": "10.2746329"
+  },
+  "Lübecker Landstraße 32, 23701 Eutin, Eutin, Germany": {
+    "lat": "54.1266383",
+    "lon": "10.6270040"
+  },
+  "Marienplatz 4, 89426 Wittislingen, Wittislingen, Germany": {
+    "lat": "48.6185836",
+    "lon": "10.4154492"
+  },
+  "22 Park Lane, N9 9BE London, London, UK": {
+    "lat": "51.5055929",
+    "lon": "-0.1498249"
+  },
+  "Hedanstraße 2, 97084 Würzburg, Würzburg, Germany": {
+    "lat": "49.7624082",
+    "lon": "9.9448875"
+  },
+  "Oerlinghauser Straße 99, 33758 Schloß Holte-Stukenbrock, Schloß Holte-Stukenbrock, Germany": {
+    "lat": "51.9196495",
+    "lon": "8.6142057"
+  },
+  "Dechant-Thaller-Str. 37, 8430 Leibnitz, Leibnitz, Austria": {
+    "lat": "46.7877732",
+    "lon": "15.5399662"
+  },
+  "Osnabrücker Str. 59, 49434 Neuenkirchen-Vörden, Neuenkirchen-Vörden, Germany": {
+    "lat": "52.4742823",
+    "lon": "8.0859652"
+  },
+  "Herweghstr. 2-6, 15732 Schulzendorf, Schulzendorf, Germany": {
+    "lat": "52.3551258",
+    "lon": "13.5940532"
+  },
+  "Stückenstraße 72, 22081 Hamburg, Hamburg, Germany": {
+    "lat": "53.5793874",
+    "lon": "10.0483415"
+  },
+  "Haller Str. 236, 33334 Gütersloh, Gütersloh, Germany": {
+    "lat": "51.9549405",
+    "lon": "8.3982742"
+  },
+  "Markstraße 265, 44799 Bochum, Bochum, Germany": {
+    "lat": "51.4481255",
+    "lon": "7.2363293"
+  },
+  "Auland Gstoag 123, 6103 Reith bei Seefeld, Reith bei Seefeld, Austria": {
+    "lat": "47.3157400",
+    "lon": "11.1987092"
+  },
+  "Gersdorf 154, 8212 Gersdorf, Gersdorf, Austria": {
+    "lat": "46.8530615",
+    "lon": "15.2447699"
+  },
+  "An der Tauge 13, 07389 Ranis, Ranis, Germany": {
+    "lat": "50.6653204",
+    "lon": "11.5775954"
+  },
+  "Weinstr. 7, 35510 Butzbach, Butzbach, Germany": {
+    "lat": "50.4008704",
+    "lon": "8.6716454"
+  },
+  "Am Neuteich 1A, 09212 Limbach-Oberfrohna, Limbach-Oberfrohna, Germany": {
+    "lat": "50.8664619",
+    "lon": "12.7739200"
+  },
+  "Bajuwarenstr. 141, 81825 München, München, Germany": {
+    "lat": "48.1236925",
+    "lon": "11.6662815"
+  },
+  "An der Eßseite 185, 48599 Gronau, Gronau, Germany": {
+    "lat": "52.1992810",
+    "lon": "7.0545220"
+  },
+  "Industriestr. West 11, 02943 Weißwasser, Weißwasser, Germany": {
+    "lat": "51.4900705",
+    "lon": "14.6561622"
+  },
+  "Victor-Slotosch-Straße 25, 60388 Frankfurt/Bergen-Enkheim, Frankfurt/Bergen-Enkheim, Germany": {
+    "lat": "50.1424892",
+    "lon": "8.7436580"
+  },
+  "Minnesheimstraße 41, 5023 Salzburg, Salzburg, Austria": {
+    "lat": "47.8138302",
+    "lon": "13.0737908"
+  },
+  "Ostendstr. 189, 90482 Nürnberg, Nürnberg, Germany": {
+    "lat": "49.4581722",
+    "lon": "11.1260574"
+  },
+  "Quellenweg 17, 75331 Engelsbrand, Engelsbrand, Germany": {
+    "lat": "48.8291057",
+    "lon": "8.6523096"
+  },
+  "Lindener Straße 7, 38300 Wolfenbüttel, Wolfenbüttel, Germany": {
+    "lat": "52.1617761",
+    "lon": "10.5460710"
+  },
+  "Anne-Jenfeldt-Str. 6, 22113 Oststeinbek, Oststeinbek, Germany": null,
+  "Alte Landstraße 32, 32108 Bad Salzuflen, Bad Salzuflen, Germany": {
+    "lat": "52.0493212",
+    "lon": "8.7969947"
+  },
+  "Am Spaltmannsfeld 3, 46485 Wesel, Wesel, Germany": {
+    "lat": "51.6626054",
+    "lon": "6.6451392"
+  },
+  "Baptist-Kraus-Str. 12, 92665 Altenstadt a.d.WN, Altenstadt a.d.WN, Germany": null,
+  "Karpfenweg 17, 76189 Karlsruhe, Karlsruhe, Germany": {
+    "lat": "49.0013708",
+    "lon": "8.3347821"
+  },
+  "Reupelsdorfer Weg 11, 97355 Kleinlangheim, Kleinlangheim, Czech Republic": null,
+  "Am Moosberg 3, 87666 Pforzen, Pforzen, Germany": {
+    "lat": "47.9340844",
+    "lon": "10.6069027"
+  },
+  "Vogesenstraße 59, 76461 Muggensturm, Muggensturm, Germany": {
+    "lat": "48.8789549",
+    "lon": "8.2853767"
+  },
+  "Schwabenstraße 18, 97775 Burgsinn, Burgsinn, Germany": {
+    "lat": "50.1494221",
+    "lon": "9.6386820"
+  },
+  "Geilenkirchener Straße 41, 52525 Heinsberg, Heinsberg, Germany": {
+    "lat": "51.0551183",
+    "lon": "6.0935874"
+  },
+  "Kannengießerstraße 2, 21493 Elmenhorst, Elmenhorst, Germany": {
+    "lat": "53.5328379",
+    "lon": "10.5118305"
+  },
+  "Bahnhofstr. 9, 09465 Sehmatal, Sehmatal, Germany": {
+    "lat": "50.5345970",
+    "lon": "12.9940014"
+  },
+  "Hauptstraße 16, 66871 Pfeffelbach, Pfeffelbach, Germany": {
+    "lat": "49.5393933",
+    "lon": "7.3281984"
+  },
+  "Dorfstr. 69, 08340 Schwarzenberg OT Bermsgrün, Schwarzenberg OT Bermsgrün, Germany": null,
+  "Pegenauer Str. 8, 01665 Klipphausen, Klipphausen, Germany": {
+    "lat": "51.1125683",
+    "lon": "13.5152482"
+  },
+  "Süderstraße 17, 25709 Marne, Marne, Germany": {
+    "lat": "53.9506916",
+    "lon": "9.0135930"
+  },
+  "Schlavenhorst 25, 46395 Bocholt, Bocholt, Germany": {
+    "lat": "51.8132554",
+    "lon": "6.5606099"
+  },
+  "Wiesenstr. 51, 40549 Düsseldorf – Heerdt, Düsseldorf – Heerdt, Germany": {
+    "lat": "51.2270956",
+    "lon": "6.7080374"
+  },
+  "Zeppelinstr. 19, 89555 Steinheim am Albuch, Steinheim am Albuch, Germany": {
+    "lat": "48.6918702",
+    "lon": "10.0735070"
+  },
+  "Am Hafen 2, 91056 Erlangen, Erlangen, Germany": {
+    "lat": "49.5826367",
+    "lon": "10.9672318"
+  },
+  "Im Handwerkerhof 14, 54338 Schweich, Schweich, Germany": {
+    "lat": "49.8247059",
+    "lon": "6.7296586"
+  },
+  "Siemensring 20, 73557 Mutlangen, Mutlangen, Germany": {
+    "lat": "48.8325288",
+    "lon": "9.7941880"
+  },
+  "Karl-Kaufmann-Str. 3, 53937 Schleiden, Schleiden, Germany": {
+    "lat": "50.5228807",
+    "lon": "6.4686409"
+  },
+  "Am Sandberg 3, 36160 Dipperz-Kohlgrund, Dipperz-Kohlgrund, Germany": {
+    "lat": "50.5243191",
+    "lon": "9.7789926"
+  },
+  "Kaiser-Friedrich-Promenade 1, 61348 Bad Homburg vor der Höhe, Bad Homburg vor der Höhe, Germany": {
+    "lat": "50.2302880",
+    "lon": "8.6143271"
+  },
+  "An der Schlößlleite 3, 85125 Kinding, Kinding, Germany": {
+    "lat": "48.9935091",
+    "lon": "11.3604137"
+  },
+  "Haltinger Straße 12, 79379 Müllheim, Müllheim, Germany": {
+    "lat": "47.8058303",
+    "lon": "7.5993549"
+  },
+  "Heid 18, 77855 Achern, Achern, Germany": {
+    "lat": "48.6535318",
+    "lon": "8.0608579"
+  },
+  "Fridtjof-Nansen-Weg 4, 48155 Münster, Münster, Germany": {
+    "lat": "51.9346036",
+    "lon": "7.6565270"
+  },
+  "Seeweg 24a, 97450 Arnstein, Arnstein, Germany": {
+    "lat": "50.0082634",
+    "lon": "9.9561162"
+  },
+  "Aulzhausener Straße 19, 86165 Augsburg, Augsburg, Germany": {
+    "lat": "48.3955570",
+    "lon": "10.9447970"
+  },
+  "Gewerbepark West 1, 56472 Hof, Hof, Germany": {
+    "lat": "50.6630158",
+    "lon": "8.0036021"
+  },
+  "Große Str. 16, 15344 Strausberg, Strausberg, Germany": {
+    "lat": "52.5789774",
+    "lon": "13.8813424"
+  },
+  "Bergstraße 10, 95197 Schauenstein, Schauenstein, Germany": {
+    "lat": "50.2780872",
+    "lon": "11.7437651"
+  },
+  "Rastatter Str. 7, 75179 Pforzheim, Pforzheim, Germany": {
+    "lat": "48.8981807",
+    "lon": "8.6659478"
+  },
+  "Innerlohener Str. 3, 83355 Grabenstätt, Grabenstätt, Germany": {
+    "lat": "47.8744506",
+    "lon": "12.5829734"
+  },
+  "Aachener Str. 93, 56072 Koblenz, Koblenz, Germany": {
+    "lat": "50.3699701",
+    "lon": "7.5177913"
+  },
+  "Haarener Straße 2, 33142 Büren, Büren, Germany": {
+    "lat": "51.5569577",
+    "lon": "8.5656731"
+  },
+  "Sperlingstraße 29, 41540 Dormagen, Dormagen, Germany": {
+    "lat": "51.0795378",
+    "lon": "6.7849279"
+  },
+  "Grüner Brunnenweg 170, 50827 Köln, Köln, Germany": {
+    "lat": "50.9655252",
+    "lon": "6.8918920"
+  },
+  "Eichemstraße 19-21, 50170 Kerpen-Buir, Kerpen-Buir, Germany": {
+    "lat": "50.8597500",
+    "lon": "6.5845179"
+  },
+  "Dietrich-Bonhoeffer-Straße 5, 02708 Löbau, Löbau, Germany": {
+    "lat": "51.1073914",
+    "lon": "14.6800249"
+  },
+  "Langwadener Str. 42, 41516 Grevenbroich, Grevenbroich, Germany": {
+    "lat": "51.1102430",
+    "lon": "6.6296823"
+  },
+  "Gronauer Straße 5, 46414 Rhede, Rhede, Germany": {
+    "lat": "51.8480848",
+    "lon": "6.6949428"
+  },
+  "Albert-Jansen-Str. 8, 52511 Geilenkirchen, Geilenkirchen, Germany": {
+    "lat": "50.9775434",
+    "lon": "6.0975817"
+  },
+  "Am Korstick 4, 45239 Essen, Essen, Germany": {
+    "lat": "51.3674554",
+    "lon": "7.0147485"
+  },
+  "Jahnstrasse 9b, 94249 Bodenmais, Bodenmais, Germany": {
+    "lat": "49.0592847",
+    "lon": "13.1038122"
+  },
+  "Spitalhofstraße 86, 94032 Passau, Passau, Germany": {
+    "lat": "48.5708559",
+    "lon": "13.4262038"
+  },
+  "Obere Gasse 10, 72348 Rosenfeld-Leidringen, Rosenfeld-Leidringen, Germany": {
+    "lat": "48.2664680",
+    "lon": "8.7079536"
+  },
+  "Mühlenstr. 25, 58285 Gevelsberg, Gevelsberg, Germany": {
+    "lat": "51.3248391",
+    "lon": "7.3453909"
+  },
+  "Am Herrengartenweg 14, 99195 Nöda, Nöda, Germany": {
+    "lat": "51.0673521",
+    "lon": "11.0192433"
+  },
+  "Winzler Str. 103, 66955 Pirmasens, Pirmasens, Germany": {
+    "lat": "49.1947837",
+    "lon": "7.5960128"
+  },
+  "Industriestr. 12, 67722 Winnweiler, Winnweiler, Germany": {
+    "lat": "49.5630469",
+    "lon": "7.8589892"
+  },
+  "Ackerstraße 4, 29331 Lachendorf, Lachendorf, Germany": {
+    "lat": "52.6206834",
+    "lon": "10.2435599"
+  },
+  "Vaihinger Str. 36, 75428 Illingen, Illingen, Germany": {
+    "lat": "48.9532493",
+    "lon": "8.9210273"
+  },
+  "Am Wassermann 28, 50829 Köln, Köln, Germany": {
+    "lat": "50.9504238",
+    "lon": "6.8751660"
+  },
+  "Am Graben 16, 87600 Kaufbeuren, Kaufbeuren, Germany": {
+    "lat": "47.8806897",
+    "lon": "10.6242405"
+  },
+  "Niedersachsenweg 13-15, 44143 Dortmund, Dortmund, Germany": {
+    "lat": "51.5284838",
+    "lon": "7.5246657"
+  },
+  "Am Damm 2, 58332 Schwelm, Schwelm, Germany": {
+    "lat": "51.2986059",
+    "lon": "7.2993293"
+  },
+  "Im Wörth 1, 86754 Munningen, Munningen, Germany": {
+    "lat": "48.9170108",
+    "lon": "10.6051171"
+  },
+  "Rombacher Hütte 2, 44795 Bochum, Bochum, Germany": {
+    "lat": "51.4649177",
+    "lon": "7.1956191"
+  },
+  "Dotzheimer Str. 80, 65185 Wiesbaden, Wiesbaden, Germany": {
+    "lat": "50.0776524",
+    "lon": "8.2254068"
+  },
+  "Neue Str. 22, 36329 Romrod, Romrod, Germany": {
+    "lat": "50.7120541",
+    "lon": "9.2209568"
+  },
+  "Weideweg 14, 35329 Gemünden, Gemünden, Germany": {
+    "lat": "50.6834761",
+    "lon": "9.0465374"
+  },
+  "Echzeller Weg 10, 61203 Reichelsheim - Beinheim, Reichelsheim - Beinheim, Germany": null,
+  "Daimler-Benz-Straße 15, 36039 Fulda, Fulda, Germany": {
+    "lat": "50.5744456",
+    "lon": "9.6901914"
+  },
+  "Sossenheimer Weg 39, 65843 Sulzbach (Taunus), Sulzbach (Taunus), Germany": {
+    "lat": "50.1356663",
+    "lon": "8.5331677"
+  },
+  "Max-Holder-Str. 41, 60437 Frankfurt, Frankfurt, Germany": {
+    "lat": "50.1916026",
+    "lon": "8.6464866"
+  },
+  "Denkmalstr. 20, 64658 Fürth, Fürth, Germany": {
+    "lat": "49.6530091",
+    "lon": "8.7883995"
+  },
+  "Hirschbachstr. 72, 64354 Reinheim, Reinheim, Germany": {
+    "lat": "49.8460454",
+    "lon": "8.8139753"
+  },
+  "Heckenweg 2A, 34246 Vellmar, Vellmar, Germany": {
+    "lat": "51.3668185",
+    "lon": "9.4531715"
+  },
+  "Richard-Süßmuth-Str. 3, 34376 Immenhausen, Immenhausen, Germany": {
+    "lat": "51.4297289",
+    "lon": "9.4579793"
+  },
+  "Köpperner Str. 60, 61381 Friedrichsdorf, Friedrichsdorf, Germany": {
+    "lat": "50.2735484",
+    "lon": "8.6501385"
+  },
+  "Eschersheimer Landstr. 524, 60433 Frankfurt, Frankfurt, Germany": {
+    "lat": "50.1553579",
+    "lon": "8.6587288"
+  },
+  "Alsfelder Str. 2, 35274 Kirchhain, Kirchhain, Germany": {
+    "lat": "50.8227756",
+    "lon": "8.9269004"
+  },
+  "An den Ziegeleien 11, 34369 Hofgeismar, Hofgeismar, Germany": {
+    "lat": "51.5009708",
+    "lon": "9.3835312"
+  },
+  "Märker Str. 3-5, 60437 Frankfurt am Main, Frankfurt am Main, Germany": {
+    "lat": "50.1988017",
+    "lon": "8.7089840"
+  },
+  "Darmstädter Straße 67, 64572 Büttelborn, Büttelborn, Germany": {
+    "lat": "49.8988252",
+    "lon": "8.5244548"
+  },
+  "Hungener Str. 3 a, 60389 Frankfurt am Main, Frankfurt am Main, Germany": {
+    "lat": "50.1339220",
+    "lon": "8.6969578"
+  },
+  "Rendeler Str. 55, 60385 Frankfurt, Frankfurt, Czech Republic": null,
+  "11 Um Lënster Bierg, L-6125 Junglinster, Junglinster, Luxembourg": null,
+  "Jersbeker Str. 8a, 22941 Bargteheide, Bargteheide, Germany": {
+    "lat": "53.7289712",
+    "lon": "10.2575049"
+  },
+  "Sieker Landstraße 224, 22927 Großhansdorf, Großhansdorf, Germany": {
+    "lat": "53.6448887",
+    "lon": "10.2773581"
+  },
+  "Lornsenstraße 20, 25821 Bredstedt, Bredstedt, Germany": {
+    "lat": "54.6217530",
+    "lon": "8.9709771"
+  },
+  "Wasserwaage 5a, 24226 Heikendorf, Heikendorf, Germany": {
+    "lat": "54.3811383",
+    "lon": "10.2154113"
+  },
+  "Feldstr. 18, 23858 Reinfeld, Reinfeld, Germany": {
+    "lat": "53.8301026",
+    "lon": "10.5021006"
+  },
+  "Bredhornweg 76, 25488 Holm, Holm, Germany": {
+    "lat": "53.6252038",
+    "lon": "9.6892229"
+  },
+  "An der Bahn 1, 25336 Elmshorn, Elmshorn, Germany": {
+    "lat": "53.7488370",
+    "lon": "9.6601767"
+  },
+  "Goerdeler Strasse 22, 18069 Rostock, Rostock, Germany": {
+    "lat": "54.0951706",
+    "lon": "12.0741715"
+  },
+  "Werkstr. 700, 19061 Schwerin, Schwerin, Germany": {
+    "lat": "53.5728082",
+    "lon": "11.3877361"
+  },
+  "Klosterstraße 59, 17309 Pasewalk, Pasewalk, Germany": {
+    "lat": "53.5056342",
+    "lon": "13.9921161"
+  },
+  "Friedrich-Ebert-Damm 111, 22047 Hamburg, Hamburg, Germany": {
+    "lat": "53.5877456",
+    "lon": "10.0917097"
+  },
+  "Allermöher Deich 70, 21037 Hamburg, Hamburg, Germany": {
+    "lat": "53.4828047",
+    "lon": "10.1236394"
+  },
+  "Niederndorfer Str. 110, 57258 Freudenberg, Freudenberg, Germany": {
+    "lat": "50.8676603",
+    "lon": "7.9087008"
+  },
+  "Marktplatz 14, 92533 Wernberg-Köblitz, Wernberg-Köblitz, Germany": {
+    "lat": "49.5393741",
+    "lon": "12.1608402"
+  },
+  "Handwerkerhof 2, 91301 Forchheim, Forchheim, Germany": {
+    "lat": "49.7144891",
+    "lon": "11.0923787"
+  },
+  "Am Köchlein 13, 97491 Aidhausen, Aidhausen, Germany": {
+    "lat": "50.1377899",
+    "lon": "10.4676828"
+  },
+  "Dominikus-Zimmermann-Str. 2, 89312 Günzburg, Günzburg, Germany": {
+    "lat": "48.4559615",
+    "lon": "10.2770304"
+  },
+  "Scharnhauser Str. 19, 73760 Ostfildern, Ostfildern, Germany": {
+    "lat": "48.7286998",
+    "lon": "9.2513943"
+  },
+  "Sieper Straße 14, 42855 Remscheid, Remscheid, Germany": {
+    "lat": "51.1887114",
+    "lon": "7.1832905"
+  },
+  "Eduard-Rhein-Str. 12, 53839 Königswinter, Königswinter, Germany": {
+    "lat": "50.6988499",
+    "lon": "7.2764811"
+  },
+  "Im Metternicher Feld 30b, 56072 Koblenz, Koblenz, Germany": {
+    "lat": "50.3728979",
+    "lon": "7.5531477"
+  },
+  "Burgham 11, 83358 Seeon-Seebruck, Seeon-Seebruck, Germany": {
+    "lat": "47.9390836",
+    "lon": "12.4588689"
+  },
+  "Kapellenweg 4, 83122 Samerberg, Samerberg, Germany": {
+    "lat": "47.7779401",
+    "lon": "12.2382166"
+  },
+  "Neustr. 31, 54662 Speicher, Speicher, Germany": {
+    "lat": "49.9363339",
+    "lon": "6.6395077"
+  },
+  "Industriestr. 5, 91522 Ansbach, Ansbach, Germany": {
+    "lat": "49.2343674",
+    "lon": "10.5055817"
+  },
+  "Rotebachring 10, 74564 Crailsheim, Crailsheim, Germany": {
+    "lat": "49.1458152",
+    "lon": "10.0311908"
+  },
+  "Hauptstraße 327, 58675 Hemer, Hemer, Germany": {
+    "lat": "51.3933898",
+    "lon": "7.7597885"
+  },
+  "Mittelkanal Rechts 33, 26871 Papenburg, Papenburg, Germany": {
+    "lat": "53.0809940",
+    "lon": "7.4214553"
+  },
+  "Middelicher Straße 299, 45892 Gelsenkirchen, Gelsenkirchen, Germany": {
+    "lat": "51.5851457",
+    "lon": "7.1146468"
+  },
+  "Albert-Einstein-Straße 8, 86830 Schwabmünchen, Schwabmünchen, Germany": {
+    "lat": "48.1955484",
+    "lon": "10.7610005"
+  },
+  "Teramostraße 33, 87700 Memmingen, Memmingen, Germany": {
+    "lat": "48.0016835",
+    "lon": "10.1537767"
+  },
+  "Hopfenstraße 6, 85395 Attenkirchen, Attenkirchen, Germany": {
+    "lat": "48.5076178",
+    "lon": "11.7570392"
+  },
+  "Adalbertstraße 19, 45699 Herten, Herten, Germany": {
+    "lat": "51.5804902",
+    "lon": "7.1508651"
+  },
+  "Tutzinger Straße 1A, 12309 Berlin, Berlin, Germany": {
+    "lat": "52.3848818",
+    "lon": "13.4262942"
+  },
+  "Steinbeisstraße 11, 70806 Kornwestheim, Kornwestheim, Germany": null,
+  "Im Falschen Biewertal 9, 54293 Trier, Trier, Germany": {
+    "lat": "49.7788286",
+    "lon": "6.6586365"
+  },
+  "Prof.-Hans-Böhringer-Str. 1, 07407 Rudolstadt, Rudolstadt, Germany": {
+    "lat": "50.6987198",
+    "lon": "11.3293490"
+  },
+  "Wiener Straße 131-133, 2345 Brunn am Gebirge, Brunn am Gebirge, Austria": {
+    "lat": "48.1134967",
+    "lon": "16.3017390"
+  },
+  "Hindelanger Str. 39, 87527 Sonthofen, Sonthofen, Germany": {
+    "lat": "47.5125094",
+    "lon": "10.2914930"
+  },
+  "Talstr. 1, 36124 Eichenzell, Eichenzell, Germany": {
+    "lat": "50.4808246",
+    "lon": "9.7195108"
+  },
+  "Ruppertswies 24, 85092 Kösching, Kösching, Germany": {
+    "lat": "48.8120244",
+    "lon": "11.4820923"
+  },
+  "Beelener Straße 11, 59302 Oelde Lette, Oelde Lette, Germany": {
+    "lat": "51.8844621",
+    "lon": "8.1576009"
+  },
+  "Kohlensiepenstraße 35, 44269 Dortmund, Dortmund, Germany": {
+    "lat": "51.4908318",
+    "lon": "7.5203353"
+  },
+  "Hinterbacher Straße 9, 87439 Kempten (Allgäu), Kempten (Allgäu), Germany": {
+    "lat": "47.7609777",
+    "lon": "10.2932783"
+  },
+  "Breiter Weg 60, 26603 Aurich, Aurich, Germany": {
+    "lat": "53.4741838",
+    "lon": "7.4693608"
+  },
+  "Magdalenenweg 1, 76889 Klingenmünster, Klingenmünster, Germany": {
+    "lat": "49.1438242",
+    "lon": "8.0194146"
+  },
+  "Auf dem Hafk 6, 32289 Rödinghausen, Rödinghausen, Germany": {
+    "lat": "52.2592841",
+    "lon": "8.5166294"
+  },
+  "Stendaler Chaussee 1, 39596 Eichstedt, Eichstedt, Germany": {
+    "lat": "52.6741091",
+    "lon": "11.8618074"
+  },
+  "Feitzing 6, 4925 Prament, Prament, Austria": null,
+  "Hauptstr. 58, 74360 Ilsfeld, Ilsfeld, Germany": {
+    "lat": "49.0603119",
+    "lon": "9.2717457"
+  },
+  "Max-Planck-Str. 45, 47608 Geldern, Geldern, Germany": {
+    "lat": "51.5283861",
+    "lon": "6.3569908"
+  },
+  "Hölzlestr. 19, 72336 Balingen, Balingen, Germany": {
+    "lat": "48.2979672",
+    "lon": "8.8666016"
+  },
+  "Am Güterbahnhof 8, 66482 Zweibrücken, Zweibrücken, Germany": {
+    "lat": "49.2484313",
+    "lon": "7.3562468"
+  },
+  "Leostraße 16, 44225 Dortmund, Dortmund, Germany": {
+    "lat": "51.4745447",
+    "lon": "7.4369438"
+  },
+  "Rubensstr. 60-62, 12157 Berlin, Berlin, Germany": {
+    "lat": "52.4702744",
+    "lon": "13.3434998"
+  },
+  "Hauptstraße 28, 78112 Sankt Georgen, Sankt Georgen, Germany": {
+    "lat": "48.1248454",
+    "lon": "8.3295222"
+  },
+  "Heinkelstr. 8, 36041 Fulda, Fulda, Germany": {
+    "lat": "50.5585659",
+    "lon": "9.5892995"
+  },
+  "Burgviert 3, 25582 Hohenaspe, Hohenaspe, Germany": {
+    "lat": "53.9874521",
+    "lon": "9.4972545"
+  },
+  "Am Knick 6, 22113 Oststeinbek, Oststeinbek, Germany": {
+    "lat": "53.5503923",
+    "lon": "10.1603687"
+  },
+  "Zum Bornkoppelweg 36, 18184 Roggentin, Roggentin, Germany": {
+    "lat": "54.0778634",
+    "lon": "12.2268314"
+  },
+  "Trappstraße 16, 46483 Wesel, Wesel, Germany": {
+    "lat": "51.6649390",
+    "lon": "6.6237244"
+  },
+  "Steinweg 16, 36093 Künzell, Künzell, Germany": {
+    "lat": "50.5224643",
+    "lon": "9.7254616"
+  },
+  "Industriestraße 37, 40764 Langenfeld (Rheinland), Langenfeld (Rheinland), Germany": {
+    "lat": "51.1222916",
+    "lon": "6.9616954"
+  },
+  "Ostendstr. 13, 63303 Dreieich, Dreieich, Germany": {
+    "lat": "50.0219475",
+    "lon": "8.6961537"
+  },
+  "Reichsstraße 48A, 09112 Chemnitz, Chemnitz, Germany": {
+    "lat": "50.8357050",
+    "lon": "12.9077374"
+  },
+  "Josef-Wilberger-Straße 9a, 6020 Innsbruck, Innsbruck, Austria": {
+    "lat": "47.2778408",
+    "lon": "11.4335243"
+  },
+  "Industriestr. 15/17, 96317 Kronach, Kronach, Germany": {
+    "lat": "50.2315512",
+    "lon": "11.3391963"
+  },
+  "Kotzinger Straße 21, 83278 Traunstein, Traunstein, Germany": {
+    "lat": "47.8830378",
+    "lon": "12.6307914"
+  },
+  "Justus-von-Liebig-Str. 12, 01987 Schwarzheide, Schwarzheide, Germany": {
+    "lat": "51.4707641",
+    "lon": "13.8170330"
+  },
+  "Adolf-Kolping-Str. 4, 84453 Mühldorf, Mühldorf, Germany": {
+    "lat": "48.2512065",
+    "lon": "12.5232993"
+  },
+  "Gaußstr. 4, 85221 Dachau, Dachau, Germany": {
+    "lat": "48.2604973",
+    "lon": "11.4714971"
+  },
+  "Siemensstr. 5, 33378 Rheda-Wiedenbrück, Rheda-Wiedenbrück, Germany": {
+    "lat": "51.8573050",
+    "lon": "8.2618252"
+  },
+  "Friedhofstraße 14, 89567 Sontheim an der Brenz, Sontheim an der Brenz, Germany": {
+    "lat": "48.5514974",
+    "lon": "10.2882376"
+  },
+  "Wernher-von-Braun-Str. 8, 53501 Grafschaft, Grafschaft, Germany": {
+    "lat": "50.5722121",
+    "lon": "7.0322167"
+  },
+  "Berger Straße 28, 94469 Deggendorf, Deggendorf, Germany": {
+    "lat": "48.8431633",
+    "lon": "12.9537060"
+  },
+  "Flensburger Straße 17, 24969 Großenwiehe, Großenwiehe, Germany": {
+    "lat": "54.7085433",
+    "lon": "9.2570235"
+  },
+  "Bruchstraße 52, 57462 Olpe, Olpe, Germany": {
+    "lat": "51.0220533",
+    "lon": "7.8432593"
+  },
+  "Grabenstr. 4, 32257 Bünde, Bünde, Germany": {
+    "lat": "52.2044173",
+    "lon": "8.5916043"
+  },
+  "Eisenacher Str. 15, 36448 Schweina, Schweina, Germany": {
+    "lat": "50.8320260",
+    "lon": "10.3381749"
+  },
+  "Odenthaler Str. 186, 51467 Bergisch Gladbach, Bergisch Gladbach, Germany": {
+    "lat": "50.9995042",
+    "lon": "7.1329083"
+  },
+  "Bremland 23, 24857 Fahrdorf, Fahrdorf, Germany": {
+    "lat": "54.4999621",
+    "lon": "9.6131411"
+  },
+  "Klenges 5, 36179 Bebra, Bebra, Germany": {
+    "lat": "50.9571564",
+    "lon": "9.7820335"
+  },
+  "Galgenbergstr. 6, 36205 Sontra, Sontra, Germany": {
+    "lat": "51.0628953",
+    "lon": "9.9283531"
+  },
+  "Hauptstraße 52, 24994 Medelby, Medelby, Germany": {
+    "lat": "54.7979337",
+    "lon": "9.2058701"
+  },
+  "Am Adlerberg 1, 78628 Rottweil, Rottweil, Germany": {
+    "lat": "48.1463462",
+    "lon": "8.6264725"
+  },
+  "Christine-Demmer-Straße 34, 53474 Bad Neuenahr-Ahrweiler, Bad Neuenahr-Ahrweiler, Germany": {
+    "lat": "50.5473596",
+    "lon": "7.1143194"
+  },
+  "Geibelstraße 35, 30173 Hannover, Hannover, Germany": {
+    "lat": "52.3600284",
+    "lon": "9.7547871"
+  },
+  "Poinger Str. 4, 85570 Markt Schwaben, Markt Schwaben, Germany": {
+    "lat": "48.1882222",
+    "lon": "11.8468714"
+  },
+  "Manfred-Roth-Straße 21, 90766 Fürth, Fürth, Germany": {
+    "lat": "49.4848738",
+    "lon": "10.9474622"
+  },
+  "Niederkircher Straße 21, 54294 Trier, Trier, Germany": {
+    "lat": "49.7265081",
+    "lon": "6.6038360"
+  },
+  "Salamanderplatz 2-6, 70806 Kornwestheim, Kornwestheim, Germany": {
+    "lat": "48.8595658",
+    "lon": "9.1771352"
+  },
+  "Hamburger Str. 20, 34134 Kassel, Kassel, Germany": {
+    "lat": "51.2699664",
+    "lon": "9.4702223"
+  },
+  "Gradnerstraße 100, 8055 Graz, Graz, Austria": {
+    "lat": "47.0211888",
+    "lon": "15.4158987"
+  },
+  "Alter Teichweg 37-39, 22305 Hamburg-Barmbek, Hamburg-Barmbek, Germany": {
+    "lat": "53.5826281",
+    "lon": "10.0477358"
+  },
+  "Bahnhofstraße 144B, 46562 Voerde (Niederrhein), Voerde (Niederrhein), Germany": {
+    "lat": "51.5991567",
+    "lon": "6.6940176"
+  },
+  "Esslinger Str. 11, 73779 Deizisau, Deizisau, Germany": {
+    "lat": "48.7142371",
+    "lon": "9.3801497"
+  },
+  "Schlebuscher Str. 95, 51381 Leverkusen, Leverkusen, Germany": {
+    "lat": "51.0508268",
+    "lon": "7.0144023"
+  },
+  "Stolzenmorgen 21, 35394 Gießen, Gießen, Germany": {
+    "lat": "50.5926162",
+    "lon": "8.7230013"
+  },
+  "Borsigstraße 20, 38446 Wolfsburg, Wolfsburg, Germany": {
+    "lat": "52.4275452",
+    "lon": "10.8177819"
+  },
+  "Rheinwaldstr. 10, 78628 Rottweil, Rottweil, Germany": {
+    "lat": "48.1454045",
+    "lon": "8.6407194"
+  },
+  "Memelstraße 7, 58638 Iserlohn, Iserlohn, Germany": {
+    "lat": "51.3764814",
+    "lon": "7.6856958"
+  },
+  "Freiheitsstr. 176, 41747 Viersen, Viersen, Germany": {
+    "lat": "51.2622532",
+    "lon": "6.3905957"
+  },
+  "Ernst-Abbe-Str. 2, 89079 Ulm, Ulm, Germany": {
+    "lat": "48.3537109",
+    "lon": "9.9257076"
+  },
+  "Graflinger Str. 228, 94469 Deggendorf, Deggendorf, Germany": {
+    "lat": "48.8577570",
+    "lon": "12.9616886"
+  },
+  "Am Büchelfeld 2, 85276 Pfaffenhofen an der Ilm, Pfaffenhofen an der Ilm, Germany": {
+    "lat": "48.5199132",
+    "lon": "11.5024748"
+  },
+  "Pohlstraße 82, 10785 Berlin, Berlin, Germany": {
+    "lat": "52.5021635",
+    "lon": "13.3595376"
+  },
+  "Stiftstraße 3, 65232 Taunusstein, Taunusstein, Germany": {
+    "lat": "50.1386431",
+    "lon": "8.1381056"
+  },
+  "Schenkenburgstraße 9, 76135 Karlsruhe, Karlsruhe, Germany": {
+    "lat": "48.9937794",
+    "lon": "8.3714069"
+  },
+  "Bazienstraße 58, 88131 Lindau, Lindau, Germany": {
+    "lat": "47.5573479",
+    "lon": "9.7067894"
+  },
+  "Triebstr. 2a-b, 60388 Frankfurt, Frankfurt, Germany": {
+    "lat": "50.1487353",
+    "lon": "8.7536125"
+  },
+  "Ringstraße 7, 41747 Viersen, Viersen, Germany": {
+    "lat": "51.2499195",
+    "lon": "6.3983965"
+  },
+  "Osterstraße 49, 30159 Hannover, Hannover, Germany": {
+    "lat": "52.3703991",
+    "lon": "9.7389747"
+  },
+  "Bergstraße 17, 86508 Rehling, Rehling, Germany": {
+    "lat": "48.4862035",
+    "lon": "10.9288078"
+  },
+  "Am Rohrbach 12/3, 88045 Friedrichshafen, Friedrichshafen, Germany": {
+    "lat": "47.6762708",
+    "lon": "9.4782790"
+  },
+  "Artur-Ladebeck-Str. 114, 33647 Bielefeld, Bielefeld, Germany": {
+    "lat": "52.0062361",
+    "lon": "8.5109448"
+  },
+  "Spreewaldallee 35, 68309 Mannheim, Mannheim, Germany": {
+    "lat": "49.5168896",
+    "lon": "8.5556747"
+  },
+  "Zielstattstr. 71, 81379 München-Süd, München-Süd, Germany": null,
+  "Wiedstraße 17, 57610 Altenkirchen, Altenkirchen, Germany": {
+    "lat": "50.6764113",
+    "lon": "7.6157161"
+  },
+  "Grüntenstraße 43A, 87527 Sonthofen, Sonthofen, Germany": {
+    "lat": "47.5227295",
+    "lon": "10.2811340"
+  },
+  "Handwerkshof 4, 87549 Rettenberg / Altach, Rettenberg / Altach, Germany": {
+    "lat": "47.5677897",
+    "lon": "10.2889724"
+  },
+  "Tingvejen 30 N, 6500 Vojens, Vojens, Denmark": {
+    "lat": "55.2384960",
+    "lon": "9.2740710"
+  },
+  "Lundbyvej 4, 4863 Eskilstrup, Eskilstrup, Denmark": null,
+  "Adenauerstraße 10, 52146 Würselen, Würselen, Germany": {
+    "lat": "50.8080576",
+    "lon": "6.1499948"
+  },
+  "Heuweg 2-3, 06886 Lutherstadt Wittenberg, Lutherstadt Wittenberg, Germany": {
+    "lat": "51.8734098",
+    "lon": "12.5713540"
+  },
+  "St. Georgener Str. 6, 79111 Freiburg, Freiburg, Germany": {
+    "lat": "47.9870705",
+    "lon": "7.8005822"
+  },
+  "Dr.-Hans-Frisch-Str. 5, 95448 Bayreuth, Bayreuth, Germany": {
+    "lat": "49.9595174",
+    "lon": "11.5962361"
+  },
+  "Freiligrathstr. 30, 90482 Nürnberg, Nürnberg, Germany": {
+    "lat": "49.4601659",
+    "lon": "11.1341201"
+  },
+  "Stüvestraße 42, 31785 Hameln, Hameln, Germany": {
+    "lat": "52.0975606",
+    "lon": "9.3830243"
+  },
+  "Hartensteiner Str. 133, 08118 Thierfeld, Thierfeld, Germany": {
+    "lat": "50.6899844",
+    "lon": "12.6944424"
+  },
+  "Dieselstr. 18, 85757 Karlsfeld, Karlsfeld, Germany": {
+    "lat": "48.2276987",
+    "lon": "11.4875049"
+  },
+  "Miltenberger Str. 18-20, 63927 Bürgstadt, Bürgstadt, Germany": {
+    "lat": "49.7101707",
+    "lon": "9.2662784"
+  },
+  "Wilhelm-Raabe-Str 16-18, 26721 Emden, Emden, Germany": {
+    "lat": "53.3913165",
+    "lon": "7.2101939"
+  },
+  "Landauer Str. 115, 66953 Pirmasens, Pirmasens, Germany": {
+    "lat": "49.1961278",
+    "lon": "7.6262916"
+  },
+  "Overhoffstraße 171, 44149 Dortmund, Dortmund, Germany": {
+    "lat": "51.4924836",
+    "lon": "7.3797408"
+  },
+  "Magdeburger Str. 263, 39218 Schönebeck, Schönebeck, Germany": {
+    "lat": "52.0336936",
+    "lon": "11.7038186"
+  },
+  "Europaplatz 3, 74523 Schwäbisch Hall, Schwäbisch Hall, Germany": {
+    "lat": "49.1118095",
+    "lon": "9.7835315"
+  },
+  "Stiftskellerweg 5, 87439 Kempten (Allgäu), Kempten (Allgäu), Germany": {
+    "lat": "47.7326758",
+    "lon": "10.3095122"
+  },
+  "Burgstraße 38, 52477 Alsdorf, Alsdorf, Germany": {
+    "lat": "50.8800619",
+    "lon": "6.1619900"
+  },
+  "Schwanenweg 5, 24235 Laboe, Laboe, Germany": {
+    "lat": "54.3983677",
+    "lon": "10.2311323"
+  },
+  "Erzberg 25, 38126 Braunschweig, Braunschweig, Germany": {
+    "lat": "52.2476127",
+    "lon": "10.5796942"
+  },
+  "Bernauer Straße 27, 83209 Prien am Chiemsee, Prien am Chiemsee, Germany": {
+    "lat": "47.8515010",
+    "lon": "12.3448893"
+  },
+  "Künkelstraße 125, 41063 Mönchengladbach, Mönchengladbach, Germany": {
+    "lat": "51.2097314",
+    "lon": "6.4598077"
+  },
+  "Ins Bärenloh 12, 73450 Neresheim, Neresheim, Germany": {
+    "lat": "48.7875713",
+    "lon": "10.2701050"
+  },
+  "Blankensteinstraße 35, 32257 Bünde, Bünde, Germany": {
+    "lat": "52.1963207",
+    "lon": "8.5666609"
+  },
+  "Gaisweiler 23, 86450 Altenmünster, Altenmünster, Germany": {
+    "lat": "48.4658481",
+    "lon": "10.5873885"
+  },
+  "Bohnitzscher Str. 33, 01662 Meißen, Meißen, Germany": {
+    "lat": "51.1783150",
+    "lon": "13.5017853"
+  },
+  "Im Karrer 1, 88214 Ravensburg, Ravensburg, Germany": {
+    "lat": "47.7409893",
+    "lon": "9.5789597"
+  },
+  "Eckendorfer Straße 89, 33609 Bielefeld, Bielefeld, Germany": {
+    "lat": "52.0381026",
+    "lon": "8.5745445"
+  },
+  "Felix-Wankelstr. 8, 60314 Frankfurt, Frankfurt, Germany": {
+    "lat": "50.1219755",
+    "lon": "8.7432750"
+  },
+  "Etzelstr. 41, 74076 Heilbronn, Heilbronn, Germany": {
+    "lat": "49.1526393",
+    "lon": "9.2135744"
+  },
+  "Wiedenbrücker Str. 16, 33332 Gütersloh, Gütersloh, Germany": {
+    "lat": "51.8944953",
+    "lon": "8.3670262"
+  },
+  "Böcklerstraße 30, 38102 Braunschweig, Braunschweig, Germany": {
+    "lat": "52.2501826",
+    "lon": "10.5320079"
+  },
+  "Falderbaumstraße 33, 34123 Kassel, Kassel, Germany": {
+    "lat": "51.2754623",
+    "lon": "9.5052433"
+  },
+  "Gutenbergstr. 26, 93128 Regenstauf, Regenstauf, Germany": {
+    "lat": "49.1067898",
+    "lon": "12.1175701"
+  },
+  "Robert-Bosch-Str. 75, 73431 Aalen, Aalen, Germany": {
+    "lat": "48.8223584",
+    "lon": "10.0653659"
+  },
+  "Kukučínova 718, 911 01 Trenčín, Trenčín, Czech Republic": null,
+  "Písecká 1333/13, 326 00 Plzeň, Plzeň, Czech Republic": {
+    "lat": "49.7046222",
+    "lon": "13.4264117"
+  },
+  "Zum Weiherhäuschen 1, 65549 Limburg an der Lahn, Limburg an der Lahn, Germany": {
+    "lat": "50.3788688",
+    "lon": "8.0566894"
+  },
+  "Merkurring 116, 22143 Hamburg, Hamburg, Czech Republic": null,
+  "Carolinenhütte 31, 35576 Wetzlar, Wetzlar, Germany": {
+    "lat": "50.5677563",
+    "lon": "8.5043152"
+  },
+  "In der Trift 55, 57462 Olpe, Olpe, Germany": {
+    "lat": "51.0140000",
+    "lon": "7.8363207"
+  },
+  "Hafendecke 8, 95100 Selb, Selb, Germany": {
+    "lat": "50.1683029",
+    "lon": "12.1484888"
+  },
+  "Dělostřelecká 333, 261 01 Příbram, Příbram, Czech Republic": {
+    "lat": "49.7026136",
+    "lon": "14.0038145"
+  },
+  "Am Funkturm 37, 29525 Uelzen, Uelzen, Germany": {
+    "lat": "52.9917530",
+    "lon": "10.5299852"
+  },
+  "Am Herrschaftsweiher 29, 67071 Ludwigshafen, Ludwigshafen, Germany": {
+    "lat": "49.4808455",
+    "lon": "8.3317552"
+  },
+  "Rottachstr. 75, 87439 Kempten, Kempten, Germany": {
+    "lat": "47.7369788",
+    "lon": "10.3100848"
+  },
+  "Im Garbrock 5, 48683 Ahaus, Ahaus, Germany": {
+    "lat": "52.0801936",
+    "lon": "6.9173427"
+  },
+  "Düsseldorfer Str. 179, 45481 Mülheim Saarn, Mülheim Saarn, Germany": {
+    "lat": "51.4089748",
+    "lon": "6.8687632"
+  },
+  "Im Grund 6, 29525 Uelzen, Uelzen, Germany": {
+    "lat": "52.9908293",
+    "lon": "10.5455254"
+  },
+  "Glashüttenstraße 21, 01796 Pirna, Pirna, Czech Republic": null,
+  "Schützenstraße 8, 38820 Halberstadt, Halberstadt, Germany": {
+    "lat": "51.8977505",
+    "lon": "11.0581231"
+  },
+  "Nordstr. 13, 87616 Marktoberdorf, Marktoberdorf, Germany": {
+    "lat": "47.7971768",
+    "lon": "10.6238233"
+  },
+  "Schmalespanstr. 18, 91710 Gunzenhausen, Gunzenhausen, Germany": {
+    "lat": "49.1092783",
+    "lon": "10.7624505"
+  },
+  "Gutenbergstraße 6, 94315 Straubing, Straubing, Germany": {
+    "lat": "48.8901636",
+    "lon": "12.6272276"
+  },
+  "Wiesweg 32, 72119 Ammerbuch, Ammerbuch, Germany": {
+    "lat": "48.5246302",
+    "lon": "8.9675657"
+  },
+  "Neukamp 7, 26655 Westerstede, Westerstede, Germany": {
+    "lat": "53.2686363",
+    "lon": "7.9455508"
+  },
+  "Brückenstraße 23, 34302 Guxhagen, Guxhagen, Germany": {
+    "lat": "51.2032374",
+    "lon": "9.4750285"
+  },
+  "Bruchweg 3, 21258 Heidenau, Heidenau, Germany": {
+    "lat": "53.3176721",
+    "lon": "9.6409627"
+  },
+  "Möllenkamp 4, 46395 Bocholt, Bocholt, Germany": {
+    "lat": "51.8265013",
+    "lon": "6.5239368"
+  },
+  "Gewerbestr. 2, 36160 Dipperz, Dipperz, Germany": {
+    "lat": "50.5414446",
+    "lon": "9.7886290"
+  },
+  "Taunusstraße 39, 65835 Liederbach, Liederbach, Germany": {
+    "lat": "50.1187244",
+    "lon": "8.4904228"
+  },
+  "Mellinghofer Straße 218, 46047 Oberhausen, Oberhausen, Germany": {
+    "lat": "51.4715381",
+    "lon": "6.8862856"
+  },
+  "Kleiberweg 4, 81249 München, München, Germany": {
+    "lat": "48.1785623",
+    "lon": "11.4032278"
+  },
+  "Debyestraße 169, 52078 Aachen, Aachen, Germany": {
+    "lat": "50.7658699",
+    "lon": "6.1627718"
+  },
+  "Blumenkamper Weg 2b, 46485 Wesel, Wesel, Germany": {
+    "lat": "51.6769918",
+    "lon": "6.6165198"
+  },
+  "Frauenstr.25, 89073 Ulm, Ulm, Germany": {
+    "lat": "48.3997246",
+    "lon": "9.9964410"
+  },
+  "Metternichstraße 21, 54292 Trier, Trier, Germany": {
+    "lat": "49.7677908",
+    "lon": "6.6680938"
+  },
+  "Rölsdorfer Straße 1-3, 52355 Düren, Düren, Germany": {
+    "lat": "50.7712026",
+    "lon": "6.4737155"
+  },
+  "Dresselhofweg 10, 71549 Auenwald, Auenwald, Germany": {
+    "lat": "48.9465437",
+    "lon": "9.4965904"
+  },
+  "Englbert-Neumayr-Straße 22, 84048 Mainburg, Mainburg, Germany": {
+    "lat": "48.6490760",
+    "lon": "11.7758850"
+  },
+  "Wildener Straße 50, 57290 Neunkirchen Salchendorf, Neunkirchen Salchendorf, Germany": {
+    "lat": "50.7957263",
+    "lon": "8.0224916"
+  },
+  "Bismarckstr. 10, 23564 Lübeck, Lübeck, Germany": {
+    "lat": "53.8602681",
+    "lon": "10.6953131"
+  },
+  "Am Lerchenberg 12, 86504 Merching, Merching, Germany": {
+    "lat": "48.2461369",
+    "lon": "10.9937496"
+  },
+  "Lauterbacher Str. 24, 36137 Großenlüder, Großenlüder, Germany": {
+    "lat": "50.5918705",
+    "lon": "9.5377131"
+  },
+  "Sonsbecker Straße 40-44, 46509 Xanten, Xanten, Germany": {
+    "lat": "51.6548709",
+    "lon": "6.4394792"
+  },
+  "Amselweg 8, 61137 Schöneck, Schöneck, Germany": {
+    "lat": "50.1948078",
+    "lon": "8.8240967"
+  },
+  "Linzer Straße 8, 3350 Stadt Haag, Stadt Haag, Austria": {
+    "lat": "48.1115315",
+    "lon": "14.5649487"
+  },
+  "Chausseestraße 56, 15712 Königs Wusterhausen - Senzig, Königs Wusterhausen - Senzig, Germany": {
+    "lat": "52.2863326",
+    "lon": "13.6701213"
+  },
+  "Rita-Maiburgstraße 12, 88074 Meckenbeuren, Meckenbeuren, Germany": null,
+  "Boschstraße 20, 49733 Haren (Ems), Haren (Ems), Germany": {
+    "lat": "52.7952855",
+    "lon": "7.2192483"
+  },
+  "Langenkamp 6, 22880 Wedel, Wedel, Germany": {
+    "lat": "53.5763287",
+    "lon": "9.7305262"
+  },
+  "Pichlmayrstraße 11, 83024 Rosenheim, Rosenheim, Germany": {
+    "lat": "47.8554463",
+    "lon": "12.1085727"
+  },
+  "Hauptstraße 39, 25794 Pahlen, Pahlen, Germany": {
+    "lat": "54.2687228",
+    "lon": "9.2921215"
+  },
+  "Nebahovská 1200, 383 01 Prachatice, Prachatice, Czech Republic": {
+    "lat": "49.0128259",
+    "lon": "14.0042110"
+  },
+  "Else-Kallmann-Straße 5, 54634 Bitburg, Bitburg, Germany": {
+    "lat": "49.9625120",
+    "lon": "6.5305837"
+  },
+  "Römerstraße 52, 85055 Ingolstadt, Ingolstadt, Germany": {
+    "lat": "48.7760565",
+    "lon": "11.4560320"
+  },
+  "Saartraße 44a, 54634 Bitburg, Bitburg, Germany": null,
+  "Rue de Lyon 109/111, 1203 Genève, Genève, Switzerland": {
+    "lat": "46.2094747",
+    "lon": "6.1206705"
+  },
+  "Sägerbäume 13, 38448 Wolfsburg, Wolfsburg, Germany": {
+    "lat": "52.4354343",
+    "lon": "10.8607483"
+  },
+  "Blücherstr. 32, 75177 Pforzheim, Pforzheim, Germany": {
+    "lat": "48.8991303",
+    "lon": "8.7175099"
+  },
+  "Pariser Straße 211, 67663 Kaiserslautern, Kaiserslautern, Germany": {
+    "lat": "49.4394367",
+    "lon": "7.7406279"
+  },
+  "An den Kapuzienern 1-4, 33098 Paderborn, Paderborn, Germany": null,
+  "Stauffenbergstraße 2, 74523 Schwäbisch Hall, Schwäbisch Hall, Germany": {
+    "lat": "49.1132341",
+    "lon": "9.7818759"
+  },
+  "Nordring 7, 48282 Emsdetten, Emsdetten, Germany": {
+    "lat": "52.1738965",
+    "lon": "7.5383049"
+  },
+  "Schwalbenweg 18, 48683 Ahaus, Ahaus, Germany": {
+    "lat": "52.0685789",
+    "lon": "6.9195759"
+  },
+  "Am Hohen Ende 12, 19348 Perleberg, Perleberg, Germany": {
+    "lat": "53.0793582",
+    "lon": "11.8620841"
+  },
+  "Bahnhofstraße 2, 90552 Röthenbach a. d. Pegnitz, Röthenbach a. d. Pegnitz, Germany": {
+    "lat": "49.4820400",
+    "lon": "11.2352433"
+  },
+  "Zeil 13, 60313 Frankfurt, Frankfurt, Germany": {
+    "lat": "50.1146617",
+    "lon": "8.6918390"
+  },
+  "Dresdener Straße 13, 65474 Bischofsheim, Bischofsheim, Germany": {
+    "lat": "49.9773491",
+    "lon": "8.3463477"
+  },
+  "Am Linsengraben 5, 36145 Hofbieber, Hofbieber, Germany": {
+    "lat": "50.5737772",
+    "lon": "9.8341983"
+  },
+  "Erbsenwinkelstr. 7, 63768 Hösbach, Hösbach, Germany": {
+    "lat": "50.0022759",
+    "lon": "9.2184893"
+  },
+  "Bruchwiesen Straße 24, 63322 Rödermark, Rödermark, Germany": {
+    "lat": "49.9752443",
+    "lon": "8.7952439"
+  },
+  "Georg-Büchner-Straße 16, 64859 Eppertshausen, Eppertshausen, Germany": {
+    "lat": "49.9527867",
+    "lon": "8.8402168"
+  },
+  "Rudloffstr. 124, 27568 Bremerhaven, Bremerhaven, Germany": {
+    "lat": "53.5567918",
+    "lon": "8.5665116"
+  },
+  "Krasta 68A, LV-1019 Riga, Riga, Latvia": null,
+  "Von-Humboldt-Str. 2, 25746 Heide, Heide, Germany": {
+    "lat": "49.1631246",
+    "lon": "10.5514204"
+  },
+  "Robert-Bosch-Straße 17, 33334 Gütersloh, Gütersloh, Germany": {
+    "lat": "51.9325450",
+    "lon": "8.4159560"
+  },
+  "Schleswiger Str. 80, 24931 Flensburg, Flensburg, Germany": {
+    "lat": "54.7680054",
+    "lon": "9.4339670"
+  },
+  "Leinestraße 43, 24539 Neumünster, Neumünster, Germany": {
+    "lat": "54.0402223",
+    "lon": "10.0107472"
+  },
+  "Röntgenstraße 35, 86368 Gersthofen, Gersthofen, Germany": {
+    "lat": "48.4389080",
+    "lon": "10.8770898"
+  },
+  "Schlossstr. 67, 12165 Berlin, Berlin, Germany": {
+    "lat": "52.4537926",
+    "lon": "13.3171406"
+  },
+  "Podbielskiallee 81, 14195 Berlin, Berlin, Germany": {
+    "lat": "52.4595337",
+    "lon": "13.3020846"
+  },
+  "Ohlauer Straße 34, 10999 Berlin, Berlin, Germany": {
+    "lat": "52.4950294",
+    "lon": "13.4295192"
+  },
+  "Isoldestr. 11, 12159 Berlin, Berlin, Germany": {
+    "lat": "52.4769706",
+    "lon": "13.3314394"
+  },
+  "Jordanstraße 4, 13595 Berlin, Berlin, Germany": {
+    "lat": "52.5182683",
+    "lon": "13.1969140"
+  },
+  "Philippsthaler Dorfstraße 33, 14558 Nuthetal, Nuthetal, Germany": {
+    "lat": "52.3328947",
+    "lon": "13.1406350"
+  },
+  "La Maillarde 3, 1680 Romont, Romont, Switzerland": {
+    "lat": "46.6820570",
+    "lon": "6.9017898"
+  },
+  "Am Nüttermoorer Sieltief 18, 26789 Leer (Ostfriesland), Leer (Ostfriesland), Germany": {
+    "lat": "53.2562758",
+    "lon": "7.4512038"
+  },
+  "Robert-Bosch-Str. 12, 49688 Lastrup, Lastrup, Germany": {
+    "lat": "52.8075021",
+    "lon": "7.8845296"
+  },
+  "Bahnhofsstr. 3, 86655 Harburg, Harburg, Germany": null,
+  "Leipziger Straße 287, 34123 Kassel, Kassel, Germany": {
+    "lat": "51.2981577",
+    "lon": "9.5391093"
+  },
+  "Rue Plaisance 7, 1227 Carouge/Genf, Carouge/Genf, Switzerland": {
+    "lat": "46.1784842",
+    "lon": "6.1340108"
+  },
+  "Avenue de la Praille 45, 1227 Carouge, Carouge, Switzerland": {
+    "lat": "46.1864293",
+    "lon": "6.1326659"
+  },
+  "Trageser Weg 2a, 63755 Alzenau, Alzenau, Germany": {
+    "lat": "50.1060830",
+    "lon": "9.1035388"
+  },
+  "Lange Wiese 11, 16259 Bad Freienwalde (Oder), Bad Freienwalde (Oder), Germany": {
+    "lat": "52.7646398",
+    "lon": "14.0904021"
+  },
+  "Breite Straße 26, 16727 Marwitz, Marwitz, Germany": {
+    "lat": "52.6764338",
+    "lon": "13.1374373"
+  },
+  "Rhönstr. 38, 63477 Maintal, Maintal, Germany": {
+    "lat": "50.1468306",
+    "lon": "8.8005873"
+  },
+  "Neumarkt 2, 08056 Zwickau, Zwickau, Germany": {
+    "lat": "50.7230112",
+    "lon": "12.4938903"
+  },
+  "Ellenberger Fußweg 1-3, 34302 Guxhagen, Guxhagen, Germany": {
+    "lat": "51.2000920",
+    "lon": "9.4766542"
+  },
+  "Robert-Stock-Straße 6, 19061 Schwerin, Schwerin, Germany": {
+    "lat": "53.5725173",
+    "lon": "11.3953814"
+  },
+  "Husarenpark 1, 36205 Sontra-Ulfen, Sontra-Ulfen, Germany": null,
+  "Am Hange 19, 34130 Kassel, Kassel, Germany": {
+    "lat": "51.3229786",
+    "lon": "9.4390579"
+  },
+  "Gabelsbergerstraße 85, 80333 München, München, Czech Republic": null,
+  "Sperberstraße 7, 28239 Bremen, Bremen, Germany": {
+    "lat": "53.1341721",
+    "lon": "8.7421833"
+  },
+  "Hauptstraße 90, 66879 Reichenbach-Stegen, Reichenbach-Stegen, Germany": null,
+  "Oberer Stadtplatz 18, 94469 Deggendorf, Deggendorf, Germany": {
+    "lat": "48.8349436",
+    "lon": "12.9629574"
+  },
+  "Breite Str. 12A, 38871 Stapelburg, Stapelburg, Germany": {
+    "lat": "51.9001244",
+    "lon": "10.6626139"
+  },
+  "Helgolandstraße 17, 24113 Kiel, Kiel, Germany": {
+    "lat": "54.3044208",
+    "lon": "10.1108535"
+  },
+  "Garvensstr. 2 a, 30519 Hannover, Hannover, Germany": {
+    "lat": "52.3262574",
+    "lon": "9.7855125"
+  },
+  "Eriagstraße 46, 85053 Ingolstadt, Ingolstadt, Germany": {
+    "lat": "48.7485126",
+    "lon": "11.4799338"
+  },
+  "1, rue de la Sùre, L-6484 Echternach, Echternach, Luxembourg": null,
+  "Bertha-Schneyer-Straße 18, 99867 Gotha, Gotha, Germany": {
+    "lat": "50.9425098",
+    "lon": "10.7320265"
+  },
+  "Fuggerstr. 10, 66763 Dillingen, Dillingen, Germany": {
+    "lat": "48.5772387",
+    "lon": "10.4818340"
+  },
+  "Lehmsiekweg 4, 24625 Großharrie, Großharrie, Germany": {
+    "lat": "54.1177070",
+    "lon": "10.0509752"
+  },
+  "Moorweg 6, 24582 Bordesholm, Bordesholm, Germany": {
+    "lat": "54.1752473",
+    "lon": "10.0325916"
+  },
+  "Philipp-Reis-Str. 7, 63128 Dietzenbach, Dietzenbach, Germany": {
+    "lat": "50.0190258",
+    "lon": "8.7954770"
+  },
+  "Alustrasse 28, 3940 Steg, Steg, Switzerland": {
+    "lat": "46.3116242",
+    "lon": "7.7543116"
+  },
+  "Chem. du Champ-des-Filles 4b, 1228 Plan-les-Ouates, Plan-les-Ouates, Switzerland": null,
+  "Route de Denges 6, 1027 Lonay, Lonay, Switzerland": {
+    "lat": "46.5246245",
+    "lon": "6.5219800"
+  },
+  "Gottlieb-Daimler-Straße 9, 21684 Stade, Stade, Germany": {
+    "lat": "53.5780379",
+    "lon": "9.4985890"
+  },
+  "Osterburger Straße 64, 39576 Stendal, Stendal, Germany": {
+    "lat": "52.6201781",
+    "lon": "11.8451577"
+  },
+  "Leibnizstraße 12, 21502 Geesthacht, Geesthacht, Germany": {
+    "lat": "53.4540069",
+    "lon": "10.3661626"
+  },
+  "Moorbrückenstr. 39, 48282 Emsdetten, Emsdetten, Germany": {
+    "lat": "52.1784943",
+    "lon": "7.5328278"
+  },
+  "Bahnackerstr. 1, 76532 Baden-Baden, Baden-Baden, Germany": {
+    "lat": "48.7807652",
+    "lon": "8.1857853"
+  },
+  "Steiger-Stein-Straße 1, 44805 Bochum, Bochum, Germany": {
+    "lat": "51.5092473",
+    "lon": "7.2548768"
+  },
+  "Dortmunder Str. 22, 68723 Schwetzingen, Schwetzingen, Germany": {
+    "lat": "49.3994915",
+    "lon": "8.5598292"
+  },
+  "Treffurter Weg 13, 99974 Mühlhausen, Mühlhausen, Germany": {
+    "lat": "51.1967060",
+    "lon": "10.4754060"
+  },
+  "Tanner Str. 40, 36145 Hofbieber-Schwarzbach, Hofbieber-Schwarzbach, Germany": {
+    "lat": "50.6085447",
+    "lon": "9.9040987"
+  },
+  "Essenheimerstr. 120a, 55128 Mainz, Mainz, Germany": {
+    "lat": "49.9764387",
+    "lon": "8.2377675"
+  },
+  "Klemensstr. 13-15, 86405 Meitingen / Herbertshofen, Meitingen / Herbertshofen, Germany": {
+    "lat": "48.5308905",
+    "lon": "10.8503587"
+  },
+  "Südbahnstraße 4, 17033 Neubrandenburg, Neubrandenburg, Germany": {
+    "lat": "53.5607138",
+    "lon": "13.2559028"
+  },
+  "Danziger Straße 33A, 82110 Germering, Germering, Germany": {
+    "lat": "48.1382529",
+    "lon": "11.3755195"
+  },
+  "Maybachstraße 7, 84030 Landshut, Landshut, Germany": {
+    "lat": "48.5560986",
+    "lon": "12.1547974"
+  },
+  "Herforder Straße 221, 33609 Bielefeld, Bielefeld, Germany": {
+    "lat": "52.0376392",
+    "lon": "8.5597751"
+  },
+  "Holzkoppelweg 8-12, 24118 Kiel, Kiel, Germany": {
+    "lat": "54.3347670",
+    "lon": "10.1139001"
+  },
+  "Målerhusvej 3, 6700 Esbjerg, Esbjerg, Denmark": {
+    "lat": "55.4708410",
+    "lon": "8.4345010"
+  },
+  "Rocholzallee 25, 58285 Gevelsberg, Gevelsberg, Germany": {
+    "lat": "51.3304150",
+    "lon": "7.3649505"
+  },
+  "Rheinstrasse 5, 63303 Dreieich, Dreieich, Germany": {
+    "lat": "49.9974747",
+    "lon": "8.7336941"
+  },
+  "Industriestr. 38A, 67346 Speyer, Speyer, Germany": {
+    "lat": "49.3034913",
+    "lon": "8.4480492"
+  },
+  "Kuhweidenweg 7, 21684 Stade, Stade, Germany": {
+    "lat": "53.5771630",
+    "lon": "9.5051604"
+  },
+  "Am Güterbahnhof 2, 77652 Offenburg, Offenburg, Germany": {
+    "lat": "48.4904760",
+    "lon": "7.9515374"
+  },
+  "Hauptstraße 84, 88161 Lindenberg, Lindenberg, Germany": {
+    "lat": "47.5997739",
+    "lon": "9.8833995"
+  },
+  "Gut-Dämme-Str. 17, 52070 Aachen, Aachen, Germany": {
+    "lat": "50.7947129",
+    "lon": "6.1048914"
+  },
+  "Osterbrooksweg 21, 22869 Schenefeld, Schenefeld, Germany": {
+    "lat": "53.5976229",
+    "lon": "9.8377330"
+  },
+  "Lessingstr. 79, 13158 Berlin, Berlin, Germany": {
+    "lat": "52.5892975",
+    "lon": "13.3574659"
+  },
+  "Hauptstr. 97, 09619 Mulda, Mulda, Germany": {
+    "lat": "50.8116542",
+    "lon": "13.4046126"
+  },
+  "Grünberger Str. 59, 36304 Alsfeld, Alsfeld, Germany": {
+    "lat": "50.7468288",
+    "lon": "9.2618835"
+  },
+  "Steingasse 4, 67146 Deidesheim, Deidesheim, Germany": {
+    "lat": "49.4120298",
+    "lon": "8.1921307"
+  },
+  "Hergenhahring 8, 61250 Usingen, Usingen, Germany": null,
+  "Saime-Genc-Ring 20, 53121 Bonn, Bonn, Germany": {
+    "lat": "50.7436313",
+    "lon": "7.0429000"
+  },
+  "Siemensstr. 12, 76474 Au am Rhein, Au am Rhein, Germany": {
+    "lat": "48.9476301",
+    "lon": "8.2479808"
+  },
+  "Tomper Weg 29, 41169 Mönchengladbach, Mönchengladbach, Germany": {
+    "lat": "51.2087461",
+    "lon": "6.3331121"
+  },
+  "Hauptstraße 97, 74850 Schefflenz, Schefflenz, Germany": {
+    "lat": "49.4145444",
+    "lon": "9.2813444"
+  },
+  "Robert-Bosch-Str. 24, 64625 Bensheim, Bensheim, Germany": {
+    "lat": "49.6764582",
+    "lon": "8.5971904"
+  },
+  "Regensburger Str. 33, 92507 Nabburg, Nabburg, Germany": {
+    "lat": "49.4489240",
+    "lon": "12.1774822"
+  },
+  "Allersheimer Straße 34, 37603 Holzminden, Holzminden, Germany": {
+    "lat": "51.8337024",
+    "lon": "9.4591226"
+  },
+  "Apfelweg 8, 38871 Ilsenburg, Ilsenburg, Germany": {
+    "lat": "51.8736783",
+    "lon": "10.6893246"
+  },
+  "Graf-Uko-Weg 2, 26789 Leer, Leer, Germany": {
+    "lat": "53.2251907",
+    "lon": "7.4702525"
+  },
+  "Rüskeweg 72, 26624 Südbrookmerland, Südbrookmerland, Germany": {
+    "lat": "53.5162853",
+    "lon": "7.3714456"
+  },
+  "Bockmühlenhof 2, 38226 Salzgitter, Salzgitter, Germany": {
+    "lat": "52.1477204",
+    "lon": "10.3463675"
+  },
+  "Wald am Schoberpaß 61, 8781 Wald am Schoberpaß, Wald am Schoberpaß, Austria": {
+    "lat": "47.4515020",
+    "lon": "14.6689123"
+  },
+  "Haimbuchstraße 6, 36124 Eichenzell, Eichenzell, Germany": {
+    "lat": "50.4700073",
+    "lon": "9.7008848"
+  },
+  "Mickhauser Straße 4, 86850 Fischach, Fischach, Germany": {
+    "lat": "48.2557862",
+    "lon": "10.6421749"
+  },
+  "Gottfried-Schenker-Straße 1, 5101 Bergheim, Bergheim, Austria": {
+    "lat": "47.8633615",
+    "lon": "13.0021741"
+  },
+  "Maarweg 67, 53619 Rheinbreitbach, Rheinbreitbach, Germany": {
+    "lat": "50.6261066",
+    "lon": "7.2222701"
+  },
+  "Kreuzäcker-Ring 12-14, 63814 Mainaschaff, Mainaschaff, Germany": {
+    "lat": "49.9832921",
+    "lon": "9.1040669"
+  },
+  "Königskamp 1, 52428 Jülich, Jülich, Germany": {
+    "lat": "50.9117677",
+    "lon": "6.3761692"
+  },
+  "Gewerbering 1, 94113 Tiefenbach, Tiefenbach, Germany": {
+    "lat": "48.6270571",
+    "lon": "13.4158106"
+  },
+  "Kreuzstraße 60, 38118 Braunschweig, Braunschweig, Germany": {
+    "lat": "52.2618941",
+    "lon": "10.4884911"
+  },
+  "Bei der Lohmühle 7, 23554 Lübeck, Lübeck, Germany": {
+    "lat": "53.8781735",
+    "lon": "10.6678232"
+  },
+  "Burgergäßchen 3, 86150 Augsburg, Augsburg, Germany": {
+    "lat": "48.3703376",
+    "lon": "10.8984386"
+  },
+  "Lauenburger Straße 61, 21493 Schwarzenbek, Schwarzenbek, Germany": {
+    "lat": "53.5006100",
+    "lon": "10.4913416"
+  },
+  "Krummland 3-4, 24232 Schönkirchen, Schönkirchen, Germany": {
+    "lat": "54.3417462",
+    "lon": "10.2133196"
+  },
+  "Venloer Straße 60, 41334 Nettetal, Nettetal, Germany": {
+    "lat": "51.3248465",
+    "lon": "6.1968120"
+  },
+  "Am Heilbrunnen 122-126, 72766 Reutlingen, Reutlingen, Germany": {
+    "lat": "48.5055155",
+    "lon": "9.2188686"
+  },
+  "Hittisweilerstraße 23, 88339 Bad Waldsee, Bad Waldsee, Germany": {
+    "lat": "47.9186260",
+    "lon": "9.7612203"
+  },
+  "Wannenstraße 6, 78250 Tengen, Tengen, Germany": {
+    "lat": "47.8383652",
+    "lon": "8.6978888"
+  },
+  "Eichelbergstr. 36a, 76189 Karlsruhe, Karlsruhe, Germany": {
+    "lat": "48.9970832",
+    "lon": "8.3484405"
+  },
+  "Philipp-Reis-Straße 2, 35398 Giessen, Giessen, Germany": {
+    "lat": "50.5856690",
+    "lon": "8.6489223"
+  },
+  "Martin-Luther-Straße 7, 10777 Berlin, Berlin, Czech Republic": null,
+  "16 op der Hei, 9809 Hosingen, Hosingen, Luxembourg": {
+    "lat": "50.0083692",
+    "lon": "6.0885784"
+  },
+  "Magdeburger Str. 11, 47800 Krefeld, Krefeld, Germany": {
+    "lat": "51.3574828",
+    "lon": "6.6249864"
+  },
+  "Europaring 49, 94315 Straubing, Straubing, Germany": {
+    "lat": "48.8931827",
+    "lon": "12.6602940"
+  },
+  "Badenbergstr. 16, 89520 Heidenheim, Heidenheim, Germany": {
+    "lat": "48.6976861",
+    "lon": "10.1689817"
+  },
+  "Hofer Straße 3, 86720 Nördlingen, Nördlingen, Germany": {
+    "lat": "48.8586490",
+    "lon": "10.5054223"
+  },
+  "Tweede Schinkelstraat 3, 1075 TN Amsterdam, Amsterdam, Netherlands": {
+    "lat": "52.3534615",
+    "lon": "4.8553933"
+  },
+  "Westernkötter Straße 220, 59557 Lippstadt, Lippstadt, Germany": {
+    "lat": "51.6481659",
+    "lon": "8.3570934"
+  },
+  "Thomas-Dachser Str. 2, 83404 Ainring, Ainring, Germany": {
+    "lat": "47.8246553",
+    "lon": "12.9566687"
+  },
+  "Handelsstraße 7, 4844 Regau, Regau, Austria": {
+    "lat": "47.9955475",
+    "lon": "13.6853068"
+  },
+  "Finkenweg 2, 89284 Pfaffenhofen an der Roth, Pfaffenhofen an der Roth, Germany": {
+    "lat": "48.3524860",
+    "lon": "10.1659306"
+  },
+  "Alemannenstr. 9, 78532 Tuttlingen, Tuttlingen, Germany": {
+    "lat": "47.9643162",
+    "lon": "8.7822888"
+  },
+  "Silostrasse 9, 5606 Dintikon, Dintikon, Switzerland": {
+    "lat": "47.3762980",
+    "lon": "8.2269470"
+  },
+  "Hinteres Schorrenfeld 8, 76661 Philippsburg, Philippsburg, Germany": {
+    "lat": "49.2047464",
+    "lon": "8.4549859"
+  },
+  "Gewerbestr. 28, 76327 Pfinztal, Pfinztal, Germany": {
+    "lat": "49.0073728",
+    "lon": "8.5251654"
+  },
+  "Siemensstr. 8, 76344 Eggenstein, Eggenstein, Germany": {
+    "lat": "49.0738700",
+    "lon": "8.3803954"
+  },
+  "Paartalstraße 20A, 86316 Friedberg, Friedberg, Germany": {
+    "lat": "48.3383462",
+    "lon": "11.0020465"
+  },
+  "Lotsenweg 1, 26409 Wittmund / Carolinensiel, Wittmund / Carolinensiel, Germany": {
+    "lat": "53.6912848",
+    "lon": "7.8177814"
+  },
+  "Henighuser Str. 18, 31311 Hänigsen, Hänigsen, Germany": {
+    "lat": "52.4825859",
+    "lon": "10.0965955"
+  },
+  "Im Gewerbegebiet 6, 38315 Schladen, Schladen, Germany": {
+    "lat": "52.0294182",
+    "lon": "10.5340613"
+  },
+  "Neue Straße 15, 30880 Laatzen, Laatzen, Germany": {
+    "lat": "52.3163348",
+    "lon": "9.7872180"
+  },
+  "Schnackenburgallee 43-45, 22525 Hamburg Volkspark, Hamburg Volkspark, Germany": null,
+  "Arndtstraße 19, 38120 Braunschweig, Braunschweig, Germany": {
+    "lat": "52.2458851",
+    "lon": "10.5040671"
+  },
+  "Braunschweiger Straße 54, 38518 Gifhorn, Gifhorn, Germany": {
+    "lat": "52.4752920",
+    "lon": "10.5434105"
+  },
+  "Max-Planck-Str. 2, 53773 Hennef, Hennef, Germany": {
+    "lat": "50.7665425",
+    "lon": "7.3171818"
+  },
+  "Neubokeler Straße 13, 38518 Gifhorn, Gifhorn, Germany": {
+    "lat": "52.5021699",
+    "lon": "10.5345492"
+  },
+  "Fallegasse 1, 9020 Klagenfurt, Klagenfurt, Austria": {
+    "lat": "46.6110991",
+    "lon": "14.3380785"
+  },
+  "Robert-Bosch-Str. 90, 73431 Aalen, Aalen, Germany": {
+    "lat": "48.8226360",
+    "lon": "10.0603310"
+  },
+  "Vlijtseweg 190, 7317 AM Apeldoorn, Apeldoorn, Netherlands": {
+    "lat": "52.2305426",
+    "lon": "5.9731505"
+  },
+  "Industriestraße 16,, 34260 Kaufungen, Kaufungen, Germany": {
+    "lat": "51.2856769",
+    "lon": "9.5752582"
+  },
+  "Lindenstraße 21, 49593 Bersenbrück, Bersenbrück, Germany": {
+    "lat": "52.5543048",
+    "lon": "7.9445761"
+  },
+  "Bergwerkstr. 2, 79400 Kandern, Kandern, Germany": {
+    "lat": "47.7146740",
+    "lon": "7.6711607"
+  },
+  "25, Avenue Montaigne, 75008 Paris, Paris, Czech Republic": null,
+  "Bocholder Esch 22, 48683 Ahaus, Ahaus, Germany": {
+    "lat": "52.1330568",
+    "lon": "6.9111859"
+  },
+  "Master Esch 68, 48691 Vreden, Vreden, Germany": {
+    "lat": "52.0243720",
+    "lon": "6.8209586"
+  },
+  "Margeritenstraße 2, 79576 Weil am Rhein, Weil am Rhein, Germany": {
+    "lat": "47.5928592",
+    "lon": "7.6229383"
+  },
+  "Am Altenwalder Bahnhof 11, 27478 Cuxhaven-Altenwalde, Cuxhaven-Altenwalde, Germany": {
+    "lat": "53.8235675",
+    "lon": "8.6703153"
+  },
+  "Emsstr. 2, 26506 Norden, Norden, Germany": {
+    "lat": "53.5962972",
+    "lon": "7.2328821"
+  },
+  "Syker Straße 56j, 27211 Bassum, Bassum, Germany": {
+    "lat": "52.8616313",
+    "lon": "8.7408671"
+  },
+  "Pascalstraße 21, 47506 Neukirchen-Vluyn, Neukirchen-Vluyn, Germany": {
+    "lat": "51.4307396",
+    "lon": "6.5434898"
+  },
+  "Braunstraße 21, 24145 Kiel, Kiel, Germany": {
+    "lat": "54.2811606",
+    "lon": "10.1459863"
+  },
+  "Hartensteiner Str. 133, 08118 Hartenstein, Hartenstein, Germany": {
+    "lat": "50.6899844",
+    "lon": "12.6944424"
+  },
+  "Eichenallee 11, 01558 Großenhain, Großenhain, Germany": {
+    "lat": "51.2762076",
+    "lon": "13.5234161"
+  },
+  "Am Eichengarten 14, 06842 Dessau, Dessau, Germany": {
+    "lat": "51.8166114",
+    "lon": "12.2988742"
+  },
+  "Berliner Str. 11, 48529 Nordhorn, Nordhorn, Germany": {
+    "lat": "52.4181453",
+    "lon": "7.0573023"
+  },
+  "Buschgrundstr. 37, 45894 Gelsenkirchen, Gelsenkirchen, Germany": {
+    "lat": "51.5851999",
+    "lon": "7.0366759"
+  },
+  "77 Route de Lyon, 84000 Avignon, Avignon, France": {
+    "lat": "43.9530540",
+    "lon": "4.8315500"
+  },
+  "Josef-Bayer-Str. 10, 88250 Weingarten, Weingarten, Germany": {
+    "lat": "47.8219290",
+    "lon": "9.6347692"
+  },
+  "Betzdorfer Straße 179, 57567 Daaden, Daaden, Germany": {
+    "lat": "50.7573019",
+    "lon": "7.9181354"
+  },
+  "Im Neudeck 5, 67346 Speyer, Speyer, Germany": {
+    "lat": "49.3362223",
+    "lon": "8.4303973"
+  },
+  "Leopoldstraße 48, 95030 Hof, Hof, Germany": {
+    "lat": "50.3322382",
+    "lon": "11.9012595"
+  },
+  "Zeiler Straße 57, 97437 Haßfurt, Haßfurt, Germany": {
+    "lat": "50.0308982",
+    "lon": "10.5195126"
+  },
+  "Hochstraße 42, 41334 Nettetal, Nettetal, Germany": {
+    "lat": "51.3068222",
+    "lon": "6.2761119"
+  },
+  "Im Dohm 1, 53225 Bonn, Bonn, Germany": {
+    "lat": "50.7625207",
+    "lon": "7.1223021"
+  },
+  "Wertheimerstr 20, 97828 Marktheidenfeld, Marktheidenfeld, Germany": {
+    "lat": "49.8234120",
+    "lon": "9.5608927"
+  },
+  "Von-Drais-Straße 27/1, 77855 Achern, Achern, Germany": {
+    "lat": "48.6361836",
+    "lon": "8.0585322"
+  },
+  "Industriestraße 4, 45711 Datteln, Datteln, Germany": {
+    "lat": "51.6653818",
+    "lon": "7.3508134"
+  },
+  "Siegstr. 3 - 5, 57076 Siegen-Weidenau, Siegen-Weidenau, Germany": {
+    "lat": "50.8971707",
+    "lon": "8.0328401"
+  },
+  "Puderbacher Straße 35, 56317 Urbach, Urbach, Germany": {
+    "lat": "50.5581646",
+    "lon": "7.5903129"
+  },
+  "Hülsbrockstraße 79, 33332 Gütersloh, Gütersloh, Germany": {
+    "lat": "51.9194370",
+    "lon": "8.4091868"
+  },
+  "Am Brookhafen 12, 25524 Itzehoe, Itzehoe, Germany": {
+    "lat": "53.9181640",
+    "lon": "9.5129635"
+  },
+  "Z.I. 4ème rue, BP 34, 06511 Carros, Carros, France": null,
+  "85 Rue d'Assas, 75006 Paris, Paris, France": {
+    "lat": "48.8421813",
+    "lon": "2.3351518"
+  },
+  "476 Avenue Saint-Maur, 83310 Cogolin, Cogolin, France": {
+    "lat": "43.2566442",
+    "lon": "6.5226256"
+  },
+  "70-72 Route de Turin, 06300 Nice, Nice, France": {
+    "lat": "43.7144309",
+    "lon": "7.2842600"
+  },
+  "Im Gütle 10, 6921 Kennelbach, Kennelbach, Austria": {
+    "lat": "47.4819418",
+    "lon": "9.7655062"
+  },
+  "2 place Gantes, 13002 Marseille, Marseille, France": {
+    "lat": "43.3090156",
+    "lon": "5.3685246"
+  },
+  "Delpstr. 16, 97084 Würzburg, Würzburg, Germany": {
+    "lat": "49.7351799",
+    "lon": "9.9703984"
+  },
+  "Messerschmittstr. 5, 85053 Ingolstadt, Ingolstadt, Germany": {
+    "lat": "48.7464307",
+    "lon": "11.4633694"
+  },
+  "Friesoyther Straße 5, 26676 Barßel, Barßel, Germany": {
+    "lat": "53.1474553",
+    "lon": "7.7783363"
+  },
+  "Im Winkel 8, 46348 Raesfeld, Raesfeld, Germany": {
+    "lat": "51.7695345",
+    "lon": "6.8388264"
+  },
+  "Bamberger Str. 2, 96194 Walsdorf, Walsdorf, Germany": {
+    "lat": "49.8705675",
+    "lon": "10.7803249"
+  },
+  "Brunnenstraße 14, 92709 Moosbach, Moosbach, Germany": {
+    "lat": "49.5890777",
+    "lon": "12.4090530"
+  },
+  "Holderring 7, 89713 Lonsee - Luizhausen, Lonsee - Luizhausen, Germany": {
+    "lat": "48.5192280",
+    "lon": "9.9096475"
+  },
+  "Bauhüttenstr. 25, 06847 Dessau-Roßlau, Dessau-Roßlau, Germany": {
+    "lat": "51.8139486",
+    "lon": "12.2206228"
+  },
+  "Dammweg 2, 78652 Deisslingen, Deisslingen, Germany": {
+    "lat": "48.1076759",
+    "lon": "8.6104426"
+  },
+  "Österholzstr. 1, 99428 Grammetal-Nohra, Grammetal-Nohra, Germany": {
+    "lat": "50.9559639",
+    "lon": "11.2590225"
+  },
+  "Hölzlestraße 19, 72336 Balingen, Balingen, Germany": {
+    "lat": "48.2979672",
+    "lon": "8.8666016"
+  },
+  "Wiesentalstraße 23, 79115 Freiburg, Freiburg, Germany": {
+    "lat": "47.9780610",
+    "lon": "7.8255252"
+  },
+  "Am Lungwitzbach 15, 08371 Glauchau, Glauchau, Germany": {
+    "lat": "50.8253037",
+    "lon": "12.5620648"
+  },
+  "Raiffeisenstraße 7, 66987 Thaleischweiler, Thaleischweiler, Germany": {
+    "lat": "49.2650061",
+    "lon": "7.5789526"
+  },
+  "Friedrich-Ebert-Str. 60, 46535 Dinslaken, Dinslaken, Germany": {
+    "lat": "51.5637826",
+    "lon": "6.7342003"
+  },
+  "Am Stollen 14, 79261 Gutach im Breisgau, Gutach im Breisgau, Germany": {
+    "lat": "48.1256357",
+    "lon": "7.9981690"
+  },
+  "Hinterhofen 2, 78253 Eigeltingen, Eigeltingen, Germany": {
+    "lat": "47.8549881",
+    "lon": "8.8980371"
+  },
+  "Dornierstr. 4, 71069 Sindelfingen, Sindelfingen, Germany": {
+    "lat": "48.6903157",
+    "lon": "8.9418386"
+  },
+  "Im Weidenpützgarten 15, 53894 Mechernich, Mechernich, Germany": {
+    "lat": "50.6161952",
+    "lon": "6.6554266"
+  },
+  "Vor dem Berg 10, 88371 Ebersbach-Musbach / Boos, Ebersbach-Musbach / Boos, Germany": {
+    "lat": "47.9906405",
+    "lon": "9.5645710"
+  },
+  "Godesberger Str. 55, 53175 Bonn, Bonn, Germany": {
+    "lat": "50.6936186",
+    "lon": "7.1417830"
+  },
+  "Otto-Stomps-Straße 86-90, 06116 Halle, Halle, Germany": {
+    "lat": "51.4884427",
+    "lon": "12.0096981"
+  },
+  "Furtweg 10, 79400 Kandern, Kandern, Germany": {
+    "lat": "47.7117432",
+    "lon": "7.6032445"
+  },
+  "Schwanenschlatt 3, 46499 Hamminkeln, Hamminkeln, Germany": {
+    "lat": "51.7761127",
+    "lon": "6.6199169"
+  },
+  "Helmershäuser Str. 11, 63674 Altenstadt, Altenstadt, Germany": {
+    "lat": "50.2752870",
+    "lon": "8.9691095"
+  },
+  "Schlossäcker 8, 72290 Lossburg, Lossburg, Germany": {
+    "lat": "48.4227429",
+    "lon": "8.4515417"
+  },
+  "Saronweg 8, 72218 Wildberg, Wildberg, Germany": {
+    "lat": "48.6256244",
+    "lon": "8.7420876"
+  },
+  "Öchslestraße 17, 72270 Baiersbronn, Baiersbronn, Germany": {
+    "lat": "48.4971097",
+    "lon": "8.3763435"
+  },
+  "Altes Feld 14-22, 22885 Barsbüttel, Barsbüttel, Germany": {
+    "lat": "53.5664361",
+    "lon": "10.1849915"
+  },
+  "Handwerkstraße 3, 66663 Merzig, Merzig, Germany": {
+    "lat": "49.4661459",
+    "lon": "6.6241720"
+  },
+  "Am Bühlfeld 12, 89537 Giengen an der Brenz, Giengen an der Brenz, Germany": {
+    "lat": "48.6172716",
+    "lon": "10.2068309"
+  },
+  "Bismarckstr. 124, 72072 Tübingen, Tübingen, Germany": {
+    "lat": "48.5205332",
+    "lon": "9.0802711"
+  },
+  "An der Hasenhalle 5, 66957 Eppenbrunn, Eppenbrunn, Germany": {
+    "lat": "49.1142561",
+    "lon": "7.5513810"
+  },
+  "166 Rue des Pins, 73600 Moûtiers, Moûtiers, France": {
+    "lat": "45.4870980",
+    "lon": "6.5250110"
+  },
+  "16 Av. des Frères Montgolfier Z.I. Induspal, 64140 LONS, LONS, France": null,
+  "95 Boulevard de Cessole, 06100 Nice, Nice, France": {
+    "lat": "43.7193497",
+    "lon": "7.2519123"
+  },
+  "Z.I. Les Terriers, 172 Avenue Weisweiller, 06600 ANTIBES, ANTIBES, France": null,
+  "78 Boulevard Malesherbes, 75008 Paris, Paris, France": {
+    "lat": "48.8793837",
+    "lon": "2.3146415"
+  },
+  "19 Rte de Draguignan, 06130 Grasse, Grasse, France": {
+    "lat": "43.6407130",
+    "lon": "6.9080418"
+  },
+  "35 Avenue Mozart, 75016 Paris, Paris, Czech Republic": null,
+  "740 avenue de Saint Roman Z.I. du Haut Careï, 06500 MENTON, MENTON, France": null,
+  "2, allée de Lisbonne, 93320 PAVILLONS SOUS BOIS, PAVILLONS SOUS BOIS, France": {
+    "lat": "48.9101370",
+    "lon": "2.4915030"
+  },
+  "Bd du B.A.B-Carrefour des 5 Cantons BP.445, 64600 Anglet, Anglet, France": null,
+  "183 Av. de la Roubine, 06150 Cannes, Cannes, France": {
+    "lat": "43.5437900",
+    "lon": "6.9615180"
+  },
+  "1706 Avenue des Landiers, Avenue des Landiers, France": null,
+  "181 Boulevard Saint Germain, 75007 Paris, Paris, France": {
+    "lat": "48.8545353",
+    "lon": "2.3296923"
+  },
+  "238 impasse de l'aérodrome, 04400 SAINT-PONS, SAINT-PONS, France": {
+    "lat": "44.3858690",
+    "lon": "6.6072348"
+  },
+  "177, Avenue Jean Jaures, 93300 Aubervilliers, Aubervilliers, Czech Republic": null,
+  "1 Boulevard d’Orient, 05000 Gap, Gap, France": {
+    "lat": "44.5642718",
+    "lon": "6.1003883"
+  },
+  "163 Rte de Pézenas, 34500 Béziers, Béziers, France": {
+    "lat": "43.3592290",
+    "lon": "3.2432668"
+  },
+  "Josef-Leusch-Straße 50, 56656 Brohl-Lützing, Brohl-Lützing, Germany": {
+    "lat": "50.4847986",
+    "lon": "7.3270633"
+  },
+  "2 Rue Ferdinand de Lesseps, 33700 Merignac, Merignac, France": {
+    "lat": "44.8484560",
+    "lon": "-0.6754658"
+  },
+  "1 Rue de l'Hautil, 78700 Conflans-Sainte-Honorine, Conflans-Sainte-Honorine, France": {
+    "lat": "49.0058550",
+    "lon": "2.0787950"
+  },
+  "Parc Activités Pau Pyrénées, 6 rue Michaël Faraday, 64000 Pau, Pau, France": null,
+  "108 Bis Rue du Cherche-Midi, 75006 Paris, Paris, France": {
+    "lat": "48.8466807",
+    "lon": "2.3209620"
+  },
+  "31 Rue Jean-Lolive, 93170 Bagnolet, Bagnolet, France": {
+    "lat": "48.8664850",
+    "lon": "2.4278470"
+  },
+  "16 Rue du General Weygand, 56000 Vannes, Vannes, France": {
+    "lat": "47.6614335",
+    "lon": "-2.7250010"
+  },
+  "5, RN10 Voie Latérale Sud, 78310 Coignieres, Coignieres, France": null,
+  "ZI Indusma III, 42 Rue de la Guymauvière, 35400 Saint-Malo, Saint-Malo, France": null,
+  "ZI Albi Saint Juery, 7 Rue François Arago, 81000 Albi, Albi, France": null,
+  "26, Rue du Pont Leon ZAC de la Hazaie, 22360 Langueux, Langueux, France": null,
+  "22 Rue de la Retardais, 35000 Rennes, Rennes, France": {
+    "lat": "48.1064673",
+    "lon": "-1.7289956"
+  },
+  "ZA du Petit Guélen, 4 All. Père Daniel Brottier, 29000 Quimper, Quimper, France": null,
+  "Rue de la Vallée d'Auge, 14800 Touques, Touques, France": {
+    "lat": "49.3463776",
+    "lon": "0.0957519"
+  },
+  "46 Rue Berger, 75001 Paris, Paris, France": {
+    "lat": "48.8623957",
+    "lon": "2.3420903"
+  },
+  "ZAC Les Mériels, Route Départementale 14, 78410 Flins-sur-Seine, Flins-sur-Seine, France": null,
+  "365 Rue Georges Charpak,, 79270 Saint-Symphor, Saint-Symphor, France": null,
+  "16 Chemin des Bas des Indes, 95240 Cormeilles-en-Parisis, Cormeilles-en-Parisis, France": {
+    "lat": "48.9517402",
+    "lon": "2.2029308"
+  },
+  "94 Rue Denfert Rochereau,, 76600 Le Havre, Le Havre, France": {
+    "lat": "49.4885825",
+    "lon": "0.1354492"
+  },
+  "Siemensstr. 2, 71116 Gärtringen, Gärtringen, Germany": {
+    "lat": "48.6372287",
+    "lon": "8.9108030"
+  },
+  "Weiherstr. 4, 88356 Ostrach, Ostrach, Germany": {
+    "lat": "47.9525912",
+    "lon": "9.3785019"
+  },
+  "Sonnenbichlstr. 16, 88149 Nonnenhorn, Nonnenhorn, Germany": {
+    "lat": "47.5754409",
+    "lon": "9.6132720"
+  },
+  "Massener Str. 121, 59423 Unna, Unna, Germany": {
+    "lat": "51.5328477",
+    "lon": "7.6689732"
+  },
+  "Weichselstr. 20, 36043 Fulda, Fulda, Germany": {
+    "lat": "50.5387497",
+    "lon": "9.6822143"
+  },
+  "Im Wiesengrund 3, 57489 Drolshagen, Drolshagen, Germany": {
+    "lat": "51.0309925",
+    "lon": "7.7673258"
+  },
+  "Mittelstraße 7, 35516 Münzenberg, Münzenberg, Germany": {
+    "lat": "50.4586851",
+    "lon": "8.7279904"
+  },
+  "Konrad-Siebler-Straße 6, 82152 Krailling, Krailling, Germany": {
+    "lat": "48.0946904",
+    "lon": "11.3632745"
+  },
+  "Am Roßpfad 14, 52399 Merzenich, Merzenich, Germany": {
+    "lat": "50.8160510",
+    "lon": "6.5434254"
+  }
+}

@@ -65,7 +65,8 @@ if (!match) {
 
 const existing = JSON.parse(match[1]);
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
-const seen = new Set(existing.map(dedupeKey));
+const preserved = existing.filter((row) => row.country !== 'France');
+const seen = new Set(preserved.map(dedupeKey));
 let added = 0;
 
 for (const item of verified) {
@@ -77,15 +78,15 @@ for (const item of verified) {
   const key = dedupeKey(row);
   if (seen.has(key)) continue;
   seen.add(key);
-  existing.push(row);
+  preserved.push(row);
   added++;
 }
 
 const newHtml = html.replace(
   /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(existing)};`
+  `window.BIDETBUD_SEED = ${JSON.stringify(preserved)};`
 );
 fs.writeFileSync(htmlPath, newHtml);
 
-console.log(`Added ${added} verified France locations (${verified.length} in source).`);
-console.log(`Total seed entries: ${existing.length}`);
+console.log(`Replaced France seed rows with ${added} verified France locations (${verified.length} in source).`);
+console.log(`Total seed entries: ${preserved.length}`);

@@ -22,9 +22,12 @@ const {
   extractUrlsFromSearch,
   isGermanDomain,
   isGermanyRelevant,
+  isValidRowName,
   GERMANY_SLUG_RE,
   hasBidetSignal,
 } = require('./lib/germany-web.cjs');
+
+const TOTO_REF = path.join(__dirname, '../data/toto-europe-references.json');
 
 const OUT = path.join(__dirname, '../data/germany-web-crawl-bidets.json');
 const STATE = path.join(__dirname, '../data/germany-crawl-state.json');
@@ -102,35 +105,38 @@ const SEED_URLS = [
   'https://www.geberit.de/know-how/referenzen/hotel-hoeri/',
   'https://www.geberit.de/know-how/referenzen/hotel-rosenhof/',
   'https://www.geberit.de/badezimmerprodukte/wcs-urinale/dusch-wcs-geberit-aquaclean/testen/hotels-mit-dusch-wc/',
-  // TOTO Germany references
-  'https://eu.toto.com/de/unternehmen/referenzen/jw-marriott-hotel-frankfurt',
-  'https://eu.toto.com/de/unternehmen/referenzen/marriott-hotel-city-west-munchen',
-  'https://eu.toto.com/de/unternehmen/referenzen/vier-jahreszeiten-kempinski-munchen',
-  'https://eu.toto.com/de/unternehmen/referenzen/sofitel-bayernpost-munich',
-  'https://eu.toto.com/de/unternehmen/referenzen/mandarin-oriental-munchen',
-  'https://eu.toto.com/de/unternehmen/referenzen/schwarzwaldhotel-treschers-titisee-neustadt',
-  'https://eu.toto.com/de/unternehmen/referenzen/hotel-schloss-elmau',
-  'https://eu.toto.com/de/unternehmen/referenzen/spa-resort-bachmair-weissach-am-tegernsee',
-  'https://eu.toto.com/de/unternehmen/referenzen/badeparadies-schwarzwald',
-  'https://eu.toto.com/de/unternehmen/referenzen/jal-lounge-airport-frankfurt',
-  'https://eu.toto.com/de/unternehmen/referenzen/langham-nymphenburg-residence-munchen',
-  'https://eu.toto.com/de/unternehmen/referenzen/klinikum-darmstadt-gmbh',
-  'https://eu.toto.com/de/unternehmen/referenzen/seegalerie-berlin-tegel',
-  'https://eu.toto.com/de/unternehmen/referenzen/die-komische-oper-berlin',
-  'https://eu.toto.com/de/unternehmen/referenzen/dahlem-paradise-berlin',
-  'https://eu.toto.com/de/unternehmen/referenzen/ko-19-berlin',
-  'https://eu.toto.com/de/unternehmen/referenzen/the-metropolitan-gardens-berlin-dahlem',
-  'https://eu.toto.com/de/unternehmen/referenzen/deutsches-krebsforschungszentrum',
-  'https://eu.toto.com/de/unternehmen/referenzen/mods-hair-salon-dusseldorf',
-  'https://eu.toto.com/de/unternehmen/referenzen/schlosshotel-velen',
-  'https://eu.toto.com/de/unternehmen/referenzen/franziskus-hospital-bielefeld',
-  'https://eu.toto.com/de/unternehmen/referenzen/generationen-kult-haus-geku-haus-essen',
-  'https://eu.toto.com/de/unternehmen/referenzen/landhotel-knippschild-sauerland',
-  'https://eu.toto.com/de/unternehmen/referenzen/weberhaus',
+  // TOTO Germany references (EN pages — DE slugs often 404)
+  'https://eu.toto.com/en/company-information/references/jw-marriott-hotel-frankfurt',
+  'https://eu.toto.com/en/company-information/references/marriott-hotel-city-west-munich',
+  'https://eu.toto.com/en/company-information/references/vier-jahreszeiten-kempinski-munich',
+  'https://eu.toto.com/en/company-information/references/sofitel-bayernpost-munich',
+  'https://eu.toto.com/en/company-information/references/mandarin-oriental-munich',
+  'https://eu.toto.com/en/company-information/references/schwarzwaldhotel-treschers-titisee-neustadt',
+  'https://eu.toto.com/en/company-information/references/hotel-schloss-elmau',
+  'https://eu.toto.com/en/company-information/references/spa-resort-bachmair-weissach',
+  'https://eu.toto.com/en/company-information/references/badeparadies-schwarzwald',
+  'https://eu.toto.com/en/company-information/references/jal-lounge-frankfurt-airport',
+  'https://eu.toto.com/en/company-information/references/langham-nymphenburg-residence-munich',
+  'https://eu.toto.com/en/company-information/references/klinikum-darmstadt-gmbh',
+  'https://eu.toto.com/en/company-information/references/seegalerie-berlin-tegel',
+  'https://eu.toto.com/en/company-information/references/the-komische-oper-berlin',
+  'https://eu.toto.com/en/company-information/references/dahlem-paradise-berlin',
+  'https://eu.toto.com/en/company-information/references/ko-19-berlin',
+  'https://eu.toto.com/en/company-information/references/the-metropolitan-gardens-berlin-dahlem',
+  'https://eu.toto.com/en/company-information/references/german-cancer-research-center',
+  'https://eu.toto.com/en/company-information/references/mods-hair-salon-dusseldorf',
+  'https://eu.toto.com/en/company-information/references/schlosshotel-velen',
+  'https://eu.toto.com/en/company-information/references/franziskus-hospital-bielefeld',
+  'https://eu.toto.com/en/company-information/references/generationen-kult-haus-geku-haus-essen',
+  'https://eu.toto.com/en/company-information/references/country-hotel-knippschild-sauerland',
+  'https://eu.toto.com/en/company-information/references/weberhaus',
   // German trade press / blogs citing hotels
   'https://www.shk-profi.de/artikel/shk_Dusch-WC_im_Luxus-Hotel-3052137.html',
   'https://www.baulinks.de/badezimmer/dusch-wc.php',
   'https://www.wasnichtpasst-wirdpassendgemacht.de/unser-dusch-wc-washlet-als-echtes-super-klo-der-spitzenklasse/',
+  // German washlet finder / dealer pages
+  'https://eu.toto.com/de/produkte/washlet/washlet-finder',
+  'https://www.geberit.de/badezimmerprodukte/wcs-urinale/dusch-wcs-geberit-aquaclean/',
   // Official German hotel sites
   'https://www.thefontenay.de/',
   'https://www.thefontenay.de/zimmer/',
@@ -152,10 +158,15 @@ const SEED_URLS = [
   'https://www.holidaycheck.de/hi/sofitel-muenchen-bayerpost/0a0a0a0a-0a0a-0a0a-0a0a-0a0a0a0a0a0a',
 ];
 
+const GEO_QUERY = {
+  'the-fontenay-hamburg': 'The Fontenay Hotel Hamburg 10 Fontenay',
+  'riku-hotel-pfullendorf': 'RiKu Hotel Pfullendorf Deutschland',
+  'hotel-rosenhof': 'Hotel Rosenhof Isenbüttel Deutschland',
+};
+
 const GEBERIT_KNOWN = [
   'the-fontenay-hamburg',
   'riku-hotel-pfullendorf',
-  'hotel-hoeri',
   'hotel-rosenhof',
 ];
 
@@ -222,27 +233,36 @@ function mergeRow(rows, row) {
 
 async function geocode(query, cache) {
   if (cache[query]) return cache[query];
-  const url = 'https://photon.komoot.io/api/?limit=1&q=' + encodeURIComponent(query);
-  const res = await fetch(url);
-  const j = await res.json();
-  const f = j.features?.[0];
-  if (!f) return null;
-  const [lon, lat] = f.geometry.coordinates;
-  const p = f.properties;
-  if (p.countrycode !== 'DE') return null;
-  const result = {
-    lat: String(lat),
-    lon: String(lon),
-    display: [p.name, p.street, p.city, p.state, p.country].filter(Boolean).join(', '),
-    city: p.city || '',
-  };
-  cache[query] = result;
-  saveCache(cache);
-  await sleep(200);
-  return result;
+  try {
+    const url = 'https://photon.komoot.io/api/?limit=1&q=' + encodeURIComponent(query);
+    const res = await fetch(url);
+    const j = await res.json();
+    const f = j.features?.[0];
+    if (!f) return null;
+    const [lon, lat] = f.geometry.coordinates;
+    const p = f.properties;
+    if (p.countrycode !== 'DE') return null;
+    const result = {
+      lat: String(lat),
+      lon: String(lon),
+      display: [p.name, p.street, p.city, p.state, p.country].filter(Boolean).join(', '),
+      city: p.city || '',
+    };
+    cache[query] = result;
+    saveCache(cache);
+    await sleep(200);
+    return result;
+  } catch {
+    return null;
+  }
 }
 
-async function geocodeRow(name, address, city, cache) {
+async function geocodeRow(name, address, city, cache, url) {
+  const slug = (url || '').match(/referenzen\/([^/]+)/)?.[1];
+  if (slug && GEO_QUERY[slug]) {
+    const g = await geocode(GEO_QUERY[slug], cache);
+    if (g) return g;
+  }
   const queries = [
     address ? `${address}, Deutschland` : null,
     `${name}, ${city}, Deutschland`,
@@ -273,10 +293,43 @@ function toRow(parsed, city, sourceLabel) {
   };
 }
 
+function seedFromTotoJson(state, rows) {
+  try {
+    const toto = JSON.parse(fs.readFileSync(TOTO_REF, 'utf8'));
+    let added = 0;
+    for (const r of toto) {
+      if (r.country !== 'Germany') continue;
+      if (!isValidRowName(r.name)) continue;
+      const key = normName(r.name);
+      if (rows.some((x) => normName(x.name) === key)) continue;
+      rows.push({
+        name: r.name,
+        address: r.address,
+        latitude: r.latitude,
+        longitude: r.longitude,
+        city: r.city,
+        type: r.type || 'hotel',
+        bidetStatus: r.bidetStatus || 'warmed',
+        bidetType: r.bidetType || 'TOTO WASHLET',
+        sourceUrl: r.sourceUrl,
+        sourceQuote: r.sourceQuote,
+        verifiedMethod: r.verifiedMethod || 'manufacturer-reference',
+        access: r.access || 'limited',
+        accessNote: r.accessNote || 'Hotel guests and patrons — verify before visiting',
+      });
+      state.processedUrls[r.sourceUrl] = Date.now();
+      added++;
+    }
+    if (added) console.log(`TOTO JSON seed: +${added} Germany rows from toto-europe-references.json`);
+  } catch (e) {
+    console.warn('TOTO JSON seed:', e.message);
+  }
+}
+
 async function discoverTotoDe(state) {
   if (state.totoDiscovered) return;
   try {
-    const html = await fetchText(`${TOTO_BASE}/de/unternehmen/referenzen`);
+    const html = await fetchText(`${TOTO_BASE}/en/company-information/references`);
     const slugs = extractTotoDeSlugs(html);
     const germanySlugs = slugs.filter((s) => GERMANY_SLUG_RE.test(s));
     for (const slug of germanySlugs) {
@@ -284,7 +337,7 @@ async function discoverTotoDe(state) {
       state.totoQueue.push(slug);
     }
     state.totoDiscovered = true;
-    console.log(`TOTO DE: queued ${state.totoQueue.length} reference slugs`);
+    console.log(`TOTO EN: queued ${state.totoQueue.length} Germany reference slugs`);
     await sleep(500);
   } catch (e) {
     console.warn('TOTO index:', e.message);
@@ -334,15 +387,14 @@ async function processTotoBatch(state, rows, cache, batch = 8) {
   for (const slug of items) {
     if (state.processedToto[slug]) continue;
     state.processedToto[slug] = Date.now();
-    const url = `${TOTO_BASE}/de/unternehmen/referenzen/${slug}`;
+    const url = `${TOTO_BASE}/en/company-information/references/${slug}`;
     try {
       const html = await fetchText(url);
       const parsed = parseTotoDeReference(html, slug, url);
-      if (!parsed?.hasBidet) continue;
-      if (!isGermanyRelevant(html, '', slug)) continue;
+      if (!parsed?.hasBidet || !isValidRowName(parsed.name)) continue;
       state.stats.toto++;
 
-      const geo = await geocodeRow(parsed.name, parsed.address, '', cache);
+      const geo = await geocodeRow(parsed.name, parsed.address, '', cache, url);
       if (!geo) {
         console.warn('No geocode (TOTO):', parsed.name);
         continue;
@@ -377,10 +429,8 @@ async function processGeberitBatch(state, rows, cache, batch = 5) {
     try {
       const html = await fetchText(url);
       const parsed = parseGeberitReference(html, url);
-      if (!parsed?.hasBidet) continue;
+      if (!parsed?.hasBidet || !isValidRowName(parsed.name)) continue;
       state.stats.geberit++;
-
-      const geo = await geocodeRow(parsed.name, parsed.address, '', cache);
       if (!geo) {
         console.warn('No geocode (Geberit):', parsed.name);
         continue;
@@ -407,6 +457,31 @@ async function processGeberitBatch(state, rows, cache, batch = 5) {
   }
 }
 
+function extractBingUrls(html) {
+  const out = [];
+  for (const m of html.matchAll(/<a[^>]+href="(https?:\/\/[^"]+)"/gi)) {
+    const u = m[1];
+    if (/bing\.com|microsoft\.com|duckduckgo/i.test(u)) continue;
+    out.push(u);
+  }
+  return [...new Set(out)];
+}
+
+function extractPageLinks(html, baseUrl) {
+  const out = [];
+  for (const m of html.matchAll(/href="([^"]+)"/gi)) {
+    try {
+      const u = new URL(m[1], baseUrl).href.split('#')[0];
+      if (!isGermanDomain(u)) continue;
+      if (/\.(pdf|jpg|png|css|js)(\?|$)/i.test(u)) continue;
+      out.push(u);
+    } catch {
+      /* skip */
+    }
+  }
+  return [...new Set(out)];
+}
+
 async function searchDiscovery(state) {
   const city = CITIES[state.cityIndex % CITIES.length];
   const queries = SEARCH_QUERIES(city.de);
@@ -414,9 +489,17 @@ async function searchDiscovery(state) {
   state.queryIndex++;
 
   try {
-    const url = 'https://html.duckduckgo.com/html/?q=' + encodeURIComponent(q);
-    const html = await fetchText(url, 'de-DE');
-    const urls = extractUrlsFromSearch(html).filter((u) => {
+    const engines = [
+      'https://www.bing.com/search?q=',
+      'https://html.duckduckgo.com/html/?q=',
+      'https://lite.duckduckgo.com/lite/?q=',
+    ];
+    const searchUrl = engines[state.queryIndex % engines.length] + encodeURIComponent(q);
+    const html = await fetchText(searchUrl, 'de-DE');
+    const urls = [
+      ...extractUrlsFromSearch(html),
+      ...extractBingUrls(html),
+    ].filter((u) => {
       if (state.processedUrls[u]) return false;
       if (!isGermanDomain(u)) return false;
       if (/facebook|instagram|youtube|twitter|linkedin|wikipedia|amazon\.de\/(?!.*hotel)/i.test(u)) return false;
@@ -449,7 +532,7 @@ async function processUrlBatch(state, rows, cache, batch = 10) {
         const parsed = parseGeberitReference(html, url);
         if (!parsed?.hasBidet) continue;
         state.stats.geberit++;
-        const geo = await geocodeRow(parsed.name, parsed.address, item.city, cache);
+        const geo = await geocodeRow(parsed.name, parsed.address, item.city, cache, url);
         if (!geo) continue;
         const row = {
           ...toRow(parsed, { city: item.city || geo.city }, 'Geberit DE'),
@@ -468,13 +551,13 @@ async function processUrlBatch(state, rows, cache, batch = 10) {
         continue;
       }
 
-      if (/eu\.toto\.com\/de\/unternehmen\/referenzen/i.test(url)) {
+      if (/eu\.toto\.com\/(?:de|en)\/(?:unternehmen\/referenzen|company-information\/references)/i.test(url)) {
         const slug = url.split('/').pop();
         const html = await fetchText(url);
         const parsed = parseTotoDeReference(html, slug, url);
-        if (!parsed?.hasBidet || !isGermanyRelevant(html, item.city, slug)) continue;
+        if (!parsed?.hasBidet || !isValidRowName(parsed.name)) continue;
         state.stats.toto++;
-        const geo = await geocodeRow(parsed.name, parsed.address, item.city, cache);
+        const geo = await geocodeRow(parsed.name, parsed.address, item.city, cache, url);
         if (!geo) continue;
         const row = {
           ...toRow(parsed, { city: item.city || geo.city }, 'TOTO Europe DE'),
@@ -496,11 +579,11 @@ async function processUrlBatch(state, rows, cache, batch = 10) {
       const html = await fetchText(url);
       if (!hasBidetSignal(html)) continue;
       const parsed = parseGenericGermanPage(html, url);
-      if (!parsed?.hasBidet) continue;
-      if (!isGermanyRelevant(html + parsed.name, item.city)) continue;
+      if (!parsed?.hasBidet || !isValidRowName(parsed.name)) continue;
+      if (!isGermanyRelevant(html + parsed.name, item.city, '', url)) continue;
       state.stats.generic++;
 
-      const geo = await geocodeRow(parsed.name, parsed.address, item.city, cache);
+      const geo = await geocodeRow(parsed.name, parsed.address, item.city, cache, url);
       if (!geo) {
         console.warn('No geocode:', parsed.name);
         continue;
@@ -533,6 +616,14 @@ async function processUrlBatch(state, rows, cache, batch = 10) {
       state.stats.added++;
       console.log(`+ [${label}] ${row.name}`);
       saveOut(rows);
+      // Follow German hotel links from trade press / manufacturer pages
+      if (/geberit\.de|shk-profi|baulinks|wasnichtpasst/i.test(url)) {
+        for (const link of extractPageLinks(html, url).slice(0, 8)) {
+          if (state.processedUrls[link]) continue;
+          if (!/hotel|zimmer|suite|bad|room|dusch|washlet/i.test(link)) continue;
+          state.urlQueue.push({ url: link, city: item.city, via: `link:${new URL(url).hostname}` });
+        }
+      }
       await sleep(450);
     } catch (e) {
       console.warn('URL fail:', url.slice(0, 70), e.message);
@@ -561,6 +652,8 @@ async function main() {
   console.log(`Output: ${OUT} | existing: ${rows.length} | url queue: ${state.urlQueue.length}`);
 
   enqueueSeeds(state);
+  seedFromTotoJson(state, rows);
+  saveOut(rows);
   await discoverTotoDe(state);
   await discoverGeberit(state);
 

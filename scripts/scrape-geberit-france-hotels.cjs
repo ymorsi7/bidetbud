@@ -1,0 +1,131 @@
+#!/usr/bin/env node
+/**
+ * Geberit AquaClean hotels in France — curated from geberit-alba.fr testimonials,
+ * Geberit press (THP News), and French trade press.
+ *
+ * The interactive hotel map on geberit.fr loads markers client-side only; this script
+ * documents known France hotels with cited evidence. Optional Playwright probe when
+ * NODE_PATH points at a playwright install (see scripts/README in comment below).
+ */
+const fs = require('fs');
+const path = require('path');
+
+const OUT = path.join(__dirname, '../data/geberit-france-hotels.json');
+
+/** Verified France hotels with Geberit AquaClean — each row has sourceUrl + sourceQuote */
+const GEBERIT_FRANCE_HOTELS = [
+  {
+    name: 'Hostellerie de Levernois',
+    address: '15 Rue du Golf, 21200 Levernois',
+    latitude: '46.993198',
+    longitude: '4.877602',
+    city: 'Levernois',
+    type: 'hotel',
+    bidetStatus: 'warmed',
+    bidetType: 'Geberit AquaClean Sela',
+    sourceUrl:
+      'https://www.cattoire.com/architecture-btp/a-hostellerie-de-levernois-geberit-participe-aux-nouveaux-codes-de-lhospitalite-haut-de-gamme/',
+    sourceQuote:
+      'Presse professionnelle : chaque chambre rénovée et villa équipée de WC lavants Geberit AquaClean Sela',
+    verifiedMethod: 'web-source',
+    access: 'limited',
+    accessNote: 'Réservé aux clients de l\'hôtel',
+  },
+  {
+    name: 'Hôtel Chateaubriand',
+    address: '6 Rue Chateaubriand, 75008 Paris',
+    latitude: '48.873056',
+    longitude: '2.307222',
+    city: 'Paris',
+    type: 'hotel',
+    bidetStatus: 'warmed',
+    bidetType: 'Geberit AquaClean Alba',
+    sourceUrl: 'https://www.geberit-alba.fr/',
+    sourceQuote:
+      'Témoignage Geberit Alba : le gérant de l\'Hôtel Chateaubriand cite les WC lavants Geberit AquaClean',
+    verifiedMethod: 'web-source',
+    access: 'limited',
+    accessNote: 'Réservé aux clients de l\'hôtel',
+  },
+  {
+    name: 'Hôtel du Clos Fleuri',
+    address: '2 Rue de Bretagne, 65100 Lourdes',
+    latitude: '43.094722',
+    longitude: '-0.049722',
+    city: 'Lourdes',
+    type: 'hotel',
+    bidetStatus: 'warmed',
+    bidetType: 'Geberit AquaClean Alba',
+    sourceUrl: 'https://www.geberit-alba.fr/',
+    sourceQuote:
+      'Témoignage Geberit Alba : la clientèle revient pour le confort des WC lavants Geberit AquaClean',
+    verifiedMethod: 'web-source',
+    access: 'limited',
+    accessNote: 'Réservé aux clients de l\'hôtel',
+    searchAliases: ['Hotel du clos fleuris', 'Clos Fleuri Lourdes'],
+  },
+  {
+    name: 'Mandarin Oriental Lutetia Paris',
+    address: '45 Boulevard Raspail, 75006 Paris',
+    latitude: '48.851111',
+    longitude: '2.326389',
+    city: 'Paris',
+    type: 'hotel',
+    bidetStatus: 'warmed',
+    bidetType: 'Geberit AquaClean Mera',
+    sourceUrl:
+      'https://tophotel.news/legendary-luxury-mandarin-oriental-lutetia-hotel-paris-enhanced-by-geberit-aquaclean-mera/',
+    sourceQuote:
+      'Geberit press : l\'hôtel a remplacé ses toilettes classiques par des WC lavants AquaClean Mera',
+    verifiedMethod: 'web-source',
+    access: 'limited',
+    accessNote: 'Réservé aux clients de l\'hôtel',
+    searchAliases: ['Hôtel Lutetia', 'Lutetia Paris'],
+  },
+  {
+    name: 'Hôtel Le Mosaïque',
+    address: '21 Rue Mosaïque, 11100 Narbonne',
+    latitude: '43.182750',
+    longitude: '3.008722',
+    city: 'Narbonne',
+    type: 'hotel',
+    bidetStatus: 'warmed',
+    bidetType: 'Geberit AquaClean',
+    sourceUrl: 'https://www.paperblog.fr/9871867/decouverte-de-l-hotel-le-mosaique-a-narbonne-avec-geberit/',
+    sourceQuote:
+      'Interview du directeur : chambres premium équipées de WC lavants Geberit AquaClean',
+    verifiedMethod: 'web-source',
+    access: 'limited',
+    accessNote: 'Chambres premium — vérifier la catégorie à la réservation',
+    searchAliases: ['Hotel Le Mosaique Narbonne'],
+  },
+  {
+    name: 'Best Western Plus Le Fairway Hôtel & Spa',
+    address: '1000 Rue Briquet Taillandier, 62223 Anzin-Saint-Aubin',
+    latitude: '50.314167',
+    longitude: '2.758889',
+    city: 'Arras',
+    type: 'hotel',
+    bidetStatus: 'warmed',
+    bidetType: 'Geberit AquaClean Alba',
+    sourceUrl: 'https://www.geberit-alba.fr/',
+    sourceQuote:
+      'Témoignage Geberit Alba : WC lavants choisis pour marquer l\'esprit des clients (Fairway Golf d\'Arras)',
+    verifiedMethod: 'web-source',
+    access: 'limited',
+    accessNote: 'Certaines suites — voir catégorie Prestige sur le site hôtel',
+    searchAliases: ['Le Fairway Arras', 'Fairway Golf Arras'],
+  },
+];
+
+function main() {
+  fs.writeFileSync(OUT, JSON.stringify(GEBERIT_FRANCE_HOTELS, null, 2) + '\n');
+  console.log(`Wrote ${GEBERIT_FRANCE_HOTELS.length} Geberit France hotel rows to ${OUT}`);
+  return GEBERIT_FRANCE_HOTELS;
+}
+
+if (require.main === module) {
+  main();
+}
+
+module.exports = { GEBERIT_FRANCE_HOTELS, main };

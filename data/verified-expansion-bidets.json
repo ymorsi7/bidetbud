@@ -174,5 +174,53 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests"
+  },
+  {
+    "name": "SCHLIEN Sàrl",
+    "address": "11 Um Lënster Bierg, L-6125 Junglinster",
+    "latitude": "49.7165997",
+    "longitude": "6.2679621",
+    "city": "Junglinster",
+    "country": "Luxembourg",
+    "type": "public",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET RX",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm#schlien-junglinster",
+    "sourceQuote": "TOTO Try WASHLET finder lists SCHLIEN Sàrl (Junglinster): \"WASHLET® RX in the guest toilet.\"",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Dealer showroom — try a WASHLET during business hours"
+  },
+  {
+    "name": "Brandt S.á.r.l.",
+    "address": "1 rue de la Sûre, L-6484 Echternach",
+    "latitude": "49.8117727",
+    "longitude": "6.4235814",
+    "city": "Echternach",
+    "country": "Luxembourg",
+    "type": "public",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET RW",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm#brandt-echternach",
+    "sourceQuote": "TOTO Try WASHLET finder lists Brandt S.á.r.l. (Echternach): \"WASHLET® RW in the guest toilet.\"",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Dealer showroom — try a WASHLET during business hours"
+  },
+  {
+    "name": "Chauffage Sanitaire Barthel S.A.",
+    "address": "16 op der Hei, L-9809 Hosingen",
+    "latitude": "50.0083692",
+    "longitude": "6.0885784",
+    "city": "Hosingen",
+    "country": "Luxembourg",
+    "type": "public",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET SW, WASHLET RW",
+    "sourceUrl": "https://eu.toto.com/en/service/try-washlettm#barthel-hosingen",
+    "sourceQuote": "TOTO Try WASHLET finder lists Chauffage Sanitaire Barthel S.A. (Hosingen): \"WASHLET® SW, WASHLET® RW in the guest toilet.\"",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Dealer showroom — try a WASHLET during business hours"
   }
 ]

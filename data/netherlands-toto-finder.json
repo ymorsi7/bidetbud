@@ -1,0 +1,132 @@
+[
+  {
+    "name": "Incantare",
+    "street": "Parallelweg 33",
+    "postcode": "4878 AH",
+    "city": "Etten-Leur",
+    "product": "WASHLET® EK in the guest toilet",
+    "phone": "+31 76 501 6406",
+    "website": "www.designkranenshop.nl",
+    "type": "public"
+  },
+  {
+    "name": "Everts",
+    "street": "Noordervaart 127",
+    "postcode": "2012 NH",
+    "city": "Haarlem",
+    "product": "WASHLET® GL in the guest toilet",
+    "phone": "+31 23 514 9914",
+    "website": "www.evertsbv.nl",
+    "type": "public"
+  },
+  {
+    "name": "Harry Kloeze Installatietechniek",
+    "street": "Industrieweg 15",
+    "postcode": "9501 CR",
+    "city": "Stadskanaal",
+    "product": "WASHLET® GL in the guest toilet",
+    "phone": "+31 599 618 886",
+    "website": "www.kloeze.nl",
+    "type": "public"
+  },
+  {
+    "name": "Jans Beeke Sanidrome",
+    "street": "Boeierstraat 2",
+    "postcode": "5423 SP",
+    "city": "Handel",
+    "product": "WASHLET® GL in the guest toilet",
+    "phone": "+31 492 323 250",
+    "website": "www.jansbeeke.sanidrome.nl",
+    "type": "public"
+  },
+  {
+    "name": "Van de Ven Sanidrome",
+    "street": "Energieweg 5",
+    "postcode": "5511 AE",
+    "city": "Knegsel",
+    "product": "WASHLET® GL in the guest toilet",
+    "phone": "+31 40 205 1606",
+    "website": "www.vandeven.sanidrome.nl",
+    "type": "public"
+  },
+  {
+    "name": "Wiesenekker BV",
+    "street": "Oosthuizerweg 13",
+    "postcode": "3911 CX",
+    "city": "Rhenen",
+    "product": "WASHLET® GL in the guest toilet",
+    "phone": "+31 317 618 390",
+    "website": "www.wiesenekker.nl",
+    "type": "public"
+  },
+  {
+    "name": "Sofitel Amsterdam",
+    "street": "Oudezijds Voorburgwal 197",
+    "postcode": "1012 EX",
+    "city": "Amsterdam",
+    "product": "NEOREST® SE, WC with integrated bidet, WASHLET® GL in some suites",
+    "phone": "+31 205553111",
+    "website": "www.sofitel.com",
+    "type": "hotel"
+  },
+  {
+    "name": "Philippo Badkamers",
+    "street": "Keyserswey 35",
+    "postcode": "2201 CW",
+    "city": "Noordwijk",
+    "product": "WASHLET® GL 2.0 with hidden connections",
+    "phone": "+31 71 361 8172",
+    "website": "www.philippo-info.nl",
+    "type": "public"
+  },
+  {
+    "name": "Bubbels & Jets",
+    "street": "Vonderweg 28B",
+    "postcode": "7468 DC",
+    "city": "Enter",
+    "product": "WASHLET® RW, NEOREST® WX2 in the guest toilet",
+    "phone": "+31 547 384000",
+    "website": "www.bubbelsenjets.nl",
+    "type": "public"
+  },
+  {
+    "name": "Meijer Tegels en Sanitair",
+    "street": "Haverstraat 70",
+    "postcode": "2153 GB",
+    "city": "Nieuw-Vennep",
+    "product": "WASHLET® RW in the guest toilet",
+    "phone": "+31 252 675504",
+    "website": "www.meijer-sanitair.nl",
+    "type": "public"
+  },
+  {
+    "name": "TuijpsHuysch",
+    "street": "Bloemendalerweg 42",
+    "postcode": "1382 KC",
+    "city": "Weesp",
+    "product": "WASHLET® RW, NEOREST® WX2 in the guest toilet",
+    "phone": "+31 20 4940280",
+    "website": "www.tuijpshuysch.nl",
+    "type": "public"
+  },
+  {
+    "name": "FrisseBips BV Amsterdam",
+    "street": "Tweede Schinkelstraat 3",
+    "postcode": "1075 TN",
+    "city": "Amsterdam",
+    "product": "WASHLET® RW in the guest toilet",
+    "phone": "+31 6 55132763",
+    "website": "www.frissebips.nl",
+    "type": "public"
+  },
+  {
+    "name": "Gijsberts Apeldoorn",
+    "street": "Vlijtseweg 190",
+    "postcode": "7317 AM",
+    "city": "Apeldoorn",
+    "product": "WASHLET® RW in the guest toilet",
+    "phone": "+31 55 5219175",
+    "website": "www.gijsbertsbv.nl",
+    "type": "public"
+  }
+]

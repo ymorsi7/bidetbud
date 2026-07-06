@@ -1,0 +1,72 @@
+[
+  {
+    "name": "The Fontenay, Hamburg",
+    "sourceUrl": "https://www.geberit.de/know-how/referenzen/the-fontenay-hamburg/",
+    "sourceQuote": "der Lage an der Außenalster über die fließende Architektur bis hin zu den Bädern der Hotelzimmer, in denen das Dusch-WC AquaClean Mera von Geberit den Gästen einen ganz besonderen Komfort bietet; eines von verschiedenen Geberit-Produkten, die sich in diesem Haus finden",
+    "bidetType": "Geberit AquaClean Dusch-WC",
+    "scrapedAt": "2026-07-06T14:00:28.276Z"
+  },
+  {
+    "name": "RiKu Budget-Design Hotel, Pfullendorf",
+    "sourceUrl": "https://www.geberit.de/know-how/referenzen/riku-hotel-pfullendorf/",
+    "sourceQuote": "Pfullendorf Doppelter Dusch-Komfort im Hotelbad RiKu Hotel Pfullendorf mit Duschfläche Geberit Setaplano und Dusch-WCs AquaClean Mera und Sela Übernachtungsgäste im oberschwäbischen Pfullendorf können sich über eine neue Location freuen: Das Budget-Design Hotel RiKu der Barfüßer Gastrono",
+    "bidetType": "Geberit AquaClean Dusch-WC",
+    "scrapedAt": "2026-07-06T14:00:30.914Z"
+  },
+  {
+    "name": "Hotel Rosenhof, Isenbüttel",
+    "sourceUrl": "https://www.geberit.de/know-how/referenzen/hotel-rosenhof/",
+    "sourceQuote": "riere Medien Suche Fachpartner Fachpartner Fachpartner Fachpartner Webshop Produktkatalog Extraportion Wellness Geberit AquaClean Dusch-WC im Hotel Rosenhof Für Installateure Für Hoteliers Für Installateure Auf den ersten Blick sieht das Hotel Rosenhof aus wie ein gewöhnliches Hotel",
+    "bidetType": "Geberit AquaClean Dusch-WC",
+    "scrapedAt": "2026-07-06T14:00:33.648Z"
+  },
+  {
+    "name": "Geberit Dusch",
+    "sourceUrl": "https://www.geberit.de/badezimmerprodukte/wcs-urinale/dusch-wcs-geberit-aquaclean/testen/hotels-mit-dusch-wc/",
+    "sourceQuote": "zimmerprodukte/wcs-urinale/dusch-wcs-geberit-aquaclean/testen/hotels-mit-dusch-wc",
+    "bidetType": "Geberit AquaClean Dusch-WC",
+    "scrapedAt": "2026-07-06T14:00:36.517Z"
+  },
+  {
+    "name": "Sofitel Bayernpost, Munich",
+    "sourceUrl": "https://eu.toto.com/en/company-information/references/sofitel-bayernpost-munich",
+    "sourceQuote": "TOTO Europe Referenz: WC MH, wall-hung CW162Y WASHLET® GL TCF891G (discontinued) Renovations at Sofitel Munich were finally completed",
+    "bidetType": "TOTO WASHLET",
+    "scrapedAt": "2026-07-06T14:00:39.088Z"
+  },
+  {
+    "name": "Vier Jahreszeiten Kempinski, Munich",
+    "sourceUrl": "https://eu.toto.com/en/company-information/references/vier-jahreszeiten-kempinski-munich",
+    "sourceQuote": "TOTO Europe Referenz: NEOREST® bathtub, freestanding PJY1886HPWNE#GW (discontinued) NEOREST® WASHLET® EW TCF994WGE#NW1 (discontinued) NEOREST®",
+    "bidetType": "TOTO NEOREST",
+    "scrapedAt": "2026-07-06T14:00:40.979Z"
+  },
+  {
+    "name": "Mandarin Oriental, Munich",
+    "sourceUrl": "https://eu.toto.com/en/company-information/references/mandarin-oriental-munich",
+    "sourceQuote": "TOTO Europe Referenz: WC NC, wall-hung CW762Y NEOREST® SE, WC with integrated WASHLET® CW997DF (discontinued)",
+    "bidetType": "TOTO NEOREST",
+    "scrapedAt": "2026-07-06T14:00:42.879Z"
+  },
+  {
+    "name": "Hotel Schloss Elmau",
+    "sourceUrl": "https://eu.toto.com/en/company-information/references/hotel-schloss-elmau",
+    "sourceQuote": "TOTO Europe Referenz: WASHLET® EK TCF6402GE (discontinued) NEOREST® SE, WC with integrated WASHLET® CW997DF (discontinued) WC MH, wall-hung on",
+    "bidetType": "TOTO NEOREST",
+    "scrapedAt": "2026-07-06T14:00:44.819Z"
+  },
+  {
+    "name": "Schwarzwaldhotel Treschers, Titisee-Neustadt",
+    "sourceUrl": "https://eu.toto.com/en/company-information/references/schwarzwaldhotel-treschers-titisee-neustadt",
+    "sourceQuote": "TOTO Europe Referenz: WC RP, wall-hung CW552RY",
+    "bidetType": "Dusch-WC / Washlet",
+    "scrapedAt": "2026-07-06T14:00:46.740Z"
+  },
+  {
+    "name": "Dusch-WC im Luxus-Hotel",
+    "sourceUrl": "https://www.shk-profi.de/artikel/shk_Dusch-WC_im_Luxus-Hotel-3052137.html",
+    "sourceQuote": "zimmern von insgesamt 100 Zimmern und 57 Suiten stehen dem Gast „TOTO Washlet",
+    "bidetType": "TOTO WASHLET",
+    "scrapedAt": "2026-07-06T14:00:49.066Z"
+  }
+]

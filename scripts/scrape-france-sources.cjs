@@ -13,17 +13,37 @@
  */
 const fs = require('fs');
 const path = require('path');
-const https = require('https');
+const { fetchTotoFranceFinder, toVerifiedRow } = require('./scrape-toto-france-finder.cjs');
+const { GEBERIT_FRANCE_HOTELS } = require('./scrape-geberit-france-hotels.cjs');
 
 const OUT = path.join(__dirname, '../data/france-verified-bidets.json');
 const TOTO_EU = path.join(__dirname, '../data/toto-europe-references.json');
 const TOTO_FINDER_CACHE = path.join(__dirname, '../data/toto-france-finder.json');
 
 const SKIP_TOTO_NAMES = /^(Louvre|Viparis)\b/i;
+const SKIP_TOTO_EXACT = new Set([
+  'Maison Albar – Imperator Hotel', // bad geocode in toto-europe; use manual Nîmes row
+]);
 const HAS_WASHLET = /washlet|wc lavant|toilette japonaise|neorest|aquaclean|bidet/i;
 
 /** Hand-curated rows from French websites not in automated scrapes */
 const FRENCH_WEB_SOURCES = [
+  {
+    name: 'Toyoko Inn Marseille Saint-Charles',
+    address: '25 Avenue du Général Leclerc, 13003 Marseille',
+    latitude: '43.304474',
+    longitude: '5.375664',
+    city: 'Marseille',
+    type: 'hotel',
+    bidetStatus: 'warmed',
+    bidetType: 'Toilettes japonaises / washlet',
+    sourceUrl: 'https://france.toyoko-inn.com/nos-chambres/',
+    sourceQuote:
+      'Le site français Toyoko Inn indique des chambres avec toilettes japonaises parmi les équipements',
+    verifiedMethod: 'web-source',
+    access: 'limited',
+    accessNote: 'Hotel guests only',
+  },
   {
     name: 'Manolita Paris',
     address: '1 Rue Lepic, 75018 Paris',
@@ -73,23 +93,6 @@ const FRENCH_WEB_SOURCES = [
     accessNote: 'Hotel guests only',
   },
   {
-    name: 'Hostellerie de Levernois',
-    address: '15 Rue du Golf, 21200 Levernois',
-    latitude: '46.993198',
-    longitude: '4.877602',
-    city: 'Levernois',
-    type: 'hotel',
-    bidetStatus: 'warmed',
-    bidetType: 'Geberit AquaClean Sela',
-    sourceUrl:
-      'https://www.cattoire.com/architecture-btp/a-hostellerie-de-levernois-geberit-participe-aux-nouveaux-codes-de-lhospitalite-haut-de-gamme/',
-    sourceQuote:
-      'French trade press: every renovated room and new villa bathroom equipped with Geberit AquaClean Sela shower toilets',
-    verifiedMethod: 'web-source',
-    access: 'limited',
-    accessNote: 'Hotel guests only',
-  },
-  {
     name: 'Okomusu',
     address: '11 Rue Charlot, 75003 Paris',
     latitude: '48.863089',
@@ -104,39 +107,6 @@ const FRENCH_WEB_SOURCES = [
     verifiedMethod: 'web-source',
     access: 'public',
     accessNote: 'Restaurant patrons',
-  },
-  {
-    name: 'Hôtel Chateaubriand',
-    address: '6 Rue Chateaubriand, 75008 Paris',
-    latitude: '48.873056',
-    longitude: '2.307222',
-    city: 'Paris',
-    type: 'hotel',
-    bidetStatus: 'warmed',
-    bidetType: 'Geberit AquaClean',
-    sourceUrl: 'https://www.geberit-alba.fr/',
-    sourceQuote:
-      'Geberit France hotel program: manager testimonial on geberit-alba.fr for AquaClean wash toilets at Hôtel Chateaubriand',
-    verifiedMethod: 'web-source',
-    access: 'limited',
-    accessNote: 'Hotel guests only',
-  },
-  {
-    name: 'Hôtel du Clos Fleuri',
-    address: '2 Rue de Bretagne, 65100 Lourdes',
-    latitude: '43.094722',
-    longitude: '-0.049722',
-    city: 'Lourdes',
-    type: 'hotel',
-    bidetStatus: 'warmed',
-    bidetType: 'Geberit AquaClean',
-    sourceUrl: 'https://www.geberit-alba.fr/',
-    sourceQuote:
-      'Geberit France hotel program: owner testimonial — guests return specifically for Geberit AquaClean comfort (Hôtel du clos fleuris)',
-    verifiedMethod: 'web-source',
-    access: 'limited',
-    accessNote: 'Hotel guests only',
-    searchAliases: ['Hotel du clos fleuris', 'Clos Fleuri Lourdes'],
   },
   {
     name: 'Le Trône (showroom WC japonais)',
@@ -407,7 +377,11 @@ const IMPERATOR_MANUAL = {
 
 function dedupeKey(row) {
   return [
-    row.name.toLowerCase().replace(/[^a-z0-9]/g, ''),
+    row.name
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/[^a-z0-9]/g, ''),
     Number(row.latitude).toFixed(4),
     Number(row.longitude).toFixed(4),
   ].join('|');
@@ -416,6 +390,7 @@ function dedupeKey(row) {
 function normalizeTotoEurope(row) {
   if (row.country !== 'France') return null;
   if (SKIP_TOTO_NAMES.test(row.name)) return null;
+  if (SKIP_TOTO_EXACT.has(row.name)) return null;
   const quote = `${row.sourceQuote || ''} ${row.bidetType || ''}`;
   if (!HAS_WASHLET.test(quote)) return null;
   return {
@@ -460,7 +435,22 @@ function mergeRows(existing, incoming) {
   return added;
 }
 
-function main() {
+async function loadLiveFinderRows() {
+  try {
+    const parsed = await fetchTotoFranceFinder();
+    const live = parsed.map(toVerifiedRow);
+    fs.writeFileSync(TOTO_FINDER_CACHE, JSON.stringify(live, null, 2) + '\n');
+    return live;
+  } catch (e) {
+    console.warn('Live TOTO finder fetch failed, using cache:', e.message);
+    if (fs.existsSync(TOTO_FINDER_CACHE)) {
+      return JSON.parse(fs.readFileSync(TOTO_FINDER_CACHE, 'utf8'));
+    }
+    return TOTO_FINDER_FRANCE.map(normalizeFinder);
+  }
+}
+
+async function main() {
   const rows = [];
 
   if (fs.existsSync(TOTO_EU)) {
@@ -473,12 +463,16 @@ function main() {
 
   rows.push(FOUQUET_MANUAL, IMPERATOR_MANUAL);
   rows.push(...FRENCH_WEB_SOURCES);
+  rows.push(...GEBERIT_FRANCE_HOTELS);
   rows.push(...TOTO_FINDER_FRANCE.map(normalizeFinder));
 
-  // Dedupe by name+coords
+  const liveFinder = await loadLiveFinderRows();
+  rows.push(...liveFinder);
+
   const out = [];
   const seen = new Set();
   for (const row of rows) {
+    if (!row.sourceUrl || !row.sourceQuote) continue;
     const key = dedupeKey(row);
     if (seen.has(key)) continue;
     seen.add(key);
@@ -486,10 +480,13 @@ function main() {
   }
 
   out.sort((a, b) =>
-  `${a.city}|${a.name}`.localeCompare(`${b.city}|${b.name}`, 'fr'));
+    `${a.city}|${a.name}`.localeCompare(`${b.city}|${b.name}`, 'fr')
+  );
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2) + '\n');
-  fs.writeFileSync(TOTO_FINDER_CACHE, JSON.stringify(TOTO_FINDER_FRANCE, null, 2));
   console.log(`Wrote ${out.length} verified France rows to ${OUT}`);
 }
 
-main();
+main().catch((e) => {
+  console.error(e);
+  process.exit(1);
+});

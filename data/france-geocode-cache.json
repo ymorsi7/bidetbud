@@ -1,0 +1,116 @@
+{
+  "Hôtel Plaza Athénée – Paris, France, , France": {
+    "lat": "48.8663815",
+    "lon": "2.3038926",
+    "display": "Hôtel Plaza Athénée, Rue du Boccador, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Le Restaurant Blanc – Paris 16è, , France": {
+    "lat": "48.8477513",
+    "lon": "2.2658149",
+    "display": "Le Mouton Blanc, Rue d'Auteuil, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Maison Albar Hotels Le Pont-Neuf, , France": {
+    "lat": "44.0236477",
+    "lon": "3.3595283",
+    "display": "Maison du Pont Neuf, Rue du Trauquet, Saint-Jean-du-Bruel, Occitanie, France",
+    "city": "Saint-Jean-du-Bruel"
+  },
+  "Maison Albar – Imperator Hotel, , France": {
+    "lat": "48.8753905",
+    "lon": "2.2944392",
+    "display": "Maison Albar Hôtel, Rue de Tilsitt, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Hôtel Barrière Le Fouquet’s, , France": {
+    "lat": "48.8710995",
+    "lon": "2.3012603",
+    "display": "Hôtel Barrière Le Fouquet's, Rue Vernet, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Restaurant Yen, Paris, , France": {
+    "lat": "48.8663234",
+    "lon": "2.3099159",
+    "display": "Restaurant Lasserre, Avenue Franklin Delano Roosevelt, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Références européennes, , France": {
+    "lat": "48.5898596",
+    "lon": "7.7649549",
+    "display": "Institut des Hautes Études Européennes - Villa Knopf, Rue Schiller, Strasbourg, Grand Est, France",
+    "city": "Strasbourg"
+  },
+  "Tester le WASHLET®, , France": {
+    "lat": "45.0712798",
+    "lon": "-0.7376531",
+    "display": "Le Testeron, Moulis-en-Médoc, Nouvelle-Aquitaine, France",
+    "city": "Moulis-en-Médoc"
+  },
+  "DESIGN, , France": {
+    "lat": "49.4481678",
+    "lon": "1.1372635",
+    "display": "École supérieure d'art et design Le Havre-Rouen (site de Rouen), Rue Richard Wagner, Rouen, Normandie, France",
+    "city": "Rouen"
+  },
+  "Avenue Ledru Rollin 75012 Paris – France, France": {
+    "lat": "48.8512454",
+    "lon": "2.3760934",
+    "display": "Avenue Ledru-Rollin, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Chambres & suites modernes, , France": {
+    "lat": "47.2184918",
+    "lon": "4.6409107",
+    "display": "La Suite des Prés Verts, Chambre avec Jacuzzi Privatif, Rue Général Cremer, Châteauneuf, Bourgogne-Franche-Comté, France",
+    "city": "Châteauneuf"
+  },
+  "Hôtel Chouchou, Paris, , France": {
+    "lat": "48.8564263",
+    "lon": "2.3525276",
+    "display": "Hôtel de Ville, Place de l’Hotel de Ville, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Hôtel L’Armancette, Saint-Gervais-les-Bains, , France": {
+    "lat": "45.8524631",
+    "lon": "6.723563",
+    "display": "L'Armancette, Route de Saint-Nicolas de Véroce, Saint-Gervais-les-Bains, Auvergne-Rhône-Alpes, France",
+    "city": "Saint-Gervais-les-Bains"
+  },
+  "Fauchon Hôtel Paris, , France": {
+    "lat": "48.8704093",
+    "lon": "2.3236102",
+    "display": "Hôtel Fauchon, Boulevard Malesherbes, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Hôtel Vernet, Paris, , France": {
+    "lat": "48.8710995",
+    "lon": "2.3012603",
+    "display": "Hôtel Barrière Le Fouquet's, Rue Vernet, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Restaurant L’Agapé, Paris, , France": {
+    "lat": "48.8720949",
+    "lon": "2.3323339",
+    "display": "L'Opéra Restaurant, Place Jacques Rouché, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Hôtel Palace Park Hyatt Paris-Vendôme, , France": {
+    "lat": "48.8690233",
+    "lon": "2.330489",
+    "display": "Park Hyatt Paris-Vendôme, Rue de la Paix, Paris, Île-de-France, France",
+    "city": "Paris"
+  },
+  "Boutique Colette, Paris, , France": {
+    "lat": "47.0565638",
+    "lon": "6.6036082",
+    "display": "Colette Boutique, Place de la Halle, Morteau, Bourgogne-Franche-Comté, France",
+    "city": "Morteau"
+  },
+  "Les Neiges, Courchevel, , France": {
+    "lat": "45.4180689",
+    "lon": "6.6509093",
+    "display": "Rue Notre-Dame-des-Neiges, Courchevel, Auvergne-Rhône-Alpes, France",
+    "city": "Courchevel"
+  }
+}

@@ -177,6 +177,21 @@
     "website": ""
   },
   {
+    "name": "Generationen Kult Haus (“GeKu Haus”), Essen",
+    "address": "GenerationenKult / Haus (GeKu-Haus),  Viehofer Straße,  Essen,  Nordrhein-Westfalen,  Deutschland",
+    "city": "Essen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET",
+    "sourceUrl": "https://eu.toto.com/en/company-information/references/generationen-kult-haus-geku-haus-essen",
+    "sourceQuote": "TOTO Europe DE: TOTO Europe Referenz: WC NC, wall-hung CW762Y WASHLET® EK TCF6402G (discontinued) An extraordinary residential and commercial building designe",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons — verify before visiting",
+    "latitude": "51.4592809",
+    "longitude": "7.0131811"
+  },
+  {
     "name": "JAL Lounge, Frankfurt Airport",
     "address": "Camel Smoking Lounge,  Airportring,  Frankfurt am Main,  Deutschland",
     "latitude": "50.0482808",
@@ -275,6 +290,21 @@
     "verifiedMethod": "manufacturer-reference",
     "access": "limited",
     "accessNote": "Verify access before visiting"
+  },
+  {
+    "name": "WeberHaus",
+    "address": "Weberhaus,  Melle,  Niedersachsen,  Deutschland",
+    "city": "Melle",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET",
+    "sourceUrl": "https://eu.toto.com/en/company-information/references/weberhaus",
+    "sourceQuote": "TOTO Europe DE: TOTO Europe Referenz: WASHLET® RG TCF34270GEU WeberHaus is one of Germany’s leading manufacturers of prefabricated homes. This family-owned co",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons — verify before visiting",
+    "latitude": "52.2273206",
+    "longitude": "8.3439845"
   },
   {
     "name": "Country Hotel Knippschild",
@@ -381,6 +411,21 @@
     "accessNote": "Hotel guests and patrons",
     "totoCategory": "Hotel *****",
     "website": ""
+  },
+  {
+    "name": "Rebhan's Business und Wellness Hotel",
+    "address": "Rebhanstraße 2, 95145 Oberkotzau, Deutschland",
+    "latitude": "50.2567",
+    "longitude": "11.9347",
+    "city": "Oberkotzau",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Geberit AquaClean Dusch-WC",
+    "sourceUrl": "https://hotel-rebhan.de/hotel/zimmer/doppelzimmer-plus/",
+    "sourceQuote": "Deutsche Webquelle: Doppelzimmer Plus mit Geberit AquaClean Dusch-WC — Separates WC ausgestattet mit Geberit AquaClean Dusch-WC",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
   },
   {
     "name": "RiKu Budget-Design Hotel, Pfullendorf",
