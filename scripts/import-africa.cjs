@@ -1,14 +1,22 @@
 #!/usr/bin/env node
 /**
- * Append verified African bidet locations from data/africa-verified-bidets.json.
- * Only adds net-new rows that carry explicit source evidence (sourceUrl + sourceQuote).
- * Does NOT replace existing rows.
+ * Append verified African bidet locations into BIDETBUD_SEED.
+ *
+ * Sources (merged, in order):
+ *   1. data/africa-verified-bidets.json   — hand-curated, cited rows
+ *   2. data/africa-web-crawl-bidets.json  — output of crawl-africa-web.cjs (optional)
+ *
+ * Only adds net-new rows that carry explicit source evidence (sourceUrl +
+ * sourceQuote). Never replaces existing rows.
  */
 const fs = require('fs');
 const path = require('path');
 
 const htmlPath = path.join(__dirname, '../index.html');
-const verifiedPath = path.join(__dirname, '../data/africa-verified-bidets.json');
+const SOURCES = [
+  path.join(__dirname, '../data/africa-verified-bidets.json'),
+  path.join(__dirname, '../data/africa-web-crawl-bidets.json'),
+];
 
 const AFRICA = new Set([
   'Kenya',
@@ -23,6 +31,21 @@ const AFRICA = new Set([
   'Ghana',
   'Rwanda',
   'Senegal',
+  "Cote d'Ivoire",
+  'Cameroon',
+  'Zambia',
+  'Zimbabwe',
+  'Botswana',
+  'Namibia',
+  'Mozambique',
+  'Angola',
+  'Burkina Faso',
+  'Mali',
+  'Malawi',
+  'Benin',
+  'Gabon',
+  'DR Congo',
+  'Congo',
 ]);
 
 function toSeedRow(row) {
@@ -78,11 +101,6 @@ function isNearDuplicate(existing, candidate) {
   return false;
 }
 
-if (!fs.existsSync(verifiedPath)) {
-  console.error('Missing', verifiedPath);
-  process.exit(1);
-}
-
 const html = fs.readFileSync(htmlPath, 'utf8');
 const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
 if (!match) {
@@ -91,7 +109,21 @@ if (!match) {
 }
 
 const existing = JSON.parse(match[1]);
-const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
+const verified = [];
+for (const src of SOURCES) {
+  if (!fs.existsSync(src)) continue;
+  try {
+    const rows = JSON.parse(fs.readFileSync(src, 'utf8'));
+    verified.push(...rows);
+    console.log(`Loaded ${rows.length} rows from ${path.basename(src)}`);
+  } catch (e) {
+    console.warn(`Skipping ${path.basename(src)}: ${e.message}`);
+  }
+}
+if (!verified.length) {
+  console.error('No source rows found in', SOURCES.map((s) => path.basename(s)).join(', '));
+  process.exit(1);
+}
 
 const seen = new Set(existing.map(dedupeKey));
 const seenUrl = new Set(existing.filter((r) => r.sourceUrl).map((r) => r.sourceUrl));
@@ -107,6 +139,12 @@ for (const item of verified) {
   }
   if (!AFRICA.has(item.country)) {
     console.warn('Skipping (not a supported African country):', item.name);
+    continue;
+  }
+  const lat = Number(item.latitude);
+  const lon = Number(item.longitude);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon) || (lat === 0 && lon === 0)) {
+    console.warn('Skipping (bad coords):', item.name);
     continue;
   }
 

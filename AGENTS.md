@@ -26,13 +26,22 @@ css/github-star.css                 Footer link styles
 images/                             Logo and favicons
 data/singapore-bidets.geolocation.json   Cached SG source (community bidet sightings only)
 data/france-verified-bidets.json         Curated FR rows with cited evidence (not bulk OSM)
+data/russia-verified-bidets.json         Curated RU rows with cited evidence (Russian sources preferred)
+data/russia-scrape-candidates.json       Auto-scrape hits from scripts/scrape-russia-sources.cjs (review only)
 scripts/
   apply-address-fixes.cjs           Re-geocode seed; manual coordinate overrides
   import-singapore.cjs              Merge @toiletswithbidetsg / Bidet Bud SG JSON
   import-france.cjs                 Merge only rows from france-verified-bidets.json
+  import-russia.cjs                 Replace all Russia rows from russia-verified-bidets.json
+  scrape-russia-sources.cjs         Crawl Russian booking/review sites for bidet mentions
+  scrape-russia-exhaustive.cjs      90-min exhaustive crawl with URL discovery
+  geocode-russia.cjs                  Apply manual GPS overrides for Russia curated rows
   scrape-toto-references.cjs        Fetch all TOTO Europe WASHLET case studies
   finish-toto-references.cjs        Append manual coords for ambiguous TOTO venues
   import-toto-references.cjs        Merge TOTO references into BIDETBUD_SEED
+  scrape-toto-try.cjs               Parse eu.toto.com "Try WASHLET" finder listing
+  geocode-toto-try.cjs              Geocode Try-WASHLET rows (Photon/Nominatim, cached)
+  import-toto-try.cjs               Merge Try-WASHLET showrooms/dealers into BIDETBUD_SEED
   address-fix-report.json           Output from geocode script (optional)
 ```
 
@@ -168,6 +177,22 @@ Sets `bidetStatus: "internet"`, `verifiedMethod: "community-sighting"`, and repl
 node scripts/import-france.cjs
 ```
 
+## Russia data import
+
+**Prefer Russian-language sources** (newtoto.ru, broni.travel, 101hotels.com, tutu.ru,
+travel.yandex.ru, level.travel, irecommend.ru, official `.ru` hotel sites). Each row in
+`data/russia-verified-bidets.json` must cite explicit bidet/washlet evidence. Do **not**
+bulk-import mosques or generic restrooms from OSM.
+
+```bash
+node scripts/scrape-russia-sources.cjs      # quick curated crawl
+node scripts/scrape-russia-exhaustive.cjs --minutes 90   # full 90-min scrape
+node scripts/geocode-russia.cjs          # apply manual coords after adding rows
+node scripts/import-russia.cjs           # replaces all prior Russia rows in seed
+```
+
+TOTO Russia dealer projects: [newtoto.ru/category/projects](https://newtoto.ru/category/projects/)
+
 ## Africa data import
 
 African venues are **not** bidet-friendly by default, so each row needs explicit
@@ -179,10 +204,49 @@ node scripts/import-africa.cjs
 ```
 
 Sets `bidetStatus: "internet"`, `verifiedMethod: "web-source"`, and only adds
-net-new rows (dedupes on name+coords and on `sourceUrl`). Covers Kenya, Uganda,
-Nigeria, Chad, Niger, Ethiopia, Somalia, South Africa, and Tanzania (extend the
-`AFRICA` set in the script to add more countries). Do **not** bulk-import from
-generic hotel directories — only rows where the source explicitly mentions a bidet.
+net-new rows (dedupes on name+coords and on `sourceUrl`). `import-africa.cjs` merges
+two sources: the curated `africa-verified-bidets.json` **and** the crawler output
+`africa-web-crawl-bidets.json` (below). Do **not** bulk-import from generic hotel
+directories — only rows where the source explicitly mentions a bidet.
+
+### Africa web crawler (long-running, "leave no stone unturned")
+
+`scripts/crawl-africa-web.cjs` discovers venues across ~21 non-bidet-friendly
+African countries whose pages explicitly name a bidet / shattaf / Arabic shower /
+douchette / washlet. It filters out e-commerce/product pages (sprayer shops),
+listicles, and directory pages, requires structured venue data (schema.org
+lodging/restaurant or a street address), and geocodes via photon **restricted to
+the searched country's code** (so venues can't drift into the wrong nation).
+
+```bash
+# 90-minute crawl, then merge results into the seed:
+node scripts/crawl-africa-web.cjs --minutes=90 --import
+
+# crawl only (writes data/africa-web-crawl-bidets.json), import later:
+node scripts/crawl-africa-web.cjs --minutes=90
+node scripts/import-africa.cjs
+
+# start over (clears queue/state):
+node scripts/crawl-africa-web.cjs --reset --minutes=90
+```
+
+It is **resumable**: progress lives in `data/africa-crawl-state.json` and the
+geocode cache in `data/africa-geocode-cache.json`; rows stream to
+`data/africa-web-crawl-bidets.json` as they're found. Discovery rotates across
+multiple search front-ends (DuckDuckGo Lite/HTML, Mojeek, Marginalia) with
+exponential backoff when rate-limited. Shared parsing/geocoding logic lives in
+`scripts/lib/africa-web.cjs`. To add countries, extend `COUNTRIES` in the crawler
+and the `AFRICA` set in `import-africa.cjs`.
+
+## UK data import (TOTO "Try WASHLET" finder)
+
+UK WASHLET showrooms/hotels listed on TOTO's [Try WASHLET finder](https://eu.toto.com/en/service/try-washlettm) live in `data/uk-toto-finder.json` (each row has coords geocoded from its postcode via api.postcodes.io + a `sourceQuote`). Import with:
+
+```bash
+node scripts/import-uk.cjs
+```
+
+Sets `bidetStatus: "warmed"`, `verifiedMethod: "manufacturer-reference"`, and the finder URL. Dedupes on name+coords **and** a normalized name key so venues already in the seed under a different label (e.g. "The Connaught" vs "Hotel Connaught, London") are not re-added.
 
 ## TOTO Europe references (all WASHLET case studies)
 
@@ -195,6 +259,23 @@ node scripts/import-toto-references.cjs     # replaces prior eu.toto.com rows in
 ```
 
 All get `bidetStatus: "warmed"`, `verifiedMethod: "manufacturer-reference"`, and the TOTO case study URL.
+
+## TOTO "Try WASHLET" finder (showrooms & dealers)
+
+TOTO lists ~1,300 showrooms/dealers where a WASHLET is installed "in the guest
+toilet" and can be tried in person at [eu.toto.com/en/service/try-washlettm](https://eu.toto.com/en/service/try-washlettm)
+(rendered page saved as markdown; the finder loads results via JS so it can't be
+plain-fetched). Re-import with:
+
+```bash
+node scripts/scrape-toto-try.cjs [path/to/try-washlettm.md]  # parse -> data/toto-try-washlet.json
+node scripts/geocode-toto-try.cjs                            # fill lat/lon (cached)
+node scripts/import-toto-try.cjs                             # replaces prior try-washlettm rows in seed
+```
+
+All get `type: "public"`, `bidetStatus: "warmed"`, `verifiedMethod: "manufacturer-reference"`,
+`access: "public"` with a showroom `accessNote`, and the finder URL. Country is
+inferred per row from phone dialling code, then website TLD, then postcode/city.
 
 ---
 
