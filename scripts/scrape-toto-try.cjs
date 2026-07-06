@@ -28,25 +28,55 @@ const SRC = process.argv[2] || DEFAULT_SRC;
 const OUT = path.join(__dirname, '../data/toto-try-washlet.json');
 const SOURCE_URL = 'https://eu.toto.com/en/service/try-washlettm';
 
-// Detect the "postcode + city" line and split it.
+const PREFIX_COUNTRY = require('./lib/toto-try.cjs').PREFIX_COUNTRY;
+
+// Detect the "postcode + city" line and split it. Returns { postcode, city,
+// prefixCountry? } where prefixCountry is set for "A-6414"/"DK-3400" style codes.
 function parsePostcodeCity(line) {
   const s = line.trim();
+  // Country-letter prefix: "A-6414 Obermieming", "DK-3400 Hillerød",
+  // "LV-1050 Riga", "L-1234 Luxembourg", "CH-8048 Zürich".
+  let m = s.match(/^([A-Z]{1,3})-\s?(\d{3}\s?\d{2}|\d{4,5})\s+(.+)$/);
+  if (m) {
+    return {
+      postcode: m[2].trim(),
+      city: m[3].trim(),
+      prefixCountry: PREFIX_COUNTRY[m[1].toUpperCase()] || null,
+    };
+  }
   // UK: "SW8 3RE London"
-  let m = s.match(/^([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\s+(.+)$/i);
+  m = s.match(/^([A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2})\s+(.+)$/i);
   if (m) return { postcode: m[1].trim(), city: m[2].trim() };
+  // UK (lenient, tolerates typo'd outward code): "W2CR 0EZ London"
+  m = s.match(/^([A-Z]{1,2}\d[A-Z\d]{1,2}\s+\d[A-Z]{2})\s+(.+)$/i);
+  if (m) return { postcode: m[1].trim(), city: m[2].trim(), prefixCountry: 'UK' };
+  // Irish Eircode: "D24 X39K Dublin 24"
+  m = s.match(/^([A-Z]\d[A-Z\d]\s?[A-Z0-9]{4})\s+(.+)$/i);
+  if (m) return { postcode: m[1].trim(), city: m[2].trim(), prefixCountry: 'Ireland' };
   // Netherlands: "1234 AB Amsterdam"
   m = s.match(/^(\d{4}\s?[A-Z]{2})\s+(.+)$/i);
   if (m) return { postcode: m[1].trim(), city: m[2].trim() };
-  // Prefixed: "LV-1050 Riga" / "L-1234 Luxembourg" / "LT-01100 Vilnius"
-  m = s.match(/^((?:LV|LT|L)-?\d{4,5})\s+(.+)$/i);
-  if (m) return { postcode: m[1].trim(), city: m[2].trim() };
-  // Czech: "110 00 Praha"
+  // Czech/Slovak: "110 00 Praha"
   m = s.match(/^(\d{3}\s\d{2})\s+(.+)$/);
   if (m) return { postcode: m[1].trim(), city: m[2].trim() };
+  // French PO box line: "BP 90056 DAX Cedex" (BP number is not a real postcode)
+  m = s.match(/^BP\s?\d+\s+(.+)$/i);
+  if (m) return { postcode: '', city: m[1].trim(), prefixCountry: 'France' };
   // Generic 4-5 digit: "41238 Mönchengladbach" / "8048 Zürich"
   m = s.match(/^(\d{4,5})\s+(.+)$/);
   if (m) return { postcode: m[1].trim(), city: m[2].trim() };
   return null;
+}
+
+// A bare city line (no digits, no product/model tokens) — used when a venue
+// listing has a city but no postcode, e.g. "Riga".
+function looksLikeBareCity(line) {
+  const s = line.trim();
+  if (!s || /\d/.test(s)) return false;
+  if (s.length > 40) return false;
+  if (/washlet|neorest|guest toilet|flexcover|giovannoni|in some rooms|®/i.test(s))
+    return false;
+  return /^[A-Za-zÀ-ÿ][A-Za-zÀ-ÿ .'\/-]+$/.test(s);
 }
 
 function isNoise(line) {
@@ -83,6 +113,17 @@ function main() {
     endIdx >= 0 ? endIdx : lines.length
   );
 
+  // Preserve already-resolved coordinates (and fixed countries) across re-runs
+  // so we only need to geocode net-new rows.
+  const prior = {};
+  if (fs.existsSync(OUT)) {
+    try {
+      for (const r of JSON.parse(fs.readFileSync(OUT, 'utf8'))) {
+        prior[`${r.name}|${r.address}`.toLowerCase()] = r;
+      }
+    } catch {}
+  }
+
   // Segment into blocks terminated by "Share <name> via WhatsApp".
   const rows = [];
   let block = [];
@@ -112,6 +153,17 @@ function main() {
         addr = pc;
         pcIdx = i;
         break;
+      }
+    }
+
+    // Fallback: a listing with a bare city line but no postcode (e.g. "Riga").
+    if (!addr) {
+      for (let i = 0; i < head.length; i++) {
+        if (looksLikeBareCity(head[i])) {
+          addr = { postcode: '', city: head[i].trim() };
+          pcIdx = i;
+          break;
+        }
       }
     }
 
@@ -150,21 +202,26 @@ function main() {
     const country =
       countryFromPhone(phone) ||
       countryFromWebsite(website) ||
+      addr.prefixCountry ||
       countryFromPostcode(addr.postcode, addr.city) ||
       countryFromCity(addr.city) ||
       null;
 
+    const old = prior[`${name}|${addressParts}`.toLowerCase()];
     rows.push({
       name,
       address: addressParts,
       postcode: addr.postcode,
       city: addr.city,
-      country,
+      // Trust a previously-resolved country (may have been fixed by the geocoder).
+      country: (old && old.latitude && old.country) || country,
       bidetType: model,
       phone: phone || undefined,
       website: website || undefined,
       sourceUrl: SOURCE_URL,
       sourceQuote: `TOTO "Try WASHLET" finder: ${model} in the guest toilet`,
+      ...(old && old.latitude ? { latitude: old.latitude, longitude: old.longitude } : {}),
+      ...(old && old.closed ? { closed: old.closed } : {}),
     });
   }
 

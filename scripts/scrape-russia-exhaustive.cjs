@@ -165,14 +165,14 @@ function fetchUrl(url) {
 
 /** 101hotels Russia city slugs — crawl hotel listing pages for /rooms links */
 const HOTELS_101_CITIES = [
-  'moskva', 'sankt-peterburg', 'sochi', 'anapa', 'gelendzhik', 'tuapse',
-  'krasnodar', 'kazan', 'yekaterinburg', 'novosibirsk', 'vladivostok',
+  'moskva', 'sankt-peterburg', 'sochi', 'anapa', 'gelendjik', 'tuapse',
+  'krasnodar', 'kazan', 'ekaterinburg', 'novosibirsk', 'vladivostok',
   'kaliningrad', 'pyatigorsk', 'kislovodsk', 'essentuki', 'zheleznovodsk',
-  'nalchik', 'belokuriha', 'adler', 'sirius', 'yalta', 'feodosia',
-  'evpatoria', 'sukko', 'lazarevskoye', 'vladimir', 'yaroslavl',
-  'sergiev-posad', 'nn', 'samara', 'rostov-na-donu', 'voronezh',
-  'perm', 'ufa', 'irkutsk', 'khabarovsk', 'murmansk', 'arkhangelsk',
-  'astrakhan', 'novokuznetsk', 'tomsk', 'omsk', 'chelyabinsk',
+  'nalchik', 'belokuriha', 'adler', 'sirius', 'yalta', 'feodosiya',
+  'evpatoriya', 'sukko', 'lazarevskoe', 'vladimir', 'yaroslavl',
+  'sergiev_posad', 'nizhniy_novgorod', 'samara', 'rostov-na-donu', 'voronezh',
+  'perm', 'ufa', 'irkutsk', 'murmansk',
+  'novokuznetsk', 'tomsk', 'omsk', 'chelyabinsk',
 ];
 
 function urls101hotels() {
