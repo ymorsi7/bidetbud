@@ -1,5 +1,36 @@
 {
-  "added": 25,
-  "skipped": [],
-  "mergedAt": "2026-07-06T16:51:38.945Z"
+  "added": 12,
+  "skipped": [
+    {
+      "name": "Отель Марриотт Империал Плаза Москва",
+      "reason": "duplicate after parse",
+      "url": "https://101hotels.com/main/cities/moskva/otel_marriott_imperial_plaza_moskva.html"
+    },
+    {
+      "name": "Отель Москва Санкт-Петербург",
+      "reason": "duplicate after parse",
+      "url": "https://101hotels.com/main/cities/sankt-peterburg/gostinitsa_moskva.html"
+    },
+    {
+      "name": "Лотте Отель Санкт-Петербург",
+      "reason": "duplicate after parse",
+      "url": "https://101hotels.com/main/cities/sankt-peterburg/lotte_otel_sankt-peterburg.html"
+    },
+    {
+      "name": "Отель Akyan",
+      "reason": "duplicate after parse",
+      "url": "https://101hotels.com/main/cities/sankt-peterburg/akyan_st-petersburg.html"
+    },
+    {
+      "name": "Отель Парк Родник",
+      "reason": "duplicate after parse",
+      "url": "https://101hotels.com/main/cities/pyatigorsk/otel_park_rodnik_1.html"
+    },
+    {
+      "name": "Пансионат Родина Ессентуки",
+      "reason": "duplicate after parse",
+      "url": "https://101hotels.com/main/cities/essentuki/pansionat_rodina.html"
+    }
+  ],
+  "mergedAt": "2026-07-06T16:59:58.656Z"
 }
