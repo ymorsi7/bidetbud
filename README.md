@@ -52,7 +52,7 @@ scripts/
 
 2. **Coordinate cleanup:** `node scripts/apply-address-fixes.cjs` (requires Node 18+ with `fetch`).
 
-3. **User submissions:** reviewed via the Airtable form embedded in the app (configured in `index.html`).
+3. **User submissions:** collected via an Airtable form embedded directly in the "Suggest a verified spot" popup (an `<iframe>`, no new tab). Configure it in `index.html` via the `AIRTABLE_EMBED_URL` (iframe `src`) and `AIRTABLE_FORM_URL` constants. Submissions are reviewed before being added to `BIDETBUD_SEED`.
 
 ## Contributing
 
