@@ -5223,5 +5223,304 @@
     "lat": "48.2513878",
     "lon": "11.6509662",
     "cc": "de"
+  },
+  "noms:{\"street\":\"Dresdner Chaussee 43\",\"postalcode\":\"03130\",\"city\":\"Spremberg\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"03130\",\"city\":\"Spremberg\",\"countrycodes\":\"de\"}": {
+    "lat": "51.5714513",
+    "lon": "14.3804302",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Anne-Jenfeldt-Straße 6\",\"postalcode\":\"22113\",\"city\":\"Oststeinbek\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"22113\",\"city\":\"Oststeinbek\",\"countrycodes\":\"de\"}": {
+    "lat": "53.5492988",
+    "lon": "10.1693500",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Baptist-Kraus-Straße 12\",\"postalcode\":\"92665\",\"city\":\"Altenstadt a.d.WN\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"92665\",\"city\":\"Altenstadt a.d.WN\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"92665\",\"countrycodes\":\"de\"}": {
+    "lat": "49.7530200",
+    "lon": "12.1160717",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Reupelsdorfer Weg 11\",\"postalcode\":\"97355\",\"city\":\"Kleinlangheim\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"97355\",\"city\":\"Kleinlangheim\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"97355\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"city\":\"Kleinlangheim\",\"countrycodes\":\"cz\"}": null,
+  "photon:Reupelsdorfer Weg 11, 97355 Kleinlangheim, Czech Republic": {
+    "lat": "49.7898529",
+    "lon": "10.2778141",
+    "cc": "DE"
+  },
+  "noms:{\"street\":\"Dorfstraße 69\",\"postalcode\":\"08340\",\"city\":\"Schwarzenberg\",\"countrycodes\":\"de\"}": {
+    "lat": "50.5211094",
+    "lon": "12.7815331",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Echzeller Weg 10\",\"postalcode\":\"61203\",\"city\":\"Reichelsheim - Beinheim\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"61203\",\"city\":\"Reichelsheim - Beinheim\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"61203\",\"countrycodes\":\"de\"}": {
+    "lat": "50.3535991",
+    "lon": "8.8607583",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Rendeler Straße 55\",\"postalcode\":\"60385\",\"city\":\"Frankfurt\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"60385\",\"city\":\"Frankfurt\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"60385\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"city\":\"Frankfurt\",\"countrycodes\":\"cz\"}": null,
+  "photon:Rendeler Straße 55, 60385 Frankfurt, Czech Republic": {
+    "lat": "50.1278731",
+    "lon": "8.7097446",
+    "cc": "DE"
+  },
+  "noms:{\"street\":\"11 Um Lënster Bierg\",\"postalcode\":\"L-6125\",\"city\":\"Junglinster\",\"countrycodes\":\"lu\"}": null,
+  "noms:{\"postalcode\":\"L-6125\",\"city\":\"Junglinster\",\"countrycodes\":\"lu\"}": null,
+  "noms:{\"postalcode\":\"L-6125\",\"countrycodes\":\"lu\"}": null,
+  "noms:{\"city\":\"Junglinster\",\"countrycodes\":\"lu\"}": {
+    "lat": "49.7118482",
+    "lon": "6.2522878",
+    "cc": "lu"
+  },
+  "noms:{\"street\":\"Steinbeisstraße 11\",\"postalcode\":\"70806\",\"city\":\"Kornwestheim\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"70806\",\"city\":\"Kornwestheim\",\"countrycodes\":\"de\"}": {
+    "lat": "48.8611498",
+    "lon": "9.1873875",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Feitzing 6\",\"postalcode\":\"4925\",\"city\":\"Prament\",\"countrycodes\":\"at\"}": null,
+  "noms:{\"postalcode\":\"4925\",\"city\":\"Prament\",\"countrycodes\":\"at\"}": null,
+  "noms:{\"postalcode\":\"4925\",\"countrycodes\":\"at\"}": {
+    "lat": "48.1355386",
+    "lon": "13.4935673",
+    "cc": "at"
+  },
+  "noms:{\"street\":\"Zielstattstraße 71\",\"postalcode\":\"81379\",\"city\":\"München-Süd\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"81379\",\"city\":\"München-Süd\",\"countrycodes\":\"de\"}": {
+    "lat": "48.1080378",
+    "lon": "11.5496115",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Lundbyvej 4\",\"postalcode\":\"4863\",\"city\":\"Eskilstrup\",\"countrycodes\":\"dk\"}": null,
+  "noms:{\"postalcode\":\"4863\",\"city\":\"Eskilstrup\",\"countrycodes\":\"dk\"}": {
+    "lat": "54.8568436",
+    "lon": "11.8840358",
+    "cc": "dk"
+  },
+  "noms:{\"street\":\"Kukučínova 718\",\"postalcode\":\"911 01\",\"city\":\"Trenčín\",\"countrycodes\":\"sk\"}": {
+    "lat": "48.8910463",
+    "lon": "18.0529827",
+    "cc": "sk"
+  },
+  "noms:{\"street\":\"Merkurring 116\",\"postalcode\":\"22143\",\"city\":\"Hamburg\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"22143\",\"city\":\"Hamburg\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"22143\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"city\":\"Hamburg\",\"countrycodes\":\"cz\"}": null,
+  "photon:Merkurring 116, 22143 Hamburg, Czech Republic": null,
+  "noms:{\"street\":\"Glashüttenstraße 21\",\"postalcode\":\"01796\",\"city\":\"Pirna\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"01796\",\"city\":\"Pirna\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"01796\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"city\":\"Pirna\",\"countrycodes\":\"cz\"}": null,
+  "photon:Glashüttenstraße 21, 01796 Pirna, Czech Republic": null,
+  "noms:{\"street\":\"Rita-Maiburgstraße 12\",\"postalcode\":\"88074\",\"city\":\"Meckenbeuren\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"88074\",\"city\":\"Meckenbeuren\",\"countrycodes\":\"de\"}": {
+    "lat": "47.6999205",
+    "lon": "9.5606280",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Saartraße 44a\",\"postalcode\":\"54634\",\"city\":\"Bitburg\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"54634\",\"city\":\"Bitburg\",\"countrycodes\":\"de\"}": {
+    "lat": "49.9732762",
+    "lon": "6.5249470",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"An den Kapuzienern 1-4\",\"postalcode\":\"33098\",\"city\":\"Paderborn\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"33098\",\"city\":\"Paderborn\",\"countrycodes\":\"de\"}": {
+    "lat": "51.7177044",
+    "lon": "8.7526530",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Krasta 68A\",\"postalcode\":\"LV-1019\",\"city\":\"Riga\",\"countrycodes\":\"lv\"}": {
+    "lat": "56.9297576",
+    "lon": "24.1557089",
+    "cc": "lv"
+  },
+  "noms:{\"street\":\"Bahnhofsstraße 3\",\"postalcode\":\"86655\",\"city\":\"Harburg\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"86655\",\"city\":\"Harburg\",\"countrycodes\":\"de\"}": {
+    "lat": "48.7872060",
+    "lon": "10.6889571",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Husarenpark 1\",\"postalcode\":\"36205\",\"city\":\"Sontra-Ulfen\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"36205\",\"city\":\"Sontra-Ulfen\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"36205\",\"countrycodes\":\"de\"}": {
+    "lat": "51.0684842",
+    "lon": "9.9523642",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Gabelsbergerstraße 85\",\"postalcode\":\"80333\",\"city\":\"München\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"80333\",\"city\":\"München\",\"countrycodes\":\"cz\"}": {
+    "lat": "50.7228392",
+    "lon": "14.0768839",
+    "cc": "cz"
+  },
+  "noms:{\"street\":\"Hauptstraße 90\",\"postalcode\":\"66879\",\"city\":\"Reichenbach-Stegen\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"66879\",\"city\":\"Reichenbach-Stegen\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"66879\",\"countrycodes\":\"de\"}": {
+    "lat": "49.4846692",
+    "lon": "7.5189964",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"1\",\"postalcode\":\"L-6484\",\"city\":\"Echternach\",\"countrycodes\":\"lu\"}": null,
+  "noms:{\"postalcode\":\"L-6484\",\"city\":\"Echternach\",\"countrycodes\":\"lu\"}": null,
+  "noms:{\"postalcode\":\"L-6484\",\"countrycodes\":\"lu\"}": null,
+  "noms:{\"city\":\"Echternach\",\"countrycodes\":\"lu\"}": {
+    "lat": "49.8120961",
+    "lon": "6.4214859",
+    "cc": "lu"
+  },
+  "noms:{\"street\":\"Chem. du Champ-des-Filles 4b\",\"postalcode\":\"1228\",\"city\":\"Plan-les-Ouates\",\"countrycodes\":\"ch\"}": null,
+  "noms:{\"postalcode\":\"1228\",\"city\":\"Plan-les-Ouates\",\"countrycodes\":\"ch\"}": {
+    "lat": "46.1683113",
+    "lon": "6.1178870",
+    "cc": "ch"
+  },
+  "noms:{\"street\":\"Hergenhahring 8\",\"postalcode\":\"61250\",\"city\":\"Usingen\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"61250\",\"city\":\"Usingen\",\"countrycodes\":\"de\"}": {
+    "lat": "50.3507950",
+    "lon": "8.5231684",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Martin-Luther-Straße 7\",\"postalcode\":\"10777\",\"city\":\"Berlin\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"10777\",\"city\":\"Berlin\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"10777\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"street\":\"Schnackenburgallee 43-45\",\"postalcode\":\"22525\",\"city\":\"Hamburg Volkspark\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"22525\",\"city\":\"Hamburg Volkspark\",\"countrycodes\":\"de\"}": null,
+  "noms:{\"postalcode\":\"22525\",\"countrycodes\":\"de\"}": {
+    "lat": "53.5848333",
+    "lon": "9.9118944",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"25\",\"postalcode\":\"75008\",\"city\":\"Paris\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"75008\",\"city\":\"Paris\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"75008\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"city\":\"Paris\",\"countrycodes\":\"cz\"}": {
+    "lat": "48.8966883",
+    "lon": "14.9176808",
+    "cc": "cz"
+  },
+  "noms:{\"street\":\"Z.I. 4ème rue\",\"postalcode\":\"06511\",\"city\":\"Carros\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"06511\",\"city\":\"Carros\",\"countrycodes\":\"fr\"}": {
+    "lat": "43.7846000",
+    "lon": "7.1878500",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"16 Av. des Frères Montgolfier Z.I. Induspal\",\"postalcode\":\"64140\",\"city\":\"LONS\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"64140\",\"city\":\"LONS\",\"countrycodes\":\"fr\"}": {
+    "lat": "43.3154079",
+    "lon": "-0.4097637",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"Z.I. Les Terriers\",\"postalcode\":\"06600\",\"city\":\"ANTIBES\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"06600\",\"city\":\"ANTIBES\",\"countrycodes\":\"fr\"}": {
+    "lat": "43.5813878",
+    "lon": "7.1236966",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"35 Avenue Mozart\",\"postalcode\":\"75016\",\"city\":\"Paris\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"75016\",\"city\":\"Paris\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"75016\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"street\":\"740 avenue de Saint Roman Z.I. du Haut Careï\",\"postalcode\":\"06500\",\"city\":\"MENTON\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"06500\",\"city\":\"MENTON\",\"countrycodes\":\"fr\"}": {
+    "lat": "43.7753495",
+    "lon": "7.5029213",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"Bd du B.A.B-Carrefour des 5 Cantons BP.445\",\"postalcode\":\"64600\",\"city\":\"Anglet\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"64600\",\"city\":\"Anglet\",\"countrycodes\":\"fr\"}": {
+    "lat": "43.4813927",
+    "lon": "-1.5149935",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"1706 Avenue des Landiers\",\"postalcode\":\"1706\",\"city\":\"Avenue des Landiers\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"1706\",\"city\":\"Avenue des Landiers\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"1706\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"city\":\"Avenue des Landiers\",\"countrycodes\":\"fr\"}": null,
+  "photon:1706 Avenue des Landiers, 1706 Avenue des Landiers, France": {
+    "lat": "45.597482",
+    "lon": "5.89675",
+    "cc": "FR"
+  },
+  "noms:{\"street\":\"177\",\"postalcode\":\"93300\",\"city\":\"Aubervilliers\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"93300\",\"city\":\"Aubervilliers\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"postalcode\":\"93300\",\"countrycodes\":\"cz\"}": null,
+  "noms:{\"city\":\"Aubervilliers\",\"countrycodes\":\"cz\"}": null,
+  "photon:177, 93300 Aubervilliers, Czech Republic": null,
+  "noms:{\"street\":\"Parc Activités Pau Pyrénées\",\"postalcode\":\"64000\",\"city\":\"Pau\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"64000\",\"city\":\"Pau\",\"countrycodes\":\"fr\"}": {
+    "lat": "43.2957547",
+    "lon": "-0.3685668",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"5\",\"postalcode\":\"78310\",\"city\":\"Coignieres\",\"countrycodes\":\"fr\"}": {
+    "lat": "48.7650269",
+    "lon": "1.9169172",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"ZI Indusma III\",\"postalcode\":\"35400\",\"city\":\"Saint-Malo\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"35400\",\"city\":\"Saint-Malo\",\"countrycodes\":\"fr\"}": {
+    "lat": "48.6495180",
+    "lon": "-2.0260409",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"ZI Albi Saint Juery\",\"postalcode\":\"81000\",\"city\":\"Albi\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"81000\",\"city\":\"Albi\",\"countrycodes\":\"fr\"}": {
+    "lat": "43.9277552",
+    "lon": "2.1478990",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"26\",\"postalcode\":\"22360\",\"city\":\"Langueux\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"22360\",\"city\":\"Langueux\",\"countrycodes\":\"fr\"}": {
+    "lat": "48.4991000",
+    "lon": "-2.7095900",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"ZA du Petit Guélen\",\"postalcode\":\"29000\",\"city\":\"Quimper\",\"countrycodes\":\"fr\"}": {
+    "lat": "47.9812811",
+    "lon": "-4.0342913",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"ZAC Les Mériels\",\"postalcode\":\"78410\",\"city\":\"Flins-sur-Seine\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"78410\",\"city\":\"Flins-sur-Seine\",\"countrycodes\":\"fr\"}": {
+    "lat": "48.9623407",
+    "lon": "1.8684146",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"365 Rue Georges Charpak\",\"postalcode\":\"79270\",\"city\":\"Saint-Symphor\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"79270\",\"city\":\"Saint-Symphor\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"79270\",\"countrycodes\":\"fr\"}": {
+    "lat": "46.2587458",
+    "lon": "-0.5573208",
+    "cc": "fr"
+  },
+  "noms:{\"street\":\"Gaußstraße 37\",\"postalcode\":\"90766\",\"city\":\"Fürth\",\"countrycodes\":\"de\"}": {
+    "lat": "49.4815561",
+    "lon": "10.9522358",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Merkurring 116\",\"postalcode\":\"22143\",\"city\":\"Hamburg\",\"countrycodes\":\"de\"}": {
+    "lat": "53.6077334",
+    "lon": "10.1904901",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"Glashüttenstraße 21\",\"postalcode\":\"01796\",\"city\":\"Pirna\",\"countrycodes\":\"de\"}": {
+    "lat": "50.9587495",
+    "lon": "13.9153807",
+    "cc": "de"
+  },
+  "noms:{\"street\":\"177\",\"postalcode\":\"93300\",\"city\":\"Aubervilliers\",\"countrycodes\":\"fr\"}": null,
+  "noms:{\"postalcode\":\"93300\",\"city\":\"Aubervilliers\",\"countrycodes\":\"fr\"}": {
+    "lat": "48.9146078",
+    "lon": "2.3821895",
+    "cc": "fr"
   }
 }

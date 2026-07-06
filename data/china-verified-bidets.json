@@ -199,6 +199,21 @@
     "accessNote": "Hotel guests only"
   },
   {
+    "name": "长春春天宾馆(人民广场地铁站长春站店)",
+    "address": "吉林长春南关区人民大街2136号长春工会大厦",
+    "city": "Changchun",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/131020747.html",
+    "sourceQuote": "携程 Ctrip: 彬有礼; 房间明亮、都有窗户可以通风，中央空调; 装修简约、工程质量细致; 房间内有不少于4个220V电源插座、各种智能手机手表随时充电; 床品布草基本都是梦百合;👍🏻👍🏻 洗手盆ARROW、智能马桶盖、干湿分离、卫浴热水量够大; 快捷酒店的标配都有了，而且装修质量还不错",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "43.8855453",
+    "longitude": "125.3075813"
+  },
+  {
     "name": "The St. Regis Changsha",
     "address": "谁主沉浮雕像群,  橘洲路,  岳麓区,  湖南省,  中国",
     "latitude": "28.1739987",
@@ -735,6 +750,36 @@
     "longitude": "113.5407194"
   },
   {
+    "name": "中濠国际酒店(贵阳喷水池甲秀楼店)",
+    "address": "贵州贵阳云岩区中华中路38号时代广场北楼23楼",
+    "city": "Guiyang",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/101173416.html",
+    "sourceQuote": "携程 Ctrip: 设施：有体重秤，冰箱，配备齐全，但是这几年被新型连锁酒店宠坏了，这个酒店不够智能化，没有智能马桶，自动窗帘等",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "26.5828733",
+    "longitude": "106.709278"
+  },
+  {
+    "name": "栖溪小筑民宿(贵州大学西校区店)",
+    "address": "栖溪小筑民宿(贵州大学西校区店)",
+    "city": "Guiyang",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/131649562.html",
+    "sourceQuote": "携程 Ctrip: 步行9分钟到贵大行政楼、6分钟达十里河滩，15间客房藏“智暖”——天猫精灵控全屋、55英寸投屏适配办公/观影，配智能马桶+慕思床垫",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "26.4554721",
+    "longitude": "106.6575562"
+  },
+  {
     "name": "Four Seasons Hotel Hangzhou at Centre",
     "address": "杭州中心四季酒店,  中山北路,  杭州,  浙江,  中国",
     "latitude": "30.2753406",
@@ -898,6 +943,21 @@
     "accessNote": "Hotel guests only — verify before visiting",
     "latitude": "24.8466152",
     "longitude": "102.7190378"
+  },
+  {
+    "name": "大庆东方金宸酒店",
+    "address": "黑龙江大庆龙凤区建设路224号",
+    "city": "Lanzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/82827160.html",
+    "sourceQuote": "携程 Ctrip: 客房配有干湿分区的浴室，备有特大热带雨林花洒、水疗式浸浴浴缸、智能马桶与豪华浴室备品",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "36.285862",
+    "longitude": "103.632326"
   },
   {
     "name": "Wyndham Grand Plaza Royale Hot Springs Tianmu Lake",
@@ -1909,6 +1969,66 @@
     "searchAliases": [
       "天台山嘉助酒店"
     ]
+  },
+  {
+    "name": "佳域酒店",
+    "address": "新疆乌鲁木齐米东区裕丰路1166号乾和家园C区C9#商业楼",
+    "city": "Urumqi",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/133911979.html",
+    "sourceQuote": "携程 Ctrip: 推荐 M515325**** 2026年5月31日 设施：齐全，一次性洗漱用品，智能马桶，停车场，送餐机器人 卫生：干净整洁，一客一换，没有污渍 环境：500米内有很多好吃的店，楼下还是KTV，附近也有台球厅，网吧，马路对面还有一个大型文体公园 服务：前台接待人员全程微笑，没有不耐烦，服务没得说，客房保洁见人问好，有问题也会及时解决 展开更多 服务及设施 设施服务",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "20.058822",
+    "longitude": "110.3118003"
+  },
+  {
+    "name": "红宝石雅致酒店(新疆国际大巴扎二道桥地铁站店)",
+    "address": "红宝石雅致酒店(新疆国际大巴扎二道桥地��站店)",
+    "city": "Urumqi",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/1855664.html",
+    "sourceQuote": "携程 Ctrip: 就位置来说住这家酒店是非常不错的选择 1891656**** 2026年6月27日 房间干净 整洁 浴室智能马桶 冲水方便 花洒水流大 水热的很快 电视效果不佳 模糊 影响我看世界杯 地理位置十分优越 离国际大巴扎步行10 分钟左右 团结剧场有 此刻正好剧上演 距离地铁站极近 地处维吾尔族民俗风情街 有诸多美食可选择 M429915**** 2026年6月7日 主打卫生：卫生条件满分，角落",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "43.7836174",
+    "longitude": "87.6190175"
+  },
+  {
+    "name": "全天候酒店(五马街纱帽河店)",
+    "address": "全天候酒店(五马街纱帽河店)",
+    "city": "Wenzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/113506742.html",
+    "sourceQuote": "携程 Ctrip: 酒店现代简约原木风格，客房配备智能客控、智能马桶、按摩椅等贴心设施，细节拉满",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "28.0141957",
+    "longitude": "120.6573382"
+  },
+  {
+    "name": "全天候酒店(温州瓯海龙霞路地铁站店)",
+    "address": "全天候酒店(温州瓯海龙霞路地铁站店)",
+    "city": "Wenzhou",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Smart toilet (智能马桶)",
+    "sourceUrl": "https://hotels.ctrip.com/hotels/122809556.html",
+    "sourceQuote": "携程 Ctrip: 特殊设施有：按摩椅、无线充电、带“迎宾”功能的智能马桶、嵌入式天幕花洒（很多老四星的顶喷甚至漏水），出水很丝滑、电热毛巾架、免费迷你吧（除饮用水外还有两种软饮和三个小零食）、高速吹风机",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only — verify before visiting",
+    "latitude": "28.0141957",
+    "longitude": "120.6573382"
   },
   {
     "name": "汉庭酒店(无锡火车站广瑞路店)",

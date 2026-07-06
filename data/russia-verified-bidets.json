@@ -1126,5 +1126,56 @@
     "searchAliases": [
       "Автор"
     ]
+  },
+  {
+    "name": "Mantera Supreme Seaside",
+    "address": "36/1 Olympic Avenue, Sirius, Sochi 354349",
+    "latitude": "43.4055000",
+    "longitude": "39.9575000",
+    "city": "Sirius, Sochi",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://101hotels.com/main/cities/sirius/otel_mantera_supreme_seaside.html",
+    "sourceQuote": "101Hotels.com (Russian): bathroom amenities list includes биде, ванна, душ at Mantera Supreme Seaside Sirius",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "Zvezdniy Wellness and SPA Sochi",
+    "address": "5 Gagarina Street, Sochi 354065",
+    "latitude": "43.5855000",
+    "longitude": "39.7205000",
+    "city": "Sochi",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://101hotels.com/main/cities/sochi/otel_zvezdniy.html",
+    "sourceQuote": "101Hotels.com (Russian): В ванной комнате туалет, раковина, биде, ванна, душ at Zvezdniy Wellness & SPA Sochi",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Звездный"
+    ]
+  },
+  {
+    "name": "Oreanda Resort Yalta",
+    "address": "35/2 Lenin Embankment, Yalta 298635",
+    "latitude": "44.4964000",
+    "longitude": "34.1588000",
+    "city": "Yalta",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Ceramic bidet",
+    "sourceUrl": "https://101hotels.com/main/cities/yalta/oreanda.html",
+    "sourceQuote": "101Hotels.com (Russian): bathroom amenities include биде, ванна at Oreanda Resort Yalta",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Ореанда"
+    ]
   }
 ]

@@ -260,6 +260,21 @@ const MANUAL = {
     longitude: '30.3470000',
     address: '9A Vladimirsky Prospekt, Saint Petersburg 191025',
   },
+  'Mantera Supreme Seaside': {
+    latitude: '43.4055000',
+    longitude: '39.9575000',
+    address: '36/1 Olympic Avenue, Sirius, Sochi 354349',
+  },
+  'Zvezdniy Wellness and SPA Sochi': {
+    latitude: '43.5855000',
+    longitude: '39.7205000',
+    address: '5 Gagarina Street, Sochi 354065',
+  },
+  'Oreanda Resort Yalta': {
+    latitude: '44.4964000',
+    longitude: '34.1588000',
+    address: '35/2 Lenin Embankment, Yalta 298635',
+  },
 };
 
 const rows = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));

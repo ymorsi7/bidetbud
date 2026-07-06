@@ -1,0 +1,23 @@
+{
+  "IS|Austurbakki 2": {
+    "lat": "64.1504326",
+    "lon": "-21.9328535",
+    "city": "Reykjavík",
+    "display": "Harpa, Austurbakki, Reykjavík, Ísland"
+  },
+  "IS|Lækjargata 2": {
+    "lat": "66.150854",
+    "lon": "-18.9087222",
+    "city": "Siglufjörður",
+    "display": "Lækjargata, Siglufjörður, Ísland"
+  },
+  "IS|Unit LG.03 Cargo Works, 1-2 Hatfields": null,
+  "IS|The Boutique Hotel, Reykjavik, Iceland": null,
+  "IS|The Boutique Hotel, Iceland": null,
+  "IS|Reykjavik, Iceland": {
+    "lat": "64.145981",
+    "lon": "-21.9422367",
+    "city": "Höfuðborgarsvæðið",
+    "display": "Reykjavík, Ísland"
+  }
+}

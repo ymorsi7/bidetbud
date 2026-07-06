@@ -141,6 +141,21 @@
     "website": ""
   },
   {
+    "name": "Geberit für Ihr Bad in Düsseldorf",
+    "address": "Reisholzer Werftstraße 39",
+    "city": "Düsseldorf",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Geberit AquaClean Dusch-WC",
+    "sourceUrl": "https://www.kaymer.de/marke_hersteller_produkte/geberit",
+    "sourceQuote": "Deutsche Webquelle: Wasser&shy;installation im Gewerbe Produkte 0 Suchen Startseite Markenwelt GEBERIT GEBERIT ✖ Aktuelles Badserien WCs & Dusch-WCs Mix & Match Wasch&shy;platz&shy;lösungen Dusch&shy;lösungen Zur Merkliste hinzufügen Von Merkliste löschen Merkliste ansehen PDF-erstellen Geberit für Ihr Bad",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons — verify before visiting",
+    "latitude": "51.1666587",
+    "longitude": "6.8407486"
+  },
+  {
     "name": "Mod’s Hair Salon, Düsseldorf",
     "address": "mod's hair,  Immermannstraße,  Düsseldorf,  Deutschland",
     "latitude": "51.2224985",
@@ -192,6 +207,21 @@
     "longitude": "7.0131811"
   },
   {
+    "name": "Geberit für Ihr Bad in Frankfurt am Main",
+    "address": "August-Schanz-Straße 31",
+    "city": "Frankfurt",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Geberit AquaClean Dusch-WC",
+    "sourceUrl": "https://www.kaempf.de/marke_hersteller_produkte/geberit",
+    "sourceQuote": "Deutsche Webquelle: enst Leistungen Tools Jobs/Karriere Über uns Kontakt Startseite Markenwelt GEBERIT Navigation Aktuelles Badserien WCs & Dusch-WCs Mix & Match Wasch&shy;platz&shy;lösungen Dusch&shy;lösungen Zur Merkliste hinzufügen Von Merkliste löschen Merkliste ansehen PDF-erstellen Geberit für Ihr Bad",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons — verify before visiting",
+    "latitude": "50.1630944",
+    "longitude": "8.6852582"
+  },
+  {
     "name": "JAL Lounge, Frankfurt Airport",
     "address": "Camel Smoking Lounge,  Airportring,  Frankfurt am Main,  Deutschland",
     "latitude": "50.0482808",
@@ -226,6 +256,21 @@
     "accessNote": "Hotel guests and patrons",
     "totoCategory": "4*Stars",
     "website": ""
+  },
+  {
+    "name": "Toilette, Bidet, Urinal für Frankfurt/Main",
+    "address": "Max-Holder-Straße 41",
+    "city": "Frankfurt",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "Dusch-WC",
+    "sourceUrl": "https://www.mtec-frankfurt.de/shk/badezimmer/wc",
+    "sourceQuote": "Deutsche Webquelle: zimmer/wc/dusch-wc",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons — verify before visiting",
+    "latitude": "50.1924288",
+    "longitude": "8.6440927"
   },
   {
     "name": "The Fontenay, Hamburg",

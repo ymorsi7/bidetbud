@@ -19,10 +19,12 @@
  * host is not geberit.*). Region headings (accordion titles) are attached when
  * present so geocoding can disambiguate.
  *
- * NOTE: the fully comprehensive "500+ hotels" list lives only in Geberit's
- * interactive Hotel Locator (a Google-Maps widget backed by a server-side API);
- * it is not statically fetchable without a headless browser. These reference
- * pages are the officially-published, citable subset.
+ * NOTE: the fully comprehensive "500+ hotels" list that powers Geberit's
+ * interactive Hotel Locator (the Google-Maps widget) IS statically fetchable —
+ * the widget loads a single JSON feed (see LOCATOR_URLS / fetchLocator below)
+ * containing ~495 venues across ~17 countries, each with coordinates and the
+ * installed AquaClean models. That feed is the primary source; these per-country
+ * reference pages remain as a secondary, human-readable cross-check.
  */
 
 /**
@@ -63,6 +65,137 @@ const SOURCES = [
 const UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 ' +
   '(KHTML, like Gecko) Chrome/124.0 Safari/537.36';
+
+/**
+ * Geberit's interactive AquaClean "Hotel Locator" (the Google-Maps widget that
+ * claims 500+ hotels) is fed by a single static JSON file — the COMPLETE
+ * European dataset (~495 venues across ~17 countries), each row already carrying
+ * name, address, coordinates, phone, website and the installed AquaClean models.
+ * Every locale site serves an identical copy; we try a handful for resilience.
+ */
+const LOCATOR_URLS = [
+  'https://www.geberit.de/_assets/local-media/locators/2026-q2-hotellocator-de.json',
+  'https://www.geberit.nl/_assets/local-media/locators/2026-q2-hotellocator-nl.json',
+  'https://www.geberit.it/_assets/local-media/locators/2026-q2-hotellocator-it.json',
+  'https://www.geberit.fr/_assets/local-media/locators/2026-q2-hotellocator-fr.json',
+  'https://www.geberit.dk/_assets/local-media/locators/2026-q2-hotellocator-dk.json',
+];
+
+/** The human-facing Geberit page that embeds the Hotel Locator (evidence URL). */
+const LOCATOR_PAGE_URL =
+  'https://www.geberit.de/badezimmerprodukte/wcs-urinale/dusch-wcs-geberit-aquaclean/testen/hotels-mit-dusch-wc/';
+
+/** ISO-3166 alpha-2 (as used in the locator feed) -> seed country name. */
+const CC_TO_COUNTRY = {
+  DE: 'Germany',
+  AT: 'Austria',
+  CH: 'Switzerland',
+  BE: 'Belgium',
+  LI: 'Liechtenstein',
+  CZ: 'Czech Republic',
+  DK: 'Denmark',
+  FI: 'Finland',
+  FR: 'France',
+  IT: 'Italy',
+  NL: 'Netherlands',
+  NO: 'Norway',
+  PL: 'Poland',
+  RU: 'Russia',
+  SK: 'Slovakia',
+  SE: 'Sweden',
+  UK: 'UK',
+  GB: 'UK',
+  LU: 'Luxembourg',
+  IE: 'Ireland',
+  LV: 'Latvia',
+};
+
+/** Strip a leading postal code from a "ZIP City" string and return the city. */
+function cityFromZipLocation(zip) {
+  if (!zip) return '';
+  const original = decodeEntities(String(zip)).trim();
+  // Drop a leading postcode only. Order matters, and each alternative must be a
+  // whole token (followed by whitespace/end) so we don't slice the city's first
+  // letters — e.g. "6003 Luzern" must not match the NL "1931 XL" shape as
+  // "6003 Lu". Alternatives: UK (SL5 7SE), NL (1931 XL), numeric (3-6 digits).
+  const s = original
+    .replace(
+      /^\s*(?:[A-Z]{1,2}\d[\dA-Z]?\s*\d[A-Z]{2}|\d{4}\s?[A-Z]{2}(?=\s|$)|\d{3,6})[,]?\s+/,
+      ''
+    )
+    // Keep the primary locality (before a "/" district split).
+    .split('/')[0]
+    .trim();
+  return s || original;
+}
+
+/** Clean a coordinate string from the feed (strips stray commas/spaces). */
+function cleanCoord(v) {
+  if (v == null) return '';
+  const s = String(v).replace(/[^0-9.\-]/g, '');
+  return Number.isFinite(Number(s)) && s !== '' ? s : '';
+}
+
+/** Normalise one locator feed record into a seed-ready row. */
+function locatorRowToSeed(r) {
+  const models = (r.models || [])
+    .map((m) => m && m.product)
+    .filter(Boolean);
+  const uniqModels = [...new Set(models)];
+  const bidetType = uniqModels[0] || 'Geberit AquaClean shower toilet';
+  const country = CC_TO_COUNTRY[r.country] || r.country;
+  let city = cityFromZipLocation(r.zip_location);
+  // Fallback: some rows put only a postcode in zip_location (e.g. Czech "412 01")
+  // and the town in the address — derive city from the address minus house number.
+  if (!city || /^\d/.test(city) || city.length < 3) {
+    const addr = decodeEntities(r.address || '')
+      .replace(/\s+\d+[a-z]?$/i, '')
+      .trim();
+    if (addr && !/^\d/.test(addr)) city = addr;
+  }
+  const modelText = uniqModels.length
+    ? uniqModels.join(', ')
+    : 'Geberit AquaClean shower toilet';
+  return {
+    name: decodeEntities(r.name || '').trim(),
+    address: [decodeEntities(r.address || '').trim(), decodeEntities(r.zip_location || '').trim()]
+      .filter(Boolean)
+      .join(', '),
+    latitude: cleanCoord(r.lat),
+    longitude: cleanCoord(r.lng),
+    city,
+    country,
+    cc: (r.country || '').toLowerCase(),
+    type: 'hotel',
+    bidetStatus: 'warmed',
+    bidetType,
+    sourceUrl: LOCATOR_PAGE_URL,
+    sourceQuote: `Listed in Geberit's official AquaClean Hotel Locator (${modelText} installed).`,
+    verifiedMethod: 'manufacturer-reference',
+    access: 'limited',
+    accessNote: 'Hotel guests — AquaClean shower toilet in select room categories',
+    website: r.website || '',
+  };
+}
+
+async function fetchLocator() {
+  let lastErr;
+  for (const url of LOCATOR_URLS) {
+    try {
+      const res = await fetch(url, { headers: { 'User-Agent': UA } });
+      if (!res.ok) {
+        lastErr = new Error(`HTTP ${res.status}`);
+        continue;
+      }
+      const j = await res.json();
+      const entries = Array.isArray(j) ? j : j.entries || [];
+      if (entries.length) return { url, entries };
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw new Error('Could not fetch Geberit hotel locator: ' + (lastErr && lastErr.message));
+}
 
 /** [minLat, maxLat, minLon, maxLon] per country code — reject geocoder drift. */
 const COUNTRY_BBOX = {
@@ -272,6 +405,13 @@ async function geocode(query, cc, cache, save) {
 
 module.exports = {
   SOURCES,
+  LOCATOR_URLS,
+  LOCATOR_PAGE_URL,
+  CC_TO_COUNTRY,
+  cityFromZipLocation,
+  cleanCoord,
+  locatorRowToSeed,
+  fetchLocator,
   COUNTRY_BBOX,
   inCountry,
   sleep,

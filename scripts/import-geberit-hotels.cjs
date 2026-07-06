@@ -2,7 +2,9 @@
 /**
  * Import Geberit AquaClean hotels into BIDETBUD_SEED.
  *
- * Sources merged:
+ * Sources merged (in priority order):
+ *   - data/geberit-locator-hotels.json (scrape-geberit-locator.cjs — the full
+ *                                       ~495-venue Hotel Locator feed, w/ coords)
  *   - data/geberit-hotels.json         (scrape-geberit-hotels.cjs, geocoded)
  *   - data/geberit-france-hotels.json  (scrape-geberit-france-hotels.cjs, curated)
  *
@@ -19,6 +21,7 @@ const fs = require('fs');
 const path = require('path');
 
 const htmlPath = path.join(__dirname, '../index.html');
+const locatorPath = path.join(__dirname, '../data/geberit-locator-hotels.json');
 const scrapedPath = path.join(__dirname, '../data/geberit-hotels.json');
 const francePath = path.join(__dirname, '../data/geberit-france-hotels.json');
 
@@ -78,9 +81,20 @@ if (!match) {
   console.error('BIDETBUD_SEED not found');
   process.exit(1);
 }
-const existing = JSON.parse(match[1]);
+let existing = JSON.parse(match[1]);
 
-const incoming = [...loadRows(scrapedPath), ...loadRows(francePath)];
+// Purge any rows previously imported from the Hotel Locator feed so this script
+// is idempotent (re-running replaces them with the latest, corrected data).
+const LOCATOR_MARK = "AquaClean Hotel Locator";
+const beforePurge = existing.length;
+existing = existing.filter((r) => !String(r.sourceQuote || "").includes(LOCATOR_MARK));
+const purged = beforePurge - existing.length;
+
+const incoming = [
+  ...loadRows(locatorPath),
+  ...loadRows(scrapedPath),
+  ...loadRows(francePath),
+];
 if (incoming.length === 0) {
   console.error('No Geberit hotel rows found. Run scrape/geocode first.');
   process.exit(1);
@@ -122,6 +136,7 @@ const newHtml = html.replace(
 );
 fs.writeFileSync(htmlPath, newHtml);
 
+console.log(`Purged ${purged} prior Hotel Locator rows (idempotent re-import).`);
 console.log(`Added ${added} Geberit AquaClean hotels (${incoming.length} in sources).`);
 console.log(
   `Skipped: ${skippedDup} dup, ${skippedNoCoords} missing coords, ${skippedNoSource} missing source.`

@@ -120,7 +120,7 @@ async function resolveRow(row, cache) {
 
   for (const params of attempts) {
     const hit = await nominatimStructured(params, cache);
-    if (hit) return { ...hit, confident: !!confident };
+    if (hit) return { ...hit, confident: !!confident, country: confident || null };
   }
 
   // 5. Photon free-form fallback
@@ -128,7 +128,7 @@ async function resolveRow(row, cache) {
     .filter(Boolean)
     .join(', ');
   const p = await photon(q, cache);
-  if (p) return { ...p, confident: !!confident };
+  if (p) return { ...p, confident: !!confident, country: confident || null };
 
   return null;
 }
@@ -155,13 +155,14 @@ async function main() {
     if (hit) {
       row.latitude = String(hit.lat);
       row.longitude = String(hit.lon);
-      // Fix country when the earlier value was only a guess.
-      if (!hit.confident && hit.cc && CODE_COUNTRY[hit.cc.toLowerCase()]) {
-        const geoCountry = CODE_COUNTRY[hit.cc.toLowerCase()];
-        if (geoCountry !== row.country) {
-          row.country = geoCountry;
-          countryFixed++;
-        }
+      // Persist the country we actually resolved against: a confident
+      // phone/website country wins, otherwise trust the geocoder's answer.
+      const resolvedCountry =
+        hit.country ||
+        (!hit.confident && hit.cc ? CODE_COUNTRY[hit.cc.toLowerCase()] : null);
+      if (resolvedCountry && resolvedCountry !== row.country) {
+        row.country = resolvedCountry;
+        countryFixed++;
       }
       resolved++;
     } else {
