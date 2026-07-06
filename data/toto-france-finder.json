@@ -1,0 +1,230 @@
+[
+  {
+    "name": "The Peninsula Paris",
+    "address": "19 Avenue Kléber, 75116 Paris",
+    "latitude": "48.870833",
+    "longitude": "2.293611",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons"
+  },
+  {
+    "name": "Mandarin Oriental Paris",
+    "address": "251 Rue Saint-Honoré, 75001 Paris",
+    "latitude": "48.867500",
+    "longitude": "2.328889",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons"
+  },
+  {
+    "name": "Four Seasons Hotel George V Paris",
+    "address": "31 Avenue George V, 75008 Paris",
+    "latitude": "48.868611",
+    "longitude": "2.300833",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons",
+    "searchAliases": [
+      "Le Four Seasons George V"
+    ]
+  },
+  {
+    "name": "La Réserve Paris",
+    "address": "42 Avenue Gabriel, 75008 Paris",
+    "latitude": "48.870556",
+    "longitude": "2.312222",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Le Hotel la Reserve"
+    ]
+  },
+  {
+    "name": "Lancaster Paris",
+    "address": "7 Rue de Berri, 75008 Paris",
+    "latitude": "48.872222",
+    "longitude": "2.304444",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons"
+  },
+  {
+    "name": "Le Royal Monceau Raffles Paris",
+    "address": "37 Avenue Hoche, 75008 Paris",
+    "latitude": "48.875833",
+    "longitude": "2.300556",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons"
+  },
+  {
+    "name": "Hôtel Marignan Champs-Élysées",
+    "address": "12 Rue de Marignan, 75008 Paris",
+    "latitude": "48.869722",
+    "longitude": "2.307500",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons",
+    "searchAliases": [
+      "Hotel Marignan"
+    ]
+  },
+  {
+    "name": "Hôtel Lapin Blanc",
+    "address": "41 Boulevard Saint-Michel, 75005 Paris",
+    "latitude": "48.849722",
+    "longitude": "2.343056",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Hotel Lapin blanc"
+    ]
+  },
+  {
+    "name": "Hôtel Edouard VI",
+    "address": "61 Boulevard du Montparnasse, 75006 Paris",
+    "latitude": "48.842500",
+    "longitude": "2.326944",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Hotel Edouard VI Paris"
+    ]
+  },
+  {
+    "name": "AC Hotel Paris Porte Maillot",
+    "address": "6 Rue Gustave Charpentier, 75017 Paris",
+    "latitude": "48.878889",
+    "longitude": "2.282500",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Hotel AC Marriott Paris"
+    ]
+  },
+  {
+    "name": "Hôtel Le Bouclier d'Or",
+    "address": "1 Rue du Bouclier, 67000 Strasbourg",
+    "latitude": "48.581111",
+    "longitude": "7.750556",
+    "city": "Strasbourg",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Le Bouclier d'Or Strasbourg"
+    ]
+  },
+  {
+    "name": "Aman Le Mélézin",
+    "address": "310 Rue de Bellecôte, 73120 Courchevel",
+    "latitude": "45.414167",
+    "longitude": "6.634722",
+    "city": "Courchevel",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Aman Le Melezin"
+    ]
+  },
+  {
+    "name": "Cheval Blanc Courchevel",
+    "address": "Rue du Jardin Alpin, 73120 Courchevel 1850",
+    "latitude": "45.414722",
+    "longitude": "6.636111",
+    "city": "Courchevel",
+    "type": "hotel",
+    "bidetType": "TOTO WASHLET",
+    "access": "limited",
+    "accessNote": "Hotel guests only",
+    "searchAliases": [
+      "Metropole 1850 Cheval Blanc Courchevel"
+    ]
+  },
+  {
+    "name": "Le Strato Courchevel",
+    "address": "Route de Bellecôte, 73120 Courchevel",
+    "latitude": "45.413889",
+    "longitude": "6.635000",
+    "city": "Courchevel",
+    "type": "restaurant",
+    "bidetType": "TOTO WASHLET",
+    "access": "public",
+    "accessNote": "Restaurant patrons"
+  },
+  {
+    "name": "Passage 53",
+    "address": "53 Passage des Panoramas, 75002 Paris",
+    "latitude": "48.871389",
+    "longitude": "2.341667",
+    "city": "Paris",
+    "type": "restaurant",
+    "bidetType": "TOTO WASHLET",
+    "access": "public",
+    "accessNote": "Restaurant patrons",
+    "searchAliases": [
+      "Restaurant Passage 53 Paris"
+    ]
+  },
+  {
+    "name": "Espace Aubade Paris",
+    "address": "6 Rue Abel, 75012 Paris",
+    "latitude": "48.845833",
+    "longitude": "2.373056",
+    "city": "Paris",
+    "type": "public",
+    "bidetType": "TOTO WASHLET (showroom)",
+    "access": "public",
+    "accessNote": "Bathroom showroom — WASHLET test location"
+  },
+  {
+    "name": "Carré d'Azur Marseille",
+    "address": "54 Avenue du Prado, 13006 Marseille",
+    "latitude": "43.284722",
+    "longitude": "5.383889",
+    "city": "Marseille",
+    "type": "public",
+    "bidetType": "TOTO WASHLET (showroom)",
+    "access": "public",
+    "accessNote": "Bathroom showroom — WASHLET test location"
+  },
+  {
+    "name": "DVA Bath Concept Lyon",
+    "address": "24 Cours Lafayette, 69003 Lyon",
+    "latitude": "45.760556",
+    "longitude": "4.843889",
+    "city": "Lyon",
+    "type": "public",
+    "bidetType": "TOTO WASHLET (showroom)",
+    "access": "public",
+    "accessNote": "Bathroom showroom — WASHLET test location"
+  }
+]
