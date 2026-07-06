@@ -22,8 +22,8 @@ const {
   extractUrlsFromSearch,
   isGermanDomain,
   isGermanyRelevant,
+  GERMANY_SLUG_RE,
   hasBidetSignal,
-  BIDET_KW,
 } = require('./lib/germany-web.cjs');
 
 const OUT = path.join(__dirname, '../data/germany-web-crawl-bidets.json');
@@ -278,10 +278,8 @@ async function discoverTotoDe(state) {
   try {
     const html = await fetchText(`${TOTO_BASE}/de/unternehmen/referenzen`);
     const slugs = extractTotoDeSlugs(html);
-    const germanySlugs = slugs.filter((s) =>
-      /munich|munchen|münchen|berlin|frankfurt|hamburg|dusseldorf|duesseldorf|essen|bielefeld|darmstadt|elmau|tegernsee|titisee|schwarzwald|velen|sauerland|knippschild|heidelberg|krebs|weberhaus|geku|koln|koeln|köln|stuttgart|hannover|leipzig|dresden|bremen|heidelberg|baden|garmisch|pfullendorf|rosenhof|fontenay/i.test(s)
-    );
-    for (const slug of [...new Set([...germanySlugs, ...slugs])]) {
+    const germanySlugs = slugs.filter((s) => GERMANY_SLUG_RE.test(s));
+    for (const slug of germanySlugs) {
       if (state.processedToto[slug]) continue;
       state.totoQueue.push(slug);
     }
@@ -341,7 +339,7 @@ async function processTotoBatch(state, rows, cache, batch = 8) {
       const html = await fetchText(url);
       const parsed = parseTotoDeReference(html, slug, url);
       if (!parsed?.hasBidet) continue;
-      if (!isGermanyRelevant(html, '')) continue;
+      if (!isGermanyRelevant(html, '', slug)) continue;
       state.stats.toto++;
 
       const geo = await geocodeRow(parsed.name, parsed.address, '', cache);

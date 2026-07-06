@@ -268,9 +268,13 @@ function extractGeberitRefUrls(html) {
   ];
 }
 
-function isGermanyRelevant(text, city) {
-  const t = `${text} ${city || ''}`;
-  if (/\b(Deutschland|Germany|Berlin|München|Munich|Hamburg|Frankfurt|Köln|Cologne|Düsseldorf|Stuttgart|Dresden|Leipzig|Hannover|Nürnberg|Bremen|Heidelberg|Elmau|Tegernsee|Schwarzwald|Pfullendorf|Isenbüttel|Bielefeld|Darmstadt|Essen|Velen|Sauerland|Baden-Württemberg|Bayern|Nordrhein)\b/i.test(t)) {
+const GERMANY_SLUG_RE =
+  /munich|munchen|münchen|berlin|frankfurt|hamburg|dusseldorf|duesseldorf|düsseldorf|essen|bielefeld|darmstadt|elmau|tegernsee|titisee|schwarzwald|velen|sauerland|knippschild|heidelberg|krebs|weberhaus|geku|koln|koeln|köln|pfullendorf|rosenhof|fontenay|deutsch|german|badeparadies|bachmair|kreuth|krün|kruen|mönchen|moenchen/i;
+
+function isGermanyRelevant(text, city, slug) {
+  const t = `${text} ${city || ''} ${slug || ''}`;
+  if (GERMANY_SLUG_RE.test(t)) return true;
+  if (/\b(Deutschland|Germany|Berlin|München|Munich|Hamburg|Frankfurt|Köln|Cologne|Düsseldorf|Stuttgart|Dresden|Leipzig|Hannover|Nürnberg|Bremen|Heidelberg|Elmau|Tegernsee|Pfullendorf|Isenbüttel|Bielefeld|Darmstadt|Essen|Velen|Sauerland|Baden-Württemberg|Bayern|Nordrhein)\b/i.test(t)) {
     return true;
   }
   return false;
@@ -308,6 +312,7 @@ module.exports = {
   extractGeberitRefUrls,
   extractUrlsFromSearch,
   inferBidetType,
+  GERMANY_SLUG_RE,
   isGermanyRelevant,
   isGermanDomain,
   guessNameFromUrl,
