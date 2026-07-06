@@ -976,10 +976,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
       </div>
     </details>
     <div id="airtablePanel" hidden>
-      <div class="airtable-panel-actions">
-        <p class="sub">Drop a pin above to copy coordinates, then open the form in a new tab.</p>
-        <a class="btn btn-primary airtable-open-btn" id="airtableOpenBtn" href="https://airtable.com/appooaJBbg4weWhI0/shrYzqffjo9JpweKW" target="_blank" rel="noopener noreferrer">Open submission form</a>
-      </div>
+      <iframe id="airtableEmbed" class="airtable-embed-frame" title="Suggest a verified spot" src="" frameborder="0" width="100%" height="640" loading="lazy"></iframe>
     </div>
     <div class="form" id="emailPanel">
       <label for="addName">Name *</label>
@@ -1031,6 +1028,7 @@ window.BIDETBUD_SEED = [{"name":"Berkeley Masjid","address":"2716 Derby St, Berk
 <script>
 (function(){
   const AIRTABLE_FORM_URL = 'https://airtable.com/appooaJBbg4weWhI0/shrYzqffjo9JpweKW';
+  const AIRTABLE_EMBED_URL = 'https://airtable.com/embed/appooaJBbg4weWhI0/shrYzqffjo9JpweKW';
   const SUBMIT_EMAIL = 'ymorsi8+bidet@gmail.com';
   const SITE_URL = 'https://bidetbud.com/';
   const COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'France', 'Russia', 'China'];
@@ -1291,12 +1289,13 @@ window.BIDETBUD_SEED = [{"name":"Berkeley Masjid","address":"2716 Derby St, Berk
 
   function updateAirtableEmbed(lat, lng){
     if(!useAirtable()) return;
-    const btn = document.getElementById('airtableOpenBtn');
-    if(!btn) return;
-    const u = new URL(AIRTABLE_FORM_URL);
+    const frame = document.getElementById('airtableEmbed');
+    if(!frame) return;
+    const u = new URL(AIRTABLE_EMBED_URL);
     if(typeof lat === 'number' && !isNaN(lat)) u.searchParams.set('prefill_Latitude', lat.toFixed(6));
     if(typeof lng === 'number' && !isNaN(lng)) u.searchParams.set('prefill_Longitude', lng.toFixed(6));
-    btn.href = u.toString();
+    const next = u.toString();
+    if(frame.src !== next) frame.src = next;
   }
 
   function initSubmitPanel(){
@@ -1307,7 +1306,12 @@ window.BIDETBUD_SEED = [{"name":"Berkeley Masjid","address":"2716 Derby St, Berk
       updateAirtableEmbed(NaN, NaN);
       airtablePanel.hidden = false;
       emailPanel.hidden = true;
-      intro.textContent = 'Set a pin if you can, then open the form in a new tab. Paste coordinates into the form when prompted.';
+      document.getElementById('addDialog')?.classList.add('embed-mode');
+      intro.textContent = 'Only confirmed bidets (TOTO, heated seat, handheld, etc.). Submissions are reviewed before appearing on the map.';
+      const pinDetails = document.getElementById('addPinDetails');
+      if(pinDetails) pinDetails.hidden = true;
+      const hint = document.getElementById('coordHint');
+      if(hint) hint.hidden = true;
     } else {
       airtablePanel.hidden = true;
       emailPanel.hidden = false;

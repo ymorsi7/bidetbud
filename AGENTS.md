@@ -35,6 +35,7 @@ scripts/
   import-russia.cjs                 Replace all Russia rows from russia-verified-bidets.json
   scrape-russia-sources.cjs         Crawl Russian booking/review sites for bidet mentions
   scrape-russia-exhaustive.cjs      90-min exhaustive crawl with URL discovery
+  merge-russia-candidates.cjs      Bulk-merge 101hotels scrape hits into verified JSON
   geocode-russia.cjs                  Apply manual GPS overrides for Russia curated rows
   scrape-toto-references.cjs        Fetch all TOTO Europe WASHLET case studies
   finish-toto-references.cjs        Append manual coords for ambiguous TOTO venues
@@ -189,6 +190,7 @@ bulk-import mosques or generic restrooms from OSM.
 ```bash
 node scripts/scrape-russia-sources.cjs      # quick curated crawl
 node scripts/scrape-russia-exhaustive.cjs --minutes 90   # full 90-min scrape
+node scripts/merge-russia-candidates.cjs --limit 70   # merge scrape hits into verified JSON
 node scripts/geocode-russia.cjs          # apply manual coords after adding rows
 node scripts/import-russia.cjs           # replaces all prior Russia rows in seed
 ```
