@@ -6,7 +6,7 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { shouldBeHotel, shouldBeRestaurant } = require('./lib/infer-type.cjs');
+const { shouldBeHotel, shouldBeMosque, shouldBeRestaurant } = require('./lib/infer-type.cjs');
 
 const htmlPath = path.join(__dirname, '../index.html');
 const html = fs.readFileSync(htmlPath, 'utf8');
@@ -19,10 +19,14 @@ if (!match) {
 const seed = JSON.parse(match[1]);
 let toHotel = 0;
 let toRestaurant = 0;
+let toMosque = 0;
 let accessFixed = 0;
 
 for (const row of seed) {
-  if (shouldBeHotel(row)) {
+  if (shouldBeMosque(row)) {
+    row.type = 'mosque';
+    toMosque++;
+  } else if (shouldBeHotel(row)) {
     row.type = 'hotel';
     toHotel++;
     if (row.access !== 'limited') {
@@ -44,3 +48,4 @@ fs.writeFileSync(htmlPath, newHtml);
 
 console.log('Re-tagged to hotel:', toHotel, `(access -> limited: ${accessFixed})`);
 console.log('Re-tagged to restaurant:', toRestaurant);
+console.log('Re-tagged to mosque:', toMosque);
