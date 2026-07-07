@@ -190,14 +190,63 @@ function countryFromSlug(slug) {
 
 function classifyHalalStatus(text) {
   const t = String(text || '');
-  if (/halal options|some halal|partial halal|select halal|halal dishes available|halal menu section/i.test(t)) {
-    if (/certified halal|100%\s*halal|all food.*certified halal|fully halal|zabiha/i.test(t)) return 'full';
+  if (/partial(?:ly)?\s*halal|halal options|some halal|select halal|halal dishes available|halal menu section|upon request/i.test(t)) {
     return 'options';
   }
-  if (/certified halal|100%\s*halal|all food.*certified halal|fully halal|zabiha|everything.*halal/i.test(t)) {
+  if (/certified halal|100%\s*halal|all food.*certified halal|fully halal|zabiha|everything.*halal|diet:halal.?only/i.test(t)) {
     return 'full';
   }
-  return 'full';
+  // OSM diet:halal=yes and other weak signals — not fully halal unless proven.
+  return 'options';
+}
+
+/** Parse Zabihah venue HTML — UI badges beat generic schema text. */
+function classifyZabihahHtml(html, name) {
+  const t = String(html || '');
+  const n = String(name || '');
+
+  const meatField = t.match(/meatHalalStatus\\":\\"([^\\"]+)/i)?.[1] || '';
+
+  // Zabihah UI badges (most reliable).
+  if (/Partially halal|Partial halal/i.test(t) || /partial/i.test(meatField)) {
+    return 'options';
+  }
+
+  if (
+    /Alcohol served|serves alcohol|wine bar|brewery|brewing company|distillery/i.test(t) ||
+    /\\"alcoholPolicy\\":\\"Alcohol/i.test(t) ||
+    /\bbrew(?:ery|ing)?\b/i.test(n)
+  ) {
+    return 'options';
+  }
+
+  if (/halal options|upon request|some menu|not all menu|mixed menu/i.test(t)) {
+    return 'options';
+  }
+
+  if (
+    /Fully halal/i.test(meatField) ||
+    /all food at this restaurant is certified halal|100%\s*halal|zabiha certified|everything is halal/i.test(t)
+  ) {
+    return 'full';
+  }
+
+  if (/unverified|reported to be halal by our readers/i.test(t)) {
+    return 'options';
+  }
+
+  return 'options';
+}
+
+function zabihahEvidenceQuote(html, halalStatus) {
+  const t = String(html || '');
+  if (/Partially halal|Partial halal/i.test(t)) return 'Zabihah: partially halal';
+  if (/Alcohol served|serves alcohol/i.test(t)) return 'Zabihah: halal options (alcohol served)';
+  if (/halal options|upon request/i.test(t)) return 'Zabihah: halal options available';
+  const meat = t.match(/meatHalalStatus\\":\\"([^\\"]+)/i)?.[1];
+  if (meat) return `Zabihah: ${meat}`;
+  if (halalStatus === 'full') return 'Zabihah: fully halal listing';
+  return 'Zabihah: halal options';
 }
 
 function parseZabihahHtml(html, url) {
@@ -223,7 +272,7 @@ function parseZabihahHtml(html, url) {
   if (!country && region && US_STATE_SUFFIX.has(String(region).toLowerCase())) country = 'USA';
 
   const addressParts = [street, city, region, postal].filter(Boolean);
-  const halalStatus = classifyHalalStatus(html);
+  const halalStatus = classifyZabihahHtml(html, name);
   const cityLabel = [city, region].filter(Boolean).join(', ');
 
   return {
@@ -236,7 +285,7 @@ function parseZabihahHtml(html, url) {
     halalStatus,
     cuisine,
     sourceUrl: url.split('?')[0],
-    sourceQuote: 'Zabihah listing — ' + (halalStatus === 'full' ? 'halal restaurant' : 'halal options'),
+    sourceQuote: zabihahEvidenceQuote(html, halalStatus),
     verifiedMethod: 'web-source',
     source: 'zabihah',
   };
@@ -267,7 +316,7 @@ function normalizeRow(r) {
     longitude: String(r.longitude),
     city: String(r.city || '').trim(),
     country: String(r.country || '').trim(),
-    halalStatus: r.halalStatus === 'options' ? 'options' : 'full',
+    halalStatus: r.halalStatus === 'full' ? 'full' : 'options',
     cuisine: String(r.cuisine || '').trim(),
     sourceUrl: String(r.sourceUrl || '').trim(),
     sourceQuote: String(r.sourceQuote || '').trim(),
@@ -310,6 +359,8 @@ module.exports = {
   countryFromCode,
   countryFromSlug,
   classifyHalalStatus,
+  classifyZabihahHtml,
+  zabihahEvidenceQuote,
   parseZabihahHtml,
   rowKey,
   sourceUrlKey,

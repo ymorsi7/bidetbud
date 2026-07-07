@@ -4,7 +4,7 @@
  * Resumable; respects robots Crawl-delay: 2.
  *
  *   node scripts/crawl-zabihah.cjs --minutes=90
- *   node scripts/crawl-zabihah.cjs --minutes=90 --import
+ *   node scripts/crawl-zabihah.cjs --minutes=90 --no-import   # skip halal.html embed
  *   node scripts/crawl-zabihah.cjs --discover-only
  *
  * Output: data/zabihah-halal-restaurants.json
@@ -25,7 +25,7 @@ const args = process.argv.slice(2);
 const minutesArg = args.find((a) => a.startsWith('--minutes='));
 const MINUTES = minutesArg ? Number(minutesArg.split('=')[1]) : 90;
 const DISCOVER_ONLY = args.includes('--discover-only');
-const DO_IMPORT = args.includes('--import');
+const SKIP_IMPORT = args.includes('--no-import');
 const LIMIT_ARG = args.find((a) => a.startsWith('--limit='));
 const LIMIT = LIMIT_ARG ? Number(LIMIT_ARG.split('=')[1]) : 0;
 
@@ -73,6 +73,10 @@ async function discoverRestaurantUrls() {
   return [...all];
 }
 
+function embedHalalPage() {
+  require('child_process').execSync('node scripts/import-halal-all.cjs', { cwd: ROOT, stdio: 'inherit' });
+}
+
 async function main() {
   const deadline = Date.now() + MINUTES * 60 * 1000;
   const st = loadState();
@@ -103,6 +107,7 @@ async function main() {
         console.log(`  ${st.rows.length} rows · ${Object.keys(st.done).length} fetched · ${st.queue.length} left`);
         saveState(st);
         saveRows(st.rows);
+        if (!SKIP_IMPORT) embedHalalPage();
       }
     } catch (e) {
       st.done[url] = 'err';
@@ -117,9 +122,7 @@ async function main() {
   console.log(`\nZabihah crawl paused: ${st.rows.length} restaurants saved → ${path.relative(ROOT, OUT)}`);
   console.log(`  ${st.queue.length} URLs remaining in queue`);
 
-  if (DO_IMPORT && st.rows.length) {
-    require('child_process').execSync('node scripts/import-halal-all.cjs', { cwd: ROOT, stdio: 'inherit' });
-  }
+  if (!SKIP_IMPORT && st.rows.length) embedHalalPage();
 }
 
 main().catch((e) => {

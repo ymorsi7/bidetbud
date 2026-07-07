@@ -22,8 +22,8 @@ const SOURCES = [
 function classifyHalal(quote, name) {
   const t = `${quote} ${name}`;
   if (/100%\s*halal|zabiha|fully halal|everything served is|all halal/i.test(t)) return 'full';
-  if (/halal options|offers halal|halal meat|halal chicken|halal burger/i.test(t)) return 'options';
-  if (/\bhalal\b/i.test(name)) return 'full';
+  if (/halal options|offers halal|halal meat|halal chicken|partial/i.test(t)) return 'options';
+  if (/\bhalal\b/i.test(name)) return 'options';
   return null;
 }
 
