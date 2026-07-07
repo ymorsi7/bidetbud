@@ -12,6 +12,8 @@ const verifiedPath = path.join(
   '../data/western-verified-bidets.json'
 );
 
+const { inferType } = require('./lib/infer-type.cjs');
+
 const WESTERN = new Set(['USA', 'UK', 'Canada']);
 
 function toSeedRow(row) {
@@ -28,7 +30,7 @@ function toSeedRow(row) {
     longitude: String(row.longitude),
     city: row.city,
     country: row.country,
-    type: row.type || 'restaurant',
+    type: row.type || inferType(row),
     bidetStatus: row.bidetStatus || (isWarm ? 'warmed' : 'internet'),
     bidetType: row.bidetType,
     sourceUrl: row.sourceUrl,

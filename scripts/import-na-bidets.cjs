@@ -15,7 +15,7 @@ const SOURCES = [
   path.join(__dirname, '../data/na-supplemental-bidets.json'),
 ];
 
-const NA = new Set(['USA', 'Canada', 'Mexico']);
+const { inferType } = require('./lib/infer-type.cjs');
 
 function normName(name) {
   return String(name)
@@ -57,7 +57,7 @@ function toSeedRow(row) {
     longitude: String(row.longitude),
     city: row.city,
     country: row.country,
-    type: row.type || 'restaurant',
+    type: row.type || inferType(row),
     bidetStatus: row.bidetStatus || (isWarm ? 'warmed' : 'internet'),
     bidetType: row.bidetType,
     sourceUrl: row.sourceUrl,

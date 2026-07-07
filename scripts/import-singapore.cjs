@@ -18,7 +18,7 @@ const dataPath = path.join(
   '../data/singapore-bidets.geolocation.json'
 );
 
-const SOURCE_URL = 'https://www.bidetbud.com/data/bidets.geolocation.json';
+const { isFoodVenue } = require('./lib/infer-type.cjs');
 const INSTAGRAM_URL = 'https://www.instagram.com/toiletswithbidetsg/';
 
 function formatRegion(region) {
@@ -29,8 +29,9 @@ function formatRegion(region) {
     .join('-');
 }
 
-function mapType(sgType) {
+function mapType(sgType, location) {
   if (sgType === 'Hotel') return 'hotel';
+  if (isFoodVenue(location)) return 'restaurant';
   return 'public';
 }
 
@@ -85,7 +86,7 @@ function toSeedRow(row) {
     longitude: String(row.lng),
     city: formatRegion(row.Region),
     country: 'Singapore',
-    type: mapType(row.Type),
+    type: mapType(row.Type, row.Location),
     bidetStatus: 'internet',
     bidetType: mapBidetType(row.Type, row.Remarks),
     sourceUrl: SOURCE_URL,

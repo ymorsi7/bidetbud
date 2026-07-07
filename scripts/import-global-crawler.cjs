@@ -7,6 +7,7 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 const { isFriendlyCountry, normalizeCountry } = require('./lib/non-friendly-countries.cjs');
+const { inferType } = require('./lib/infer-type.cjs');
 
 const htmlPath = path.join(__dirname, '../index.html');
 const crawlerPath = path.join(__dirname, '../data/global-crawler-bidets.json');
@@ -40,6 +41,8 @@ function toSeedRow(row) {
     row.bidetStatus === 'warmed' ||
     /washlet|toto|heated|electronic bidet|smart toilet|neorest|japon[eé]s/i.test(row.bidetType || '');
 
+  const type = row.type || inferType(row);
+
   return {
     name: row.name,
     address: row.address || '',
@@ -47,13 +50,13 @@ function toSeedRow(row) {
     longitude: String(row.longitude),
     city: row.city,
     country: row.country,
-    type: row.type || 'restaurant',
+    type,
     bidetStatus: row.bidetStatus || (isWarm ? 'warmed' : 'internet'),
     bidetType: row.bidetType || (isWarm ? 'TOTO / washlet bidet' : 'Bidet'),
     sourceUrl: row.sourceUrl,
     sourceQuote: row.sourceQuote,
     verifiedMethod: row.verifiedMethod || 'web-source',
-    access: row.access || (row.type === 'hotel' ? 'limited' : 'public'),
+    access: row.access || (type === 'hotel' ? 'limited' : 'public'),
     ...(row.accessNote ? { accessNote: row.accessNote } : {}),
   };
 }
