@@ -29,7 +29,18 @@ function readJson(rel) {
   const p = path.join(ROOT, rel);
   if (!fs.existsSync(p)) return [];
   const raw = JSON.parse(fs.readFileSync(p, 'utf8'));
-  return Array.isArray(raw) ? raw : raw.establishments || raw.rows || [];
+  const list = Array.isArray(raw) ? raw : raw.establishments || raw.rows || [];
+  if (rel === 'data/osm-halal-restaurants.json') {
+    return list.map((r) => {
+      const q = r.sourceQuote || '';
+      const halalStatus = /diet:halal=only/i.test(q) ? 'full' : 'options';
+      return { ...r, halalStatus };
+    });
+  }
+  if (rel === 'data/muis-halal-restaurants.json') {
+    return list.map((r) => ({ ...r, halalStatus: 'full' }));
+  }
+  return list;
 }
 
 let merged = [];
@@ -60,6 +71,17 @@ console.log('  Top countries:', top.map(([c, n]) => `${c}(${n})`).join(', '));
 const full = merged.filter((r) => r.halalStatus === 'full').length;
 const opts = merged.filter((r) => r.halalStatus === 'options').length;
 console.log(`  Fully halal: ${full} · Halal options: ${opts}`);
+
+const zabihahRows = readJson('data/zabihah-halal-restaurants.json');
+if (zabihahRows.length > 50) {
+  const zFull = zabihahRows.filter((r) => r.halalStatus === 'full').length;
+  const ratio = zFull / zabihahRows.length;
+  if (ratio > 0.85) {
+    console.warn(
+      `  WARNING: ${Math.round(ratio * 100)}% of Zabihah rows are "fully halal" — run node scripts/reclassify-zabihah.cjs --minutes=120 --import`,
+    );
+  }
+}
 
 require('child_process').execSync('node scripts/embed-halal-seed.cjs', {
   cwd: ROOT,

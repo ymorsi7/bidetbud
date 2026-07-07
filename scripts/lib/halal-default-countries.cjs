@@ -1,6 +1,8 @@
 /**
  * Muslim-majority / halal-by-default countries — shaded green on halal.html.
  * Pins are only shown outside these countries.
+ *
+ * NOT halal-by-default (show pins, never green): Singapore, India, Thailand, etc.
  */
 const HALAL_DEFAULT_COUNTRIES = [
   'Afghanistan',
