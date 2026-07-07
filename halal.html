@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HalalBud — Halal restaurants abroad</title>
+<meta name="description" content="Find fully halal restaurants and places with halal options outside Muslim-majority countries. Same map style as BidetBud.">
+<meta name="theme-color" content="#18181b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="HalalBud — Halal food outside the Muslim world">
+<meta property="og:description" content="Map of fully halal restaurants and halal-option spots in the USA, UK, Canada, and beyond.">
+<meta property="og:url" content="https://bidetbud.com/halal.html">
+<meta property="og:image" content="https://bidetbud.com/images/bidetbud-favicon-192.png">
+<link rel="icon" href="images/bidetbud-favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/bidetbud-favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/bidetbud-favicon-192.png">
+<link rel="apple-touch-icon" href="images/bidetbud-favicon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossorigin>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="">
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="">
+<link rel="stylesheet" href="css/github-star.css">
+<link rel="stylesheet" href="css/app.css">
+<script>
+(function () {
+  var queue = [];
+  function send(payload) {
+    if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+      window.goatcounter.count(payload);
+      return true;
+    }
+    return false;
+  }
+  function flush() {
+    while (queue.length && send(queue[0])) queue.shift();
+  }
+  window.trackEvent = function (name, props) {
+    var title = name;
+    if (props && typeof props === 'object') {
+      title = Object.keys(props).map(function (k) { return k + '=' + props[k]; }).join(', ') || name;
+    }
+    if (!send({ path: name, title: title, event: true })) queue.push({ path: name, title: title, event: true });
+  };
+  document.addEventListener('DOMContentLoaded', flush);
+  window.addEventListener('load', flush);
+  setTimeout(flush, 2500);
+})();
+</script>
+<script data-goatcounter="https://bidetbud.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="/halal.html">
+        <div class="logo"><img src="images/bidetbud-logo.png" alt="HalalBud logo" width="38" height="38" decoding="async"></div>
+        <div class="brand-text">
+          <h1>HalalBud</h1>
+          <p>Halal restaurants outside the Muslim world</p>
+        </div>
+      </a>
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input type="search" id="searchInput" placeholder="Search city, name, or address…" autocomplete="off" aria-label="Search restaurants" aria-autocomplete="list" aria-controls="searchAc">
+        <div class="search-ac" id="searchAc" hidden role="listbox" aria-label="Search suggestions"></div>
+      </div>
+      <div class="actions">
+        <div class="menu-wrap">
+          <button type="button" class="btn btn-ghost btn-icon-only" id="menuBtn" aria-label="Menu" aria-haspopup="true"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+          <div class="menu-drop" id="menuDrop" hidden role="menu">
+            <button type="button" role="menuitem" id="menuAbout">About</button>
+            <button type="button" role="menuitem" id="menuLegend">Map legend</button>
+            <a class="menu-drop-link" role="menuitem" href="/">BidetBud map</a>
+            <a class="menu-drop-link" role="menuitem" href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </div>
+        <button type="button" class="btn btn-ghost" id="nearMeBtn" aria-label="Find restaurants near me">
+          <svg class="btn-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/></svg>
+          <span class="btn-label">Near me</span>
+        </button>
+        <button type="button" class="btn btn-primary" id="addBtn">
+          <span class="btn-label-full">Add restaurant</span>
+          <span class="btn-label-short">Add</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="load-toast" id="loadToast" aria-live="polite">Loading…</div>
+
+  <div class="app-main" id="appMain">
+    <div class="map-wrap">
+      <div id="map" role="application" aria-label="Map of halal restaurants"></div>
+      <div class="map-legend" aria-label="Map legend">
+        <span class="legend-title">Legend</span>
+        <div class="legend-items">
+          <span class="legend-item"><span class="legend-dot verified"></span> Fully halal</span>
+          <span class="legend-item"><span class="legend-dot warmed"></span> Halal options</span>
+          <span class="legend-item"><span class="legend-dot internet"></span> Web source</span>
+          <span class="legend-item"><span class="legend-dot friendly-country"></span> Halal by default</span>
+        </div>
+        <button type="button" class="legend-help-btn" id="legendHelpBtn" aria-label="Open full map legend">
+          <svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </button>
+      </div>
+    </div>
+    <aside class="sidebar" aria-label="Restaurant list">
+      <div class="sidebar-head">
+        <div class="filter-row">
+          <div class="segmented" id="halalFilter" role="group" aria-label="Halal type">
+            <button type="button" class="active" data-type="all">All</button>
+            <button type="button" data-type="full">Fully halal</button>
+            <button type="button" data-type="options">Halal options</button>
+          </div>
+          <details class="more-filters">
+            <summary>More filters</summary>
+            <div class="more-panel" id="typeChips">
+              <button type="button" class="chip" data-type="verified">User verified</button>
+              <button type="button" class="chip" data-type="internet">From internet</button>
+              <span class="chip-divider" aria-hidden="true">Country</span>
+              <button type="button" class="chip" data-type="USA">USA</button>
+              <button type="button" class="chip" data-type="UK">UK</button>
+              <button type="button" class="chip" data-type="Canada">Canada</button>
+              <button type="button" class="chip" data-type="France">France</button>
+              <button type="button" class="chip" data-type="Germany">Germany</button>
+              <button type="button" class="chip" data-type="Australia">Australia</button>
+            </div>
+          </details>
+        </div>
+        <div class="radius-row" id="radiusRow" hidden>
+          <span class="radius-label">Radius:</span>
+          <button type="button" class="chip" data-radius="25">25 mi</button>
+          <button type="button" class="chip active" data-radius="50">50 mi</button>
+          <button type="button" class="chip" data-radius="100">100 mi</button>
+        </div>
+        <p class="count-line" id="countLabel">Loading…</p>
+      </div>
+      <div id="locationList"></div>
+    </aside>
+  </div>
+
+  <div class="overlay" id="aboutOverlay" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <div class="dialog about-dialog" id="aboutDialog">
+      <button type="button" class="dialog-close" id="aboutClose" aria-label="Close">×</button>
+      <div class="about-head">
+        <img class="about-logo" src="images/bidetbud-logo.png" alt="" width="52" height="52" decoding="async">
+        <div class="about-head-text">
+          <h2 id="aboutTitle">About HalalBud</h2>
+          <p class="about-tagline">Halal food when you're far from home</p>
+        </div>
+      </div>
+      <div class="about-body">
+        <p>Traveling in the West means constantly asking: is the meat halal? In Muslim-majority countries, meat is halal by default — those countries are shaded green on the map.</p>
+        <p>Everywhere else, HalalBud shows restaurants we've found with explicit halal evidence — either <strong>fully halal</strong> (everything is halal) or <strong>halal options</strong> (mixed menu with halal dishes).</p>
+        <p>We only add places with a cited source. Know a spot? Tap <strong>Add restaurant</strong>.</p>
+        <div class="about-legend">
+          <span class="about-legend-title">Pin colors</span>
+          <ul class="about-legend-list">
+            <li><span class="legend-dot verified"></span> Fully halal restaurant</li>
+            <li><span class="legend-dot warmed"></span> Halal options available</li>
+            <li><span class="legend-dot internet"></span> Web-sourced listing</li>
+            <li><span class="legend-dot friendly-country"></span> Halal-by-default country</li>
+          </ul>
+        </div>
+        <p class="sub" style="margin-top:16px">Sibling project to <a href="/">BidetBud</a> — find masajid and restaurants with bidets.</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mobile-tabs" role="tablist" aria-label="Map or list view">
+    <button type="button" class="mobile-tab active" data-view="map" role="tab" aria-selected="true"><svg class="mobile-tab-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="mobile-tab-label">Map</span></button>
+    <button type="button" class="mobile-tab" data-view="list" role="tab" aria-selected="false"><svg class="mobile-tab-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg><span class="mobile-tab-label">List</span><span class="mobile-tab-badge" id="listTabBadge" hidden></span></button>
+  </nav>
+
+  <footer class="site-footer">
+    <nav class="site-footer-nav" aria-label="Site links">
+      <a href="#" id="footerAbout">About</a>
+      <span aria-hidden="true">·</span>
+      <a href="/">BidetBud</a>
+      <span aria-hidden="true">·</span>
+      <span>HalalBud</span>
+      <span aria-hidden="true">·</span>
+      <a class="github-star-footer" href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer" aria-label="Star on GitHub"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span>Star</span></a>
+    </nav>
+    <p class="site-footer-tagline">Built with passion &lt;3 · <span id="footerYear"></span></p>
+  </footer>
+</div>
+
+<div class="overlay overlay-sheet" id="detailOverlay" role="dialog" aria-modal="true">
+  <div class="dialog detail-dialog" id="detailDialog">
+    <button type="button" class="dialog-close" id="detailClose" aria-label="Close">×</button>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<div class="overlay" id="legendOverlay" role="dialog" aria-modal="true" aria-labelledby="legendTitle">
+  <div class="dialog" id="legendDialog">
+    <button type="button" class="dialog-close" id="legendClose" aria-label="Close">×</button>
+    <h2 id="legendTitle">Map legend</h2>
+    <ul class="legend-list">
+      <li><span class="legend-dot verified"></span> <strong>Fully halal</strong> — entire menu is halal / zabiha</li>
+      <li><span class="legend-dot warmed"></span> <strong>Halal options</strong> — not fully halal, but halal dishes available</li>
+      <li><span class="legend-dot internet"></span> <strong>Web source</strong> — found online, not yet verified in person</li>
+      <li><span class="legend-dot friendly-country"></span> <strong>Halal-by-default country</strong> — meat is generally halal; pins are for abroad</li>
+    </ul>
+  </div>
+</div>
+
+<div class="overlay" id="thankYouOverlay" role="dialog" aria-modal="true">
+  <div class="dialog" id="thankYouDialog">
+    <button type="button" class="dialog-close" id="thankYouClose" aria-label="Close">×</button>
+    <div id="thankYouContent"></div>
+  </div>
+</div>
+
+<div class="overlay" id="addOverlay" role="dialog" aria-modal="true">
+  <div class="dialog wide" id="addDialog">
+    <button type="button" class="dialog-close" id="addClose" aria-label="Close">×</button>
+    <h2>Suggest a halal restaurant</h2>
+    <p class="sub" id="addIntro">Only restaurants outside halal-by-default countries, with explicit halal evidence. Reviewed before going live.</p>
+    <p class="coord-hint" id="coordHint"></p>
+    <details class="add-pin-details" id="addPinDetails">
+      <summary>Set location pin</summary>
+      <div id="addPickMapWrap" class="add-pick-wrap">
+        <div id="addPickMap" class="add-pick-map" role="application" aria-label="Pick location map"></div>
+      </div>
+    </details>
+    <div class="form" id="emailPanel">
+      <label for="addName">Restaurant name *</label>
+      <input id="addName" required>
+      <label for="addAddress">Address</label>
+      <input id="addAddress">
+      <label for="addCity">City</label>
+      <input id="addCity">
+      <label for="addCountry">Country</label>
+      <input id="addCountry" value="USA">
+      <label for="addHalalStatus">Halal type *</label>
+      <select id="addHalalStatus">
+        <option value="full">Fully halal</option>
+        <option value="options">Halal options only</option>
+      </select>
+      <label for="addEmail">Your email (optional)</label>
+      <input id="addEmail" type="email" placeholder="So we can follow up if needed">
+      <label for="addEvidence">Halal evidence *</label>
+      <input id="addEvidence" required placeholder="e.g. Zabiha certified, halal menu section, 100% halal sign">
+      <label for="addNotes">Anything else?</label>
+      <textarea id="addNotes" placeholder="Cuisine, hours, which dishes are halal…"></textarea>
+      <input type="text" id="addHoney" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <label for="addLat">Latitude</label>
+      <input id="addLat" type="number" step="any" placeholder="Click map to fill">
+      <label for="addLng">Longitude</label>
+      <input id="addLng" type="number" step="any">
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-primary" id="submitAdd">Submit restaurant</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
+<script>
+window.HALALBUD_SEED = [{"name":"Abu Omar Halal - Allen, TX","address":"210 Central Expy S #78, Allen, Texas, 75013","latitude":"33.099608499999995","longitude":"-96.6800312","city":"Allen, Texas","country":"USA","halalStatus":"full","sourceUrl":"https://www.atly.com/location/Abu-Omar-Halal---Allen-TX","sourceQuote":"Atly bathroom guide: Bathrooms include \"},{\"text_type\":\"bold\",\"text\":\"bidets\"},{\"text_type\":\"text\",\"text\":\" and a \"},{\"text_type\":\"bold\",\"text\":\"built-in wudu area\"},{\"text_type\":\"text\",\"text\":\". They also feature a \"},{\"tex","verifiedMethod":"web-source"},{"name":"Al Baraka Grill","address":"4110 Central Ave NE suite 210, Columbia Heights, Minnesota, 55421","latitude":"45.0437188","longitude":"-93.2477354","city":"Columbia Heights, Minnesota","country":"USA","halalStatus":"full","sourceUrl":"https://www.atly.com/location/AlBarakaGrill","sourceQuote":"Atly bathroom guide: with clean floors throughout. Restrooms include a bidet , adding a useful feature. Halal Offers 100% halal meat and chicken","verifiedMethod":"web-source"},{"name":"Halal Eastside Eats & Market","address":"11935 E Warren Ave, Detroit, Michigan, 48213","latitude":"42.3894376","longitude":"-82.9782549","city":"Detroit, Michigan","country":"USA","halalStatus":"full","sourceUrl":"https://www.atly.com/location/Halal-Eastside-Eats-Market","sourceQuote":"Atly bathroom guide: Bathrooms include a bidet and maintain cleanliness throughout the public restroom","verifiedMethod":"web-source"},{"name":"Namkeen","address":"9 N Beverwyck Rd, Parsippany-Troy Hills, New Jersey, 07034","latitude":"40.8778253","longitude":"-74.3828082","city":"Parsippany-Troy Hills, New Jersey","country":"USA","halalStatus":"full","sourceUrl":"https://www.atly.com/location/Namkeen1","sourceQuote":"Atly bathroom guide: culate and super clean . A bidet adds an unexpected touch. Halal Everything served is Zabiha Halal","verifiedMethod":"web-source"},{"name":"Shah's Halal Food","address":"1718 Sand Lake Rd suite C108, Orlando, Florida, 32809","latitude":"28.4489003","longitude":"-81.4019483","city":"Orlando, Florida","country":"USA","halalStatus":"full","sourceUrl":"https://www.atly.com/location/Shahs-Halal-Food34","sourceQuote":"Atly bathroom guide: ined. They include a \"},{\"text_type\":\"bold\",\"text\":\"bidet sprayer\"},{\"text_type\":\"text\",\"text\":\" for added convenience.\"}]},{\"category_id\":\"69e178e1-14be-11ee-a9cb-614c6a0a867a\",\"name\":\"Halal\",\"emoji\":\"🕌\",\"cat","verifiedMethod":"web-source"},{"name":"Talkin' Tacos Temple Terrace","address":"1819 E Fowler Ave, Tampa, Florida, 33612","latitude":"28.053923299999997","longitude":"-82.438142","city":"Tampa, Florida","country":"USA","halalStatus":"options","sourceUrl":"https://www.atly.com/location/Talkin-Tacos-Temple-Terrace","sourceQuote":"Atly bathroom guide: strong>incredibly clean . Toilets come with bidets , a feature common in Arabic culture. Halal Halal options include","verifiedMethod":"web-source"}];
+</script>
+<script>
+(function(){
+  const SUBMIT_EMAIL = 'ymorsi8+bidet@gmail.com';
+  const WEB3FORMS_ACCESS_KEY = 'b0f5343d-1608-4224-a49a-d32d13fbbdfe';
+  const SITE_URL = 'https://bidetbud.com/halal.html';
+  const COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'France', 'Germany', 'Australia'];
+  const POPULAR_CITIES = ['Houston', 'London', 'Toronto', 'New York', 'Chicago', 'Detroit', 'Los Angeles'];
+  const MAP_MIN_ZOOM = 3;
+  const DEFAULT_MAP_CENTER = { lat: 39.8283, lng: -98.5795 };
+  const DEFAULT_MAP_ZOOM = 4;
+  const COUNTRY_GEOJSON_URL = 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json';
+
+  const HALAL_DEFAULT_COUNTRIES = [
+    'Afghanistan','Albania','Algeria','Azerbaijan','Bahrain','Bangladesh','Bosnia and Herzegovina','Brunei','Chad',
+    'Djibouti','Egypt','Gambia','Guinea','Indonesia','Iran','Iraq','Jordan','Kazakhstan','Kosovo','Kuwait','Kyrgyzstan',
+    'Lebanon','Libya','Malaysia','Mali','Mauritania','Morocco','Niger','Oman','Pakistan','Qatar','Saudi Arabia','Senegal',
+    'Somalia','Sudan','Syria','Tajikistan','Tunisia','Turkey','Turkmenistan','United Arab Emirates','Uzbekistan','West Bank','Yemen','Northern Cyprus'
+  ];
+  const HALAL_DEFAULT_GEO_NAMES = new Set(HALAL_DEFAULT_COUNTRIES.map(n => ({ UAE: 'United Arab Emirates', Palestine: 'West Bank' }[n] || n)));
+  const HALAL_DEFAULT_COUNTRY_SET = new Set(HALAL_DEFAULT_COUNTRIES.concat(['UAE','Palestine']).map(c => c.toLowerCase()));
+
+  let allLocations = [], userLocation = null, map, clusterGroup, pickMarker, countriesLayer, addPickMap, addPickMapMarker;
+  let halalFilter = 'all', extraFilter = null, countryFilter = null;
+  let nearMe = false, radiusMi = 50;
+  let suppressUrlWrite = false, initialBoundsDone = false, activeSpotId = null;
+
+  function isHalalDefaultCountry(country){
+    return HALAL_DEFAULT_COUNTRY_SET.has(String(country || '').trim().toLowerCase());
+  }
+
+  function addCartoVoyagerTiles(targetMap, showAttribution, noWrap){
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19,
+      noWrap: Boolean(noWrap),
+      attribution: showAttribution ? '© OpenStreetMap · © CARTO' : undefined
+    }).addTo(targetMap);
+  }
+
+  function stableSeedId(row){
+    const s = (row.name||'') + '|' + row.latitude + '|' + row.longitude;
+    let h = 0; for (let i=0;i<s.length;i++) h = ((h<<5)-h+s.charCodeAt(i))|0;
+    return 'halal_' + Math.abs(h).toString(36);
+  }
+
+  function haversineMiles(a,b){
+    const R=3959,dLat=(b.lat-a.lat)*Math.PI/180,dLng=(b.lng-a.lng)*Math.PI/180;
+    const x=Math.sin(dLat/2)**2+Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLng/2)**2;
+    return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+  }
+
+  function normalizeSeed(row){
+    const halalStatus = row.halalStatus === 'options' ? 'options' : 'full';
+    const verifiedMethod = row.verifiedMethod || (row.sourceUrl ? 'web-source' : 'verified');
+    return {
+      id: stableSeedId(row),
+      name: row.name,
+      address: row.address || '',
+      latitude: String(row.latitude),
+      longitude: String(row.longitude),
+      city: row.city || '',
+      country: row.country || '',
+      halalStatus,
+      cuisine: row.cuisine || '',
+      sourceUrl: row.sourceUrl || '',
+      sourceQuote: row.sourceQuote || '',
+      verifiedMethod
+    };
+  }
+
+  function initData(){
+    allLocations = (window.HALALBUD_SEED || [])
+      .map(normalizeSeed)
+      .filter(l => l.halalStatus === 'full' || l.halalStatus === 'options')
+      .filter(l => !isHalalDefaultCountry(l.country));
+    allLocations.forEach(m => { m._search = buildSearchMeta(m); });
+  }
+
+  const SEARCH_STOP = new Set(['the','a','an','and','or','of','at','in','on','for','to','&','halal']);
+  function normalizeSearchText(s){ return String(s||'').toLowerCase().replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim(); }
+  function nameWords(name){ return normalizeSearchText(name).split(' ').filter(w => w && !SEARCH_STOP.has(w)); }
+  function buildSearchMeta(m){
+    const words = nameWords(m.name);
+    const acronym = words.map(w => w[0]).join('');
+    const hay = normalizeSearchText([m.name,m.city,m.address,m.country,m.cuisine].filter(Boolean).join(' '));
+    return { hay, words, acronym, aliases: [acronym] };
+  }
+  function matchesInitials(words, compact){
+    if(!compact) return false;
+    let wi = 0;
+    for(let i=0;i<compact.length;i++){
+      while(wi<words.length && words[wi][0]!==compact[i]) wi++;
+      if(wi>=words.length) return false;
+      wi++;
+    }
+    return true;
+  }
+  function searchScore(m, rawQ){
+    const q = normalizeSearchText(rawQ);
+    if(!q) return 0;
+    const s = m._search;
+    const compact = q.replace(/\s/g,'');
+    if(s.hay.includes(q)){
+      if(s.hay.startsWith(q)) return 90;
+      if(normalizeSearchText(m.name).startsWith(q)) return 85;
+      return 70;
+    }
+    if(compact.length>=2){
+      if(s.acronym===compact) return 100;
+      if(s.acronym.startsWith(compact)) return 88;
+      if(matchesInitials(s.words, compact)) return 75;
+    }
+    const tokens = q.split(' ').filter(Boolean);
+    if(tokens.length>1 && tokens.every(t => s.hay.split(' ').some(w => w.startsWith(t)))) return 65;
+    return 0;
+  }
+  function matchesSearch(m, rawQ){ return searchScore(m, rawQ) > 0; }
+
+  function spotShareUrl(id){
+    const p = new URLSearchParams(location.search);
+    p.set('spot', id);
+    return location.origin + location.pathname + '?' + p.toString();
+  }
+
+  function syncUrlFromState(){
+    if(suppressUrlWrite) return;
+    const p = new URLSearchParams();
+    const q = document.getElementById('searchInput').value.trim();
+    if(q) p.set('q', q);
+    if(halalFilter !== 'all') p.set('type', halalFilter);
+    if(extraFilter) p.set('filter', extraFilter);
+    if(countryFilter) p.set('country', countryFilter);
+    if(nearMe){ p.set('near','1'); p.set('radius', String(radiusMi)); }
+    if(activeSpotId) p.set('spot', activeSpotId);
+    history.replaceState(null, '', p.toString() ? '?' + p.toString() : location.pathname);
+  }
+
+  function applyUrlState(){
+    const p = new URLSearchParams(location.search);
+    suppressUrlWrite = true;
+    const q = p.get('q');
+    if(q) document.getElementById('searchInput').value = q;
+    if(p.get('type')) halalFilter = p.get('type');
+    if(p.get('filter')) extraFilter = p.get('filter');
+    const country = p.get('country');
+    if(country && COUNTRY_FILTERS.includes(country)) countryFilter = country;
+    if(p.get('near')==='1') nearMe = true;
+    if(p.get('radius')) radiusMi = parseInt(p.get('radius'),10)||50;
+    updateFilterUi();
+    updateNearMeUi();
+    suppressUrlWrite = false;
+    return p.get('spot') || '';
+  }
+
+  function updateFilterUi(){
+    document.querySelectorAll('#halalFilter button').forEach(b => b.classList.toggle('active', b.dataset.type === halalFilter));
+    document.querySelectorAll('#typeChips .chip[data-type]').forEach(b => {
+      const t = b.dataset.type;
+      b.classList.toggle('active', COUNTRY_FILTERS.includes(t) ? countryFilter===t : extraFilter===t);
+    });
+    document.querySelectorAll('#radiusRow button').forEach(b => b.classList.toggle('active', parseInt(b.dataset.radius,10)===radiusMi));
+    const radiusRow = document.getElementById('radiusRow');
+    if(radiusRow) radiusRow.hidden = !nearMe;
+  }
+
+  function updateNearMeUi(){
+    const btn = document.getElementById('nearMeBtn');
+    const label = btn?.querySelector('.btn-label');
+    btn?.classList.toggle('active', nearMe);
+    if(label) label.textContent = nearMe ? 'Near me ✓' : 'Near me';
+  }
+
+  function setPickCoords(lat, lng, source){
+    document.getElementById('addLat').value = lat.toFixed(6);
+    document.getElementById('addLng').value = lng.toFixed(6);
+    showCoordHint(lat, lng);
+    if(source==='main' && pickMarker && map) pickMarker.setLatLng([lat,lng]);
+    else if(source==='add' && addPickMap){
+      if(addPickMapMarker) addPickMapMarker.setLatLng([lat,lng]);
+      else {
+        addPickMapMarker = L.marker([lat,lng],{icon:createIcon('full'),draggable:true}).addTo(addPickMap);
+        addPickMapMarker.on('dragend',()=>{
+          const ll = addPickMapMarker.getLatLng();
+          setPickCoords(ll.lat, ll.lng, 'add');
+        });
+      }
+      addPickMap.setView([lat,lng], Math.max(addPickMap.getZoom(),15));
+    }
+  }
+
+  function initAddPickMap(){
+    const el = document.getElementById('addPickMap');
+    if(!el || typeof L==='undefined') return;
+    if(addPickMap){ addPickMap.invalidateSize(); return; }
+    const start = userLocation || DEFAULT_MAP_CENTER;
+    addPickMap = L.map(el,{zoomControl:true,attributionControl:false}).setView([start.lat,start.lng], userLocation?12:4);
+    addCartoVoyagerTiles(addPickMap, false);
+    addPickMap.on('click', e => setPickCoords(e.latlng.lat, e.latlng.lng, 'add'));
+    setTimeout(()=>addPickMap.invalidateSize(),120);
+  }
+
+  function destroyAddPickMap(){
+    if(addPickMap){ addPickMap.remove(); addPickMap=null; addPickMapMarker=null; }
+  }
+
+  function showCoordHint(lat, lng){
+    const hint = document.getElementById('coordHint');
+    hint.textContent = 'Pin at ' + lat.toFixed(6) + ', ' + lng.toFixed(6);
+    hint.classList.add('show');
+    document.getElementById('addPinDetails').open = true;
+    setTimeout(initAddPickMap, 80);
+  }
+
+  function validCoord(m){
+    const lat=+m.latitude,lng=+m.longitude;
+    return !isNaN(lat)&&!isNaN(lng)&&lat>=-90&&lat<=90&&lng>=-180&&lng<=180;
+  }
+
+  function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function highlight(text,q){
+    if(!q||!text) return escapeHtml(text||'');
+    const t=String(text), i=t.toLowerCase().indexOf(q);
+    if(i===-1) return escapeHtml(t);
+    return escapeHtml(t.slice(0,i))+'<mark class="hl">'+escapeHtml(t.slice(i,i+q.length))+'</mark>'+escapeHtml(t.slice(i+q.length));
+  }
+
+  function getQuery(){ return document.getElementById('searchInput').value.trim().toLowerCase(); }
+  function isMobile(){ return window.matchMedia('(max-width:820px)').matches; }
+  function isIOS(){ return /iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1); }
+  function isTypingTarget(el){ return el&&(el.tagName==='INPUT'||el.tagName==='TEXTAREA'||el.tagName==='SELECT'||el.isContentEditable); }
+
+  function setOverlayOpen(id, open){
+    const el = document.getElementById(id);
+    if(!el) return;
+    el.classList.toggle('open', open);
+    document.body.classList.toggle('modal-open', Boolean(document.querySelector('.overlay.open')));
+    if(id==='addOverlay' && !open) destroyAddPickMap();
+    if(id==='detailOverlay' && !open) activeSpotId = null;
+    if(!open || id==='detailOverlay') syncUrlFromState();
+  }
+
+  function setMobileView(view){
+    document.querySelectorAll('.mobile-tab').forEach(t=>{
+      const on = t.dataset.view===view;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on?'true':'false');
+    });
+    document.getElementById('appMain').classList.toggle('show-list', view==='list');
+    if(map) setTimeout(()=>map.invalidateSize(),100);
+  }
+
+  function updateMobileTabBadge(count){
+    const badge = document.getElementById('listTabBadge');
+    if(!badge) return;
+    if(count>0){ badge.textContent = count>999?'999+':String(count); badge.hidden=false; }
+    else badge.hidden=true;
+  }
+
+  function filterLocations(){
+    const q = getQuery();
+    return allLocations.filter(m=>{
+      if(!validCoord(m)) return false;
+      if(halalFilter==='full' && m.halalStatus!=='full') return false;
+      if(halalFilter==='options' && m.halalStatus!=='options') return false;
+      if(extraFilter==='verified' && m.verifiedMethod==='web-source') return false;
+      if(extraFilter==='internet' && m.verifiedMethod!=='web-source') return false;
+      if(countryFilter && m.country!==countryFilter) return false;
+      if(nearMe && userLocation){
+        if(haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude})>radiusMi) return false;
+      }
+      if(q) return matchesSearch(m,q);
+      return true;
+    });
+  }
+
+  function halalTag(m){
+    if(m.halalStatus==='options') return '<span class="tag tag-warmed">Halal options</span>';
+    return '<span class="tag tag-verified">Fully halal</span>';
+  }
+
+  function sourceTag(m){
+    if(m.verifiedMethod==='web-source') return '<span class="tag tag-internet">Web</span>';
+    return '<span class="tag tag-verified">Verified</span>';
+  }
+
+  function createIcon(halalStatus){
+    const color = halalStatus==='options' ? '#d97706' : '#059669';
+    const emoji = halalStatus==='options' ? '◐' : '☪';
+    return L.divIcon({
+      html:'<div style="background:'+color+';color:#fff;border:2.5px solid #fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.22);font-size:13px;font-weight:700">'+emoji+'</div>',
+      className:'custom-marker', iconSize:[30,30], iconAnchor:[15,15], popupAnchor:[0,-15]
+    });
+  }
+
+  function cardStatusClass(m){
+    if(m.halalStatus==='options') return 'card--warmed';
+    if(m.verifiedMethod==='web-source') return 'card--internet';
+    return 'card--verified';
+  }
+
+  function sortedLocations(list){
+    const q = getQuery();
+    return [...list].sort((a,b)=>{
+      if(q){ const sa=searchScore(a,q), sb=searchScore(b,q); if(sa!==sb) return sb-sa; }
+      if(nearMe && userLocation){
+        const da=haversineMiles(userLocation,{lat:+a.latitude,lng:+a.longitude});
+        const db=haversineMiles(userLocation,{lat:+b.latitude,lng:+b.longitude});
+        return da-db;
+      }
+      return a.name.localeCompare(b.name);
+    });
+  }
+
+  function emptyStateHtml(){
+    const msg = nearMe
+      ? 'Nothing within '+radiusMi+' mi. Try 100 mi or search a city name.'
+      : 'No halal restaurants match yet. Try another city or add one you know.';
+    const chips = POPULAR_CITIES.map(c=>'<button type="button" class="chip city-chip" data-city="'+escapeHtml(c)+'">'+escapeHtml(c)+'</button>').join('');
+    return '<div class="empty"><p class="empty-title">No matches</p><p class="empty-sub">'+msg+'</p><div class="empty-chips">'+chips+'</div><button type="button" class="btn btn-primary" style="margin-top:16px" id="emptyAddBtn">Add a restaurant</button></div>';
+  }
+
+  function renderList(filtered){
+    const q=getQuery(), el=document.getElementById('locationList');
+    const full = filtered.filter(m=>m.halalStatus==='full').length;
+    const options = filtered.filter(m=>m.halalStatus==='options').length;
+    let countHtml = '<strong>'+filtered.length+'</strong> '+(filtered.length===1?'restaurant':'restaurants');
+    if(nearMe) countHtml += ' within '+radiusMi+' mi';
+    const badges = [];
+    if(full) badges.push(full+' fully halal');
+    if(options) badges.push(options+' with options');
+    if(badges.length) countHtml += '<div class="count-badges">'+badges.map(b=>'<span class="count-badge">'+b+'</span>').join('')+'</div>';
+    document.getElementById('countLabel').innerHTML = countHtml;
+    updateMobileTabBadge(filtered.length);
+    if(!filtered.length){
+      el.innerHTML = emptyStateHtml();
+      document.getElementById('emptyAddBtn')?.addEventListener('click', openAddForm);
+      el.querySelectorAll('.city-chip').forEach(btn=>btn.addEventListener('click',()=>{
+        document.getElementById('searchInput').value = btn.dataset.city;
+        hideSearchAc();
+        refresh();
+      }));
+      return;
+    }
+    el.innerHTML = sortedLocations(filtered).map(m=>{
+      let dist='';
+      if(nearMe && userLocation) dist = haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude}).toFixed(1)+' mi';
+      const cardClass = 'card '+cardStatusClass(m);
+      const cuisineTag = m.cuisine ? '<span class="tag tag-bidet">'+escapeHtml(m.cuisine)+'</span>' : '';
+      return '<article class="'+cardClass+'" data-id="'+m.id+'"><h3>'+highlight(m.name,q)+'</h3><div class="card-tags">'+halalTag(m)+sourceTag(m)+cuisineTag+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+'<div class="card-meta"><span class="tag tag-type">Restaurant</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
+    }).join('');
+    el.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openDetail(c.dataset.id)));
+  }
+
+  function renderMap(filtered){
+    if(!clusterGroup) return;
+    clusterGroup.clearLayers();
+    const markers = filtered.map(m=>{
+      const marker = L.marker([+m.latitude,+m.longitude],{icon:createIcon(m.halalStatus)});
+      marker.on('click',()=>openDetail(m.id));
+      marker.bindTooltip(m.name,{direction:'top',offset:[0,-12]});
+      return marker;
+    });
+    clusterGroup.addLayers(markers);
+    const shouldFit = !initialBoundsDone && filtered.length && !getQuery() && !nearMe && !activeSpotId;
+    if(shouldFit){
+      let fitTargets = filtered;
+      if(!countryFilter){
+        const usa = filtered.filter(m=>m.country==='USA');
+        if(usa.length) fitTargets = usa;
+      }
+      const bounds = L.latLngBounds(fitTargets.map(m=>[+m.latitude,+m.longitude]));
+      if(bounds.isValid()){
+        map.fitBounds(bounds.pad(0.12),{maxZoom:10,animate:false});
+        if(map.getZoom()<MAP_MIN_ZOOM) map.setZoom(MAP_MIN_ZOOM);
+        initialBoundsDone = true;
+      }
+    }
+  }
+
+  function openDetail(id, fromUrl){
+    const m = allLocations.find(x=>x.id===id);
+    if(!m) return;
+    activeSpotId = id;
+    if(map) map.setView([+m.latitude,+m.longitude], Math.max(map.getZoom(),14));
+    document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+    const cardEl = document.querySelector('.card[data-id="'+id+'"]');
+    if(cardEl){ cardEl.classList.add('active'); cardEl.scrollIntoView({block:'nearest',behavior:'smooth'}); }
+    const source = m.sourceUrl ? '<p class="sub" style="margin-top:12px"><a href="'+escapeHtml(m.sourceUrl)+'" target="_blank" rel="noopener">View source ↗</a></p>' : '';
+    const quote = m.sourceQuote ? '<blockquote class="source-quote"><strong>Evidence</strong>'+escapeHtml(m.sourceQuote)+'</blockquote>' : '';
+    const shareLink = spotShareUrl(id);
+    const googleMaps = 'https://www.google.com/maps/search/?api=1&query='+m.latitude+','+m.longitude;
+    const appleMaps = 'https://maps.apple.com/?daddr='+encodeURIComponent(m.latitude+','+m.longitude);
+    document.getElementById('detailContent').innerHTML =
+      '<h2>'+escapeHtml(m.name)+'</h2>'+
+      '<p class="sub">Restaurant · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
+      '<p>'+escapeHtml(m.address)+'</p>'+
+      '<div class="row">'+halalTag(m)+sourceTag(m)+(m.cuisine?'<span class="tag tag-type">'+escapeHtml(m.cuisine)+'</span>':'')+'</div>'+
+      quote+source+
+      '<div class="dialog-actions detail-actions">'+
+      '<a class="btn btn-primary" href="'+googleMaps+'" target="_blank" rel="noopener">Google Maps</a>'+
+      (isIOS()?'<a class="btn btn-primary" href="'+appleMaps+'" target="_blank" rel="noopener">Apple Maps</a>':'')+
+      '<button type="button" class="btn btn-ghost js-copy-spot-link">Share spot</button>'+
+      '<button type="button" class="btn btn-ghost js-copy-address">Copy address</button>'+
+      '</div>';
+    document.getElementById('detailContent').querySelector('.js-copy-spot-link')?.addEventListener('click',()=>{
+      navigator.clipboard?.writeText(shareLink).then(()=>alert('Link copied!')).catch(()=>prompt('Copy link:',shareLink));
+    });
+    document.getElementById('detailContent').querySelector('.js-copy-address')?.addEventListener('click',()=>{
+      const txt = [m.name,m.address,m.city].filter(Boolean).join(', ');
+      navigator.clipboard?.writeText(txt).then(()=>alert('Address copied!')).catch(()=>{});
+    });
+    setOverlayOpen('detailOverlay', true);
+    syncUrlFromState();
+    if(typeof window.trackEvent==='function' && !fromUrl) window.trackEvent('halalbud_spot_open',{id});
+  }
+
+  function refresh(){
+    const filtered = filterLocations();
+    renderList(filtered);
+    renderMap(filtered);
+    updateFilterUi();
+    syncUrlFromState();
+    if(map) setTimeout(()=>map.invalidateSize(),0);
+  }
+
+  function openAddForm(){
+    setOverlayOpen('addOverlay', true);
+    if(typeof window.trackEvent==='function') window.trackEvent('halalbud_add_open');
+  }
+
+  function resetAddForm(){
+    ['addName','addAddress','addCity','addEmail','addEvidence','addNotes','addLat','addLng'].forEach(id=>{
+      const el=document.getElementById(id); if(el) el.value='';
+    });
+    document.getElementById('addCountry').value='USA';
+    document.getElementById('addHalalStatus').value='full';
+    document.getElementById('coordHint').classList.remove('show');
+    if(pickMarker && map){ map.removeLayer(pickMarker); pickMarker=null; }
+    if(addPickMapMarker && addPickMap){ addPickMap.removeLayer(addPickMapMarker); addPickMapMarker=null; }
+  }
+
+  function showThankYou(){
+    document.getElementById('thankYouContent').innerHTML =
+      '<h2>Thanks!</h2><p class="sub">We received your restaurant suggestion and will review it before it goes on the map.</p>'+
+      '<div class="dialog-actions"><button type="button" class="btn btn-primary" id="copySiteLink">Copy HalalBud link</button></div>';
+    setOverlayOpen('thankYouOverlay', true);
+    document.getElementById('copySiteLink')?.addEventListener('click',()=>{
+      navigator.clipboard?.writeText(SITE_URL).then(()=>alert('Link copied!')).catch(()=>{});
+    });
+  }
+
+  async function submitViaEmail(payload){
+    const res = await fetch('https://formsubmit.co/ajax/'+encodeURIComponent(SUBMIT_EMAIL),{
+      method:'POST',
+      headers:{'Content-Type':'application/json',Accept:'application/json'},
+      body:JSON.stringify({
+        _subject:'HalalBud: new restaurant',
+        _template:'table',
+        _captcha:'false',
+        name:payload.name,
+        submitter_email:payload.email||'(not provided)',
+        address:payload.address,
+        city:payload.city,
+        country:payload.country,
+        halal_status:payload.halalStatus,
+        evidence:payload.evidence,
+        latitude:payload.latitude,
+        longitude:payload.longitude,
+        notes:payload.notes||'',
+        maps_link:'https://www.google.com/maps/search/?api=1&query='+payload.latitude+','+payload.longitude
+      })
+    });
+    const data = await res.json().catch(()=>({}));
+    if(!res.ok||data.success===false) throw new Error(data.message||'Submission failed.');
+    return true;
+  }
+
+  function halalCountryStyle(feature){
+    if(!HALAL_DEFAULT_GEO_NAMES.has(feature.properties.name)){
+      return { fillOpacity:0, opacity:0, weight:0, interactive:false };
+    }
+    return { fillColor:'#34d399', fillOpacity:0.42, color:'#059669', weight:1.25, opacity:0.9 };
+  }
+
+  function onHalalCountryFeature(feature, layer){
+    if(!HALAL_DEFAULT_GEO_NAMES.has(feature.properties.name)) return;
+    layer.bindTooltip(feature.properties.name+' — halal by default',{sticky:true,direction:'top',className:'bidet-country-tip'});
+    layer.on({
+      mouseover(e){ e.target.setStyle({fillOpacity:0.58,weight:2}); },
+      mouseout(e){ if(countriesLayer) countriesLayer.resetStyle(e.target); }
+    });
+  }
+
+  function loadHalalDefaultCountries(){
+    fetch(COUNTRY_GEOJSON_URL)
+      .then(res=>{ if(!res.ok) throw new Error('Country boundaries unavailable'); return res.json(); })
+      .then(geo=>{
+        if(!map) return;
+        if(countriesLayer) map.removeLayer(countriesLayer);
+        countriesLayer = L.geoJSON(geo,{style:halalCountryStyle,onEachFeature:onHalalCountryFeature,pane:'countriesPane'}).addTo(map);
+      })
+      .catch(err=>console.warn('Halal-default country layer:',err));
+  }
+
+  function showLoadToast(){
+    const t = document.getElementById('loadToast');
+    if(!t) return;
+    t.textContent = allLocations.length + ' restaurants loaded';
+    t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'),2800);
+  }
+
+  function hideSearchAc(){ document.getElementById('searchAc')?.setAttribute('hidden',''); }
+
+  function renderSearchAc(){
+    const q = getQuery();
+    const box = document.getElementById('searchAc');
+    if(!box||q.length<2){ hideSearchAc(); return; }
+    const nq = normalizeSearchText(q);
+    const placeMatches = allLocations.filter(m=>matchesSearch(m,q)).sort((a,b)=>searchScore(b,q)-searchScore(a,q)).slice(0,6);
+    const cityMatches = [...new Set(allLocations.filter(m=>normalizeSearchText(m.city).includes(nq)).map(m=>m.city.split(',')[0].trim()))].slice(0,3);
+    const items = [];
+    placeMatches.forEach(m=>items.push({fill:m.name,label:m.name,hint:m.city?m.city.split(',')[0].trim():''}));
+    cityMatches.forEach(c=>{ if(!items.some(i=>i.fill===c)) items.push({fill:c,label:c,hint:'City'}); });
+    if(!items.length){ hideSearchAc(); return; }
+    box.innerHTML = items.slice(0,8).map(it=>'<button type="button" class="search-ac-item" data-value="'+escapeHtml(it.fill)+'"><span class="search-ac-label">'+highlight(it.label,q)+'</span>'+(it.hint?'<span class="search-ac-hint">'+escapeHtml(it.hint)+'</span>':'')+'</button>').join('');
+    box.removeAttribute('hidden');
+    box.querySelectorAll('.search-ac-item').forEach(btn=>btn.addEventListener('click',()=>{
+      document.getElementById('searchInput').value = btn.dataset.value;
+      hideSearchAc();
+      if(isMobile()) setMobileView('list');
+      refresh();
+    }));
+  }
+
+  function initMap(){
+    map = L.map('map',{zoomControl:true,minZoom:MAP_MIN_ZOOM,worldCopyJump:true}).setView([DEFAULT_MAP_CENTER.lat,DEFAULT_MAP_CENTER.lng],DEFAULT_MAP_ZOOM);
+    map.createPane('countriesPane');
+    map.getPane('countriesPane').style.zIndex = 350;
+    addCartoVoyagerTiles(map,true,true);
+    const loadCountries = ()=>loadHalalDefaultCountries();
+    if('requestIdleCallback' in window) requestIdleCallback(loadCountries,{timeout:3000});
+    else setTimeout(loadCountries,1200);
+    clusterGroup = L.markerClusterGroup({
+      maxClusterRadius:40, chunkedLoading:true, chunkInterval:120, chunkDelay:16, removeOutsideVisibleBounds:false,
+      iconCreateFunction:c=>L.divIcon({
+        html:'<div style="background:#047857;color:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;border:2px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.18)">'+c.getChildCount()+'</div>',
+        className:'custom-marker', iconSize:[36,36]
+      })
+    });
+    map.addLayer(clusterGroup);
+    map.zoomControl.setPosition(isMobile()?'topright':'bottomright');
+    window.matchMedia('(max-width:820px)').addEventListener('change',e=>{
+      map.zoomControl.setPosition(e.matches?'topright':'bottomright');
+      setTimeout(()=>map.invalidateSize(),100);
+    });
+    setTimeout(()=>map.invalidateSize(),150);
+    map.on('click', e=>{
+      if(!document.getElementById('addOverlay').classList.contains('open')) return;
+      setPickCoords(e.latlng.lat,e.latlng.lng,'main');
+      if(pickMarker) map.removeLayer(pickMarker);
+      pickMarker = L.marker(e.latlng,{icon:createIcon('full'),draggable:true}).addTo(map);
+      pickMarker.on('dragend',()=>{ const ll=pickMarker.getLatLng(); setPickCoords(ll.lat,ll.lng,'main'); });
+    });
+  }
+
+  function initMenu(){
+    const btn=document.getElementById('menuBtn'), drop=document.getElementById('menuDrop');
+    if(!btn||!drop) return;
+    drop.hidden=true;
+    btn.addEventListener('click',e=>{
+      e.stopPropagation();
+      const open=drop.hidden;
+      drop.hidden=!open;
+      btn.setAttribute('aria-expanded',open?'true':'false');
+    });
+    drop.addEventListener('click',e=>e.stopPropagation());
+    document.addEventListener('click',()=>{ drop.hidden=true; btn.setAttribute('aria-expanded','false'); });
+    document.getElementById('menuAbout')?.addEventListener('click',()=>{ drop.hidden=true; setOverlayOpen('aboutOverlay',true); });
+    document.getElementById('menuLegend')?.addEventListener('click',()=>{ drop.hidden=true; setOverlayOpen('legendOverlay',true); });
+  }
+
+  function wire(){
+    initMenu();
+    document.getElementById('addPinDetails')?.addEventListener('toggle',e=>{ if(e.target.open) setTimeout(initAddPickMap,80); });
+    const searchInput = document.getElementById('searchInput');
+    searchInput.addEventListener('input',()=>{ renderSearchAc(); if(isMobile()&&searchInput.value.trim().length>=2) setMobileView('list'); refresh(); });
+    searchInput.addEventListener('focus', renderSearchAc);
+    searchInput.addEventListener('blur',()=>setTimeout(hideSearchAc,180));
+    document.querySelectorAll('#halalFilter button').forEach(btn=>btn.addEventListener('click',()=>{
+      halalFilter=btn.dataset.type; updateFilterUi(); refresh();
+    }));
+    document.querySelectorAll('#typeChips .chip').forEach(btn=>btn.addEventListener('click',()=>{
+      const t=btn.dataset.type;
+      if(COUNTRY_FILTERS.includes(t)) countryFilter = countryFilter===t ? null : t;
+      else extraFilter = extraFilter===t ? null : t;
+      updateFilterUi(); refresh();
+    }));
+    document.querySelectorAll('#radiusRow button').forEach(btn=>btn.addEventListener('click',()=>{
+      radiusMi=parseInt(btn.dataset.radius,10); updateFilterUi(); refresh();
+    }));
+    document.getElementById('nearMeBtn').addEventListener('click',()=>{
+      if(nearMe){ nearMe=false; userLocation=null; updateNearMeUi(); updateFilterUi(); refresh(); return; }
+      if(!navigator.geolocation){ alert('Geolocation not supported.'); return; }
+      navigator.geolocation.getCurrentPosition(pos=>{
+        userLocation={lat:pos.coords.latitude,lng:pos.coords.longitude};
+        nearMe=true; updateNearMeUi(); updateFilterUi();
+        if(isMobile()) setMobileView('map');
+        if(map) map.setView([userLocation.lat,userLocation.lng],10);
+        refresh();
+      },()=>alert('Could not get your location.'));
+    });
+    document.querySelectorAll('.mobile-tab').forEach(tab=>tab.addEventListener('click',()=>setMobileView(tab.dataset.view)));
+    document.getElementById('aboutClose').addEventListener('click',()=>setOverlayOpen('aboutOverlay',false));
+    document.getElementById('footerAbout')?.addEventListener('click',e=>{ e.preventDefault(); setOverlayOpen('aboutOverlay',true); });
+    document.getElementById('footerYear').textContent = String(new Date().getFullYear());
+    document.getElementById('addBtn').addEventListener('click', openAddForm);
+    document.getElementById('addClose').addEventListener('click',()=>{ setOverlayOpen('addOverlay',false); resetAddForm(); });
+    document.getElementById('detailClose').addEventListener('click',()=>setOverlayOpen('detailOverlay',false));
+    document.getElementById('thankYouClose')?.addEventListener('click',()=>setOverlayOpen('thankYouOverlay',false));
+    document.getElementById('legendHelpBtn')?.addEventListener('click',()=>setOverlayOpen('legendOverlay',true));
+    document.getElementById('legendClose')?.addEventListener('click',()=>setOverlayOpen('legendOverlay',false));
+    ['detailOverlay','addOverlay','aboutOverlay','thankYouOverlay','legendOverlay'].forEach(id=>{
+      document.getElementById(id)?.addEventListener('click',e=>{ if(e.target.id===id) setOverlayOpen(id,false); });
+    });
+    document.addEventListener('keydown',e=>{
+      if(e.key==='/' && !isTypingTarget(document.activeElement)){ e.preventDefault(); searchInput.focus(); return; }
+      if(e.key==='Escape'){
+        hideSearchAc();
+        document.getElementById('menuDrop').hidden=true;
+        setOverlayOpen('detailOverlay',false);
+        setOverlayOpen('addOverlay',false);
+        setOverlayOpen('aboutOverlay',false);
+        setOverlayOpen('thankYouOverlay',false);
+        setOverlayOpen('legendOverlay',false);
+        resetAddForm();
+      }
+    });
+    document.getElementById('submitAdd').addEventListener('click', async ()=>{
+      const btn=document.getElementById('submitAdd');
+      if(document.getElementById('addHoney').value) return;
+      const name=document.getElementById('addName').value.trim();
+      const lat=+document.getElementById('addLat').value, lng=+document.getElementById('addLng').value;
+      const evidence=document.getElementById('addEvidence').value.trim();
+      if(!name||isNaN(lat)||isNaN(lng)||!evidence){ alert('Name, halal evidence, and a map pin are required.'); return; }
+      const country=document.getElementById('addCountry').value.trim()||'USA';
+      if(isHalalDefaultCountry(country)){ alert('HalalBud is for restaurants outside halal-by-default countries. Those are shaded green on the map.'); return; }
+      const payload={
+        name, email:document.getElementById('addEmail').value.trim(),
+        address:document.getElementById('addAddress').value.trim(),
+        city:document.getElementById('addCity').value.trim(),
+        country, halalStatus:document.getElementById('addHalalStatus').value,
+        evidence, latitude:String(lat), longitude:String(lng),
+        notes:document.getElementById('addNotes').value.trim()
+      };
+      const prev=btn.textContent; btn.disabled=true; btn.textContent='Sending…';
+      try{
+        await submitViaEmail(payload);
+        setOverlayOpen('addOverlay',false); resetAddForm(); showThankYou();
+      }catch(err){ alert(err.message||'Could not send submission.'); }
+      finally{ btn.disabled=false; btn.textContent=prev; }
+    });
+  }
+
+  async function boot(){
+    wire();
+    try{ if(typeof L!=='undefined') initMap(); }catch(e){ console.error(e); }
+    initData();
+    const spotFromUrl = applyUrlState();
+    refresh();
+    showLoadToast();
+    if(spotFromUrl) setTimeout(()=>openDetail(spotFromUrl,true),400);
+    if(typeof window.trackEvent==='function') window.trackEvent('halalbud_view',{spots:String(allLocations.length)});
+  }
+
+  boot();
+})();
+</script>
+</body>
+</html>
