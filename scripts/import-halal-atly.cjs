@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Extract halal restaurants from Atly bidet crawl JSON (explicit halal evidence only).
- * Writes data/halal-restaurants-seed.json and patches window.HALALBUD_SEED in halal.html.
+ * Writes data/halal-restaurants-seed.json only — run import-halal-all.cjs to embed.
  *
  *   node scripts/import-halal-atly.cjs
  */
@@ -11,7 +11,6 @@ const { isHalalDefaultCountry } = require('./lib/halal-default-countries.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'data/halal-restaurants-seed.json');
-const HTML = path.join(ROOT, 'halal.html');
 
 const SOURCES = [
   'data/atly-na-bidets.json',
@@ -66,16 +65,4 @@ for (const rel of SOURCES) {
 rows.sort((a, b) => a.name.localeCompare(b.name));
 fs.writeFileSync(OUT, JSON.stringify(rows, null, 2) + '\n');
 console.log(`Wrote ${rows.length} halal restaurants → ${path.relative(ROOT, OUT)}`);
-
-const html = fs.readFileSync(HTML, 'utf8');
-const seedJson = JSON.stringify(rows);
-const patched = html.replace(
-  /window\.HALALBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.HALALBUD_SEED = ${seedJson};`
-);
-if (patched === html) {
-  console.error('Could not find HALALBUD_SEED in halal.html');
-  process.exit(1);
-}
-fs.writeFileSync(HTML, patched);
-console.log(`Patched halal.html (${rows.length} restaurants in HALALBUD_SEED)`);
+console.log('Run node scripts/import-halal-all.cjs to merge into halal.html');

@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 /**
  * Crawl Zabihah.com restaurant sitemaps → venue pages with coords.
- * Resumable; respects robots Crawl-delay: 2.
+ * Resumable; parallel fetches (much faster than serial Crawl-delay).
  *
- *   node scripts/crawl-zabihah.cjs --minutes=90
- *   node scripts/crawl-zabihah.cjs --minutes=90 --no-import   # skip halal.html embed
+ *   node scripts/crawl-zabihah.cjs --minutes=120
+ *   node scripts/crawl-zabihah.cjs --minutes=120 --concurrency=20
+ *   node scripts/crawl-zabihah.cjs --minutes=120 --no-import          # fastest; import at end
  *   node scripts/crawl-zabihah.cjs --discover-only
  *
  * Output: data/zabihah-halal-restaurants.json
@@ -12,14 +13,13 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { fetchText, parseZabihahHtml, sleep } = require('./lib/halal-web.cjs');
+const { fetchText, parseZabihahHtml, sleep, mapPool } = require('./lib/halal-web.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'data/zabihah-halal-restaurants.json');
 const STATE = path.join(ROOT, 'data/zabihah-crawl-state.json');
 const SITEMAP_INDEX = 'https://www.zabihah.com/sitemap.xml';
 const SHARDS = [...Array.from({ length: 10 }, (_, i) => i), 1000, 1001, 1002];
-const DELAY_MS = 2100;
 
 const args = process.argv.slice(2);
 const minutesArg = args.find((a) => a.startsWith('--minutes='));
@@ -28,6 +28,10 @@ const DISCOVER_ONLY = args.includes('--discover-only');
 const SKIP_IMPORT = args.includes('--no-import');
 const LIMIT_ARG = args.find((a) => a.startsWith('--limit='));
 const LIMIT = LIMIT_ARG ? Number(LIMIT_ARG.split('=')[1]) : 0;
+const concArg = args.find((a) => a.startsWith('--concurrency='));
+const CONCURRENCY = concArg ? Number(concArg.split('=')[1]) : 15;
+const importEveryArg = args.find((a) => a.startsWith('--import-every='));
+const IMPORT_EVERY = SKIP_IMPORT ? 0 : importEveryArg ? Number(importEveryArg.split('=')[1]) : 100;
 
 function loadState() {
   if (!fs.existsSync(STATE)) {
@@ -50,6 +54,15 @@ function extractLocs(xml, pattern) {
   let m;
   while ((m = re.exec(xml))) urls.push(m[1].trim());
   return urls;
+}
+
+function pullBatch(queue, done, size) {
+  const batch = [];
+  while (batch.length < size && queue.length) {
+    const url = queue.shift();
+    if (!done[url]) batch.push(url);
+  }
+  return batch;
 }
 
 async function discoverRestaurantUrls() {
@@ -77,7 +90,13 @@ function embedHalalPage() {
   require('child_process').execSync('node scripts/import-halal-all.cjs', { cwd: ROOT, stdio: 'inherit' });
 }
 
+async function fetchVenue(url) {
+  const html = await fetchText(url);
+  return parseZabihahHtml(html, url);
+}
+
 async function main() {
+  const t0 = Date.now();
   const deadline = Date.now() + MINUTES * 60 * 1000;
   const st = loadState();
 
@@ -88,39 +107,66 @@ async function main() {
     saveState(st);
     if (DISCOVER_ONLY) return;
   } else {
-    console.log(`Resuming queue of ${st.queue.length} URLs (${Object.keys(st.done).length} done, ${st.rows.length} rows)`);
+    console.log(
+      `Resuming queue of ${st.queue.length} URLs (${Object.keys(st.done).length} done, ${st.rows.length} rows) · ${CONCURRENCY} parallel`,
+    );
   }
 
-  let fetched = 0;
+  let batchNum = 0;
   let errors = 0;
+  let rowsAtLastImport = st.rows.length;
+
   while (st.queue.length && Date.now() < deadline) {
     if (LIMIT && st.rows.length >= LIMIT) break;
-    const url = st.queue.shift();
-    if (st.done[url]) continue;
-    try {
-      const html = await fetchText(url);
-      const row = parseZabihahHtml(html, url);
-      st.done[url] = row ? 'ok' : 'skip';
-      if (row) st.rows.push(row);
-      fetched++;
-      if (fetched % 25 === 0) {
-        console.log(`  ${st.rows.length} rows · ${Object.keys(st.done).length} fetched · ${st.queue.length} left`);
-        saveState(st);
-        saveRows(st.rows);
-        if (!SKIP_IMPORT) embedHalalPage();
+
+    const batch = pullBatch(st.queue, st.done, CONCURRENCY);
+    if (!batch.length) continue;
+
+    const results = await mapPool(
+      batch,
+      async (url) => {
+        try {
+          const row = await fetchVenue(url);
+          return { url, row, err: null };
+        } catch (e) {
+          return { url, row: null, err: e };
+        }
+      },
+      { concurrency: CONCURRENCY },
+    );
+
+    for (const { url, row, err } of results) {
+      if (err) {
+        st.done[url] = 'err';
+        errors++;
+      } else {
+        st.done[url] = row ? 'ok' : 'skip';
+        if (row) st.rows.push(row);
       }
-    } catch (e) {
-      st.done[url] = 'err';
-      errors++;
-      if (errors % 10 === 0) console.warn('  error:', url, e.message);
     }
-    await sleep(DELAY_MS);
+
+    batchNum++;
+    const newRows = st.rows.length - rowsAtLastImport;
+    if (batchNum % 5 === 0 || newRows >= IMPORT_EVERY) {
+      const elapsed = ((Date.now() - t0) / 1000).toFixed(0);
+      const rate = st.rows.length ? (st.rows.length / ((Date.now() - t0) / 60000)).toFixed(0) : '0';
+      console.log(
+        `  ${st.rows.length} rows · ${Object.keys(st.done).length} fetched · ${st.queue.length} left · ~${rate}/min · ${elapsed}s`,
+      );
+      saveState(st);
+      saveRows(st.rows);
+      if (IMPORT_EVERY && newRows >= IMPORT_EVERY) {
+        embedHalalPage();
+        rowsAtLastImport = st.rows.length;
+      }
+    }
   }
 
   saveState(st);
   saveRows(st.rows);
-  console.log(`\nZabihah crawl paused: ${st.rows.length} restaurants saved → ${path.relative(ROOT, OUT)}`);
-  console.log(`  ${st.queue.length} URLs remaining in queue`);
+  const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
+  console.log(`\nZabihah crawl paused in ${elapsed}s: ${st.rows.length} restaurants → ${path.relative(ROOT, OUT)}`);
+  console.log(`  ${st.queue.length} URLs remaining · ${errors} fetch errors`);
 
   if (!SKIP_IMPORT && st.rows.length) embedHalalPage();
 }

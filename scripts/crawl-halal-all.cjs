@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 /**
- * Run all halal list crawlers then merge into data/halal-restaurants.json.
+ * Run all halal list crawlers then merge into halal.html.
  *
- *   node scripts/crawl-halal-all.cjs --minutes=90
- *   node scripts/crawl-halal-all.cjs --minutes=90 --zabihah-only
+ *   node scripts/crawl-halal-all.cjs --minutes=120
+ *   node scripts/crawl-halal-all.cjs --minutes=60 --zabihah-only
+ *   node scripts/crawl-halal-all.cjs --minutes=60 --extras-only   # skip Zabihah
  *   node scripts/crawl-halal-all.cjs --minutes=30 --osm-only
  */
 const { execSync } = require('child_process');
@@ -15,6 +16,8 @@ const minutesArg = args.find((a) => a.startsWith('--minutes='));
 const MINUTES = minutesArg ? minutesArg.split('=')[1] : '90';
 const zabihahOnly = args.includes('--zabihah-only');
 const osmOnly = args.includes('--osm-only');
+const extrasOnly = args.includes('--extras-only');
+const skipImport = args.includes('--no-import');
 
 function run(cmd) {
   console.log('\n▶', cmd);
@@ -24,9 +27,19 @@ function run(cmd) {
 try {
   run('node scripts/import-muis-halal.cjs');
   run('node scripts/import-halal-atly.cjs');
-  if (!osmOnly) run(`node scripts/crawl-zabihah.cjs --minutes=${MINUTES}`);
-  if (!zabihahOnly) run(`node scripts/crawl-osm-halal.cjs --minutes=${Math.max(15, Math.floor(Number(MINUTES) / 3))}`);
-  run('node scripts/import-halal-all.cjs');
+  run('node scripts/crawl-halal-directories.cjs');
+
+  if (!osmOnly && !extrasOnly) {
+    run(`node scripts/crawl-zabihah.cjs --minutes=${MINUTES} --no-import`);
+  }
+
+  if (!zabihahOnly) {
+    run(`node scripts/crawl-osm-halal.cjs --minutes=${Math.max(15, Math.floor(Number(MINUTES) / 3))}`);
+    run('node scripts/crawl-reddit-halal.cjs');
+    run(`node scripts/crawl-halal-web.cjs --minutes=${Math.max(20, Math.floor(Number(MINUTES) / 2))}`);
+  }
+
+  if (!skipImport) run('node scripts/import-halal-all.cjs');
 } catch (e) {
   process.exit(e.status || 1);
 }
