@@ -5,6 +5,8 @@
 const fs = require('fs');
 const path = require('path');
 
+const { inferType } = require('./lib/infer-type.cjs');
+
 const htmlPath = path.join(__dirname, '../index.html');
 const SOURCES = [
   path.join(__dirname, '../data/atly-latam-bidets.json'),
@@ -57,7 +59,7 @@ function toSeedRow(row) {
     longitude: String(row.longitude),
     city: row.city,
     country: row.country,
-    type: row.type || 'restaurant',
+    type: row.type || inferType(row),
     bidetStatus: row.bidetStatus || (isWarm ? 'warmed' : 'internet'),
     bidetType: row.bidetType || (isWarm ? 'TOTO / washlet bidet' : 'Bidet'),
     sourceUrl: row.sourceUrl,
