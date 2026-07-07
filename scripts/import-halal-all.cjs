@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * Merge all halal list sources into data/halal-restaurants.json for halal.html.
+ * Merge all halal list sources into data/halal-restaurants.json, then embed
+ * into halal.html (static site — no runtime fetch).
  *
  * Sources (if present):
  *   data/zabihah-halal-restaurants.json
@@ -59,3 +60,8 @@ console.log('  Top countries:', top.map(([c, n]) => `${c}(${n})`).join(', '));
 const full = merged.filter((r) => r.halalStatus === 'full').length;
 const opts = merged.filter((r) => r.halalStatus === 'options').length;
 console.log(`  Fully halal: ${full} · Halal options: ${opts}`);
+
+require('child_process').execSync('node scripts/embed-halal-seed.cjs', {
+  cwd: ROOT,
+  stdio: 'inherit',
+});
