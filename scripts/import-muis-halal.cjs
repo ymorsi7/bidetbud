@@ -47,7 +47,7 @@ async function main() {
       country: 'Singapore',
       halalStatus: 'full',
       cuisine: e.sub_scheme?.name || e.scheme?.name || '',
-      sourceUrl: 'https://halal.muis.gov.sg/halal/establishments',
+      sourceUrl: `https://halal.muis.gov.sg/halal/establishments?id=${encodeURIComponent(e.id || e.certificate_number || '')}`,
       sourceQuote: `MUIS halal certified (${e.certificate_number || 'certified establishment'})`,
       verifiedMethod: 'web-source',
       source: 'muis',

@@ -246,6 +246,15 @@ function rowKey(r) {
   return `${(r.name || '').toLowerCase()}|${r.latitude}|${r.longitude}`;
 }
 
+function isGenericListUrl(url) {
+  const u = String(url || '').toLowerCase().split('#')[0].split('?')[0];
+  return (
+    u.endsWith('/halal/establishments') ||
+    u.endsWith('/halal-restaurants') ||
+    u.endsWith('/best-bathroom-halal')
+  );
+}
+
 function sourceUrlKey(r) {
   return (r.sourceUrl || '').split('?')[0].toLowerCase();
 }
@@ -284,7 +293,7 @@ function mergeRows(existing, incoming, { keepNonDefaultOnly = true } = {}) {
     if (!r.latitude || !r.longitude || !r.name) continue;
     const uk = r.sourceUrl ? sourceUrlKey(r) : '';
     const rk = rowKey(r);
-    if (uk && byUrl.has(uk)) continue;
+    if (uk && !isGenericListUrl(uk) && byUrl.has(uk)) continue;
     if (byKey.has(rk)) continue;
     byKey.set(rk, r);
     if (uk) byUrl.set(uk, r);
