@@ -18,7 +18,7 @@ const dataPath = path.join(
   '../data/singapore-bidets.geolocation.json'
 );
 
-const { isFoodVenue, isHotelVenue } = require('./lib/infer-type.cjs');
+const { isFoodVenue, isHotelVenue, loadSingaporePublicOverrides } = require('./lib/infer-type.cjs');
 const INSTAGRAM_URL = 'https://www.instagram.com/toiletswithbidetsg/';
 const SOURCE_URL = 'https://www.bidetbud.com/data/bidets.geolocation.json';
 const MOSQUE = /\b(mosque|masjid)\b/i;
@@ -33,6 +33,9 @@ function formatRegion(region) {
 
 function mapType(sgType, location) {
   if (sgType === 'Hotel') return 'hotel';
+  const overrides = loadSingaporePublicOverrides();
+  const key = String(location || '').trim();
+  if (overrides[key]) return overrides[key];
   if (isHotelVenue(location) && !isFoodVenue(location)) return 'hotel';
   if (isFoodVenue(location)) return 'restaurant';
   if (MOSQUE.test(location)) return 'mosque';
