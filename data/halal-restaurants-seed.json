@@ -6,7 +6,7 @@
     "longitude": "-96.6800312",
     "city": "Allen, Texas",
     "country": "USA",
-    "halalStatus": "full",
+    "halalStatus": "options",
     "sourceUrl": "https://www.atly.com/location/Abu-Omar-Halal---Allen-TX",
     "sourceQuote": "Atly bathroom guide: Bathrooms include \"},{\"text_type\":\"bold\",\"text\":\"bidets\"},{\"text_type\":\"text\",\"text\":\" and a \"},{\"text_type\":\"bold\",\"text\":\"built-in wudu area\"},{\"text_type\":\"text\",\"text\":\". They also feature a \"},{\"tex",
     "verifiedMethod": "web-source"
@@ -30,7 +30,7 @@
     "longitude": "-82.9782549",
     "city": "Detroit, Michigan",
     "country": "USA",
-    "halalStatus": "full",
+    "halalStatus": "options",
     "sourceUrl": "https://www.atly.com/location/Halal-Eastside-Eats-Market",
     "sourceQuote": "Atly bathroom guide: Bathrooms include a bidet and maintain cleanliness throughout the public restroom",
     "verifiedMethod": "web-source"
@@ -54,7 +54,7 @@
     "longitude": "-81.4019483",
     "city": "Orlando, Florida",
     "country": "USA",
-    "halalStatus": "full",
+    "halalStatus": "options",
     "sourceUrl": "https://www.atly.com/location/Shahs-Halal-Food34",
     "sourceQuote": "Atly bathroom guide: ined. They include a \"},{\"text_type\":\"bold\",\"text\":\"bidet sprayer\"},{\"text_type\":\"text\",\"text\":\" for added convenience.\"}]},{\"category_id\":\"69e178e1-14be-11ee-a9cb-614c6a0a867a\",\"name\":\"Halal\",\"emoji\":\"🕌\",\"cat",
     "verifiedMethod": "web-source"

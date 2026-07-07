@@ -74,6 +74,21 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
+/** Run async work over items with a fixed concurrency limit. */
+async function mapPool(items, worker, { concurrency = 12 } = {}) {
+  const out = new Array(items.length);
+  let next = 0;
+  const n = Math.max(1, Math.min(concurrency, items.length || 1));
+  async function run() {
+    while (next < items.length) {
+      const i = next++;
+      out[i] = await worker(items[i], i);
+    }
+  }
+  await Promise.all(Array.from({ length: n }, run));
+  return out;
+}
+
 function fetchText(url, opts = {}) {
   const maxRedirects = opts.maxRedirects ?? 5;
   return new Promise((resolve, reject) => {
@@ -238,6 +253,37 @@ function classifyZabihahHtml(html, name) {
   return 'options';
 }
 
+/** Offline fix for rows scraped with the old default-to-full parser (no network). */
+function heuristicZabihahRow(row) {
+  const q = String(row.sourceQuote || '');
+  const n = String(row.name || '');
+  const r = { ...row };
+
+  if (/Zabihah: (partially halal|halal options|fully halal)/i.test(q)) return r;
+
+  if (
+    /brew(?:ery|ing)?|distillery|taproom|wine bar|bar & grill|brewing company|beer hall|cocktail/i.test(
+      n,
+    )
+  ) {
+    r.halalStatus = 'options';
+    r.sourceQuote = 'Zabihah: halal options (alcohol likely)';
+    return r;
+  }
+
+  if (/Zabihah listing — halal restaurant/i.test(q) || (r.halalStatus === 'full' && !q)) {
+    r.halalStatus = 'options';
+    r.sourceQuote = 'Zabihah: halal options (conservative default)';
+    return r;
+  }
+
+  if (r.halalStatus === 'full' && !/fully halal|certified|zabiha|100%/i.test(q)) {
+    r.halalStatus = 'options';
+    r.sourceQuote = r.sourceQuote || 'Zabihah: halal options';
+  }
+  return r;
+}
+
 function zabihahEvidenceQuote(html, halalStatus) {
   const t = String(html || '');
   if (/Partially halal|Partial halal/i.test(t)) return 'Zabihah: partially halal';
@@ -355,11 +401,13 @@ module.exports = {
   USER_AGENT,
   ISO_TO_COUNTRY,
   sleep,
+  mapPool,
   fetchText,
   countryFromCode,
   countryFromSlug,
   classifyHalalStatus,
   classifyZabihahHtml,
+  heuristicZabihahRow,
   zabihahEvidenceQuote,
   parseZabihahHtml,
   rowKey,

@@ -7,6 +7,9 @@
  *   data/zabihah-halal-restaurants.json
  *   data/osm-halal-restaurants.json
  *   data/muis-halal-restaurants.json
+ *   data/halal-reddit-restaurants.json
+ *   data/halal-web-crawl-restaurants.json
+ *   data/halal-directory-restaurants.json
  *   data/halal-restaurants-seed.json  (Atly / manual)
  *
  *   node scripts/import-halal-all.cjs
@@ -22,6 +25,9 @@ const SOURCES = [
   { file: 'data/zabihah-halal-restaurants.json', label: 'Zabihah' },
   { file: 'data/osm-halal-restaurants.json', label: 'OpenStreetMap' },
   { file: 'data/muis-halal-restaurants.json', label: 'MUIS Singapore' },
+  { file: 'data/halal-reddit-restaurants.json', label: 'Reddit' },
+  { file: 'data/halal-web-crawl-restaurants.json', label: 'Web search (Yelp/TripAdvisor/Google/social)' },
+  { file: 'data/halal-directory-restaurants.json', label: 'Halal directories' },
   { file: 'data/halal-restaurants-seed.json', label: 'Atly/manual seed' },
 ];
 
@@ -78,7 +84,7 @@ if (zabihahRows.length > 50) {
   const ratio = zFull / zabihahRows.length;
   if (ratio > 0.85) {
     console.warn(
-      `  WARNING: ${Math.round(ratio * 100)}% of Zabihah rows are "fully halal" — run node scripts/reclassify-zabihah.cjs --minutes=120 --import`,
+      `  WARNING: ${Math.round(ratio * 100)}% of Zabihah rows are "fully halal" — run node scripts/reclassify-zabihah.cjs --import (or --instant for no network)`,
     );
   }
 }
