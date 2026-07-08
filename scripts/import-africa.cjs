@@ -10,9 +10,9 @@
  * sourceQuote). Never replaces existing rows.
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const SOURCES = [
   path.join(__dirname, '../data/africa-verified-bidets.json'),
   path.join(__dirname, '../data/africa-web-crawl-bidets.json'),
@@ -101,14 +101,7 @@ function isNearDuplicate(existing, candidate) {
   return false;
 }
 
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
-
-const existing = JSON.parse(match[1]);
+const existing = readSeed();
 const verified = [];
 for (const src of SOURCES) {
   if (!fs.existsSync(src)) continue;
@@ -173,11 +166,7 @@ for (const item of verified) {
   added++;
 }
 
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(merged);
 
 const counts = {};
 merged

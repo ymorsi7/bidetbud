@@ -10,9 +10,9 @@
  * since every row shares the same Reddit thread URL). Never replaces rows.
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const srcPath = path.join(__dirname, '../data/reddit-fattravel-bidets.json');
 
 function toSeedRow(row) {
@@ -74,14 +74,7 @@ if (!fs.existsSync(srcPath)) {
   process.exit(1);
 }
 
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
-
-const existing = JSON.parse(match[1]);
+const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(srcPath, 'utf8'));
 const seen = new Set(existing.map(dedupeKey));
 
@@ -120,11 +113,7 @@ for (const item of verified) {
   added++;
 }
 
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(merged);
 
 console.log(
   `Reddit FATTravel import: +${added} new (${skipped} skipped, ${verified.length} in source).`

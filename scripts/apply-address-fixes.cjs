@@ -4,11 +4,10 @@
  * Authoritative manual overrides for mosques with known-good coordinates.
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
-const html = fs.readFileSync(htmlPath, 'utf8');
-const seed = JSON.parse(html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/)[1]);
+const seed = readSeed();
 
 /** Official / verified coordinates — override geocoder when present */
 const MANUAL = {
@@ -190,17 +189,12 @@ async function geocodeEntry(x) {
     if ((i + 1) % 50 === 0) console.error(`progress ${i + 1}/${seed.length}`);
   }
 
-  const newSeedJson = JSON.stringify(seed);
-  const newHtml = html.replace(
-    /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-    `window.BIDETBUD_SEED = ${newSeedJson};`
-  );
-  fs.writeFileSync(htmlPath, newHtml);
+  writeSeed(seed);
 
   const reportPath = path.join(__dirname, 'address-fix-report.json');
   fs.writeFileSync(reportPath, JSON.stringify({ changes, noGeocode }, null, 2));
 
-  console.log('Updated', htmlPath);
+  console.log('Updated bidet seed');
   console.log('Changes:', changes.length, '(manual:', changes.filter((c) => c.source === 'manual').length + ')');
   console.log('No geocode:', noGeocode.length, noGeocode.slice(0, 20));
 })();

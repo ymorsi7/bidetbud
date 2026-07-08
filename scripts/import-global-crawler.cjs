@@ -4,12 +4,12 @@
  * Skips bidet-friendly countries (matches index.html overlay).
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 const https = require('https');
 const { isFriendlyCountry, normalizeCountry } = require('./lib/non-friendly-countries.cjs');
 const { inferType } = require('./lib/infer-type.cjs');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const crawlerPath = path.join(__dirname, '../data/global-crawler-bidets.json');
 const redditPath = path.join(__dirname, '../data/global-crawler-reddit-raw.json');
 const redditCache = path.join(__dirname, '../data/global-crawler-reddit-geocode.json');
@@ -164,14 +164,12 @@ async function redditToRows() {
 }
 
 async function main() {
-  const html = fs.readFileSync(htmlPath, 'utf8');
-  const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-  if (!match) {
+      if (!match) {
     console.error('BIDETBUD_SEED not found');
     process.exit(1);
   }
 
-  const existing = JSON.parse(match[1]);
+  const existing = readSeed();
   const seen = new Set(existing.map(dedupeKey));
   const seenUrl = new Set(existing.filter((r) => r.sourceUrl).map((r) => r.sourceUrl));
   let added = 0;
@@ -209,11 +207,7 @@ async function main() {
     process.stderr.write(`+ [${row.country}] ${row.name}\n`);
   }
 
-  const newHtml = html.replace(
-    /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-    `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-  );
-  fs.writeFileSync(htmlPath, newHtml);
+  writeSeed(merged);
   console.log(`Global crawler import: +${added} new (${skipped} skipped). Total: ${merged.length}`);
 }
 

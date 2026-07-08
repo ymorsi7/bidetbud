@@ -3,10 +3,10 @@
  * Geocode and import Reddit LATAM leads into BIDETBUD_SEED.
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 const https = require('https');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const rawPath = path.join(__dirname, '../data/reddit-latam-raw.json');
 const CACHE = path.join(__dirname, '../data/reddit-latam-geocode-cache.json');
 
@@ -124,9 +124,7 @@ async function main() {
   }
   const raw = JSON.parse(fs.readFileSync(rawPath, 'utf8'));
   const cache = loadCache();
-  const html = fs.readFileSync(htmlPath, 'utf8');
-  const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-  const existing = JSON.parse(match[1]);
+      const existing = readSeed();
   const seen = new Set(existing.map(dedupeKey));
   let added = 0;
   let skipped = 0;
@@ -198,11 +196,7 @@ async function main() {
     process.stderr.write(`+ [${country}] ${row.name}\n`);
   }
 
-  const newHtml = html.replace(
-    /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-    `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-  );
-  fs.writeFileSync(htmlPath, newHtml);
+  writeSeed(merged);
   console.log(`Reddit LATAM import: +${added} new (${skipped} skipped). Total: ${merged.length}`);
 }
 

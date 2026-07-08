@@ -9,9 +9,9 @@
  * data/switzerland-toto-geocode-cache.json.
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const dataPath = path.join(__dirname, '../data/switzerland-toto-finder.json');
 const cachePath = path.join(__dirname, '../data/switzerland-toto-geocode-cache.json');
 
@@ -84,14 +84,12 @@ function dedupeKey(row) {
 }
 
 async function main() {
-  const html = fs.readFileSync(htmlPath, 'utf8');
-  const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-  if (!match) {
+      if (!match) {
     console.error('BIDETBUD_SEED not found');
     process.exit(1);
   }
 
-  const existing = JSON.parse(match[1]);
+  const existing = readSeed();
   const finder = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
   const cache = loadCache();
 
@@ -137,11 +135,7 @@ async function main() {
     console.log('Add:', row.name, `(${row.latitude}, ${row.longitude})`);
   }
 
-  const newHtml = html.replace(
-    /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-    `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-  );
-  fs.writeFileSync(htmlPath, newHtml);
+  writeSeed(merged);
 
   const chCount = merged.filter((r) => r.country === 'Switzerland').length;
   console.log(`\nAdded ${added}, skipped ${skipped}. Switzerland rows now: ${chCount}.`);

@@ -4,9 +4,9 @@
  * Does NOT replace existing rows — only adds net-new entries with source evidence.
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const verifiedPath = path.join(
   __dirname,
   '../data/western-verified-bidets.json'
@@ -74,14 +74,7 @@ if (!fs.existsSync(verifiedPath)) {
   process.exit(1);
 }
 
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
-
-const existing = JSON.parse(match[1]);
+const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
 
 const seen = new Set(existing.map(dedupeKey));
@@ -128,11 +121,7 @@ for (const item of verified) {
   added++;
 }
 
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(merged);
 
 const counts = { USA: 0, UK: 0, Canada: 0 };
 merged

@@ -11,9 +11,9 @@
  * - Curated rows in data/france-verified-bidets.json (each must cite evidence)
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const verifiedPath = path.join(
   __dirname,
   '../data/france-verified-bidets.json'
@@ -56,14 +56,7 @@ if (!fs.existsSync(verifiedPath)) {
   process.exit(1);
 }
 
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
-
-const existing = JSON.parse(match[1]);
+const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
 const preserved = existing.filter((row) => row.country !== 'France');
 const seen = new Set(preserved.map(dedupeKey));
@@ -82,11 +75,7 @@ for (const item of verified) {
   added++;
 }
 
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(preserved)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(preserved);
 
 console.log(`Replaced France seed rows with ${added} verified France locations (${verified.length} in source).`);
 console.log(`Total seed entries: ${preserved.length}`);

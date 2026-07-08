@@ -12,9 +12,9 @@
  * Re-import replaces all existing Russia rows so addresses/coords stay in sync.
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const verifiedPath = path.join(
   __dirname,
   '../data/russia-verified-bidets.json'
@@ -57,14 +57,7 @@ if (!fs.existsSync(verifiedPath)) {
   process.exit(1);
 }
 
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
-
-const existing = JSON.parse(match[1]);
+const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
 
 const withoutRussia = existing.filter((row) => row.country !== 'Russia');
@@ -84,11 +77,7 @@ for (const item of verified) {
   added++;
 }
 
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(withoutRussia)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(withoutRussia);
 
 console.log(
   `Russia import: ${added} locations (${verified.length} in source). Removed ${existing.filter((r) => r.country === 'Russia').length} prior Russia row(s).`

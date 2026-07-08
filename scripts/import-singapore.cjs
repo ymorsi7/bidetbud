@@ -10,9 +10,9 @@
  *         (synced from the public Google Sheet behind @toiletswithbidetsg)
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const dataPath = path.join(
   __dirname,
   '../data/singapore-bidets.geolocation.json'
@@ -111,14 +111,7 @@ function dedupeKey(row) {
   return [row.name.toLowerCase(), row.latitude, row.longitude].join('|');
 }
 
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('Could not find BIDETBUD_SEED in index.html');
-  process.exit(1);
-}
-
-const existing = JSON.parse(match[1]);
+const existing = readSeed();
 const sgRaw = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 const sgRows = sgRaw.map(toSeedRow);
 
@@ -135,13 +128,7 @@ for (const row of sgRows) {
   added++;
 }
 
-const newSeed = JSON.stringify(merged);
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${newSeed};`
-);
-
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(merged);
 console.log(
   `Singapore: ${sgRows.length} community-verified bidet rows (${added} new vs prior seed).`
 );

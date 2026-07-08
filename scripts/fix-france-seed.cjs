@@ -7,9 +7,8 @@
  * - Maison Albar – Imperator Hotel geocoded to Paris instead of Nîmes (duplicate of correct Nîmes row)
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
-
-const htmlPath = path.join(__dirname, '../index.html');
 
 const MANUAL = {
   'Maison Albar Hotels Le Pont-Neuf': {
@@ -49,14 +48,12 @@ function shouldRemove(row) {
 }
 
 function main() {
-  const html = fs.readFileSync(htmlPath, 'utf8');
-  const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-  if (!match) {
+      if (!match) {
     console.error('BIDETBUD_SEED not found');
     process.exit(1);
   }
 
-  const seed = JSON.parse(match[1]);
+  const seed = readSeed();
   let removed = 0;
   let fixed = 0;
 
@@ -76,11 +73,7 @@ function main() {
     out.push(row);
   }
 
-  const newHtml = html.replace(
-    /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-    `window.BIDETBUD_SEED = ${JSON.stringify(out)};`
-  );
-  fs.writeFileSync(htmlPath, newHtml);
+  writeSeed(out);
 
   const frCount = out.filter((r) => r.country === 'France').length;
   console.log(`Done: removed ${removed}, fixed ${fixed}. France rows in seed: ${frCount}`);
