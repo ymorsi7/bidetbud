@@ -18,9 +18,9 @@
  * Usage: node scripts/import-geberit-hotels.cjs
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const locatorPath = path.join(__dirname, '../data/geberit-locator-hotels.json');
 const scrapedPath = path.join(__dirname, '../data/geberit-hotels.json');
 const francePath = path.join(__dirname, '../data/geberit-france-hotels.json');
@@ -75,12 +75,6 @@ function loadRows(p) {
   }
 }
 
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
 let existing = JSON.parse(match[1]);
 
 // Purge any rows previously imported from the Hotel Locator feed so this script
@@ -130,11 +124,7 @@ for (const item of incoming) {
   added++;
 }
 
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(existing)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(existing);
 
 console.log(`Purged ${purged} prior Hotel Locator rows (idempotent re-import).`);
 console.log(`Added ${added} Geberit AquaClean hotels (${incoming.length} in sources).`);

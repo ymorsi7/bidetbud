@@ -6,11 +6,11 @@
  * Usage: node scripts/import-reddit-verified.cjs
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 const https = require('https');
 const { isFriendlyCountry } = require('./lib/non-friendly-countries.cjs');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const CACHE = path.join(__dirname, '../data/reddit-verified-geocode.json');
 const OUT = path.join(__dirname, '../data/reddit-verified-venues.json');
 
@@ -382,9 +382,7 @@ async function geocodeVenue(v, cache) {
 }
 
 async function main() {
-  const html = fs.readFileSync(htmlPath, 'utf8');
-  const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-  if (!match) process.exit(1);
+      if (!match) process.exit(1);
 
   let existing = JSON.parse(match[1]);
   const before = existing.length;
@@ -452,11 +450,7 @@ async function main() {
     console.log(`+ [${row.country}] ${row.name}`);
   }
 
-  const newHtml = html.replace(
-    /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-    `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-  );
-  fs.writeFileSync(htmlPath, newHtml);
+  writeSeed(merged);
   console.log(`Reddit verified import: +${added} new (${skipped} dupes). Total: ${merged.length} (was ${before}, purged ${removed})`);
 }
 

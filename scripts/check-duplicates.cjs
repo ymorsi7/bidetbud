@@ -12,16 +12,10 @@
  * Usage: node scripts/check-duplicates.cjs
  */
 const fs = require('fs');
+const { readSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
-const seed = JSON.parse(match[1]);
+const seed = readSeed();
 console.log(`Total seed entries: ${seed.length}\n`);
 
 function nameKey(name) {

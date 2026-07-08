@@ -4,9 +4,9 @@
  * Source: data/toto-europe-references.json (from scrape-toto-references.cjs)
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const dataPath = path.join(__dirname, '../data/toto-europe-references.json');
 
 function dedupeKey(row) {
@@ -41,14 +41,7 @@ if (!fs.existsSync(dataPath)) {
   process.exit(1);
 }
 
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
-
-const existing = JSON.parse(match[1]);
+const existing = readSeed();
 const toto = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
 // Drop prior TOTO manufacturer-reference rows to avoid stale duplicates on re-import
@@ -77,11 +70,7 @@ for (const item of toto) {
   added++;
 }
 
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(merged);
 
 const byCountry = merged
   .filter((r) => String(r.sourceUrl || '').includes('eu.toto.com'))

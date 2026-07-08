@@ -22,18 +22,11 @@
  *   node scripts/dedupe-seed.cjs --apply   # rewrite index.html
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
 const APPLY = process.argv.includes('--apply');
-const htmlPath = path.join(__dirname, '../index.html');
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
-const seed = JSON.parse(match[1]);
-
+const seed = readSeed();
 const stripDiacritics = (s) =>
   s.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 
@@ -189,9 +182,5 @@ if (!APPLY) {
 }
 
 const deduped = seed.filter((_, i) => !removeIdx.has(i));
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(deduped)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(deduped);
 console.log(`\nApplied. Seed: ${seed.length} -> ${deduped.length} (removed ${removeIdx.size}).`);

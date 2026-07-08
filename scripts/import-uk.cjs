@@ -10,9 +10,9 @@
  * already present in the seed under a slightly different label.
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const finderPath = path.join(__dirname, '../data/uk-toto-finder.json');
 const SOURCE_URL = 'https://eu.toto.com/en/service/try-washlettm';
 
@@ -58,14 +58,7 @@ if (!fs.existsSync(finderPath)) {
   process.exit(1);
 }
 
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
-
-const existing = JSON.parse(match[1]);
+const existing = readSeed();
 const finder = JSON.parse(fs.readFileSync(finderPath, 'utf8'));
 
 const seenCoords = new Set(existing.map(coordKey));
@@ -94,11 +87,7 @@ for (const item of finder) {
   added++;
 }
 
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(existing)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(existing);
 
 console.log(`Added ${added} UK TOTO WASHLET locations (${finder.length} in source).`);
 console.log(`Total seed entries: ${existing.length}`);

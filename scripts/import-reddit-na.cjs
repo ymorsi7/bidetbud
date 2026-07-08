@@ -4,10 +4,10 @@
  * Reads data/reddit-na-raw.json — requires bidet in snippet + successful geocode.
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 const https = require('https');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const rawPath = path.join(__dirname, '../data/reddit-na-raw.json');
 const CACHE = path.join(__dirname, '../data/reddit-na-geocode-cache.json');
 
@@ -141,11 +141,9 @@ if (!fs.existsSync(rawPath)) {
 }
 
 async function main() {
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
 if (!match) process.exit(1);
 
-const existing = JSON.parse(match[1]);
+const existing = readSeed();
 const raw = JSON.parse(fs.readFileSync(rawPath, 'utf8'));
 const cache = loadCache();
 const seen = new Set(existing.map(dedupeKey));
@@ -205,11 +203,7 @@ for (const lead of raw) {
   added++;
 }
 
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(merged);
 
 const counts = { USA: 0, Canada: 0, Mexico: 0 };
 merged.filter((r) => counts[r.country] !== undefined).forEach((r) => counts[r.country]++);

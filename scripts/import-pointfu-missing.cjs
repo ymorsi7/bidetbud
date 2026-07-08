@@ -4,10 +4,10 @@
  * Reads data/pointfu-missing-bidets.json
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 const https = require('https');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const dataPath = path.join(__dirname, '../data/pointfu-missing-bidets.json');
 const CACHE = path.join(__dirname, '../data/pointfu-geocode-cache.json');
 
@@ -155,14 +155,12 @@ async function main() {
     process.exit(1);
   }
 
-  const html = fs.readFileSync(htmlPath, 'utf8');
-  const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-  if (!match) {
+      if (!match) {
     console.error('BIDETBUD_SEED not found');
     process.exit(1);
   }
 
-  const existing = JSON.parse(match[1]);
+  const existing = readSeed();
   const batch = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
   const cache = loadCache();
   const seen = new Set(existing.map(dedupeKey));
@@ -219,11 +217,7 @@ async function main() {
     process.stderr.write(`+ ${row.name} [${row.country}]\n`);
   }
 
-  const newHtml = html.replace(
-    /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-    `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-  );
-  fs.writeFileSync(htmlPath, newHtml);
+  writeSeed(merged);
 
   const byCountry = {};
   merged.forEach((r) => {

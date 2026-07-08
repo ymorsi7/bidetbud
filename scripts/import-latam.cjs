@@ -3,11 +3,11 @@
  * Import Mexico / Colombia / Venezuela bidet rows into BIDETBUD_SEED.
  */
 const fs = require('fs');
+const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
 const path = require('path');
 
 const { inferType } = require('./lib/infer-type.cjs');
 
-const htmlPath = path.join(__dirname, '../index.html');
 const SOURCES = [
   path.join(__dirname, '../data/atly-latam-bidets.json'),
   path.join(__dirname, '../data/mexico-scraped-bidets.json'),
@@ -70,14 +70,7 @@ function toSeedRow(row) {
   };
 }
 
-const html = fs.readFileSync(htmlPath, 'utf8');
-const match = html.match(/window\.BIDETBUD_SEED\s*=\s*(\[[\s\S]*?\]);/);
-if (!match) {
-  console.error('BIDETBUD_SEED not found');
-  process.exit(1);
-}
-
-const existing = JSON.parse(match[1]);
+const existing = readSeed();
 const seen = new Set(existing.map(dedupeKey));
 const seenUrl = new Set(existing.filter((r) => r.sourceUrl).map((r) => r.sourceUrl));
 
@@ -124,11 +117,7 @@ for (const dataPath of SOURCES) {
   }
 }
 
-const newHtml = html.replace(
-  /window\.BIDETBUD_SEED\s*=\s*\[[\s\S]*?\];/,
-  `window.BIDETBUD_SEED = ${JSON.stringify(merged)};`
-);
-fs.writeFileSync(htmlPath, newHtml);
+writeSeed(merged);
 
 console.log(`LATAM import: +${added} new (${skipped} skipped). Total seed: ${merged.length}`);
 console.log('Added by country:', byCountry);
