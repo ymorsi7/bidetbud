@@ -31,28 +31,46 @@ async function reclassifyFetch(rows) {
   const t0 = Date.now();
   let changed = 0;
   let errors = 0;
+  let done = 0;
+  const total = rows.length;
+
+  console.log(`Re-fetching ${total} Zabihah pages (${CONCURRENCY} parallel)…`);
 
   const updated = await mapPool(
     rows,
     async (row) => {
       const url = row.sourceUrl;
-      if (!url) return row;
+      if (!url) {
+        done++;
+        return row;
+      }
       try {
         const html = await fetchText(url);
         const parsed = parseZabihahHtml(html, url);
-        if (!parsed) return row;
+        if (!parsed) {
+          done++;
+          return row;
+        }
         const before = row.halalStatus;
         const next = { ...row, ...parsed };
         if (before !== next.halalStatus) changed++;
+        done++;
+        if (done % 50 === 0 || done === total) {
+          const elapsed = ((Date.now() - t0) / 1000).toFixed(0);
+          const pct = Math.round((done / total) * 100);
+          process.stdout.write(`\r  ${done}/${total} (${pct}%) · ${changed} changed · ${errors} errors · ${elapsed}s`);
+        }
         return next;
       } catch {
         errors++;
+        done++;
         return row;
       }
     },
     { concurrency: CONCURRENCY },
   );
 
+  console.log('');
   const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
   const { full, options } = countStatus(updated);
   console.log(
