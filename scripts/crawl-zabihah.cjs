@@ -33,19 +33,27 @@ const CONCURRENCY = concArg ? Number(concArg.split('=')[1]) : 15;
 const importEveryArg = args.find((a) => a.startsWith('--import-every='));
 const IMPORT_EVERY = SKIP_IMPORT ? 0 : importEveryArg ? Number(importEveryArg.split('=')[1]) : 100;
 
+function loadRows() {
+  if (!fs.existsSync(OUT)) return [];
+  return JSON.parse(fs.readFileSync(OUT, 'utf8'));
+}
+
 function loadState() {
   if (!fs.existsSync(STATE)) {
-    return { queue: [], done: {}, rows: [], discoveredAt: null };
+    return { queue: [], done: {}, discoveredAt: null };
   }
-  return JSON.parse(fs.readFileSync(STATE, 'utf8'));
+  const st = JSON.parse(fs.readFileSync(STATE, 'utf8'));
+  // Older state files duplicated the full row array here, which balloons memory.
+  delete st.rows;
+  return st;
 }
 
 function saveState(st) {
-  fs.writeFileSync(STATE, JSON.stringify(st, null, 2) + '\n');
+  fs.writeFileSync(STATE, JSON.stringify(st) + '\n');
 }
 
 function saveRows(rows) {
-  fs.writeFileSync(OUT, JSON.stringify(rows, null, 2) + '\n');
+  fs.writeFileSync(OUT, JSON.stringify(rows) + '\n');
 }
 
 function extractLocs(xml, pattern) {
@@ -99,6 +107,7 @@ async function main() {
   const t0 = Date.now();
   const deadline = Date.now() + MINUTES * 60 * 1000;
   const st = loadState();
+  const rows = loadRows();
 
   if (!st.queue.length) {
     st.queue = await discoverRestaurantUrls();
@@ -108,16 +117,16 @@ async function main() {
     if (DISCOVER_ONLY) return;
   } else {
     console.log(
-      `Resuming queue of ${st.queue.length} URLs (${Object.keys(st.done).length} done, ${st.rows.length} rows) · ${CONCURRENCY} parallel`,
+      `Resuming queue of ${st.queue.length} URLs (${Object.keys(st.done).length} done, ${rows.length} rows) · ${CONCURRENCY} parallel`,
     );
   }
 
   let batchNum = 0;
   let errors = 0;
-  let rowsAtLastImport = st.rows.length;
+  let rowsAtLastImport = rows.length;
 
   while (st.queue.length && Date.now() < deadline) {
-    if (LIMIT && st.rows.length >= LIMIT) break;
+    if (LIMIT && rows.length >= LIMIT) break;
 
     const batch = pullBatch(st.queue, st.done, CONCURRENCY);
     if (!batch.length) continue;
@@ -141,34 +150,34 @@ async function main() {
         errors++;
       } else {
         st.done[url] = row ? 'ok' : 'skip';
-        if (row) st.rows.push(row);
+        if (row) rows.push(row);
       }
     }
 
     batchNum++;
-    const newRows = st.rows.length - rowsAtLastImport;
-    if (batchNum % 5 === 0 || newRows >= IMPORT_EVERY) {
+    const newRows = rows.length - rowsAtLastImport;
+    if (batchNum % 20 === 0 || newRows >= IMPORT_EVERY) {
       const elapsed = ((Date.now() - t0) / 1000).toFixed(0);
-      const rate = st.rows.length ? (st.rows.length / ((Date.now() - t0) / 60000)).toFixed(0) : '0';
+      const rate = rows.length ? (rows.length / ((Date.now() - t0) / 60000)).toFixed(0) : '0';
       console.log(
-        `  ${st.rows.length} rows · ${Object.keys(st.done).length} fetched · ${st.queue.length} left · ~${rate}/min · ${elapsed}s`,
+        `  ${rows.length} rows · ${Object.keys(st.done).length} fetched · ${st.queue.length} left · ~${rate}/min · ${elapsed}s`,
       );
       saveState(st);
-      saveRows(st.rows);
+      saveRows(rows);
       if (IMPORT_EVERY && newRows >= IMPORT_EVERY) {
         embedHalalPage();
-        rowsAtLastImport = st.rows.length;
+        rowsAtLastImport = rows.length;
       }
     }
   }
 
   saveState(st);
-  saveRows(st.rows);
+  saveRows(rows);
   const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
-  console.log(`\nZabihah crawl paused in ${elapsed}s: ${st.rows.length} restaurants → ${path.relative(ROOT, OUT)}`);
+  console.log(`\nZabihah crawl paused in ${elapsed}s: ${rows.length} restaurants → ${path.relative(ROOT, OUT)}`);
   console.log(`  ${st.queue.length} URLs remaining · ${errors} fetch errors`);
 
-  if (!SKIP_IMPORT && st.rows.length) embedHalalPage();
+  if (!SKIP_IMPORT && rows.length) embedHalalPage();
 }
 
 main().catch((e) => {
