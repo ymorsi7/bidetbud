@@ -45,6 +45,21 @@ function saveState(st) {
   fs.writeFileSync(STATE, JSON.stringify(st, null, 2) + '\n');
 }
 
+/** Large countries: single-country Overpass queries time out → query ISO3166-2 subdivisions. */
+const SPLIT_REGIONS = {
+  US: 'AL AK AZ AR CA CO CT DC DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'.split(
+    ' ',
+  ).map((s) => `US-${s}`),
+  CA: 'AB BC MB NB NL NS NT NU ON PE QC SK YT'.split(' ').map((s) => `CA-${s}`),
+  GB: ['GB-ENG', 'GB-SCT', 'GB-WLS', 'GB-NIR'],
+  FR: 'ARA BFC BRE CVL GES HDF IDF NOR NAQ OCC PAC PDL'.split(' ').map((s) => `FR-${s}`),
+  DE: 'BW BY BE BB HB HH HE MV NI NW RP SL SN ST SH TH'.split(' ').map((s) => `DE-${s}`),
+};
+
+function isDone(st, key) {
+  return Object.prototype.hasOwnProperty.call(st.done, key);
+}
+
 function overpassQuery(iso) {
   return `[out:json][timeout:180];
 area["ISO3166-1"="${iso}"][admin_level=2]->.a;
@@ -52,6 +67,32 @@ area["ISO3166-1"="${iso}"][admin_level=2]->.a;
   nwr(area.a)["amenity"~"restaurant|fast_food|cafe|food_court"]["diet:halal"~"yes|only"];
 );
 out center tags;`;
+}
+
+function overpassQueryRegion(iso3166_2) {
+  return `[out:json][timeout:120];
+area["ISO3166-2"="${iso3166_2}"][admin_level=4]->.a;
+(
+  nwr(area.a)["amenity"~"restaurant|fast_food|cafe|food_court"]["diet:halal"~"yes|only"];
+);
+out center tags;`;
+}
+
+function crawlTasks() {
+  const tasks = [];
+  for (const iso of COUNTRY_CODES) {
+    const regions = SPLIT_REGIONS[iso];
+    if (regions) {
+      for (const reg of regions) tasks.push({ key: reg, countryIso: iso });
+    } else {
+      tasks.push({ key: iso, countryIso: iso });
+    }
+  }
+  return tasks;
+}
+
+function rowUrlKey(r) {
+  return r.sourceUrl || `${r.name}|${r.latitude}|${r.longitude}`;
 }
 
 function postOverpass(url, query) {
@@ -95,8 +136,7 @@ function postOverpass(url, query) {
   });
 }
 
-async function fetchCountry(iso) {
-  const query = overpassQuery(iso);
+async function fetchOverpass(query) {
   let lastErr;
   for (const mirror of MIRRORS) {
     try {
@@ -147,27 +187,39 @@ function osmElementToRow(el, iso) {
 async function main() {
   const deadline = Date.now() + MINUTES * 60 * 1000;
   const st = loadState();
+  const seen = new Set(st.rows.map(rowUrlKey));
+  let added = 0;
 
-  for (const iso of COUNTRY_CODES) {
+  for (const { key, countryIso } of crawlTasks()) {
     if (Date.now() >= deadline) break;
-    if (st.done[iso]) continue;
-    process.stdout.write(`OSM ${iso}… `);
+    if (isDone(st, key)) continue;
+    const label = key.includes('-') && SPLIT_REGIONS[countryIso] ? `${countryIso}/${key}` : key;
+    process.stdout.write(`OSM ${label}… `);
     try {
-      const data = await fetchCountry(iso);
-      const rows = (data.elements || []).map((el) => osmElementToRow(el, iso)).filter(Boolean);
-      st.rows.push(...rows);
-      st.done[iso] = rows.length;
-      console.log(rows.length, 'restaurants');
+      const query = key.includes('-') && SPLIT_REGIONS[countryIso] ? overpassQueryRegion(key) : overpassQuery(key);
+      const data = await fetchOverpass(query);
+      const rows = (data.elements || []).map((el) => osmElementToRow(el, countryIso)).filter(Boolean);
+      let regionNew = 0;
+      for (const row of rows) {
+        const k = rowUrlKey(row);
+        if (seen.has(k)) continue;
+        seen.add(k);
+        st.rows.push(row);
+        added++;
+        regionNew++;
+      }
+      st.done[key] = rows.length;
+      console.log(rows.length, 'restaurants', regionNew ? `(+${regionNew} new)` : '');
     } catch (e) {
-      st.done[iso] = `err: ${e.message}`;
+      st.done[key] = `err: ${e.message}`;
       console.log('ERR', e.message);
     }
     saveState(st);
     fs.writeFileSync(OUT, JSON.stringify(st.rows, null, 2) + '\n');
-    await sleep(5000);
+    await sleep(4000);
   }
 
-  console.log(`\nOSM halal: ${st.rows.length} rows → ${path.relative(ROOT, OUT)}`);
+  console.log(`\nOSM halal: ${st.rows.length} rows (+${added} this run) → ${path.relative(ROOT, OUT)}`);
   if (DO_IMPORT) {
     require('child_process').execSync('node scripts/import-halal-all.cjs', { cwd: ROOT, stdio: 'inherit' });
   }

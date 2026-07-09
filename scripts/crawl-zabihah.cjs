@@ -39,6 +39,7 @@ const args = process.argv.slice(2);
 const minutesArg = args.find((a) => a.startsWith('--minutes='));
 const MINUTES = minutesArg ? Number(minutesArg.split('=')[1]) : 90;
 const DISCOVER_ONLY = args.includes('--discover-only');
+const REDISCOVER = args.includes('--rediscover');
 const SKIP_IMPORT = args.includes('--no-import');
 const LIMIT_ARG = args.find((a) => a.startsWith('--limit='));
 const LIMIT = LIMIT_ARG ? Number(LIMIT_ARG.split('=')[1]) : 0;
@@ -92,6 +93,38 @@ function pullBatch(queue, size) {
   return queue.splice(0, size);
 }
 
+function loadSeenFromNdjson() {
+  const seenUrl = new Set();
+  const seenKey = new Set();
+  if (!fs.existsSync(OUT_NDJSON)) return { seenUrl, seenKey };
+  for (const line of fs.readFileSync(OUT_NDJSON, 'utf8').split('\n')) {
+    if (!line.trim()) continue;
+    try {
+      const r = JSON.parse(line);
+      const url = (r.sourceUrl || '').split('?')[0];
+      if (url) seenUrl.add(url);
+      seenKey.add(`${(r.name || '').toLowerCase()}|${r.latitude}|${r.longitude}`);
+    } catch {
+      /* skip bad line */
+    }
+  }
+  return { seenUrl, seenKey };
+}
+
+function filterNewRows(rows, seen) {
+  const out = [];
+  for (const r of rows) {
+    const url = (r.sourceUrl || '').split('?')[0];
+    const key = `${(r.name || '').toLowerCase()}|${r.latitude}|${r.longitude}`;
+    if (url && seen.seenUrl.has(url)) continue;
+    if (seen.seenKey.has(key)) continue;
+    if (url) seen.seenUrl.add(url);
+    seen.seenKey.add(key);
+    out.push(r);
+  }
+  return out;
+}
+
 async function discoverRestaurantUrls() {
   console.log('Fetching Zabihah sitemap index…');
   const index = await fetchText(SITEMAP_INDEX);
@@ -127,16 +160,32 @@ async function main() {
   const deadline = Date.now() + MINUTES * 60 * 1000;
   migrateJsonToNdjson();
   const st = loadState();
+  const seen = loadSeenFromNdjson();
+  st.rowCount = countNdjsonRows(OUT_NDJSON);
   const retryOnce = new Set();
   let pendingRows = [];
   let rowsAtLastImport = st.rowCount;
   let errors = 0;
   let batchNum = 0;
+  let skippedDupes = 0;
 
   if (!st.queue.length) {
-    st.queue = await discoverRestaurantUrls();
+    if (st.rowCount > 0 && !REDISCOVER && !DISCOVER_ONLY) {
+      console.log(`Zabihah crawl complete: ${st.rowCount} rows in ndjson.`);
+      console.log('  Use --rediscover to re-scan sitemap for new listings.');
+      console.log('  For venues BEYOND Zabihah: node scripts/crawl-halal-all.cjs --minutes=120 --extras-only');
+      console.log('Compacting .ndjson → .json…');
+      await compactNdjsonToJson(OUT);
+      if (!SKIP_IMPORT) embedHalalPage();
+      return;
+    }
+    const all = await discoverRestaurantUrls();
+    const fresh = all.filter((u) => !seen.seenUrl.has(u.split('?')[0]));
+    st.queue = REDISCOVER ? all : fresh.length ? fresh : all;
     st.discoveredAt = new Date().toISOString();
-    console.log(`Discovered ${st.queue.length} Zabihah restaurant URLs`);
+    console.log(
+      `Discovered ${all.length} Zabihah URLs · ${fresh.length} not yet crawled · queue ${st.queue.length}`,
+    );
     saveState(st);
     if (DISCOVER_ONLY) return;
   } else {
@@ -173,8 +222,13 @@ async function main() {
           st.queue.push(url);
         }
       } else if (row) {
-        pendingRows.push(row);
-        st.rowCount++;
+        const [rowOnly] = filterNewRows([row], seen);
+        if (rowOnly) {
+          pendingRows.push(rowOnly);
+          st.rowCount++;
+        } else {
+          skippedDupes++;
+        }
       }
     }
 
@@ -203,7 +257,7 @@ async function main() {
   const compacted = await compactNdjsonToJson(OUT);
   const elapsed = ((Date.now() - t0) / 1000).toFixed(1);
   console.log(`\nZabihah crawl paused in ${elapsed}s: ${compacted || st.rowCount} restaurants → ${path.relative(ROOT, OUT)}`);
-  console.log(`  ${st.queue.length} URLs remaining · ${errors} fetch errors`);
+  console.log(`  ${st.queue.length} URLs remaining · ${errors} fetch errors · ${skippedDupes} duplicate skips`);
 
   if (!SKIP_IMPORT && st.rowCount) embedHalalPage();
 }

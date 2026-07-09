@@ -16,7 +16,7 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { mergeRows, readVenueRows } = require('./lib/halal-web.cjs');
+const { mergeRows, readVenueRows, rowKey, normalizeRow } = require('./lib/halal-web.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'data/halal-restaurants.json');
@@ -107,6 +107,21 @@ console.log('  Top countries:', top.map(([c, n]) => `${c}(${n})`).join(', '));
 const full = merged.filter((r) => r.halalStatus === 'full').length;
 const opts = merged.filter((r) => r.halalStatus === 'options').length;
 console.log(`  Fully halal: ${full} · Halal options: ${opts}`);
+
+const zabihahOnly = new Set(
+  readJson('data/zabihah-halal-restaurants.json').map((r) => rowKey(normalizeRow(r))),
+);
+const zabihahInMerged = merged.filter((r) => zabihahOnly.has(rowKey(r))).length;
+const beyondZabihah = merged.length - zabihahInMerged;
+const zabihahInFile = readJson('data/zabihah-halal-restaurants.json').length;
+console.log(
+  `  Zabihah in map: ${zabihahInMerged} · Beyond Zabihah (OSM/MUIS/web/etc.): ${beyondZabihah} · Total map: ${merged.length}`,
+);
+if (zabihahInFile) {
+  console.log(
+    `  (Zabihah.com sitemap ≈40,578 listings — beat them with Zabihah crawl + extras, not Zabihah alone)`,
+  );
+}
 
 const zabihahRows = readJson('data/zabihah-halal-restaurants.json');
 if (zabihahRows.length > 50) {
