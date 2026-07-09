@@ -48,21 +48,52 @@ function readJson(rel) {
   return list;
 }
 
+let prevCount = 0;
+if (fs.existsSync(OUT)) {
+  try {
+    prevCount = JSON.parse(fs.readFileSync(OUT, 'utf8')).length;
+  } catch {
+    prevCount = 0;
+  }
+}
+
 let merged = [];
 const stats = [];
 
 for (const src of SOURCES) {
   const rows = readJson(src.file);
-  const { rows: next, added } = mergeRows(merged, rows);
-  stats.push({ label: src.label, file: src.file, inFile: rows.length, added });
+  const { rows: next, added, skippedDefault, skippedDupe, skippedInvalid } = mergeRows(merged, rows);
+  stats.push({
+    label: src.label,
+    file: src.file,
+    inFile: rows.length,
+    added,
+    skippedDefault,
+    skippedDupe,
+    skippedInvalid,
+  });
   merged = next;
 }
 
 fs.writeFileSync(OUT, JSON.stringify(merged) + '\n');
 
-console.log(`Halal import: ${merged.length} restaurants (non-default countries) → ${path.relative(ROOT, OUT)}`);
+const netVsPrev = merged.length - prevCount;
+const netLabel =
+  prevCount === 0
+    ? ''
+    : netVsPrev === 0
+      ? ' (unchanged vs last import)'
+      : ` (${netVsPrev > 0 ? '+' : ''}${netVsPrev} vs last import)`;
+
+console.log(
+  `Halal import: ${merged.length} restaurants (non-default countries)${netLabel} → ${path.relative(ROOT, OUT)}`,
+);
 for (const s of stats) {
-  console.log(`  ${s.label}: ${s.inFile} in file, +${s.added} new`);
+  const parts = [`${s.inFile} in file`, `${s.added} unique`];
+  if (s.skippedDefault) parts.push(`${s.skippedDefault} default-country skipped`);
+  if (s.skippedDupe) parts.push(`${s.skippedDupe} duplicate skipped`);
+  if (s.skippedInvalid) parts.push(`${s.skippedInvalid} invalid skipped`);
+  console.log(`  ${s.label}: ${parts.join(' · ')}`);
 }
 
 const byCountry = {};
