@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Embed halal restaurant data for the static site.
- * Writes compact halal-seed.js (not inline in halal.html — keeps the page shell fast).
+ * Writes halal-seed.json for async client fetch (halal.html shell stays small).
+ * Also writes halal-seed.js for optional legacy use — not loaded by halal.html.
  *
  *   node scripts/embed-halal-seed.cjs
  *   node scripts/embed-halal-seed.cjs path/to/rows.json
@@ -12,6 +13,7 @@ const path = require('path');
 const ROOT = path.join(__dirname, '..');
 const HTML = path.join(ROOT, 'halal.html');
 const SEED_JS = path.join(ROOT, 'halal-seed.js');
+const SEED_JSON = path.join(ROOT, 'halal-seed.json');
 const DEFAULT_JSON = path.join(ROOT, 'data/halal-restaurants.json');
 
 const src = process.argv[2] ? path.resolve(process.argv[2]) : DEFAULT_JSON;
@@ -44,25 +46,22 @@ function slimRow(r) {
 }
 
 const seed = rows.map(slimRow);
-fs.writeFileSync(SEED_JS, 'window.HALALBUD_SEED=' + JSON.stringify(seed) + ';\n');
+const seedJson = JSON.stringify(seed);
+fs.writeFileSync(SEED_JS, 'window.HALALBUD_SEED=' + seedJson + ';\n');
+fs.writeFileSync(SEED_JSON, seedJson + '\n');
+
+// halal-seed.json is optional locally (faster fetch); halal-seed.js is the deploy fallback.
 
 let html = fs.readFileSync(HTML, 'utf8');
-const seedTag = '<script src="halal-seed.js"></script>';
+const seedJsTag = /<script src="halal-seed\.js"><\/script>\s*/g;
 const inlineRe = /<script>\s*window\.HALALBUD_SEED\s*=\s*\[[\s\S]*?\];\s*<\/script>\s*/;
 
-if (inlineRe.test(html)) {
-  html = html.replace(inlineRe, seedTag + '\n');
-} else if (!html.includes(seedTag)) {
-  const needle = '<script src="https://unpkg.com/leaflet.markercluster';
-  if (!html.includes(needle)) {
-    console.error('Could not find insertion point in halal.html');
-    process.exit(1);
-  }
-  html = html.replace(needle, seedTag + '\n' + needle);
-}
+html = html.replace(seedJsTag, '');
+html = html.replace(inlineRe, '');
 
 fs.writeFileSync(HTML, html);
 
 const seedKb = Math.round(fs.statSync(SEED_JS).size / 1024);
+const jsonKb = Math.round(fs.statSync(SEED_JSON).size / 1024);
 const htmlKb = Math.round(Buffer.byteLength(html) / 1024);
-console.log(`Embedded ${seed.length} restaurants → halal-seed.js (${seedKb} KB), halal.html (${htmlKb} KB)`);
+console.log(`Embedded ${seed.length} restaurants → halal-seed.json (${jsonKb} KB), halal-seed.js (${seedKb} KB), halal.html (${htmlKb} KB)`);

@@ -384,19 +384,40 @@ function mergeRows(existing, incoming, { keepNonDefaultOnly = true } = {}) {
     if (r.sourceUrl) byUrl.set(sourceUrlKey(r), r);
   }
   let added = 0;
+  let skippedDefault = 0;
+  let skippedDupe = 0;
+  let skippedInvalid = 0;
   for (const raw of incoming) {
     const r = normalizeRow(raw);
-    if (keepNonDefaultOnly && isHalalDefaultCountry(r.country)) continue;
-    if (!r.latitude || !r.longitude || !r.name) continue;
+    if (keepNonDefaultOnly && isHalalDefaultCountry(r.country)) {
+      skippedDefault++;
+      continue;
+    }
+    if (!r.latitude || !r.longitude || !r.name) {
+      skippedInvalid++;
+      continue;
+    }
     const uk = r.sourceUrl ? sourceUrlKey(r) : '';
     const rk = rowKey(r);
-    if (uk && !isGenericListUrl(uk) && byUrl.has(uk)) continue;
-    if (byKey.has(rk)) continue;
+    if (uk && !isGenericListUrl(uk) && byUrl.has(uk)) {
+      skippedDupe++;
+      continue;
+    }
+    if (byKey.has(rk)) {
+      skippedDupe++;
+      continue;
+    }
     byKey.set(rk, r);
     if (uk) byUrl.set(uk, r);
     added++;
   }
-  return { rows: [...byKey.values()].sort((a, b) => a.name.localeCompare(b.name)), added };
+  return {
+    rows: [...byKey.values()].sort((a, b) => a.name.localeCompare(b.name)),
+    added,
+    skippedDefault,
+    skippedDupe,
+    skippedInvalid,
+  };
 }
 
 function ndjsonPath(jsonPath) {

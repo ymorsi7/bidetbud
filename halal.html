@@ -25,7 +25,7 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="">
 <link rel="stylesheet" href="css/github-star.css">
 <link rel="stylesheet" href="css/app.css">
-<link rel="preload" href="halal-seed.js" as="script">
+<link rel="preload" href="halal-seed.json" as="fetch">
 <script>
 (function () {
   var queue = [];
@@ -264,7 +264,6 @@
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script src="halal-seed.js"></script>
 <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js" crossorigin=""></script>
 <script>
 (function(){
@@ -293,9 +292,19 @@
   let mapMoveTimer = null;
   const LIST_CAP = 200;
   const MAP_MARKER_CAP = 3500;
+  const MAP_VIEWPORT_ONLY = 1200;
+  const COUNTRY_FIT_BOUNDS = {
+    USA: [[24.4, -125.0], [49.4, -66.9]],
+    UK: [[49.9, -8.2], [60.9, 1.8]],
+    Canada: [[41.7, -141.0], [83.1, -52.6]],
+    Singapore: [[1.15, 103.6], [1.47, 104.0]],
+    France: [[41.3, -5.1], [51.1, 9.6]],
+    Germany: [[47.3, 5.9], [55.1, 15.0]],
+    Australia: [[-43.6, 113.3], [-10.7, 153.6]]
+  };
   let halalFilter = 'all', extraFilter = null, countryFilter = null;
   let nearMe = false, radiusMi = 50;
-  let suppressUrlWrite = false, initialBoundsDone = false, activeSpotId = null;
+  let suppressUrlWrite = false, initialBoundsDone = false, initialMarkersDone = false, activeSpotId = null;
 
   function isHalalDefaultCountry(country){
     return HALAL_DEFAULT_COUNTRY_SET.has(String(country || '').trim().toLowerCase());
@@ -340,11 +349,50 @@
     };
   }
 
-  function initData(){
-    allLocations = (window.HALALBUD_SEED || [])
+  function setLoadingStatus(msg){
+    const toast = document.getElementById('loadToast');
+    const count = document.getElementById('countLabel');
+    if(toast){ toast.textContent = msg; toast.classList.add('show'); }
+    if(count) count.textContent = msg;
+  }
+
+  function initData(rows){
+    allLocations = (rows || [])
       .map(normalizeSeed)
       .filter(l => l.halalStatus === 'full' || l.halalStatus === 'options')
       .filter(l => !isHalalDefaultCountry(l.country));
+  }
+
+  async function initDataChunked(rows){
+    allLocations = [];
+    const total = rows.length;
+    const CHUNK = 6000;
+    for(let i = 0; i < total; i += CHUNK){
+      const end = Math.min(i + CHUNK, total);
+      for(let j = i; j < end; j++){
+        const l = normalizeSeed(rows[j]);
+        if((l.halalStatus === 'full' || l.halalStatus === 'options') && !isHalalDefaultCountry(l.country)){
+          allLocations.push(l);
+        }
+      }
+      if(end < total){
+        setLoadingStatus('Loading restaurants… ' + end.toLocaleString() + ' / ' + total.toLocaleString());
+        await new Promise(r => setTimeout(r, 0));
+      }
+    }
+  }
+
+  function fitBoundsForRows(rows){
+    if(countryFilter && COUNTRY_FIT_BOUNDS[countryFilter]){
+      return L.latLngBounds(COUNTRY_FIT_BOUNDS[countryFilter]);
+    }
+    if(!countryFilter){
+      const usa = rows.filter(m => m.country === 'USA');
+      if(usa.length && COUNTRY_FIT_BOUNDS.USA) return L.latLngBounds(COUNTRY_FIT_BOUNDS.USA);
+    }
+    const step = rows.length > 500 ? Math.ceil(rows.length / 500) : 1;
+    const sample = step === 1 ? rows : rows.filter((_, i) => i % step === 0);
+    return L.latLngBounds(sample.map(m => [+m.latitude, +m.longitude]));
   }
 
   function ensureSearchMeta(m){
@@ -576,6 +624,7 @@
 
   function sortedLocations(list){
     const q = getQuery();
+    if(!q && !nearMe) return list;
     return [...list].sort((a,b)=>{
       if(q){ const sa=searchScore(a,q), sb=searchScore(b,q); if(sa!==sb) return sb-sa; }
       if(nearMe && userLocation){
@@ -629,9 +678,10 @@
 
   function markersForMap(filtered){
     if(!filtered.length) return [];
+    if(!initialMarkersDone) return [];
     const q = getQuery();
     let rows = filtered;
-    if(map && !q && !nearMe && !activeSpotId && filtered.length > 2000){
+    if(map && !q && !nearMe && !activeSpotId && filtered.length > MAP_VIEWPORT_ONLY){
       const bounds = map.getBounds().pad(0.25);
       const inView = filtered.filter(m => bounds.contains([+m.latitude, +m.longitude]));
       if(inView.length) rows = inView;
@@ -640,7 +690,7 @@
     return rows;
   }
 
-  function renderMap(filtered){
+  function renderMapMarkers(filtered){
     if(!clusterGroup) return;
     clusterGroup.clearLayers();
     const mapRows = markersForMap(filtered);
@@ -651,6 +701,10 @@
       return marker;
     });
     clusterGroup.addLayers(markers);
+  }
+
+  function renderMap(filtered){
+    if(!clusterGroup) return;
     const shouldFit = !initialBoundsDone && filtered.length && !getQuery() && !nearMe && !activeSpotId;
     if(shouldFit){
       let fitTargets = filtered;
@@ -658,13 +712,21 @@
         const usa = filtered.filter(m=>m.country==='USA');
         if(usa.length) fitTargets = usa;
       }
-      const bounds = L.latLngBounds(fitTargets.map(m=>[+m.latitude,+m.longitude]));
+      const bounds = fitBoundsForRows(fitTargets);
       if(bounds.isValid()){
         map.fitBounds(bounds.pad(0.12),{maxZoom:10,animate:false});
         if(map.getZoom()<MAP_MIN_ZOOM) map.setZoom(MAP_MIN_ZOOM);
         initialBoundsDone = true;
+        const runMarkers = ()=>{
+          initialMarkersDone = true;
+          renderMapMarkers(filtered);
+        };
+        if('requestIdleCallback' in window) requestIdleCallback(runMarkers,{timeout:500});
+        else setTimeout(runMarkers, 80);
+        return;
       }
     }
+    renderMapMarkers(filtered);
   }
 
   function openDetail(id, fromUrl){
@@ -722,8 +784,59 @@
     clearTimeout(mapMoveTimer);
     mapMoveTimer = setTimeout(()=>{
       mapMoveTimer = null;
-      if(clusterGroup && lastFiltered.length && !getQuery() && !nearMe && !activeSpotId) renderMap(lastFiltered);
+      if(clusterGroup && lastFiltered.length && initialMarkersDone && !getQuery() && !nearMe && !activeSpotId) renderMapMarkers(lastFiltered);
     }, 180);
+  }
+
+  function loadSeedScript(){
+    return new Promise((resolve, reject) => {
+      if(Array.isArray(window.HALALBUD_SEED) && window.HALALBUD_SEED.length){
+        resolve(window.HALALBUD_SEED);
+        return;
+      }
+      const src = new URL('halal-seed.js', location.href).href;
+      const existing = document.querySelector('script[data-halal-seed]');
+      if(existing){
+        existing.addEventListener('load', () => {
+          if(Array.isArray(window.HALALBUD_SEED)) resolve(window.HALALBUD_SEED);
+          else reject(new Error('halal-seed.js missing HALALBUD_SEED'));
+        });
+        existing.addEventListener('error', () => reject(new Error('halal-seed.js failed to load')));
+        return;
+      }
+      const s = document.createElement('script');
+      s.src = src;
+      s.async = true;
+      s.dataset.halalSeed = '1';
+      s.onload = () => {
+        if(Array.isArray(window.HALALBUD_SEED)) resolve(window.HALALBUD_SEED);
+        else reject(new Error('halal-seed.js missing HALALBUD_SEED'));
+      };
+      s.onerror = () => reject(new Error('halal-seed.js not found (404)'));
+      document.head.appendChild(s);
+    });
+  }
+
+  async function loadSeedRows(){
+    if(location.protocol === 'file:'){
+      setLoadingStatus('Loading restaurant list…');
+      return loadSeedScript();
+    }
+    const jsonUrl = new URL('halal-seed.json', location.href).href;
+    try{
+      setLoadingStatus('Downloading restaurant list…');
+      const res = await fetch(jsonUrl, { cache: 'no-cache' });
+      if(res.ok){
+        setLoadingStatus('Parsing restaurant list…');
+        await new Promise(r => setTimeout(r, 0));
+        const rows = await res.json();
+        if(Array.isArray(rows)) return rows;
+      }
+    }catch(e){
+      console.warn('halal-seed.json unavailable, using halal-seed.js', e);
+    }
+    setLoadingStatus('Loading restaurant list…');
+    return loadSeedScript();
   }
 
   function openAddForm(){
@@ -973,17 +1086,27 @@
     });
   }
 
-  function boot(){
+  async function boot(){
     wire();
     try{ if(typeof L!=='undefined') initMap(); }catch(e){ console.error(e); }
     const spotFromUrl = applyUrlState();
-    requestAnimationFrame(()=>{
-      initData();
-      refresh();
-      showLoadToast();
-      if(spotFromUrl) setTimeout(()=>openDetail(spotFromUrl,true),400);
-      if(typeof window.trackEvent==='function') window.trackEvent('halalbud_view',{spots:String(allLocations.length)});
-    });
+    setLoadingStatus('Loading restaurants…');
+    try{
+      const rows = await loadSeedRows();
+      await initDataChunked(rows);
+      requestAnimationFrame(()=>{
+        refresh();
+        showLoadToast();
+        if(spotFromUrl) setTimeout(()=>openDetail(spotFromUrl,true),400);
+        if(typeof window.trackEvent==='function') window.trackEvent('halalbud_view',{spots:String(allLocations.length)});
+      });
+    }catch(err){
+      console.error(err);
+      const hint = location.protocol === 'file:'
+        ? 'Open via http://localhost:8080/halal.html (not file://)'
+        : (err && err.message ? err.message : 'Unknown error');
+      setLoadingStatus('Could not load restaurant data — ' + hint);
+    }
   }
 
   boot();
