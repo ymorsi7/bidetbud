@@ -156,8 +156,7 @@
         </div>
       </div>
       <div class="about-body">
-        <p>Traveling in the West means constantly asking: is the meat halal? In Muslim-majority countries, meat is halal by default — those countries are shaded green on the map.</p>
-        <p>Everywhere else, HalalBud shows restaurants we've found with explicit halal evidence — either <strong>fully halal</strong> (everything is halal) or <strong>halal options</strong> (mixed menu with halal dishes).</p>
+        <p>HalalBud maps restaurants with explicit halal evidence — either <strong>fully halal</strong> (everything is halal) or <strong>halal options</strong> (mixed menu with halal dishes). Muslim-majority countries are shaded green on the map (meat is generally halal there too).</p>
         <p>We only add places with a cited source. Know a spot? Tap <strong>Add restaurant</strong>.</p>
         <div class="about-legend">
           <span class="about-legend-title">Pin colors</span>
@@ -165,7 +164,7 @@
             <li><span class="legend-dot verified"></span> Fully halal restaurant</li>
             <li><span class="legend-dot warmed"></span> Halal options available</li>
             <li><span class="legend-dot internet"></span> Web-sourced listing</li>
-            <li><span class="legend-dot friendly-country"></span> Halal-by-default country</li>
+            <li><span class="legend-dot friendly-country"></span> Halal-by-default country (green shading)</li>
           </ul>
         </div>
         <p class="sub" style="margin-top:16px">Sibling project to <a href="index.html">BidetBud</a> — find masajid and restaurants with bidets.</p>
@@ -207,7 +206,7 @@
       <li><span class="legend-dot verified"></span> <strong>Fully halal</strong> — entire menu is halal / zabiha</li>
       <li><span class="legend-dot warmed"></span> <strong>Halal options</strong> — not fully halal, but halal dishes available</li>
       <li><span class="legend-dot internet"></span> <strong>Web source</strong> — found online, not yet verified in person</li>
-      <li><span class="legend-dot friendly-country"></span> <strong>Halal-by-default country</strong> — meat is generally halal; pins are for abroad</li>
+      <li><span class="legend-dot friendly-country"></span> <strong>Halal-by-default country</strong> — meat is generally halal (green shading)</li>
     </ul>
   </div>
 </div>
@@ -223,7 +222,7 @@
   <div class="dialog wide" id="addDialog">
     <button type="button" class="dialog-close" id="addClose" aria-label="Close">×</button>
     <h2>Suggest a halal restaurant</h2>
-    <p class="sub" id="addIntro">Only restaurants outside halal-by-default countries, with explicit halal evidence. Reviewed before going live.</p>
+    <p class="sub" id="addIntro">Restaurants with explicit halal evidence. Reviewed before going live.</p>
     <p class="coord-hint" id="coordHint"></p>
     <details class="add-pin-details" id="addPinDetails">
       <summary>Set location pin</summary>
@@ -359,8 +358,7 @@
   function initData(rows){
     allLocations = (rows || [])
       .map(normalizeSeed)
-      .filter(l => l.halalStatus === 'full' || l.halalStatus === 'options')
-      .filter(l => !isHalalDefaultCountry(l.country));
+      .filter(l => l.halalStatus === 'full' || l.halalStatus === 'options');
   }
 
   async function initDataChunked(rows){
@@ -371,7 +369,7 @@
       const end = Math.min(i + CHUNK, total);
       for(let j = i; j < end; j++){
         const l = normalizeSeed(rows[j]);
-        if((l.halalStatus === 'full' || l.halalStatus === 'options') && !isHalalDefaultCountry(l.country)){
+        if(l.halalStatus === 'full' || l.halalStatus === 'options'){
           allLocations.push(l);
         }
       }
@@ -1068,7 +1066,6 @@
       const evidence=document.getElementById('addEvidence').value.trim();
       if(!name||isNaN(lat)||isNaN(lng)||!evidence){ alert('Name, halal evidence, and a map pin are required.'); return; }
       const country=document.getElementById('addCountry').value.trim()||'USA';
-      if(isHalalDefaultCountry(country)){ alert('HalalBud is for restaurants outside halal-by-default countries. Those are shaded green on the map.'); return; }
       const payload={
         name, email:document.getElementById('addEmail').value.trim(),
         address:document.getElementById('addAddress').value.trim(),

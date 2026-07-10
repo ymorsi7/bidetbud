@@ -18,7 +18,6 @@ const {
   isHalalCandidateUrl,
   parseHalalVenuePage,
   geocodeVenue,
-  isHalalDefaultCountry,
 } = require('./lib/halal-extra.cjs');
 
 const ROOT = path.join(__dirname, '..');
@@ -57,7 +56,6 @@ async function searchMojeek(q) {
 function buildQueue() {
   const queue = [];
   for (const country of SEARCH_COUNTRIES) {
-    if (isHalalDefaultCountry(country.name)) continue;
     for (const city of country.cities) {
       for (const q of halalSearchQueries(city, country.name)) {
         queue.push({ type: 'search', q, country, city, engine: 'ddg' });
@@ -114,8 +112,6 @@ async function fetchPage(item, cache) {
     city = geo.city || city;
     country = geo.country || country;
   }
-
-  if (isHalalDefaultCountry(country)) return null;
 
   return {
     name: parsed.name,

@@ -29,6 +29,10 @@ const COUNTRY_CODES = [
   'US', 'GB', 'CA', 'AU', 'NZ', 'FR', 'DE', 'ES', 'IT', 'NL', 'BE', 'CH', 'AT', 'SE', 'NO', 'DK', 'IE', 'PT', 'PL',
   'CZ', 'HU', 'RO', 'FI', 'GR', 'MX', 'BR', 'AR', 'CL', 'CO', 'VE', 'ZA', 'JP', 'KR', 'CN', 'HK', 'TW', 'SG', 'IN',
   'RU', 'UA', 'IL', 'TH', 'VN', 'PH',
+  // Muslim-majority / halal-by-default (included on map)
+  'AF', 'AL', 'DZ', 'AZ', 'BH', 'BD', 'BA', 'BN', 'TD', 'DJ', 'EG', 'GM', 'GN', 'ID', 'IR', 'IQ', 'JO', 'KZ', 'KW',
+  'KG', 'LB', 'LY', 'MY', 'ML', 'MR', 'MA', 'NE', 'OM', 'PK', 'QA', 'SA', 'SN', 'SO', 'SD', 'SY', 'TJ', 'TN', 'TR',
+  'TM', 'AE', 'UZ', 'YE', 'PS',
 ];
 
 const args = process.argv.slice(2);
