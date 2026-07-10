@@ -7,7 +7,6 @@
  */
 const fs = require('fs');
 const path = require('path');
-const { isHalalDefaultCountry } = require('./lib/halal-default-countries.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'data/halal-restaurants-seed.json');
@@ -46,7 +45,6 @@ for (const rel of SOURCES) {
     if (seen.has(key)) continue;
     seen.add(key);
     const country = r.country || 'USA';
-    if (isHalalDefaultCountry(country)) continue;
     rows.push({
       name: r.name,
       address: r.address || '',

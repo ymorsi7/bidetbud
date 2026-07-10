@@ -16,7 +16,6 @@ const {
   geocodeVenue,
   subredditMeta,
   countryCodeFromName,
-  isHalalDefaultCountry,
   hasHalalEvidence,
 } = require('./lib/halal-extra.cjs');
 
@@ -68,7 +67,6 @@ async function main() {
             for (const hit of extractRedditVenues(body, sub, permalink)) {
               scraped++;
               const meta = subredditMeta(sub);
-              if (isHalalDefaultCountry(meta.country)) continue;
               const cc = countryCodeFromName(meta.country) || 'US';
               const geo = await geocodeVenue(
                 { name: hit.name, address: '' },
@@ -78,7 +76,6 @@ async function main() {
                 cache,
               );
               if (!geo || !geo.latitude) continue;
-              if (isHalalDefaultCountry(geo.country)) continue;
 
               const row = {
                 name: hit.name,

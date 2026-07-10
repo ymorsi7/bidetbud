@@ -11,7 +11,7 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 const { USER_AGENT, classifyHalalStatus } = require('./lib/halal-web.cjs');
-const { geocodeVenue, isHalalDefaultCountry, sleep } = require('./lib/halal-extra.cjs');
+const { geocodeVenue, sleep } = require('./lib/halal-extra.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'data/halal-directory-restaurants.json');
@@ -195,7 +195,6 @@ async function main() {
       const rows = await fn();
       let added = 0;
       for (const raw of rows) {
-        if (isHalalDefaultCountry(raw.country)) continue;
         let row = { ...raw };
         if (!row.latitude || !row.longitude) {
           const cc = raw.country === 'UK' ? 'GB' : raw.country === 'USA' ? 'US' : '';

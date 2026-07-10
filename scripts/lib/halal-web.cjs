@@ -56,6 +56,40 @@ const ISO_TO_COUNTRY = {
   VN: 'Vietnam',
   EG: 'Egypt',
   MA: 'Morocco',
+  DZ: 'Algeria',
+  TN: 'Tunisia',
+  QA: 'Qatar',
+  KW: 'Kuwait',
+  BH: 'Bahrain',
+  OM: 'Oman',
+  JO: 'Jordan',
+  LB: 'Lebanon',
+  IQ: 'Iraq',
+  IR: 'Iran',
+  AF: 'Afghanistan',
+  AL: 'Albania',
+  AZ: 'Azerbaijan',
+  BA: 'Bosnia and Herzegovina',
+  BN: 'Brunei',
+  TD: 'Chad',
+  DJ: 'Djibouti',
+  GM: 'Gambia',
+  GN: 'Guinea',
+  KZ: 'Kazakhstan',
+  KG: 'Kyrgyzstan',
+  LY: 'Libya',
+  ML: 'Mali',
+  MR: 'Mauritania',
+  NE: 'Niger',
+  SN: 'Senegal',
+  SO: 'Somalia',
+  SD: 'Sudan',
+  SY: 'Syria',
+  TJ: 'Tajikistan',
+  TM: 'Turkmenistan',
+  UZ: 'Uzbekistan',
+  YE: 'Yemen',
+  PS: 'West Bank',
   NG: 'Nigeria',
   KE: 'Kenya',
   RU: 'Russia',
@@ -373,7 +407,7 @@ function normalizeRow(r) {
   };
 }
 
-function mergeRows(existing, incoming, { keepNonDefaultOnly = true } = {}) {
+function mergeRows(existing, incoming, { keepNonDefaultOnly = false } = {}) {
   const byUrl = new Map();
   const byKey = new Map();
   for (const raw of existing) {

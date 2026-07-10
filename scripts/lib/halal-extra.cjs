@@ -30,9 +30,9 @@ const NAME_BLOCKLIST =
 
 /** Non-Muslim-default countries + major cities for web search. */
 const SEARCH_COUNTRIES = [
-  { code: 'US', name: 'USA', cities: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'San Francisco', 'Dallas', 'Miami', 'Seattle', 'Boston', 'San Diego', 'Atlanta', 'Phoenix', 'Detroit', 'Minneapolis'] },
-  { code: 'GB', name: 'UK', cities: ['London', 'Birmingham', 'Manchester', 'Leeds', 'Glasgow', 'Edinburgh', 'Bradford', 'Leicester'] },
-  { code: 'CA', name: 'Canada', cities: ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Edmonton', 'Ottawa'] },
+  { code: 'US', name: 'USA', cities: ['New York', 'Los Angeles', 'Chicago', 'Houston', 'San Francisco', 'Dallas', 'Miami', 'Seattle', 'Boston', 'San Diego', 'Atlanta', 'Phoenix', 'Detroit', 'Minneapolis', 'Philadelphia', 'Washington', 'Charlotte', 'Denver', 'Portland', 'Las Vegas', 'Tampa', 'Newark'] },
+  { code: 'GB', name: 'UK', cities: ['London', 'Birmingham', 'Manchester', 'Leeds', 'Glasgow', 'Edinburgh', 'Bradford', 'Leicester', 'Luton', 'Cardiff'] },
+  { code: 'CA', name: 'Canada', cities: ['Toronto', 'Vancouver', 'Montreal', 'Calgary', 'Edmonton', 'Ottawa', 'Mississauga', 'Winnipeg'] },
   { code: 'AU', name: 'Australia', cities: ['Sydney', 'Melbourne', 'Brisbane', 'Perth', 'Adelaide'] },
   { code: 'NZ', name: 'New Zealand', cities: ['Auckland', 'Wellington', 'Christchurch'] },
   { code: 'FR', name: 'France', cities: ['Paris', 'Lyon', 'Marseille'] },
@@ -259,6 +259,10 @@ function halalSearchQueries(city, countryName) {
     `site:facebook.com halal restaurant ${c}`,
     `site:instagram.com halal ${c} restaurant`,
     `halal options restaurant ${c}`,
+    `100% halal restaurant ${c} ${countryName}`,
+    `halal certified restaurant ${c}`,
+    `site:atly.com halal ${c}`,
+    `site:foursquare.com halal ${c}`,
   ];
 }
 

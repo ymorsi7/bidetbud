@@ -86,7 +86,7 @@ const netLabel =
       : ` (${netVsPrev > 0 ? '+' : ''}${netVsPrev} vs last import)`;
 
 console.log(
-  `Halal import: ${merged.length} restaurants (non-default countries)${netLabel} → ${path.relative(ROOT, OUT)}`,
+  `Halal import: ${merged.length} restaurants${netLabel} → ${path.relative(ROOT, OUT)}`,
 );
 for (const s of stats) {
   const parts = [`${s.inFile} in file`, `${s.added} unique`];
