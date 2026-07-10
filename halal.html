@@ -124,6 +124,8 @@
               <button type="button" class="chip" data-venue="all">All venues</button>
               <button type="button" class="chip" data-venue="restaurant">Restaurants</button>
               <button type="button" class="chip" data-venue="store">Stores</button>
+              <span class="chip-divider" aria-hidden="true">BidetBud</span>
+              <button type="button" class="chip" data-type="bidet">With bidet</button>
               <span class="chip-divider" aria-hidden="true">Source</span>
               <button type="button" class="chip" data-type="verified">User verified</button>
               <button type="button" class="chip" data-type="internet">From internet</button>
@@ -336,6 +338,23 @@
 
   function venueLabel(m){ return m.venueType === 'store' ? 'Store' : 'Restaurant'; }
 
+  function bidetTag(m){
+    if(!m.hasBidet) return '';
+    const label = m.bidetType ? escapeHtml(m.bidetType) : 'Bidet';
+    return '<span class="tag tag-bidet" title="Matched on BidetBud">🚿 '+label+'</span>';
+  }
+
+  function bidetDetailHtml(m){
+    if(!m.hasBidet) return '';
+    const type = m.bidetType ? escapeHtml(m.bidetType) : 'Bidet confirmed';
+    const bidetLink = m.bidetSpotId
+      ? '<a class="btn btn-ghost" href="index.html?spot='+encodeURIComponent(m.bidetSpotId)+'">View on BidetBud map</a>'
+      : '<a class="btn btn-ghost" href="index.html">Browse BidetBud map</a>';
+    return '<div class="bidet-callout"><p class="bidet-callout-title"><span class="tag tag-bidet">Bidet in restroom</span></p>'+
+      '<p class="sub">'+type+' — cross-referenced with <a href="index.html">BidetBud</a>.</p>'+
+      '<div class="dialog-actions" style="margin-top:10px">'+bidetLink+'</div></div>';
+  }
+
   function normalizeSeed(row){
     const halalStatus = row.halalStatus === 'options' ? 'options' : 'full';
     const verifiedMethod = row.verifiedMethod || (row.sourceUrl ? 'web-source' : 'verified');
@@ -352,7 +371,10 @@
       sourceUrl: row.sourceUrl || '',
       sourceQuote: row.sourceQuote || '',
       verifiedMethod,
-      venueType: row.venueType === 'store' ? 'store' : 'restaurant'
+      venueType: row.venueType === 'store' ? 'store' : 'restaurant',
+      hasBidet: Boolean(row.hasBidet),
+      bidetType: row.bidetType || '',
+      bidetSpotId: row.bidetSpotId || ''
     };
   }
 
@@ -601,6 +623,7 @@
       if(venueFilter==='store' && m.venueType!=='store') return false;
       if(extraFilter==='verified' && m.verifiedMethod==='web-source') return false;
       if(extraFilter==='internet' && m.verifiedMethod!=='web-source') return false;
+      if(extraFilter==='bidet' && !m.hasBidet) return false;
       if(countryFilter && m.country!==countryFilter) return false;
       if(nearMe && userLocation){
         if(haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude})>radiusMi) return false;
@@ -669,6 +692,8 @@
       const bits = [];
       if(rests) bits.push(rests+' restaurant'+(rests===1?'':'s'));
       if(stores) bits.push(stores+' store'+(stores===1?'':'s'));
+      const bidets = filtered.filter(m=>m.hasBidet).length;
+      if(bidets) bits.push(bidets+' with bidet'+(bidets===1?'':''));
       if(bits.length > 1) countHtml += ' <span class="count-sub">('+bits.join(' · ')+')</span>';
     }
     if(nearMe) countHtml += ' within '+radiusMi+' mi';
@@ -693,7 +718,7 @@
       if(nearMe && userLocation) dist = haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude}).toFixed(1)+' mi';
       const cardClass = 'card '+cardStatusClass(m);
       const cuisineTag = m.cuisine ? '<span class="tag tag-bidet">'+escapeHtml(m.cuisine)+'</span>' : '';
-      return '<article class="'+cardClass+'" data-id="'+m.id+'"><h3>'+highlight(m.name,q)+'</h3><div class="card-tags">'+halalTag(m)+sourceTag(m)+cuisineTag+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+'<div class="card-meta"><span class="tag tag-type">'+escapeHtml(venueLabel(m))+'</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
+      return '<article class="'+cardClass+'" data-id="'+m.id+'"><h3>'+highlight(m.name,q)+'</h3><div class="card-tags">'+halalTag(m)+sourceTag(m)+bidetTag(m)+cuisineTag+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+'<div class="card-meta"><span class="tag tag-type">'+escapeHtml(venueLabel(m))+'</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
     }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing '+LIST_CAP+' of '+filtered.length+' — zoom the map or search to narrow results.</p>' : '');
     el.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openDetail(c.dataset.id)));
   }
@@ -768,7 +793,8 @@
       '<h2>'+escapeHtml(m.name)+'</h2>'+
       '<p class="sub">'+escapeHtml(venueLabel(m))+' · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
       '<p>'+escapeHtml(m.address)+'</p>'+
-      '<div class="row">'+halalTag(m)+sourceTag(m)+(m.cuisine?'<span class="tag tag-type">'+escapeHtml(m.cuisine)+'</span>':'')+'</div>'+
+      '<div class="row">'+halalTag(m)+sourceTag(m)+bidetTag(m)+(m.cuisine?'<span class="tag tag-type">'+escapeHtml(m.cuisine)+'</span>':'')+'</div>'+
+      bidetDetailHtml(m)+
       quote+source+
       '<div class="dialog-actions detail-actions">'+
       '<a class="btn btn-primary" href="'+googleMaps+'" target="_blank" rel="noopener">Google Maps</a>'+

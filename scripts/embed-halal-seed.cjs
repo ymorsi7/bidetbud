@@ -42,7 +42,12 @@ function slimRow(r) {
   if (r.cuisine) out.cuisine = r.cuisine;
   if (r.sourceUrl) out.sourceUrl = r.sourceUrl;
   if (r.sourceQuote) out.sourceQuote = String(r.sourceQuote).slice(0, 120);
-  out.venueType = r.venueType === 'store' ? 'store' : 'restaurant';
+  if (r.venueType === 'store') out.venueType = 'store';
+  if (r.hasBidet) {
+    out.hasBidet = true;
+    if (r.bidetType) out.bidetType = String(r.bidetType).slice(0, 80);
+    if (r.bidetSpotId) out.bidetSpotId = r.bidetSpotId;
+  }
   return out;
 }
 
