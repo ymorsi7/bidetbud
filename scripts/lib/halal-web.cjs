@@ -331,6 +331,231 @@ function zabihahEvidenceQuote(html, halalStatus) {
   return 'Zabihah: halal options';
 }
 
+const STORE_ZABIHAH_CATEGORIES = new Set([
+  'groceries',
+  'grocery',
+  'halal meat',
+  'meat',
+  'butcher',
+  'butchers',
+  'supermarket',
+  'supermarkets',
+  'deli',
+  'bakery',
+  'catering',
+  'wholesale',
+  'food store',
+  'convenience store',
+  'grocery store',
+  'meat market',
+  'fish market',
+  'spices',
+  'sweets',
+  'health food',
+  'international grocery',
+]);
+
+/** Grocery / retail chains — name is often just "Safeway" or "Costco" with no other hint. */
+const STORE_CHAIN_NAMES = [
+  'safeway',
+  'costco',
+  'walmart',
+  'kroger',
+  'target',
+  'trader joe',
+  "trader joe's",
+  'whole foods',
+  'whole foods market',
+  'aldi',
+  'lidl',
+  'publix',
+  'wegmans',
+  "sam's club",
+  'food lion',
+  'giant food',
+  'giant eagle',
+  'stop & shop',
+  'sprouts',
+  'h-e-b',
+  'heb',
+  'meijer',
+  'winco',
+  'food 4 less',
+  'smart & final',
+  'ralphs',
+  'vons',
+  'pavilions',
+  'tom thumb',
+  'albertsons',
+  'jewel-osco',
+  'acme markets',
+  'acme',
+  'shaws',
+  'star market',
+  'hannaford',
+  'sobeys',
+  'loblaws',
+  'no frills',
+  'metro',
+  'tesco',
+  'sainsbury',
+  "sainsbury's",
+  'asda',
+  'morrisons',
+  'carrefour',
+  '7-eleven',
+  '7 eleven',
+  'circle k',
+  'cvs',
+  'walgreens',
+  'dollar general',
+  'family dollar',
+  'dollar tree',
+  'shoprite',
+  'food basics',
+  'freshco',
+  'super c',
+  'iga',
+  'save-on-foods',
+  'co-op food',
+  'marks & spencer',
+  'waitrose',
+  'iceland',
+  'spar',
+  'rewe',
+  'edeka',
+  'penny',
+  'netto',
+  'kaufland',
+  'intermarche',
+  'auchan',
+  'monoprix',
+  'franprix',
+  'coles',
+  'woolworths',
+  'countdown',
+  'pak n save',
+  'new world',
+];
+
+const STORE_SLUG_TOKENS = new Set([
+  'grocery',
+  'groceries',
+  'butcher',
+  'butchery',
+  'boucherie',
+  'supermarket',
+  'deli',
+  'meat',
+  'store',
+  'shop',
+  'mart',
+  'bakery',
+  'catering',
+  'wholesale',
+  'minimart',
+  'epicerie',
+  'markt',
+  'provision',
+  'provisions',
+  'safeway',
+  'costco',
+  'walmart',
+  'kroger',
+  'target',
+  'aldi',
+  'lidl',
+  'publix',
+  'wegmans',
+  'tesco',
+  'asda',
+  'morrisons',
+  'sainsburys',
+  'loblaws',
+  'sobeys',
+  'coles',
+  'woolworths',
+]);
+
+const STORE_NAME_RE =
+  /\b(butcher|boucherie|grocer(?:y|ies)|supermarket|hypermarket|food\s*store|food\s*mart|meat\s*market|halal\s*meat|halal\s*store|halal\s*shop|convenience\s*store|mini\s*mart|minimart|fish\s*market|spice\s*(?:shop|store)|sweet\s*shop|cash\s*&\s*carry|wholesale|patisserie|épicerie|epicerie|provisions?|delicatessen|charcuterie)\b/i;
+
+const REST_NAME_RE =
+  /\b(restaurant|resto\b|grill|kitchen|cafe|café|diner|bistro|eatery|pizzeria|shawarma|kebab|kabob|döner|doner|gyro|bbq|barbecue|steakhouse|buffet|trattoria|sushi|ramen|noodle|tandoori|dhaba|wings|taqueria|brasserie|cantina|dining)\b/i;
+
+function decodeHtmlEntities(s) {
+  return String(s || '')
+    .replace(/&amp;/g, '&')
+    .replace(/&#x27;/g, "'")
+    .replace(/&quot;/g, '"');
+}
+
+function slugTokens(url) {
+  const slug = String(url || '').split('/').pop() || '';
+  return slug.toLowerCase().split('-').filter(Boolean);
+}
+
+function isStoreChainName(name) {
+  const n = decodeHtmlEntities(name).toLowerCase().trim();
+  if (!n) return false;
+  return STORE_CHAIN_NAMES.some((chain) => n === chain || n.startsWith(`${chain} `) || n.startsWith(`${chain}#`));
+}
+
+function zabihahCategoryFromTitle(html) {
+  const title = html.match(/<title>([^<]+)/)?.[1]?.trim();
+  if (!title) return '';
+  const part = title.split('|')[1] || '';
+  const m = part.match(/Halal\s+(.+?)\s+in\s+/i);
+  return m ? m[1].trim() : '';
+}
+
+function hasStoreSignal(hay, name, slug) {
+  if (isStoreChainName(name)) return true;
+  if (STORE_NAME_RE.test(hay)) return true;
+  if (slug.some((t) => STORE_SLUG_TOKENS.has(t))) return true;
+  if (
+    /\b(market|markt)\b/.test(hay) &&
+    /\b(halal|grocery|meat|food|international|oriental|desi|asian|african|middle)\b/.test(hay)
+  ) {
+    return true;
+  }
+  return false;
+}
+
+function hasRestaurantSignal(hay, name) {
+  if (REST_NAME_RE.test(hay)) return true;
+  if (/\brestaurant\b/i.test(decodeHtmlEntities(name))) return true;
+  return false;
+}
+
+function classifyVenueType(row) {
+  const cat = String(row.zabihahCategory || '').toLowerCase().trim();
+  if (cat) {
+    if (STORE_ZABIHAH_CATEGORIES.has(cat)) return 'store';
+    return 'restaurant';
+  }
+
+  const name = decodeHtmlEntities(row.name);
+  const slug = slugTokens(row.sourceUrl);
+  const cuisine = String(row.cuisine || '');
+  const hay = `${name} ${cuisine} ${slug.join(' ')}`.toLowerCase();
+
+  const storeHit = hasStoreSignal(hay, name, slug);
+  const restHit = hasRestaurantSignal(hay, name);
+
+  if (storeHit && restHit) {
+    // "Adan Restaurant & Halal Grocery" → restaurant; "Safeway" → store only
+    if (/\brestaurant\b/i.test(name)) return 'restaurant';
+    if (isStoreChainName(name)) return 'store';
+    if (/\b(grill|cafe|kitchen|diner|bistro|eatery|shawarma|kebab)\b/i.test(name)) return 'restaurant';
+    return 'store';
+  }
+  if (storeHit) return 'store';
+  if (restHit) return 'restaurant';
+
+  return 'restaurant';
+}
+
 function parseZabihahHtml(html, url) {
   if (!html || html.length < 500) return null;
   const title = html.match(/<title>([^<|]+)/)?.[1]?.trim();
@@ -356,8 +581,9 @@ function parseZabihahHtml(html, url) {
   const addressParts = [street, city, region, postal].filter(Boolean);
   const halalStatus = classifyZabihahHtml(html, name);
   const cityLabel = [city, region].filter(Boolean).join(', ');
+  const zabihahCategory = zabihahCategoryFromTitle(html);
 
-  return {
+  const row = {
     name,
     address: addressParts.join(', '),
     latitude: String(lat),
@@ -366,11 +592,14 @@ function parseZabihahHtml(html, url) {
     country,
     halalStatus,
     cuisine,
+    zabihahCategory,
     sourceUrl: url.split('?')[0],
     sourceQuote: zabihahEvidenceQuote(html, halalStatus),
     verifiedMethod: 'web-source',
     source: 'zabihah',
   };
+  row.venueType = classifyVenueType(row);
+  return row;
 }
 
 function rowKey(r) {
@@ -391,7 +620,7 @@ function sourceUrlKey(r) {
 }
 
 function normalizeRow(r) {
-  return {
+  const base = {
     name: String(r.name || '').trim(),
     address: String(r.address || '').trim(),
     latitude: String(r.latitude),
@@ -405,6 +634,9 @@ function normalizeRow(r) {
     verifiedMethod: r.verifiedMethod || 'web-source',
     source: r.source || 'unknown',
   };
+  if (r.zabihahCategory) base.zabihahCategory = String(r.zabihahCategory).trim();
+  base.venueType = classifyVenueType({ ...base, zabihahCategory: r.zabihahCategory });
+  return base;
 }
 
 function mergeRows(existing, incoming, { keepNonDefaultOnly = false } = {}) {
@@ -529,6 +761,8 @@ module.exports = {
   heuristicZabihahRow,
   zabihahEvidenceQuote,
   parseZabihahHtml,
+  classifyVenueType,
+  zabihahCategoryFromTitle,
   rowKey,
   sourceUrlKey,
   normalizeRow,

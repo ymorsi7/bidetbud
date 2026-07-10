@@ -106,7 +106,10 @@ console.log('  Top countries:', top.map(([c, n]) => `${c}(${n})`).join(', '));
 
 const full = merged.filter((r) => r.halalStatus === 'full').length;
 const opts = merged.filter((r) => r.halalStatus === 'options').length;
+const stores = merged.filter((r) => r.venueType === 'store').length;
+const restaurants = merged.length - stores;
 console.log(`  Fully halal: ${full} · Halal options: ${opts}`);
+console.log(`  Restaurants: ${restaurants} · Stores: ${stores}`);
 
 const zabihahOnly = new Set(
   readJson('data/zabihah-halal-restaurants.json').map((r) => rowKey(normalizeRow(r))),
