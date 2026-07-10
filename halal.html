@@ -117,9 +117,14 @@
             <button type="button" data-type="full">Fully halal</button>
             <button type="button" data-type="options">Halal options</button>
           </div>
-          <details class="more-filters">
+          <details class="more-filters" open>
             <summary>More filters</summary>
             <div class="more-panel" id="typeChips">
+              <span class="chip-divider" aria-hidden="true">Venue</span>
+              <button type="button" class="chip" data-venue="all">All venues</button>
+              <button type="button" class="chip" data-venue="restaurant">Restaurants</button>
+              <button type="button" class="chip" data-venue="store">Stores</button>
+              <span class="chip-divider" aria-hidden="true">Source</span>
               <button type="button" class="chip" data-type="verified">User verified</button>
               <button type="button" class="chip" data-type="internet">From internet</button>
               <span class="chip-divider" aria-hidden="true">Country</span>
@@ -301,7 +306,7 @@
     Germany: [[47.3, 5.9], [55.1, 15.0]],
     Australia: [[-43.6, 113.3], [-10.7, 153.6]]
   };
-  let halalFilter = 'all', extraFilter = null, countryFilter = null;
+  let halalFilter = 'all', venueFilter = 'all', extraFilter = null, countryFilter = null;
   let nearMe = false, radiusMi = 50;
   let suppressUrlWrite = false, initialBoundsDone = false, initialMarkersDone = false, activeSpotId = null;
 
@@ -329,6 +334,8 @@
     return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
   }
 
+  function venueLabel(m){ return m.venueType === 'store' ? 'Store' : 'Restaurant'; }
+
   function normalizeSeed(row){
     const halalStatus = row.halalStatus === 'options' ? 'options' : 'full';
     const verifiedMethod = row.verifiedMethod || (row.sourceUrl ? 'web-source' : 'verified');
@@ -344,7 +351,8 @@
       cuisine: row.cuisine || '',
       sourceUrl: row.sourceUrl || '',
       sourceQuote: row.sourceQuote || '',
-      verifiedMethod
+      verifiedMethod,
+      venueType: row.venueType === 'store' ? 'store' : 'restaurant'
     };
   }
 
@@ -450,6 +458,7 @@
     const q = document.getElementById('searchInput').value.trim();
     if(q) p.set('q', q);
     if(halalFilter !== 'all') p.set('type', halalFilter);
+    if(venueFilter !== 'all') p.set('venue', venueFilter);
     if(extraFilter) p.set('filter', extraFilter);
     if(countryFilter) p.set('country', countryFilter);
     if(nearMe){ p.set('near','1'); p.set('radius', String(radiusMi)); }
@@ -463,6 +472,7 @@
     const q = p.get('q');
     if(q) document.getElementById('searchInput').value = q;
     if(p.get('type')) halalFilter = p.get('type');
+    if(p.get('venue')) venueFilter = p.get('venue');
     if(p.get('filter')) extraFilter = p.get('filter');
     const country = p.get('country');
     if(country && COUNTRY_FILTERS.includes(country)) countryFilter = country;
@@ -479,6 +489,9 @@
     document.querySelectorAll('#typeChips .chip[data-type]').forEach(b => {
       const t = b.dataset.type;
       b.classList.toggle('active', COUNTRY_FILTERS.includes(t) ? countryFilter===t : extraFilter===t);
+    });
+    document.querySelectorAll('#typeChips .chip[data-venue]').forEach(b => {
+      b.classList.toggle('active', b.dataset.venue === venueFilter);
     });
     document.querySelectorAll('#radiusRow button').forEach(b => b.classList.toggle('active', parseInt(b.dataset.radius,10)===radiusMi));
     const radiusRow = document.getElementById('radiusRow');
@@ -584,6 +597,8 @@
       if(!validCoord(m)) return false;
       if(halalFilter==='full' && m.halalStatus!=='full') return false;
       if(halalFilter==='options' && m.halalStatus!=='options') return false;
+      if(venueFilter==='restaurant' && m.venueType!=='restaurant') return false;
+      if(venueFilter==='store' && m.venueType!=='store') return false;
       if(extraFilter==='verified' && m.verifiedMethod==='web-source') return false;
       if(extraFilter==='internet' && m.verifiedMethod!=='web-source') return false;
       if(countryFilter && m.country!==countryFilter) return false;
@@ -646,7 +661,16 @@
     const q=getQuery(), el=document.getElementById('locationList');
     const full = filtered.filter(m=>m.halalStatus==='full').length;
     const options = filtered.filter(m=>m.halalStatus==='options').length;
-    let countHtml = '<strong>'+filtered.length+'</strong> '+(filtered.length===1?'restaurant':'restaurants');
+    const stores = filtered.filter(m=>m.venueType==='store').length;
+    const rests = filtered.length - stores;
+    let noun = venueFilter === 'store' ? 'store' : venueFilter === 'restaurant' ? 'restaurant' : 'place';
+    let countHtml = '<strong>'+filtered.length+'</strong> '+(filtered.length===1?noun:noun+'s');
+    if(venueFilter === 'all' && filtered.length){
+      const bits = [];
+      if(rests) bits.push(rests+' restaurant'+(rests===1?'':'s'));
+      if(stores) bits.push(stores+' store'+(stores===1?'':'s'));
+      if(bits.length > 1) countHtml += ' <span class="count-sub">('+bits.join(' · ')+')</span>';
+    }
     if(nearMe) countHtml += ' within '+radiusMi+' mi';
     const badges = [];
     if(full) badges.push(full+' fully halal');
@@ -669,7 +693,7 @@
       if(nearMe && userLocation) dist = haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude}).toFixed(1)+' mi';
       const cardClass = 'card '+cardStatusClass(m);
       const cuisineTag = m.cuisine ? '<span class="tag tag-bidet">'+escapeHtml(m.cuisine)+'</span>' : '';
-      return '<article class="'+cardClass+'" data-id="'+m.id+'"><h3>'+highlight(m.name,q)+'</h3><div class="card-tags">'+halalTag(m)+sourceTag(m)+cuisineTag+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+'<div class="card-meta"><span class="tag tag-type">Restaurant</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
+      return '<article class="'+cardClass+'" data-id="'+m.id+'"><h3>'+highlight(m.name,q)+'</h3><div class="card-tags">'+halalTag(m)+sourceTag(m)+cuisineTag+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+'<div class="card-meta"><span class="tag tag-type">'+escapeHtml(venueLabel(m))+'</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
     }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing '+LIST_CAP+' of '+filtered.length+' — zoom the map or search to narrow results.</p>' : '');
     el.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openDetail(c.dataset.id)));
   }
@@ -742,7 +766,7 @@
     const appleMaps = 'https://maps.apple.com/?daddr='+encodeURIComponent(m.latitude+','+m.longitude);
     document.getElementById('detailContent').innerHTML =
       '<h2>'+escapeHtml(m.name)+'</h2>'+
-      '<p class="sub">Restaurant · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
+      '<p class="sub">'+escapeHtml(venueLabel(m))+' · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
       '<p>'+escapeHtml(m.address)+'</p>'+
       '<div class="row">'+halalTag(m)+sourceTag(m)+(m.cuisine?'<span class="tag tag-type">'+escapeHtml(m.cuisine)+'</span>':'')+'</div>'+
       quote+source+
@@ -1012,7 +1036,10 @@
     document.querySelectorAll('#halalFilter button').forEach(btn=>btn.addEventListener('click',()=>{
       halalFilter=btn.dataset.type; updateFilterUi(); refresh();
     }));
-    document.querySelectorAll('#typeChips .chip').forEach(btn=>btn.addEventListener('click',()=>{
+    document.querySelectorAll('#typeChips .chip[data-venue]').forEach(btn=>btn.addEventListener('click',()=>{
+      venueFilter=btn.dataset.venue; updateFilterUi(); refresh();
+    }));
+    document.querySelectorAll('#typeChips .chip[data-type]').forEach(btn=>btn.addEventListener('click',()=>{
       const t=btn.dataset.type;
       if(COUNTRY_FILTERS.includes(t)) countryFilter = countryFilter===t ? null : t;
       else extraFilter = extraFilter===t ? null : t;
