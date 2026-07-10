@@ -17,6 +17,7 @@
 const fs = require('fs');
 const path = require('path');
 const { mergeRows, readVenueRows, rowKey, normalizeRow } = require('./lib/halal-web.cjs');
+const { attachBidetMatches, loadBidetRows } = require('./lib/halal-bidet-crossref.cjs');
 
 const ROOT = path.join(__dirname, '..');
 const OUT = path.join(ROOT, 'data/halal-restaurants.json');
@@ -75,6 +76,9 @@ for (const src of SOURCES) {
   merged = next;
 }
 
+const { rows: withBidets, matched: bidetMatches } = attachBidetMatches(merged, loadBidetRows());
+merged = withBidets;
+
 fs.writeFileSync(OUT, JSON.stringify(merged) + '\n');
 
 const netVsPrev = merged.length - prevCount;
@@ -110,6 +114,7 @@ const stores = merged.filter((r) => r.venueType === 'store').length;
 const restaurants = merged.length - stores;
 console.log(`  Fully halal: ${full} · Halal options: ${opts}`);
 console.log(`  Restaurants: ${restaurants} · Stores: ${stores}`);
+console.log(`  With bidet (BidetBud cross-ref): ${bidetMatches}`);
 
 const zabihahOnly = new Set(
   readJson('data/zabihah-halal-restaurants.json').map((r) => rowKey(normalizeRow(r))),
