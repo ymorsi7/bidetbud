@@ -1,62 +1,84 @@
 # BidetBud
 
-Community map of masajid and restaurants with bidets, washlets, and handheld sprayers — focused on the US, Canada, and the UK.
+A free map of places with bidets — masajid, restaurants, hotels, and public restrooms.
 
-**Live site:** [bidetbud.com](https://bidetbud.com/)
+**Live:** [bidetbud.com](https://bidetbud.com/)
 
-## What it is
+Started as a US / UK / Canada / Singapore map. Coverage has grown a lot since (Europe, Russia, China, parts of Africa, and more), but every pin still needs real evidence that a bidet, washlet, or handheld sprayer is there. No guessing.
 
-BidetBud is a static single-page app (no build step). Location data lives in `index.html` as `window.BIDETBUD_SEED`. Users can suggest new spots via the embedded Airtable form.
+If this has saved you a stop, star the repo so other people can find it.
+
+## What’s here
+
+- Static site. No build step, no backend, no accounts.
+- Map: Leaflet + MarkerCluster
+- Data: `bidet-seed.js` (what the browser loads) and `data/bidet-restaurants.json` (full rows for scripts)
+- Submissions: Airtable form from the site
+- Analytics: GoatCounter
+
+Statuses on the map:
+
+| Status | Meaning |
+|--------|---------|
+| Verified | Someone confirmed it in person |
+| Heated | Manufacturer install (TOTO WASHLET, Geberit AquaClean, etc.) |
+| Web | Cited online source — not yet personally checked |
 
 ## Run locally
 
 ```bash
-# from repo root
 python3 -m http.server 8080
 # open http://localhost:8080
 ```
 
-Or use any static file server — do not open `index.html` as a `file://` URL (fetch/geojson may fail).
+Don’t open `index.html` as a `file://` URL — some assets and GeoJSON need HTTP.
 
-## Project layout
+## Layout
 
 ```
-index.html              Main app + seed data
-css/github-star.css     Footer link styles
-images/                 Logo and favicons
-scripts/
-  apply-address-fixes.cjs   Re-geocode seed entries (>150m drift); manual overrides inside
-  address-fix-report.json   Last script run output (optional)
+index.html              App shell + UI logic
+bidet-seed.js           Slim seed the browser loads
+css/app.css             Styles
+data/bidet-restaurants.json   Full location rows
+scripts/                One-off import / geocode / crawl helpers
+images/                 Logo + favicons
 ```
 
-## Adding or fixing locations
+## Add a spot
 
-1. **Quick add:** append an object to the `BIDETBUD_SEED` array in `index.html`:
+Prefer a personal check. For web-sourced entries, include `sourceUrl` and a short `sourceQuote`.
 
-   ```js
-   {
-     "name": "Example Masjid",
-     "address": "123 Main St, City, ST 12345",
-     "latitude": "37.0000000",
-     "longitude": "-122.0000000",
-     "city": "City, ST",
-     "country": "USA",
-     "type": "mosque",
-     "bidetStatus": "verified",
-     "access": "public",
-     "bidetType": "Bidet, Wudhu"
-   }
-   ```
+Example:
 
-   `bidetStatus` must be `verified`, `warmed`, or `internet` to appear on the map.
+```js
+{
+  "name": "Example Masjid",
+  "address": "123 Main St, City, ST 12345",
+  "latitude": "37.0000000",
+  "longitude": "-122.0000000",
+  "city": "City, ST",
+  "country": "USA",
+  "type": "mosque",
+  "bidetStatus": "verified",
+  "access": "public",
+  "bidetType": "Handheld sprayer"
+}
+```
 
-2. **Coordinate cleanup:** `node scripts/apply-address-fixes.cjs` (requires Node 18+ with `fetch`).
+`type` is one of: `mosque`, `restaurant`, `hotel`, `public`.  
+`bidetStatus` must be `verified`, `warmed`, or `internet` to show on the map.
 
-3. **User submissions:** collected via an Airtable form embedded directly in the "Suggest a verified spot" popup (an `<iframe>`, no new tab). Configure it in `index.html` via the `AIRTABLE_EMBED_URL` (iframe `src`) and `AIRTABLE_FORM_URL` constants. Submissions are reviewed before being added to `BIDETBUD_SEED`.
+After bulk edits, regenerate the client seed through the helpers in `scripts/` (see `scripts/lib/bidet-seed.cjs`). Don’t bulk-import mosques or restaurants just because “they probably have one.”
 
 ## Contributing
 
-Pull requests welcome for new verified locations, coordinate fixes, and UI improvements. Please only add spots you have personally verified or that cite a clear public source (`bidetStatus: "internet"` + `sourceUrl`).
+PRs welcome for:
+
+- New verified or well-sourced locations
+- Coordinate / address fixes
+- UI polish
+
+Please keep diffs focused. Only add places with explicit bidet evidence.
 
 ## License
 

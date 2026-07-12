@@ -1593,6 +1593,14 @@ svg.leaflet-image-layer.leaflet-interactive path {
     });
   }
 
+  function formatBidetType(s){
+    return String(s||'')
+      .split(',')
+      .map(p => p.replace(/\s+/g,' ').trim())
+      .filter(Boolean)
+      .join(', ');
+  }
+
   function statusTag(m){
     if(m.bidetStatus==='none') return '<span class="tag tag-none">No bidet</span>';
     if(m.bidetStatus==='internet') return '<span class="tag tag-internet">Web</span>';
@@ -1707,7 +1715,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
         : (m.access==='limited' ? '<p class="card-note">'+escapeHtml(m.accessNote)+'</p>' : '');
       const cardClass = 'card '+cardStatusClass(m);
       const typeIcon = typeLabel(m.type);
-      const bidetTag = m.bidetType ? '<span class="tag tag-bidet">'+escapeHtml(m.bidetType)+'</span>' : '';
+      const bidetLabel = formatBidetType(m.bidetType);
+      const bidetTag = bidetLabel ? '<span class="tag tag-bidet">'+escapeHtml(bidetLabel)+'</span>' : '';
       return '<article class="'+cardClass+'" data-id="'+m.id+'"><h3>'+highlight(m.name,q)+'</h3><div class="card-tags">'+statusTag(m)+accessTag(m)+bidetTag+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+limitedNote+'<div class="card-meta"><span class="tag tag-type">'+typeIcon+'</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
     }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing '+LIST_CAP+' of '+filtered.length+' — zoom the map or search to narrow results.</p>' : '');
     el.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openDetail(c.dataset.id)));
@@ -1866,7 +1875,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
       (m.bidetStatus==='none' ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\u2019ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : '')+
       accessWarn(m)+
       '<p>'+escapeHtml(m.address)+'</p>'+
-      '<div class="row">'+statusTag(m)+accessTag(m)+(m.bidetType?'<span class="tag tag-type">'+escapeHtml(m.bidetType)+'</span>':'')+'</div>'+
+      '<div class="row">'+statusTag(m)+accessTag(m)+(formatBidetType(m.bidetType)?'<span class="tag tag-bidet">'+escapeHtml(formatBidetType(m.bidetType))+'</span>':'')+'</div>'+
       verifiedNote+quote+source+
       '<div class="dialog-actions detail-actions">'+
       '<a class="btn btn-primary" href="'+googleMaps+'" target="_blank" rel="noopener">Google Maps</a>'+

@@ -152,7 +152,7 @@ body.modal-open{overflow:hidden}
 .card .addr{font-size:.8125rem;color:var(--muted);margin:0 0 2px;line-height:1.4}
 .card .loc{font-size:.75rem;color:#a1a1aa;margin:0 0 6px;line-height:1.4}
 .card-note{font-size:.75rem;color:var(--limited);margin:0 0 6px;line-height:1.4}
-.card-tags{display:flex;flex-wrap:wrap;gap:4px;margin:8px 0 0}
+.card-tags{display:flex;flex-wrap:wrap;align-items:flex-start;gap:6px;margin:8px 0 10px}
 .tag{font-size:.625rem;font-weight:600;padding:4px 8px;border-radius:6px;white-space:nowrap;line-height:1.2;letter-spacing:.02em;text-transform:uppercase}
 .tag-verified{background:var(--brand-soft);color:var(--brand-deep)}
 .tag-warmed{background:var(--warm-soft);color:var(--warm)}
@@ -160,7 +160,7 @@ body.modal-open{overflow:hidden}
 .tag-limited{background:var(--limited-soft);color:var(--limited)}
 .tag-none{background:var(--none-soft);color:#52525b}
 .tag-type,.tag-bidet{background:rgba(24,24,27,.05);color:var(--muted);text-transform:none;font-size:.6875rem;font-weight:600}
-.tag-bidet{background:var(--brand-soft);color:var(--brand-deep);text-transform:none}
+.tag-bidet{background:var(--brand-soft);color:var(--brand-deep);text-transform:none;white-space:normal;max-width:100%;line-height:1.35;padding:5px 8px}
 .card-meta{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding-top:10px;margin-top:10px;border-top:1px solid var(--line)}
 .card-foot{margin-left:auto}
 .dist{font-size:.6875rem;color:var(--muted);font-weight:600}
@@ -325,7 +325,7 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .card{padding:16px;border-radius:14px;margin-bottom:10px}
   .card h3{font-size:1rem;margin-bottom:6px}
   .card .addr{font-size:.875rem}
-  .card-tags{margin-top:10px}
+  .card-tags{margin:10px 0 12px}
   .legend-items{display:none}
   .legend-title{display:none}
   .map-legend{top:10px;bottom:auto;left:auto;right:10px;padding:0;border-radius:999px;max-width:none}
