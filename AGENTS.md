@@ -10,7 +10,7 @@ Guide for AI agents and contributors working in this repository.
 - **Stack:** Single HTML page + CSS. No build step, no backend, no framework.
 - **Map:** Leaflet + MarkerCluster (bundled inline in `index.html`)
 - **Data:** Embedded JSON array `window.BIDETBUD_SEED` (~998 entries)
-- **Submissions:** Airtable form (opens in new tab; URL in `index.html`)
+- **Submissions:** In-page form via Web3Forms (`WEB3FORMS_ACCESS_KEY` in `index.html`)
 - **Analytics:** GoatCounter (`bidetbud.goatcounter.com`)
 
 Related but separate project: [bidetbud.com](https://www.bidetbud.com/) is the Singapore-only PWA (“Bidet Bud SG”). Singapore data for this repo is imported from its public JSON export.
@@ -387,7 +387,7 @@ python3 -m http.server 8080
 - Design: minimal 2026-style UI — Inter font, zinc/neutral palette, defined in `css/app.css`.
 - Dropdowns/menus: use the `[hidden]` attribute; CSS must not override `display` on `[hidden]` elements (see `.menu-drop[hidden]` fix).
 - Search autocomplete: `#searchAc` needs high `z-index` (above map).
-- Airtable: form opens in **new tab** via button (`AIRTABLE_FORM_URL`), not an embedded iframe.
+- Add spot: native form + mini-map pin, submitted through Web3Forms (same key as report-incorrect).
 - Mobile: detail panel uses bottom-sheet pattern (`.detail-sheet`).
 
 When changing layout, test filter chips, three-dots menu, search dropdown, and mobile detail sheet.
