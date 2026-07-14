@@ -184,12 +184,13 @@ body.modal-open{overflow:hidden}
 #addDialog.dialog.wide{max-width:560px;width:100%;max-height:min(92dvh,720px);overflow-y:auto;overflow-x:hidden;padding:20px;display:block}
 #addDialog .sub{flex-shrink:0}
 .label-optional{font-weight:500;color:var(--muted);font-size:.85em}
-#addDialog .form-label{display:block;font-size:.6875rem;font-weight:600;color:var(--muted);margin:12px 0 6px;text-transform:uppercase;letter-spacing:.04em}
-#addDialog .add-choice{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-#addDialog .add-choice-opt{display:flex;align-items:center;justify-content:center;gap:8px;margin:0;padding:12px 10px;border:1px solid var(--line);border-radius:var(--radius-sm);font-size:.875rem;font-weight:600;text-transform:none;letter-spacing:0;color:var(--ink);cursor:pointer;background:#fff;transition:border-color .15s,box-shadow .15s,background .15s}
-#addDialog .add-choice-opt:has(input:checked){border-color:rgba(13,148,136,.45);background:var(--brand-soft);box-shadow:0 0 0 3px var(--brand-soft)}
-#addDialog .add-choice-opt input{position:absolute;opacity:0;pointer-events:none;width:0;height:0}
-#addDialog .add-choice-opt:has(input[value="none"]:checked){border-color:rgba(113,113,122,.45);background:rgba(113,113,122,.08);box-shadow:0 0 0 3px rgba(113,113,122,.08)}
+#addDialog .form-label{display:block;font-size:.6875rem;font-weight:600;color:var(--muted);margin:14px 0 8px;text-transform:uppercase;letter-spacing:.04em}
+#addDialog .add-choice{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0}
+#addDialog .add-choice-btn{appearance:none;-webkit-appearance:none;width:100%;margin:0;padding:11px 12px;border:1px solid var(--line);border-radius:var(--radius-sm);background:#fff;color:var(--text);font:inherit;font-size:.875rem;font-weight:600;line-height:1.2;text-align:center;cursor:pointer;transition:border-color .15s,background .15s,color .15s,box-shadow .15s}
+#addDialog .add-choice-btn:hover{border-color:#a1a1aa;background:#fafafa}
+#addDialog .add-choice-btn:focus-visible{outline:none;box-shadow:0 0 0 4px var(--brand-soft)}
+#addDialog .add-choice-btn.is-selected{border-color:var(--brand);background:var(--brand-soft);color:var(--brand-deep);box-shadow:0 0 0 3px var(--brand-soft)}
+#addDialog .add-choice-btn[data-value="none"].is-selected{border-color:#71717a;background:#f4f4f5;color:#3f3f46;box-shadow:0 0 0 3px rgba(113,113,122,.12)}
 #addDialog textarea{min-height:56px}
 #addDialog h2{flex-shrink:0;position:sticky;top:0;background:#fff;z-index:2;padding-bottom:8px;margin-bottom:0}
 #addDialog .dialog-close{z-index:3}

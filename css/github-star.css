@@ -48,7 +48,7 @@ a.github-star-footer svg {
   color: var(--blue-hover, #1d4ed8);
 }
 
-/* YouTube demo link (Font Awesome) — matches github-star-footer layout */
+/* YouTube demo link (Font Awesome): matches github-star-footer layout */
 a.youtube-demo-footer {
   display: inline-flex;
   align-items: center;

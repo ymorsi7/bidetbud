@@ -24,15 +24,15 @@
   let nearMe = false, radiusMi = 50;
   let suppressUrlWrite = false, initialBoundsDone = false, activeSpotId = null;
 
-  // Countries where bidets, washlets, or handheld sprayers are the norm — not spot-level exceptions.
+  // Countries where bidets, washlets, or handheld sprayers are the norm, not spot-level exceptions.
   const BIDET_FRIENDLY_COUNTRIES = [
     'Japan', 'South Korea', 'Taiwan',
     'Italy', 'Greece',
-    // Middle East & North Africa — shattaf / handheld sprayers are standard
+    // Middle East & North Africa: shattaf / handheld sprayers are standard
     'Turkey', 'Syria', 'Lebanon', 'Jordan', 'Palestine', 'Iraq', 'Iran', 'Yemen',
     'Saudi Arabia', 'United Arab Emirates', 'Kuwait', 'Qatar', 'Bahrain', 'Oman',
     'Egypt', 'Libya', 'Tunisia', 'Algeria', 'Morocco', 'Sudan',
-    // South & Southeast Asia — sprayers / water cleansing are standard
+    // South & Southeast Asia: sprayers / water cleansing are standard
     'India', 'Pakistan', 'Bangladesh', 'Nepal', 'Sri Lanka', 'Afghanistan',
     'Malaysia', 'Indonesia', 'Thailand', 'Vietnam', 'Philippines', 'Cambodia',
     'Brunei', 'Laos', 'Myanmar', 'Maldives', 'East Timor',
@@ -296,10 +296,26 @@
   function initSubmitPanel(){
     const intro = document.getElementById('addIntro');
     if(intro){
-      intro.textContent = 'Name is enough — we’ll look it up. Mark has bidet or no bidet. Every submission is reviewed before it goes live.';
+      intro.textContent = 'Just the name is enough. We\'ll look it up. Every submission is reviewed before it goes live.';
     }
     const emailPanel = document.getElementById('emailPanel');
     if(emailPanel) emailPanel.hidden = false;
+    document.querySelectorAll('#addDialog .add-choice-btn').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        setAddHasBidet(btn.dataset.value || 'verified');
+      });
+    });
+  }
+
+  function setAddHasBidet(value){
+    const v = value === 'none' ? 'none' : 'verified';
+    const hidden = document.getElementById('addHasBidet');
+    if(hidden) hidden.value = v;
+    document.querySelectorAll('#addDialog .add-choice-btn').forEach(btn=>{
+      const on = btn.dataset.value === v;
+      btn.classList.toggle('is-selected', on);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
   }
 
   function validCoord(m){
@@ -387,7 +403,7 @@
 
   function showThankYou(){
     const shareUrl = encodeURIComponent(SITE_URL);
-    const shareText = encodeURIComponent('Find masajid and restaurants with bidets — BidetBud');
+    const shareText = encodeURIComponent('Find masajid and restaurants with bidets. BidetBud');
     document.getElementById('thankYouContent').innerHTML =
       '<h2>Thanks for contributing!</h2>'+
       '<p class="sub">We review every submission. Share BidetBud with your community:</p>'+
@@ -470,7 +486,7 @@
 
   function accessWarn(m){
     if(m.access!=='limited') return '';
-    return '<div class="access-warn"><strong>Limited access — not a public restroom</strong>'+escapeHtml(m.accessNote||'Hotel rooms, showrooms, and private clubs are not open to walk-in visitors.')+'</div>';
+    return '<div class="access-warn"><strong>Limited access: not a public restroom</strong>'+escapeHtml(m.accessNote||'Hotel rooms, showrooms, and private clubs are not open to walk-in visitors.')+'</div>';
   }
 
   function typeLabel(t){ return t==='restaurant' ? 'Restaurant' : t==='hotel' ? 'Hotel' : t==='public' ? 'Public' : 'Masjid'; }
@@ -572,14 +588,14 @@
       let dist='';
       if(nearMe && userLocation) dist = haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude}).toFixed(1)+' mi';
       const limitedNote = m.bidetStatus==='none'
-        ? '<p class="card-note card-note--none">We checked — no bidet or handheld sprayer here.</p>'
+        ? '<p class="card-note card-note--none">We checked: no bidet or handheld sprayer here.</p>'
         : (m.access==='limited' ? '<p class="card-note">'+escapeHtml(m.accessNote)+'</p>' : '');
       const cardClass = 'card '+cardStatusClass(m);
       const typeIcon = typeLabel(m.type);
       const bidetLabel = formatBidetType(m.bidetType);
       const bidetTag = bidetLabel ? '<span class="tag tag-bidet">'+escapeHtml(bidetLabel)+'</span>' : '';
       return '<article class="'+cardClass+'" data-id="'+m.id+'"><h3>'+highlight(m.name,q)+'</h3><div class="card-tags">'+statusTag(m)+accessTag(m)+bidetTag+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+limitedNote+'<div class="card-meta"><span class="tag tag-type">'+typeIcon+'</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
-    }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing '+LIST_CAP+' of '+filtered.length+' — zoom the map or search to narrow results.</p>' : '');
+    }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing '+LIST_CAP+' of '+filtered.length+'. Zoom the map or search to narrow results.</p>' : '');
     el.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openDetail(c.dataset.id)));
   }
 
@@ -697,7 +713,7 @@
       status.classList.remove('is-error','is-ok');
       try {
         await submitReport(m, reason, note);
-        status.textContent = 'Thanks — report sent. We\'ll take a look.';
+        status.textContent = 'Thanks. Report sent. We\'ll take a look.';
         status.classList.add('is-ok');
         status.hidden = false;
         form.querySelector('#reportNote').value = '';
@@ -787,12 +803,11 @@
     ['addName','addAddress','addNotes'].forEach(id=>{
       const el=document.getElementById(id); if(el) el.value='';
     });
-    const has = document.querySelector('input[name="addHasBidet"][value="verified"]');
-    if(has) has.checked = true;
+    setAddHasBidet('verified');
   }
 
   function getAddHasBidet(){
-    return document.querySelector('input[name="addHasBidet"]:checked')?.value || 'verified';
+    return document.getElementById('addHasBidet')?.value || 'verified';
   }
 
   async function submitViaWeb3Forms(payload){
@@ -836,7 +851,7 @@
 
   function onBidetCountryFeature(feature, layer){
     if(!BIDET_FRIENDLY_GEO_NAMES.has(feature.properties.name)) return;
-    layer.bindTooltip(feature.properties.name + ' — bidet-friendly country', {
+    layer.bindTooltip(feature.properties.name + ': bidet-friendly country', {
       sticky: true,
       direction: 'top',
       className: 'bidet-country-tip'
@@ -1183,7 +1198,7 @@
   seedPromise.then(bootWithSeed).catch(err => {
     console.error(err);
     const el = document.getElementById('countLabel');
-    if(el) el.textContent = 'Could not load spots — refresh to try again.';
+    if(el) el.textContent = 'Could not load spots. Refresh to try again.';
     bootWithSeed([]);
   });
 })();
