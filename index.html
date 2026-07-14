@@ -1005,15 +1005,12 @@ svg.leaflet-image-layer.leaflet-interactive path {
     <h2>Suggest a verified spot</h2>
     <p class="sub" id="addIntro">Only confirmed bidets (TOTO, heated seat, handheld, etc.). Submissions are reviewed before appearing on the map.</p>
     <p class="coord-hint" id="coordHint"></p>
-    <details class="add-pin-details" id="addPinDetails">
-      <summary>Set location pin (optional)</summary>
+    <details class="add-pin-details" id="addPinDetails" open>
+      <summary>Set location pin *</summary>
       <div id="addPickMapWrap" class="add-pick-wrap">
         <div id="addPickMap" class="add-pick-map" role="application" aria-label="Pick location map"></div>
       </div>
     </details>
-    <div id="airtablePanel" hidden>
-      <iframe id="airtableEmbed" class="airtable-embed-frame" title="Suggest a verified spot" src="" frameborder="0" width="100%" height="640" loading="lazy"></iframe>
-    </div>
     <div class="form" id="emailPanel">
       <label for="addName">Name *</label>
       <input id="addName" required>
@@ -1024,7 +1021,12 @@ svg.leaflet-image-layer.leaflet-interactive path {
       <label for="addCountry">Country</label>
       <input id="addCountry" value="USA">
       <label for="addType">Type</label>
-      <select id="addType"><option value="mosque">Masjid</option><option value="restaurant">Restaurant / café</option></select>
+      <select id="addType">
+        <option value="mosque">Masjid</option>
+        <option value="restaurant">Restaurant / café</option>
+        <option value="hotel">Hotel</option>
+        <option value="public">Public restroom</option>
+      </select>
       <label for="addStatus">Bidet type</label>
       <select id="addStatus">
         <option value="verified">Verified bidet</option>
@@ -1064,11 +1066,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
 <script src="bidet-seed.js"></script>
 <script>
 (function(){
-  const AIRTABLE_FORM_URL = 'https://airtable.com/appooaJBbg4weWhI0/shrYzqffjo9JpweKW';
-  const AIRTABLE_EMBED_URL = 'https://airtable.com/embed/appooaJBbg4weWhI0/shrYzqffjo9JpweKW';
-  const SUBMIT_EMAIL = 'ymorsi8+bidet@gmail.com';
   // Web3Forms access key (public, safe in client code). Get a free key at https://web3forms.com
-  // by entering your email, then paste it here. Reports are emailed to that address.
+  // Submissions and reports are emailed to the address tied to this key.
   const WEB3FORMS_ACCESS_KEY = 'b0f5343d-1608-4224-a49a-d32d13fbbdfe';
   const SITE_URL = 'https://bidetbud.com/';
   const COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'France', 'Russia', 'China'];
@@ -1080,7 +1079,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
   const HAS_BIDET = s => s === 'verified' || s === 'warmed' || s === 'internet';
   const NO_BIDET = s => s === 'none';
-  const useAirtable = () => Boolean(AIRTABLE_FORM_URL);
   const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
   let allLocations = [], userLocation = null, map, clusterGroup, pickMarker, countriesLayer;
@@ -1375,43 +1373,19 @@ svg.leaflet-image-layer.leaflet-interactive path {
       addPickMapMarker.on('dragend', ()=>{
         const ll = addPickMapMarker.getLatLng();
         setPickCoords(ll.lat, ll.lng, 'add');
-        updateAirtableEmbed(ll.lat, ll.lng);
       });
       addPickMap.setView([lat, lng], Math.max(addPickMap.getZoom(), 15));
     }
-    updateAirtableEmbed(lat, lng);
-  }
-
-  function updateAirtableEmbed(lat, lng){
-    if(!useAirtable()) return;
-    const frame = document.getElementById('airtableEmbed');
-    if(!frame) return;
-    const u = new URL(AIRTABLE_EMBED_URL);
-    if(typeof lat === 'number' && !isNaN(lat)) u.searchParams.set('prefill_Latitude', lat.toFixed(6));
-    if(typeof lng === 'number' && !isNaN(lng)) u.searchParams.set('prefill_Longitude', lng.toFixed(6));
-    const next = u.toString();
-    if(frame.src !== next) frame.src = next;
   }
 
   function initSubmitPanel(){
-    const airtablePanel = document.getElementById('airtablePanel');
-    const emailPanel = document.getElementById('emailPanel');
     const intro = document.getElementById('addIntro');
-    if(useAirtable()){
-      updateAirtableEmbed(NaN, NaN);
-      airtablePanel.hidden = false;
-      emailPanel.hidden = true;
-      document.getElementById('addDialog')?.classList.add('embed-mode');
-      intro.textContent = 'Confirmed bidets only — reviewed before appearing on the map.';
-      const pinDetails = document.getElementById('addPinDetails');
-      if(pinDetails) pinDetails.hidden = true;
-      const hint = document.getElementById('coordHint');
-      if(hint) hint.hidden = true;
-    } else {
-      airtablePanel.hidden = true;
-      emailPanel.hidden = false;
-      intro.textContent = 'Use the mini-map to drop a pin, then submit. We review every spot before it goes live.';
+    if(intro){
+      intro.textContent = 'Use the mini-map to drop a pin, then submit. Confirmed bidets only — we review every spot before it goes live.';
     }
+    document.getElementById('addDialog')?.classList.remove('embed-mode');
+    const emailPanel = document.getElementById('emailPanel');
+    if(emailPanel) emailPanel.hidden = false;
   }
 
   function initAddPickMap(){
@@ -1436,12 +1410,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
   function showCoordHint(lat, lng){
     const hint = document.getElementById('coordHint');
     const text = lat.toFixed(6) + ', ' + lng.toFixed(6);
-    hint.textContent = 'Pin at ' + text + (useAirtable() ? ' — copied. Paste into the form after you open it.' : '');
+    hint.textContent = 'Pin at ' + text;
     hint.classList.add('show');
     if(navigator.clipboard) navigator.clipboard.writeText(text).catch(()=>{});
     const details = document.getElementById('addPinDetails');
     if(details) details.open = true;
-    if(useAirtable()) setTimeout(initAddPickMap, 80);
   }
 
   function validCoord(m){
@@ -1482,6 +1455,9 @@ svg.leaflet-image-layer.leaflet-interactive path {
 
   function openAddForm(source){
     setOverlayOpen('addOverlay', true);
+    const pinDetails = document.getElementById('addPinDetails');
+    if(pinDetails) pinDetails.open = true;
+    setTimeout(initAddPickMap, 80);
     if(typeof window.trackEvent === 'function'){
       window.trackEvent('bidetbud_add_open', { source: source || 'unknown' });
     }
@@ -1938,30 +1914,36 @@ svg.leaflet-image-layer.leaflet-interactive path {
     document.getElementById('coordHint').classList.remove('show');
     if(pickMarker && map){ map.removeLayer(pickMarker); pickMarker=null; }
     if(addPickMapMarker && addPickMap){ addPickMap.removeLayer(addPickMapMarker); addPickMapMarker=null; }
-    if(useAirtable()) updateAirtableEmbed(NaN, NaN);
   }
 
-  async function submitViaEmail(payload){
-    const res = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(SUBMIT_EMAIL), {
+  async function submitViaWeb3Forms(payload){
+    if(!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY'){
+      throw new Error('Submissions are not set up yet.');
+    }
+    const body = {
+      access_key: WEB3FORMS_ACCESS_KEY,
+      subject: 'BidetBud: new verified spot',
+      from_name: 'BidetBud',
+      name: payload.name,
+      email: payload.email || 'noreply@bidetbud.com',
+      submitter_email: payload.email || '(not provided)',
+      address: payload.address || '(not provided)',
+      city: payload.city || '(not provided)',
+      country: payload.country,
+      type: payload.type,
+      bidet_status: payload.bidetStatus,
+      bidet_details: payload.bidetType,
+      latitude: payload.latitude,
+      longitude: payload.longitude,
+      notes: payload.notes || '(none)',
+      maps_link: 'https://www.google.com/maps/search/?api=1&query=' + payload.latitude + ',' + payload.longitude,
+      botcheck: ''
+    };
+    if(payload.email) body.replyto = payload.email;
+    const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify({
-        _subject: 'BidetBud: new verified spot',
-        _template: 'table',
-        _captcha: 'false',
-        name: payload.name,
-        submitter_email: payload.email || '(not provided)',
-        address: payload.address,
-        city: payload.city,
-        country: payload.country,
-        type: payload.type,
-        bidet_status: payload.bidetStatus,
-        bidet_details: payload.bidetType,
-        latitude: payload.latitude,
-        longitude: payload.longitude,
-        notes: payload.notes || '',
-        maps_link: 'https://www.google.com/maps/search/?api=1&query=' + payload.latitude + ',' + payload.longitude
-      })
+      body: JSON.stringify(body)
     });
     const data = await res.json().catch(() => ({}));
     if(!res.ok || data.success === false){
@@ -2283,7 +2265,6 @@ svg.leaflet-image-layer.leaflet-interactive path {
     });
 
     document.getElementById('submitAdd').addEventListener('click', async ()=>{
-      if(useAirtable()) return;
       const btn = document.getElementById('submitAdd');
       if(document.getElementById('addHoney').value) return;
       const name=document.getElementById('addName').value.trim();
@@ -2312,10 +2293,11 @@ svg.leaflet-image-layer.leaflet-interactive path {
       btn.disabled = true;
       btn.textContent = 'Sending…';
       try {
-        await submitViaEmail(payload);
+        await submitViaWeb3Forms(payload);
         setOverlayOpen('addOverlay', false);
         resetAddForm();
         showThankYou();
+        if(typeof window.trackEvent === 'function') window.trackEvent('bidetbud_add_submit', { type: payload.type });
       } catch (err) {
         alert(err.message || 'Could not send submission.');
       } finally {

@@ -13,7 +13,7 @@ If this has saved you a stop, star the repo so other people can find it.
 - Static site. No build step, no backend, no accounts.
 - Map: Leaflet + MarkerCluster
 - Data: `bidet-seed.js` (what the browser loads) and `data/bidet-restaurants.json` (full rows for scripts)
-- Submissions: Airtable form from the site
+- Submissions: in-page form → Web3Forms (email)
 - Analytics: GoatCounter
 
 Statuses on the map:
