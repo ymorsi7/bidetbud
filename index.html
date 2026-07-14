@@ -7,7 +7,7 @@
 <meta name="description" content="Find masajid, restaurants, hotels, and public restrooms with bidets. User verified and web-sourced listings in the USA, UK, and Canada.">
 <meta name="theme-color" content="#18181b">
 <meta property="og:type" content="website">
-<meta property="og:title" content="BidetBud — Find bidets at masajid &amp; establishments">
+<meta property="og:title" content="BidetBud: Find bidets at masajid &amp; establishments">
 <meta property="og:description" content="Community map of masajid, restaurants, hotels, and public restrooms with bidets in the US, Canada, and UK.">
 <meta property="og:url" content="https://bidetbud.com/">
 <meta property="og:image" content="https://bidetbud.com/images/bidetbud-favicon-192.png">
@@ -213,11 +213,11 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json', { credentials: 'same-origin' })
       <button type="button" class="dialog-close" id="promoClose" aria-label="Close">×</button>
       <img class="promo-logo" src="images/bidetbud-logo.png" alt="" width="72" height="72" decoding="async">
       <h2 id="promoTitle">Help others find clean wudu spaces</h2>
-      <p class="promo-lead">BidetBud is community-built. Know a place with a bidet — or without? Use <strong>Add spot</strong> in the <strong>top right</strong> anytime.</p>
+      <p class="promo-lead">BidetBud is community-built. Know a place with a bidet, or without? Use <strong>Add spot</strong> in the <strong>top right</strong> anytime.</p>
       <ol class="promo-steps">
         <li>Tap <strong>Add spot</strong> (top right of the header)</li>
-        <li>Fill in the place name, city, and bidet details</li>
-        <li>Tap the map to set a pin, then submit — we review before it goes live</li>
+        <li>Enter the place name and whether it has a bidet</li>
+        <li>Submit. We review before it goes live</li>
       </ol>
       <div class="dialog-actions">
         <button type="button" class="btn btn-primary" id="promoGotItBtn">Got it</button>
@@ -259,11 +259,11 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json', { credentials: 'same-origin' })
     <button type="button" class="dialog-close" id="legendClose" aria-label="Close">×</button>
     <h2 id="legendTitle">Map legend</h2>
     <ul class="legend-list">
-      <li><span class="legend-dot verified"></span> <strong>Verified</strong> — confirmed by a person (visit, phone, etc.)</li>
-      <li><span class="legend-dot warmed"></span> <strong>Heated / TOTO</strong> — heated seat or washlet</li>
-      <li><span class="legend-dot internet"></span> <strong>Web source</strong> — found online, not yet verified in person</li>
-      <li><span class="legend-dot limited"></span> <strong>Limited access</strong> — not a regular public restroom</li>
-      <li><span class="legend-dot friendly-country"></span> <strong>Bidet-friendly country</strong> — bidets are common; pins are specific spots</li>
+      <li><span class="legend-dot verified"></span> <strong>Verified</strong>: confirmed by a person (visit, phone, etc.)</li>
+      <li><span class="legend-dot warmed"></span> <strong>Heated / TOTO</strong>: heated seat or washlet</li>
+      <li><span class="legend-dot internet"></span> <strong>Web source</strong>: found online, not yet verified in person</li>
+      <li><span class="legend-dot limited"></span> <strong>Limited access</strong>: not a regular public restroom</li>
+      <li><span class="legend-dot friendly-country"></span> <strong>Bidet-friendly country</strong>: bidets are common; pins are specific spots</li>
     </ul>
   </div>
 </div>
@@ -279,25 +279,20 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json', { credentials: 'same-origin' })
   <div class="dialog wide" id="addDialog">
     <button type="button" class="dialog-close" id="addClose" aria-label="Close">×</button>
     <h2>Suggest a spot</h2>
-    <p class="sub" id="addIntro">Name is enough — we’ll look it up. Every submission is reviewed before it goes live.</p>
+    <p class="sub" id="addIntro">Just the name is enough. We'll look it up. Every submission is reviewed before it goes live.</p>
     <div class="form" id="emailPanel">
       <label for="addName">Name *</label>
       <input id="addName" required placeholder="e.g. Masjid Al-Noor, Qahwah House">
       <label for="addAddress">Where? <span class="label-optional">(optional)</span></label>
       <input id="addAddress" placeholder="City, address, or neighborhood">
-      <span class="form-label" id="addHasBidetLabel">Bidet? *</span>
-      <div class="add-choice" role="radiogroup" aria-labelledby="addHasBidetLabel">
-        <label class="add-choice-opt">
-          <input type="radio" name="addHasBidet" value="verified" checked>
-          <span>Has bidet</span>
-        </label>
-        <label class="add-choice-opt">
-          <input type="radio" name="addHasBidet" value="none">
-          <span>No bidet</span>
-        </label>
+      <p class="form-label" id="addHasBidetLabel">Bidet?</p>
+      <div class="add-choice" role="group" aria-labelledby="addHasBidetLabel">
+        <button type="button" class="add-choice-btn is-selected" data-value="verified" aria-pressed="true">Has bidet</button>
+        <button type="button" class="add-choice-btn" data-value="none" aria-pressed="false">No bidet</button>
       </div>
+      <input type="hidden" id="addHasBidet" value="verified">
       <label for="addNotes">Note <span class="label-optional">(optional)</span></label>
-      <textarea id="addNotes" placeholder="Anything helpful — restroom tip, etc."></textarea>
+      <textarea id="addNotes" placeholder="Anything helpful: restroom tip, etc."></textarea>
       <input type="text" id="addHoney" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
       <div class="dialog-actions">
         <button type="button" class="btn btn-primary" id="submitAdd">Submit</button>
@@ -307,7 +302,7 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json', { credentials: 'same-origin' })
 </div>
 
 <script>
-// Israel entries disabled — not recognized as a country
+// Israel entries disabled: not recognized as a country
 // See data/israel-bidets-disabled.json (6 entries)
 </script>
 

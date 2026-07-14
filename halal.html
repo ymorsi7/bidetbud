@@ -7,7 +7,7 @@
 <meta name="description" content="Find fully halal restaurants and places with halal options outside Muslim-majority countries. Same map style as BidetBud.">
 <meta name="theme-color" content="#18181b">
 <meta property="og:type" content="website">
-<meta property="og:title" content="HalalBud — Halal food outside the Muslim world">
+<meta property="og:title" content="HalalBud: Halal food outside the Muslim world">
 <meta property="og:description" content="Map of fully halal restaurants and halal-option spots in the USA, UK, Canada, and beyond.">
 <meta property="og:url" content="https://bidetbud.com/halal.html">
 <meta property="og:image" content="https://bidetbud.com/images/bidetbud-favicon-192.png">
@@ -163,7 +163,7 @@
         </div>
       </div>
       <div class="about-body">
-        <p>HalalBud maps restaurants with explicit halal evidence — either <strong>fully halal</strong> (everything is halal) or <strong>halal options</strong> (mixed menu with halal dishes). Muslim-majority countries are shaded green on the map (meat is generally halal there too).</p>
+        <p>HalalBud maps restaurants with explicit halal evidence: either <strong>fully halal</strong> (everything is halal) or <strong>halal options</strong> (mixed menu with halal dishes). Muslim-majority countries are shaded green on the map (meat is generally halal there too).</p>
         <p>We only add places with a cited source. Know a spot? Tap <strong>Add restaurant</strong>.</p>
         <div class="about-legend">
           <span class="about-legend-title">Pin colors</span>
@@ -174,7 +174,7 @@
             <li><span class="legend-dot friendly-country"></span> Halal-by-default country (green shading)</li>
           </ul>
         </div>
-        <p class="sub" style="margin-top:16px">Sibling project to <a href="index.html">BidetBud</a> — find masajid and restaurants with bidets.</p>
+        <p class="sub" style="margin-top:16px">Sibling project to <a href="index.html">BidetBud</a>: find masajid and restaurants with bidets.</p>
       </div>
     </div>
   </div>
@@ -210,10 +210,10 @@
     <button type="button" class="dialog-close" id="legendClose" aria-label="Close">×</button>
     <h2 id="legendTitle">Map legend</h2>
     <ul class="legend-list">
-      <li><span class="legend-dot verified"></span> <strong>Fully halal</strong> — entire menu is halal / zabiha</li>
-      <li><span class="legend-dot warmed"></span> <strong>Halal options</strong> — not fully halal, but halal dishes available</li>
-      <li><span class="legend-dot internet"></span> <strong>Web source</strong> — found online, not yet verified in person</li>
-      <li><span class="legend-dot friendly-country"></span> <strong>Halal-by-default country</strong> — meat is generally halal (green shading)</li>
+      <li><span class="legend-dot verified"></span> <strong>Fully halal</strong>: entire menu is halal / zabiha</li>
+      <li><span class="legend-dot warmed"></span> <strong>Halal options</strong>: not fully halal, but halal dishes available</li>
+      <li><span class="legend-dot internet"></span> <strong>Web source</strong>: found online, not yet verified in person</li>
+      <li><span class="legend-dot friendly-country"></span> <strong>Halal-by-default country</strong>: meat is generally halal (green shading)</li>
     </ul>
   </div>
 </div>
@@ -351,7 +351,7 @@
       ? '<a class="btn btn-ghost" href="index.html?spot='+encodeURIComponent(m.bidetSpotId)+'">View on BidetBud map</a>'
       : '<a class="btn btn-ghost" href="index.html">Browse BidetBud map</a>';
     return '<div class="bidet-callout"><p class="bidet-callout-title"><span class="tag tag-bidet">Bidet in restroom</span></p>'+
-      '<p class="sub">'+type+' — cross-referenced with <a href="index.html">BidetBud</a>.</p>'+
+      '<p class="sub">'+type+': cross-referenced with <a href="index.html">BidetBud</a>.</p>'+
       '<div class="dialog-actions" style="margin-top:10px">'+bidetLink+'</div></div>';
   }
 
@@ -719,7 +719,7 @@
       const cardClass = 'card '+cardStatusClass(m);
       const cuisineTag = m.cuisine ? '<span class="tag tag-bidet">'+escapeHtml(m.cuisine)+'</span>' : '';
       return '<article class="'+cardClass+'" data-id="'+m.id+'"><h3>'+highlight(m.name,q)+'</h3><div class="card-tags">'+halalTag(m)+sourceTag(m)+bidetTag(m)+cuisineTag+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+'<div class="card-meta"><span class="tag tag-type">'+escapeHtml(venueLabel(m))+'</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
-    }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing '+LIST_CAP+' of '+filtered.length+' — zoom the map or search to narrow results.</p>' : '');
+    }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing '+LIST_CAP+' of '+filtered.length+'. Zoom the map or search to narrow results.</p>' : '');
     el.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openDetail(c.dataset.id)));
   }
 
@@ -954,7 +954,7 @@
   function onHalalCountryFeature(feature, layer){
     const name = geoCountryName(feature);
     if(!HALAL_DEFAULT_GEO_NAMES.has(name)) return;
-    layer.bindTooltip(name+' — halal by default',{sticky:true,direction:'top',className:'bidet-country-tip'});
+    layer.bindTooltip(name+': halal by default',{sticky:true,direction:'top',className:'bidet-country-tip'});
     layer.on({
       mouseover(e){ e.target.setStyle({fillOpacity:0.58,weight:2}); },
       mouseout(e){ if(countriesLayer) countriesLayer.resetStyle(e.target); }
@@ -1155,7 +1155,7 @@
       const hint = location.protocol === 'file:'
         ? 'Open via http://localhost:8080/halal.html (not file://)'
         : (err && err.message ? err.message : 'Unknown error');
-      setLoadingStatus('Could not load restaurant data — ' + hint);
+      setLoadingStatus('Could not load restaurant data. ' + hint);
     }
   }
 
