@@ -213,7 +213,7 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json', { credentials: 'same-origin' })
       <button type="button" class="dialog-close" id="promoClose" aria-label="Close">×</button>
       <img class="promo-logo" src="images/bidetbud-logo.png" alt="" width="72" height="72" decoding="async">
       <h2 id="promoTitle">Help others find clean wudu spaces</h2>
-      <p class="promo-lead">BidetBud is community-built. Know a masjid or restaurant with a bidet? Use <strong>Add spot</strong> in the <strong>top right</strong> of the page anytime.</p>
+      <p class="promo-lead">BidetBud is community-built. Know a place with a bidet — or without? Use <strong>Add spot</strong> in the <strong>top right</strong> anytime.</p>
       <ol class="promo-steps">
         <li>Tap <strong>Add spot</strong> (top right of the header)</li>
         <li>Fill in the place name, city, and bidet details</li>
@@ -278,49 +278,29 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json', { credentials: 'same-origin' })
 <div class="overlay" id="addOverlay" role="dialog" aria-modal="true">
   <div class="dialog wide" id="addDialog">
     <button type="button" class="dialog-close" id="addClose" aria-label="Close">×</button>
-    <h2>Suggest a verified spot</h2>
-    <p class="sub" id="addIntro">Only confirmed bidets (TOTO, heated seat, handheld, etc.). Submissions are reviewed before appearing on the map.</p>
-    <p class="coord-hint" id="coordHint"></p>
-    <details class="add-pin-details" id="addPinDetails" open>
-      <summary>Set location pin *</summary>
-      <div id="addPickMapWrap" class="add-pick-wrap">
-        <div id="addPickMap" class="add-pick-map" role="application" aria-label="Pick location map"></div>
-      </div>
-    </details>
+    <h2>Suggest a spot</h2>
+    <p class="sub" id="addIntro">Name is enough — we’ll look it up. Every submission is reviewed before it goes live.</p>
     <div class="form" id="emailPanel">
       <label for="addName">Name *</label>
-      <input id="addName" required>
-      <label for="addAddress">Address</label>
-      <input id="addAddress">
-      <label for="addCity">City</label>
-      <input id="addCity">
-      <label for="addCountry">Country</label>
-      <input id="addCountry" value="USA">
-      <label for="addType">Type</label>
-      <select id="addType">
-        <option value="mosque">Masjid</option>
-        <option value="restaurant">Restaurant / café</option>
-        <option value="hotel">Hotel</option>
-        <option value="public">Public restroom</option>
-      </select>
-      <label for="addStatus">Bidet type</label>
-      <select id="addStatus">
-        <option value="verified">Verified bidet</option>
-        <option value="warmed">Heated seat / TOTO-style</option>
-      </select>
-      <label for="addEmail">Your email (optional)</label>
-      <input id="addEmail" type="email" placeholder="So we can follow up if needed">
-      <label for="addBidetType">Bidet details *</label>
-      <input id="addBidetType" required placeholder="e.g. TOTO Washlet, heated seat, handheld sprayer">
-      <label for="addNotes">Anything else?</label>
-      <textarea id="addNotes" placeholder="Restroom location, hours, tips…"></textarea>
+      <input id="addName" required placeholder="e.g. Masjid Al-Noor, Qahwah House">
+      <label for="addAddress">Where? <span class="label-optional">(optional)</span></label>
+      <input id="addAddress" placeholder="City, address, or neighborhood">
+      <span class="form-label" id="addHasBidetLabel">Bidet? *</span>
+      <div class="add-choice" role="radiogroup" aria-labelledby="addHasBidetLabel">
+        <label class="add-choice-opt">
+          <input type="radio" name="addHasBidet" value="verified" checked>
+          <span>Has bidet</span>
+        </label>
+        <label class="add-choice-opt">
+          <input type="radio" name="addHasBidet" value="none">
+          <span>No bidet</span>
+        </label>
+      </div>
+      <label for="addNotes">Note <span class="label-optional">(optional)</span></label>
+      <textarea id="addNotes" placeholder="Anything helpful — restroom tip, etc."></textarea>
       <input type="text" id="addHoney" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
-      <label for="addLat">Latitude</label>
-      <input id="addLat" type="number" step="any" placeholder="Click map to fill">
-      <label for="addLng">Longitude</label>
-      <input id="addLng" type="number" step="any">
       <div class="dialog-actions">
-        <button type="button" class="btn btn-primary" id="submitAdd">Submit spot</button>
+        <button type="button" class="btn btn-primary" id="submitAdd">Submit</button>
       </div>
     </div>
   </div>

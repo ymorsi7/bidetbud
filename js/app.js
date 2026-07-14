@@ -14,13 +14,12 @@
   const NO_BIDET = s => s === 'none';
   const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
-  let allLocations = [], userLocation = null, map, clusterGroup, pickMarker, countriesLayer;
+  let allLocations = [], userLocation = null, map, clusterGroup, countriesLayer;
   let lastFiltered = [];
   let refreshTimer = null;
   let mapMoveTimer = null;
   const LIST_CAP = 200;
   const MAP_MARKER_CAP = 2500;
-  let addPickMap, addPickMapMarker;
   let placeFilter = 'all', extraFilter = null, countryFilter = null, noBidetMode = false, showLimitedAccess = false;
   let nearMe = false, radiusMi = 50;
   let suppressUrlWrite = false, initialBoundsDone = false, activeSpotId = null;
@@ -294,60 +293,13 @@
     if(label) label.textContent = nearMe ? 'Near me ✓' : 'Near me';
   }
 
-  function setPickCoords(lat, lng, source){
-    document.getElementById('addLat').value = lat.toFixed(6);
-    document.getElementById('addLng').value = lng.toFixed(6);
-    showCoordHint(lat, lng);
-    if(source === 'main' && pickMarker && map){
-      pickMarker.setLatLng([lat, lng]);
-    } else if(source === 'add' && addPickMap){
-      if(addPickMapMarker) addPickMapMarker.setLatLng([lat, lng]);
-      else addPickMapMarker = L.marker([lat, lng], {icon:createIcon('verified'), draggable:true}).addTo(addPickMap);
-      addPickMapMarker.on('dragend', ()=>{
-        const ll = addPickMapMarker.getLatLng();
-        setPickCoords(ll.lat, ll.lng, 'add');
-      });
-      addPickMap.setView([lat, lng], Math.max(addPickMap.getZoom(), 15));
-    }
-  }
-
   function initSubmitPanel(){
     const intro = document.getElementById('addIntro');
     if(intro){
-      intro.textContent = 'Use the mini-map to drop a pin, then submit. Confirmed bidets only — we review every spot before it goes live.';
+      intro.textContent = 'Name is enough — we’ll look it up. Mark has bidet or no bidet. Every submission is reviewed before it goes live.';
     }
-    document.getElementById('addDialog')?.classList.remove('embed-mode');
     const emailPanel = document.getElementById('emailPanel');
     if(emailPanel) emailPanel.hidden = false;
-  }
-
-  function initAddPickMap(){
-    const el = document.getElementById('addPickMap');
-    if(!el || typeof L === 'undefined') return;
-    if(addPickMap){ addPickMap.invalidateSize(); return; }
-    const start = userLocation || {lat: 39.8283, lng: -98.5795};
-    addPickMap = L.map(el, {zoomControl:true, attributionControl:false}).setView([start.lat, start.lng], userLocation ? 12 : 4);
-    addCartoVoyagerTiles(addPickMap, false);
-    addPickMap.on('click', e=> setPickCoords(e.latlng.lat, e.latlng.lng, 'add'));
-    setTimeout(()=> addPickMap.invalidateSize(), 120);
-  }
-
-  function destroyAddPickMap(){
-    if(addPickMap){
-      addPickMap.remove();
-      addPickMap = null;
-      addPickMapMarker = null;
-    }
-  }
-
-  function showCoordHint(lat, lng){
-    const hint = document.getElementById('coordHint');
-    const text = lat.toFixed(6) + ', ' + lng.toFixed(6);
-    hint.textContent = 'Pin at ' + text;
-    hint.classList.add('show');
-    if(navigator.clipboard) navigator.clipboard.writeText(text).catch(()=>{});
-    const details = document.getElementById('addPinDetails');
-    if(details) details.open = true;
   }
 
   function validCoord(m){
@@ -375,12 +327,8 @@
     el.classList.toggle('open', open);
     const anyOpen = document.querySelector('.overlay.open');
     document.body.classList.toggle('modal-open', Boolean(anyOpen));
-    if(id === 'addOverlay'){
-      if(open){
-        setOverlayOpen('promoOverlay', false);
-      } else {
-        destroyAddPickMap();
-      }
+    if(id === 'addOverlay' && open){
+      setOverlayOpen('promoOverlay', false);
     }
     if(id === 'detailOverlay' && !open) activeSpotId = null;
     if(!open || id === 'detailOverlay') syncUrlFromState();
@@ -388,9 +336,7 @@
 
   function openAddForm(source){
     setOverlayOpen('addOverlay', true);
-    const pinDetails = document.getElementById('addPinDetails');
-    if(pinDetails) pinDetails.open = true;
-    setTimeout(initAddPickMap, 80);
+    document.getElementById('addName')?.focus();
     if(typeof window.trackEvent === 'function'){
       window.trackEvent('bidetbud_add_open', { source: source || 'unknown' });
     }
@@ -838,41 +784,37 @@
   }
 
   function resetAddForm(){
-    ['addName','addAddress','addCity','addEmail','addBidetType','addNotes','addLat','addLng'].forEach(id=>{
+    ['addName','addAddress','addNotes'].forEach(id=>{
       const el=document.getElementById(id); if(el) el.value='';
     });
-    document.getElementById('addCountry').value='USA';
-    document.getElementById('addType').value='mosque';
-    document.getElementById('addStatus').value='verified';
-    document.getElementById('coordHint').classList.remove('show');
-    if(pickMarker && map){ map.removeLayer(pickMarker); pickMarker=null; }
-    if(addPickMapMarker && addPickMap){ addPickMap.removeLayer(addPickMapMarker); addPickMapMarker=null; }
+    const has = document.querySelector('input[name="addHasBidet"][value="verified"]');
+    if(has) has.checked = true;
+  }
+
+  function getAddHasBidet(){
+    return document.querySelector('input[name="addHasBidet"]:checked')?.value || 'verified';
   }
 
   async function submitViaWeb3Forms(payload){
     if(!WEB3FORMS_ACCESS_KEY || WEB3FORMS_ACCESS_KEY === 'YOUR_WEB3FORMS_ACCESS_KEY'){
       throw new Error('Submissions are not set up yet.');
     }
+    const noBidet = payload.bidetStatus === 'none';
+    const mapsQuery = [payload.name, payload.address].filter(Boolean).join(', ');
     const body = {
       access_key: WEB3FORMS_ACCESS_KEY,
-      subject: 'BidetBud: new verified spot',
+      subject: noBidet ? 'BidetBud: no bidet report' : 'BidetBud: new verified spot',
       from_name: 'BidetBud',
       name: payload.name,
-      email: payload.email || 'noreply@bidetbud.com',
-      submitter_email: payload.email || '(not provided)',
+      email: 'noreply@bidetbud.com',
       address: payload.address || '(not provided)',
-      city: payload.city || '(not provided)',
-      country: payload.country,
-      type: payload.type,
-      bidet_status: payload.bidetStatus,
-      bidet_details: payload.bidetType,
-      latitude: payload.latitude,
-      longitude: payload.longitude,
+      bidet_status: noBidet ? 'no bidet' : 'has bidet',
       notes: payload.notes || '(none)',
-      maps_link: 'https://www.google.com/maps/search/?api=1&query=' + payload.latitude + ',' + payload.longitude,
+      lookup_link: mapsQuery
+        ? ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapsQuery))
+        : '(none)',
       botcheck: ''
     };
-    if(payload.email) body.replyto = payload.email;
     const res = await fetch('https://api.web3forms.com/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
@@ -1030,16 +972,6 @@
       window.visualViewport.addEventListener('resize',()=>{ if(map) map.invalidateSize(); });
     }
     window.addEventListener('resize',()=>{ if(map) map.invalidateSize(); });
-    map.on('click', e=>{
-      if(!document.getElementById('addOverlay').classList.contains('open')) return;
-      setPickCoords(e.latlng.lat, e.latlng.lng, 'main');
-      if(pickMarker) map.removeLayer(pickMarker);
-      pickMarker = L.marker(e.latlng,{icon:createIcon('verified'), draggable:true}).addTo(map);
-      pickMarker.on('dragend', ()=>{
-        const ll = pickMarker.getLatLng();
-        setPickCoords(ll.lat, ll.lng, 'main');
-      });
-    });
   }
 
   function initLegendHelp(){
@@ -1077,10 +1009,6 @@
     initMenu();
     initPullRefresh();
     initPromoPopup();
-
-    document.getElementById('addPinDetails')?.addEventListener('toggle', e=>{
-      if(e.target.open) setTimeout(initAddPickMap, 80);
-    });
 
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', ()=>{
@@ -1201,25 +1129,16 @@
       const btn = document.getElementById('submitAdd');
       if(document.getElementById('addHoney').value) return;
       const name=document.getElementById('addName').value.trim();
-      const lat=+document.getElementById('addLat').value, lng=+document.getElementById('addLng').value;
-      const status=document.getElementById('addStatus').value;
-      const bidetType=document.getElementById('addBidetType').value.trim();
-      if(!name||isNaN(lat)||isNaN(lng)||!bidetType){
-        alert('Name, bidet details, and a map pin are required.');
+      if(!name){
+        alert('Please enter a place name.');
+        document.getElementById('addName')?.focus();
         return;
       }
-      if(!HAS_BIDET(status)){ alert('Only verified or heated bidets can be submitted.'); return; }
+      const bidetStatus = getAddHasBidet();
       const payload={
         name,
-        email: document.getElementById('addEmail').value.trim(),
         address: document.getElementById('addAddress').value.trim(),
-        city: document.getElementById('addCity').value.trim(),
-        country: document.getElementById('addCountry').value.trim()||'USA',
-        type: document.getElementById('addType').value,
-        bidetStatus: status,
-        bidetType,
-        latitude: String(lat),
-        longitude: String(lng),
+        bidetStatus,
         notes: document.getElementById('addNotes').value.trim()
       };
       const prev = btn.textContent;
@@ -1230,7 +1149,9 @@
         setOverlayOpen('addOverlay', false);
         resetAddForm();
         showThankYou();
-        if(typeof window.trackEvent === 'function') window.trackEvent('bidetbud_add_submit', { type: payload.type });
+        if(typeof window.trackEvent === 'function'){
+          window.trackEvent('bidetbud_add_submit', { bidet: bidetStatus === 'none' ? 'none' : 'yes' });
+        }
       } catch (err) {
         alert(err.message || 'Could not send submission.');
       } finally {
