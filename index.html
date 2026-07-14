@@ -27,7 +27,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
-<link rel="stylesheet" href="css/app.css">
+<link rel="stylesheet" href="css/app.css?v=20260714c">
 <link rel="preload" href="bidet-seed.json" as="fetch" crossorigin>
 <script>
 window.__BIDET_SEED_P = fetch('bidet-seed.json', { credentials: 'same-origin' })
@@ -36,10 +36,10 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json', { credentials: 'same-origin' })
 <link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="preload" href="vendor/leaflet.js" as="script">
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
-<link rel="preload" href="js/app.js" as="script">
+<link rel="preload" href="js/app.js?v=20260714c" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
-<script src="js/app.js" defer></script>
+<script src="js/app.js?v=20260714c" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -286,9 +286,9 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json', { credentials: 'same-origin' })
       <label for="addAddress">Where? <span class="label-optional">(optional)</span></label>
       <input id="addAddress" placeholder="City, address, or neighborhood">
       <p class="form-label" id="addHasBidetLabel">Bidet?</p>
-      <div class="add-choice" role="group" aria-labelledby="addHasBidetLabel">
-        <button type="button" class="add-choice-btn is-selected" data-value="verified" aria-pressed="true">Has bidet</button>
-        <button type="button" class="add-choice-btn" data-value="none" aria-pressed="false">No bidet</button>
+      <div class="segmented add-bidet-segmented" role="group" aria-labelledby="addHasBidetLabel">
+        <button type="button" class="active" data-value="verified" aria-pressed="true">Has bidet</button>
+        <button type="button" data-value="none" aria-pressed="false">No bidet</button>
       </div>
       <input type="hidden" id="addHasBidet" value="verified">
       <label for="addNotes">Note <span class="label-optional">(optional)</span></label>

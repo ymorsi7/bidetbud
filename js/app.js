@@ -300,7 +300,7 @@
     }
     const emailPanel = document.getElementById('emailPanel');
     if(emailPanel) emailPanel.hidden = false;
-    document.querySelectorAll('#addDialog .add-choice-btn').forEach(btn=>{
+    document.querySelectorAll('#addDialog .add-bidet-segmented button').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         setAddHasBidet(btn.dataset.value || 'verified');
       });
@@ -311,9 +311,9 @@
     const v = value === 'none' ? 'none' : 'verified';
     const hidden = document.getElementById('addHasBidet');
     if(hidden) hidden.value = v;
-    document.querySelectorAll('#addDialog .add-choice-btn').forEach(btn=>{
+    document.querySelectorAll('#addDialog .add-bidet-segmented button').forEach(btn=>{
       const on = btn.dataset.value === v;
-      btn.classList.toggle('is-selected', on);
+      btn.classList.toggle('active', on);
       btn.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
   }
@@ -323,7 +323,16 @@
     return !isNaN(lat)&&!isNaN(lng)&&lat>=-90&&lat<=90&&lng>=-180&&lng<=180;
   }
 
-  function escapeHtml(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  function stripEmDash(s){
+    return String(s)
+      .replace(/\s*\u2014\s*/g, ': ')
+      .replace(/\u2013/g, '-')
+      .replace(/(\w) +: /g, '$1: ')
+      .replace(/: {2,}/g, ': ');
+  }
+  function escapeHtml(s){
+    return stripEmDash(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
   function highlight(text,q){
     if(!q||!text) return escapeHtml(text||'');
     const t=String(text), i=t.toLowerCase().indexOf(q);
@@ -619,7 +628,7 @@
     const markers = mapRows.map(m=>{
       const marker = L.marker([+m.latitude,+m.longitude],{icon:createIcon(m.bidetStatus,m.access)});
       marker.on('click',()=>openDetail(m.id));
-      const tip = m.access==='limited' ? m.name + ' (limited access)' : m.name;
+      const tip = stripEmDash(m.access==='limited' ? m.name + ' (limited access)' : m.name);
       marker.bindTooltip(tip,{direction:'top',offset:[0,-12]});
       return marker;
     });
@@ -851,7 +860,7 @@
 
   function onBidetCountryFeature(feature, layer){
     if(!BIDET_FRIENDLY_GEO_NAMES.has(feature.properties.name)) return;
-    layer.bindTooltip(feature.properties.name + ': bidet-friendly country', {
+    layer.bindTooltip(stripEmDash(feature.properties.name) + ': bidet-friendly country', {
       sticky: true,
       direction: 'top',
       className: 'bidet-country-tip'
