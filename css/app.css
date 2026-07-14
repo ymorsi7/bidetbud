@@ -200,6 +200,8 @@ body.modal-open{overflow:hidden}
 .detail-actions .btn-primary{flex:1;min-width:120px}
 .share-actions{flex-direction:column}
 .share-actions .btn{width:100%}
+.thank-share-label{margin:18px 0 0;font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.thank-share-actions{margin-top:8px}
 .verified-note{font-size:.8125rem;color:var(--brand-deep);font-weight:600;margin:8px 0 0}
 .report-link{margin-top:16px;font-size:.75rem;text-align:center}
 .report-link a{color:var(--muted);font-weight:600}

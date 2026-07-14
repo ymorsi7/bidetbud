@@ -415,13 +415,25 @@
     const shareText = encodeURIComponent('Find masajid and restaurants with bidets. BidetBud');
     document.getElementById('thankYouContent').innerHTML =
       '<h2>Thanks for contributing!</h2>'+
-      '<p class="sub">We review every submission. Share BidetBud with your community:</p>'+
+      '<p class="sub">We review every submission before it goes live.</p>'+
       '<div class="dialog-actions share-actions">'+
-      '<a class="btn btn-primary" href="https://wa.me/?text='+shareText+'%20'+shareUrl+'" target="_blank" rel="noopener">Share on WhatsApp</a>'+
+      '<button type="button" class="btn btn-primary" id="addAnotherSpot">Add another spot</button>'+
+      '<button type="button" class="btn btn-ghost" id="thankYouDone">Done</button>'+
+      '</div>'+
+      '<p class="sub thank-share-label">Share BidetBud:</p>'+
+      '<div class="dialog-actions share-actions thank-share-actions">'+
+      '<a class="btn btn-ghost" href="https://wa.me/?text='+shareText+'%20'+shareUrl+'" target="_blank" rel="noopener">WhatsApp</a>'+
       '<a class="btn btn-ghost" href="https://t.me/share/url?url='+shareUrl+'&text='+shareText+'" target="_blank" rel="noopener">Telegram</a>'+
       '<button type="button" class="btn btn-ghost" id="copySiteLink">Copy link</button>'+
       '</div>';
     setOverlayOpen('thankYouOverlay', true);
+    document.getElementById('addAnotherSpot')?.addEventListener('click', ()=>{
+      setOverlayOpen('thankYouOverlay', false);
+      openAddForm('add_another');
+    });
+    document.getElementById('thankYouDone')?.addEventListener('click', ()=>{
+      setOverlayOpen('thankYouOverlay', false);
+    });
     document.getElementById('copySiteLink')?.addEventListener('click', ()=>{
       navigator.clipboard?.writeText(SITE_URL).then(()=> alert('Link copied!')).catch(()=>{});
     });
