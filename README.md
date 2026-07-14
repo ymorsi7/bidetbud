@@ -1,6 +1,6 @@
 # BidetBud
 
-A free map of places with bidets — masajid, restaurants, hotels, and public restrooms.
+A free map of places with bidets :  masajid, restaurants, hotels, and public restrooms.
 
 **Live:** [bidetbud.com](https://bidetbud.com/)
 
@@ -22,7 +22,7 @@ Statuses on the map:
 |--------|---------|
 | Verified | Someone confirmed it in person |
 | Heated | Manufacturer install (TOTO WASHLET, Geberit AquaClean, etc.) |
-| Web | Cited online source — not yet personally checked |
+| Web | Cited online source :  not yet personally checked |
 
 ## Run locally
 
@@ -31,7 +31,7 @@ python3 -m http.server 8080
 # open http://localhost:8080
 ```
 
-Don’t open `index.html` as a `file://` URL — some assets and GeoJSON need HTTP.
+Don’t open `index.html` as a `file://` URL :  some assets and GeoJSON need HTTP.
 
 ## Layout
 
@@ -84,4 +84,4 @@ Please keep diffs focused. Only add places with explicit bidet evidence.
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT :  see [LICENSE](LICENSE).
