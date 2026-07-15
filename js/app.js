@@ -135,7 +135,7 @@
   function buildSearchMeta(m){
     const words = nameWords(m.name);
     const acronym = words.map(w => w[0]).join('');
-    const hay = normalizeSearchText([m.name, m.city, m.address, m.country, m.bidetType].filter(Boolean).join(' '));
+    const hay = normalizeSearchText([m.name, m.city, m.address, m.country, m.bidetType, m.searchAliases].filter(Boolean).join(' '));
     const aliases = new Set([acronym]);
     if(m.searchAliases){
       String(m.searchAliases).split(/[,;|]/).forEach(a => {
@@ -246,8 +246,21 @@
   function setNoBidetMode(on){
     noBidetMode = Boolean(on);
     // Status filters (verified/heated/web) don't apply to no-bidet records.
-    if(noBidetMode && (extraFilter==='verified' || extraFilter==='warmed' || extraFilter==='internet')){
-      extraFilter = null;
+    if(noBidetMode){
+      if(extraFilter==='verified' || extraFilter==='warmed' || extraFilter==='internet'){
+        extraFilter = null;
+      }
+      // Masajid/Restaurants filter would hide cafe reports like Pleasanton Qamaria.
+      placeFilter = 'all';
+      if(nearMe){
+        nearMe = false;
+        updateNearMeUi();
+      }
+      const si = document.getElementById('searchInput');
+      if(si && si.value.trim()){
+        si.value = '';
+        hideSearchAc();
+      }
     }
     initialBoundsDone = false;
     updateFilterUi();
@@ -464,11 +477,17 @@
     const q = getQuery();
     return allLocations.filter(m=>{
       if(!validCoord(m)) return false;
+      const isNone = NO_BIDET(m.bidetStatus);
       if(noBidetMode){
-        if(!NO_BIDET(m.bidetStatus)) return false;
-      } else if(!HAS_BIDET(m.bidetStatus)) return false;
-      if(placeFilter==='mosque' && m.type!=='mosque') return false;
-      if(placeFilter==='restaurant' && m.type!=='restaurant') return false;
+        if(!isNone) return false;
+      } else if(!HAS_BIDET(m.bidetStatus)){
+        // No-bidet spots stay off the default map, but show up when searched by name.
+        if(!(isNone && q)) return false;
+      }
+      if(!noBidetMode){
+        if(placeFilter==='mosque' && m.type!=='mosque') return false;
+        if(placeFilter==='restaurant' && m.type!=='restaurant') return false;
+      }
       if(extraFilter==='warmed' && m.bidetStatus!=='warmed') return false;
       if(extraFilter==='verified' && m.bidetStatus!=='verified') return false;
       if(extraFilter==='internet' && m.bidetStatus!=='internet') return false;
