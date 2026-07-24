@@ -21,7 +21,7 @@
   const LIST_CAP = 200;
   const MAP_MARKER_CAP = 2500;
   let placeFilter = 'all', extraFilter = null, countryFilter = null, noBidetMode = false, showLimitedAccess = false;
-  let nearMe = false, radiusMi = 50;
+  let nearMe = false, radiusMi = 50, nearMeFitPending = false;
   let suppressUrlWrite = false, initialBoundsDone = false, activeSpotId = null;
 
   // Countries where bidets, washlets, or handheld sprayers are the norm, not spot-level exceptions.
@@ -89,6 +89,53 @@
     const R=3959,dLat=(b.lat-a.lat)*Math.PI/180,dLng=(b.lng-a.lng)*Math.PI/180;
     const x=Math.sin(dLat/2)**2+Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLng/2)**2;
     return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
+  }
+
+  function boundsSpanDeg(bounds){
+    if(!bounds || !bounds.isValid()) return 0;
+    return Math.max(
+      Math.abs(bounds.getNorth() - bounds.getSouth()),
+      Math.abs(bounds.getEast() - bounds.getWest())
+    );
+  }
+
+  function nearMeEmptyZoom(){
+    if(radiusMi <= 25) return 11;
+    if(radiusMi <= 50) return 10;
+    return 9;
+  }
+
+  function nearMeMaxZoom(span, count){
+    if(count <= 1) return 14;
+    if(span > 0.75) return 10;
+    if(span > 0.28) return 11;
+    if(span > 0.12) return 12;
+    if(span > 0.05) return 13;
+    if(span > 0.02) return 14;
+    return 15;
+  }
+
+  function fitNearMeView(filtered){
+    if(!map || !userLocation || !nearMe) return;
+    const userPt = [userLocation.lat, userLocation.lng];
+    if(!filtered.length){
+      map.setView(userPt, nearMeEmptyZoom(), { animate: false });
+      return;
+    }
+    const bounds = L.latLngBounds([userPt]);
+    filtered.forEach(m => bounds.extend([+m.latitude, +m.longitude]));
+    if(!bounds.isValid()) return;
+    const span = boundsSpanDeg(bounds);
+    const pad = filtered.length <= 2 ? 0.38
+      : filtered.length <= 6 ? 0.26
+      : filtered.length <= 15 ? 0.18
+      : filtered.length <= 40 ? 0.12
+      : 0.08;
+    map.fitBounds(bounds.pad(pad), {
+      maxZoom: nearMeMaxZoom(span, filtered.length),
+      animate: false,
+      padding: [52, 52]
+    });
   }
 
   function normalizeSeed(row){
@@ -821,6 +868,10 @@
     lastFiltered = filterLocations();
     renderList(lastFiltered);
     renderMap(lastFiltered);
+    if(nearMeFitPending && nearMe && userLocation){
+      fitNearMeView(lastFiltered);
+      nearMeFitPending = false;
+    }
     updateFilterUi();
     syncUrlFromState();
     if(map) setTimeout(()=>map.invalidateSize(), 0);
@@ -1110,6 +1161,7 @@
     document.querySelectorAll('#radiusRow button').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         radiusMi = parseInt(btn.dataset.radius, 10);
+        if(nearMe) nearMeFitPending = true;
         updateFilterUi();
         refresh();
       });
@@ -1119,6 +1171,7 @@
       if(nearMe){
         nearMe = false;
         userLocation = null;
+        nearMeFitPending = false;
         updateNearMeUi();
         updateFilterUi();
         refresh();
@@ -1128,10 +1181,10 @@
       navigator.geolocation.getCurrentPosition(pos=>{
         userLocation = {lat:pos.coords.latitude,lng:pos.coords.longitude};
         nearMe = true;
+        nearMeFitPending = true;
         updateNearMeUi();
         updateFilterUi();
         if(isMobile()) setMobileView('map');
-        if(map) map.setView([userLocation.lat,userLocation.lng],10);
         refresh();
         maybeShowPromo('nearme');
       },()=>alert('Could not get your location.'));
