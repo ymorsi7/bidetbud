@@ -10,7 +10,7 @@ Guide for AI agents and contributors working in this repository.
 - **Stack:** Single HTML page + CSS. No build step, no backend, no framework.
 - **Map:** Leaflet + MarkerCluster (bundled inline in `index.html`)
 - **Data:** `bidet-seed.json` fetched async at boot (`data/bidet-restaurants.json` is the full source of truth)
-- **Submissions:** In-page form via Web3Forms (`WEB3FORMS_ACCESS_KEY` in `index.html`)
+- **Submissions:** In-page form via Web3Forms (`WEB3FORMS_ACCESS_KEY` in `js/app.js`; public client key)
 - **Analytics:** GoatCounter (`bidetbud.goatcounter.com`)
 
 Related but separate project: [bidetbud.com](https://www.bidetbud.com/) is the Singapore-only PWA (“Bidet Bud SG”). Singapore data for this repo is imported from its public JSON export.
