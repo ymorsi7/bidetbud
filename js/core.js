@@ -104,6 +104,22 @@
     return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
   }
 
+  const FRIENDLY_SHADE_EXCLUDE_GEO = ['Singapore'];
+
+  function geoCountryName(feature){
+    const p = feature.properties || {};
+    return p.ADMIN || p.name || p.NAME || p.name_long || '';
+  }
+
+  function shouldShadeBidetFriendly(feature, friendlyGeoNames, excludeGeoNames){
+    const exclude = excludeGeoNames instanceof Set
+      ? excludeGeoNames
+      : new Set(excludeGeoNames || FRIENDLY_SHADE_EXCLUDE_GEO);
+    const name = geoCountryName(feature);
+    if(!name || exclude.has(name)) return false;
+    return friendlyGeoNames.has(name);
+  }
+
   return {
     DENSE_METROS,
     haversineMiles,
@@ -116,6 +132,9 @@
     formatBidetType,
     verificationPlainText,
     bidetLeadLabel,
-    boxesOverlap
+    boxesOverlap,
+    geoCountryName,
+    shouldShadeBidetFriendly,
+    FRIENDLY_SHADE_EXCLUDE_GEO
   };
 });

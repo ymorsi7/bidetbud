@@ -1,6 +1,5 @@
 (function(){
-  // Web3Forms access key (public, safe in client code). Get a free key at https://web3forms.com
-  // Submissions and reports are emailed to the address tied to this key.
+  // Web3Forms access key — public client key (safe in source per web3forms.com docs).
   const WEB3FORMS_ACCESS_KEY = 'b0f5343d-1608-4224-a49a-d32d13fbbdfe';
   const SITE_URL = 'https://bidetbud.com/';
   const COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'France', 'Russia', 'China'];
@@ -57,9 +56,10 @@
   function isBidetFriendlyCountry(country){
     return BIDET_FRIENDLY_COUNTRY_SET.has(String(country || '').trim().toLowerCase());
   }
-  // Lightweight Natural Earth 110m boundaries (~250 KB) instead of the full-res
-  // datasets/geo-countries file (~14.6 MB). Same `properties.name` schema.
-  const BIDET_COUNTRY_GEOJSON_URL = 'https://raw.githubusercontent.com/johan/world.geo.json/master/countries.geo.json';
+  // Natural Earth 50m — johan/world.geo.json omits Singapore (SG falls inside Malaysia's polygon).
+  const BIDET_COUNTRY_GEOJSON_URL = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson';
+  // Never shade these as bidet-friendly even if a coarse polygon swallows them.
+  const FRIENDLY_SHADE_EXCLUDE_GEO = new Set(['Singapore']);
 
   function addCartoVoyagerTiles(targetMap, showAttribution, noWrap){
     L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
@@ -1420,16 +1420,32 @@
     return true;
   }
 
+  function shouldShadeBidetFriendly(feature){
+    if(core.shouldShadeBidetFriendly){
+      return core.shouldShadeBidetFriendly(feature, BIDET_FRIENDLY_GEO_NAMES, new Set(FRIENDLY_SHADE_EXCLUDE_GEO));
+    }
+    const name = geoCountryName(feature);
+    if(!name || FRIENDLY_SHADE_EXCLUDE_GEO.has(name)) return false;
+    return BIDET_FRIENDLY_GEO_NAMES.has(name);
+  }
+
+  function geoCountryName(feature){
+    if(core.geoCountryName) return core.geoCountryName(feature);
+    const p = feature.properties || {};
+    return p.ADMIN || p.name || p.NAME || p.name_long || '';
+  }
+
   function bidetCountryStyle(feature){
-    if(!BIDET_FRIENDLY_GEO_NAMES.has(feature.properties.name)){
+    if(!shouldShadeBidetFriendly(feature)){
       return { fillOpacity: 0, opacity: 0, weight: 0, interactive: false };
     }
     return { fillColor: '#34d399', fillOpacity: 0.42, color: '#059669', weight: 1.25, opacity: 0.9 };
   }
 
   function onBidetCountryFeature(feature, layer){
-    if(!BIDET_FRIENDLY_GEO_NAMES.has(feature.properties.name)) return;
-    layer.bindTooltip(stripEmDash(feature.properties.name) + ': bidet-friendly country', {
+    const name = geoCountryName(feature);
+    if(!shouldShadeBidetFriendly(feature)) return;
+    layer.bindTooltip(stripEmDash(name) + ': bidet-friendly country', {
       sticky: true,
       direction: 'top',
       className: 'bidet-country-tip'

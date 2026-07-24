@@ -20,6 +20,8 @@ const {
   boxesOverlap
 } = core;
 
+const { geoCountryName, shouldShadeBidetFriendly } = core;
+
 describe('haversineMiles', () => {
   it('returns ~0 for same point', () => {
     const p = { lat: 40.7128, lng: -74.006 };
@@ -116,5 +118,21 @@ describe('boxesOverlap', () => {
     const c = { left: 20, top: 20, right: 30, bottom: 30 };
     assert.equal(boxesOverlap(a, b), true);
     assert.equal(boxesOverlap(a, c), false);
+  });
+});
+
+describe('shouldShadeBidetFriendly', () => {
+  const friendly = new Set(['Malaysia', 'Indonesia', 'Japan']);
+
+  it('never shades Singapore (has its own pins, not bidet-by-default)', () => {
+    assert.equal(shouldShadeBidetFriendly({ properties: { ADMIN: 'Singapore' } }, friendly), false);
+  });
+
+  it('still shades Malaysia', () => {
+    assert.equal(shouldShadeBidetFriendly({ properties: { ADMIN: 'Malaysia' } }, friendly), true);
+  });
+
+  it('reads Natural Earth ADMIN property', () => {
+    assert.equal(geoCountryName({ properties: { ADMIN: 'Singapore' } }), 'Singapore');
   });
 });

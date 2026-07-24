@@ -1,0 +1,4 @@
+# Web3Forms access keys are public client keys (see web3forms.com dashboard).
+matches-ignore:
+  - name: Web3Forms public access key (BidetBud)
+    match: b0f5343d-1608-4224-a49a-d32d13fbbdfe
