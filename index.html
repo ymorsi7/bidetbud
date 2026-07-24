@@ -27,19 +27,39 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
-<link rel="stylesheet" href="css/app.css?v=20260714f">
-<link rel="preload" href="bidet-seed.json?v=20260714f" as="fetch" crossorigin>
+<link rel="stylesheet" href="css/app.css?v=20260724c">
+<link rel="preload" href="bidet-seed.json?v=20260724c" as="fetch" crossorigin>
 <script>
-window.__BIDET_SEED_P = fetch('bidet-seed.json?v=20260714f', { credentials: 'same-origin' })
-  .then(function (r) { if (!r.ok) throw new Error('Could not load map data'); return r.json(); });
+window.__BIDET_SEED_P = (function(){
+  var url = 'bidet-seed.json?v=20260724c';
+  var live = fetch(url, { credentials: 'same-origin' })
+    .then(function(r){ if(!r.ok) throw new Error('Could not load map data'); return r.json(); })
+    .then(function(data){
+      try { localStorage.setItem('bb_seed_cache_v1', JSON.stringify(data)); } catch(e) {}
+      return data;
+    });
+  try {
+    var cached = localStorage.getItem('bb_seed_cache_v1');
+    if(cached){
+      var parsed = JSON.parse(cached);
+      if(Array.isArray(parsed) && parsed.length){
+        live.catch(function(){});
+        return Promise.resolve(parsed);
+      }
+    }
+  } catch(e) {}
+  return live;
+})();
 </script>
 <link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="preload" href="vendor/leaflet.js" as="script">
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
-<link rel="preload" href="js/app.js?v=20260724b" as="script">
+<link rel="preload" href="js/core.js?v=20260724d" as="script">
+<link rel="preload" href="js/app.js?v=20260724d" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
-<script src="js/app.js?v=20260724b" defer></script>
+<script src="js/core.js?v=20260724d" defer></script>
+<script src="js/app.js?v=20260724d" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -91,6 +111,9 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json?v=20260714f', { credentials: 'sam
         <div class="menu-wrap">
           <button type="button" class="btn btn-ghost btn-icon-only" id="menuBtn" aria-label="Menu" aria-haspopup="true"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
           <div class="menu-drop" id="menuDrop" hidden role="menu">
+            <button type="button" role="menuitem" id="menuCopyView">Copy link to this view</button>
+            <button type="button" role="menuitem" id="menuTrip">Saved spots</button>
+            <button type="button" role="menuitem" id="menuNotify">Notify me for a city</button>
             <button type="button" role="menuitem" id="menuAbout">About</button>
             <button type="button" role="menuitem" id="menuLegend">Map legend</button>
             <a class="menu-drop-link" role="menuitem" href="halal.html">HalalBud map</a>
@@ -98,6 +121,10 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json?v=20260714f', { credentials: 'sam
             <a class="menu-drop-link" role="menuitem" href="https://youtu.be/sQQ-bVxjqWc?si=QYB2L2aDgYlc6JRc" target="_blank" rel="noopener noreferrer">Demo video</a>
           </div>
         </div>
+        <button type="button" class="btn btn-ghost" id="tripBtn" aria-label="Saved spots" title="Saved spots">
+          <svg class="btn-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <span class="btn-label">Saved</span>
+        </button>
         <button type="button" class="btn btn-ghost" id="nearMeBtn" aria-label="Find places near me">
           <svg class="btn-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/></svg>
           <span class="btn-label">Near me</span>
@@ -115,28 +142,49 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json?v=20260714f', { credentials: 'sam
   <div class="app-main" id="appMain">
     <div class="map-wrap">
       <div id="map" role="application" aria-label="Map of bidet locations"></div>
-      <div class="map-legend" aria-label="Map legend">
-        <span class="legend-title">Legend</span>
-        <div class="legend-items">
-          <span class="legend-item"><span class="legend-dot verified"></span> Verified</span>
-          <span class="legend-item"><span class="legend-dot warmed"></span> Heated</span>
-          <span class="legend-item"><span class="legend-dot internet"></span> Web</span>
-          <span class="legend-item"><span class="legend-dot limited"></span> Limited</span>
-          <span class="legend-item legend-item--none" id="legendNone" hidden><span class="legend-dot none"></span> No bidet</span>
+      <div class="map-legend-stack">
+        <div class="map-legend-tip" id="legendTip" hidden role="status">
+          <p>Colors match map pins. Turn on <strong>No bidet</strong> in filters to show gray no-bidet spots.</p>
+          <button type="button" class="btn btn-ghost btn-sm" id="legendTipDismiss">Got it</button>
         </div>
-        <button type="button" class="legend-help-btn" id="legendHelpBtn" aria-label="Open full map legend">
-          <svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-        </button>
+        <div class="map-legend" aria-label="Map legend">
+          <span class="legend-title">Legend</span>
+          <div class="legend-items">
+            <span class="legend-item"><span class="legend-dot verified"></span> Verified</span>
+            <span class="legend-item"><span class="legend-dot warmed"></span> Heated</span>
+            <span class="legend-item"><span class="legend-dot internet"></span> Web</span>
+            <span class="legend-item"><span class="legend-dot limited"></span> Limited</span>
+            <span class="legend-item legend-item--none" id="legendNone" hidden><span class="legend-dot none"></span> No bidet</span>
+          </div>
+          <button type="button" class="legend-help-btn" id="legendHelpBtn" aria-label="Open full map legend">
+            <svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          </button>
+        </div>
       </div>
     </div>
     <aside class="sidebar" aria-label="Location list">
       <div class="sidebar-head">
+        <div class="quick-chips" id="quickChips" aria-label="Quick searches">
+          <button type="button" class="chip quick-chip" data-quick="near-masjid">Masajid near me</button>
+          <button type="button" class="chip quick-chip" data-quick="near-restaurant">Restaurants near me</button>
+          <button type="button" class="chip quick-chip" data-quick="no-bidet">No bidet spots</button>
+        </div>
+        <div class="filter-banner filter-banner--none" id="noBidetBanner" hidden>
+          Showing places <em>without</em> a bidet. Turn off <strong>No bidet</strong> to see verified spots.
+        </div>
+        <div class="filter-banner filter-banner--hint" id="noBidetSearchHint" hidden></div>
         <div class="filter-row">
           <div class="segmented" id="placeFilter" role="group" aria-label="Place type">
             <button type="button" class="active" data-type="all">All</button>
             <button type="button" data-type="mosque">Masajid</button>
             <button type="button" data-type="restaurant">Restaurants</button>
+            <button type="button" data-type="hotel">Hotels</button>
+            <button type="button" data-type="public">Public</button>
           </div>
+          <button type="button" class="btn btn-ghost mobile-filter-btn" id="mobileFilterBtn" aria-label="All filters">
+            <svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+            Filters
+          </button>
           <div class="filter-toggles">
             <button type="button" class="filter-toggle limited-access-toggle" id="limitedAccessToggle" aria-pressed="false" aria-label="Include guests-only spots" title="Include hotels and restrooms that aren't open to the general public">
               <svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
@@ -167,13 +215,22 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json?v=20260714f', { credentials: 'sam
         </div>
         <div class="radius-row" id="radiusRow" hidden>
           <span class="radius-label">Radius:</span>
+          <button type="button" class="chip" data-radius="5">5 mi</button>
+          <button type="button" class="chip" data-radius="10">10 mi</button>
           <button type="button" class="chip" data-radius="25">25 mi</button>
           <button type="button" class="chip active" data-radius="50">50 mi</button>
           <button type="button" class="chip" data-radius="100">100 mi</button>
+          <button type="button" class="chip unit-toggle" id="unitToggle" aria-pressed="false" title="Switch miles / kilometers">mi</button>
         </div>
+        <p class="near-me-hint" id="nearMeHint" hidden></p>
+        <div class="active-filters" id="activeFilters" hidden aria-label="Active filters"></div>
         <p class="count-line" id="countLabel">Loading…</p>
       </div>
-      <div id="locationList"></div>
+      <div id="locationList" class="location-list-loading">
+        <div class="skeleton-card" aria-hidden="true"></div>
+        <div class="skeleton-card" aria-hidden="true"></div>
+        <div class="skeleton-card" aria-hidden="true"></div>
+      </div>
     </aside>
   </div>
 
@@ -192,7 +249,7 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json?v=20260714f', { credentials: 'sam
         <p>As someone who travels regularly between the US and the Middle East, I noticed one thing the West evidently still hasn't figured out: bidets.</p>
         <p>In the Middle East, bidets are something you just don't have to think about &mdash; a convenience we don't realize we're spoiled with until we return to the West.</p>
         <p>This has been ruffling my feathers for years, so I built BidetBud: a free map where you can find masajid, restaurants, hotels, and public spots that actually have bidets / washlets across the US, Canada, and the UK.</p>
-        <p>There are hundreds of pins on the map already, but its usefulness grows with every spot the community adds. If you know one, add it &mdash; it takes a minute. Name, address, done.</p>
+        <p>There are hundreds of pins on the map already, but its usefulness grows with every spot the community adds. If you know one, add it: name only is enough.</p>
         <div class="about-legend">
           <span class="about-legend-title">Pin colors</span>
           <ul class="about-legend-list">
@@ -245,6 +302,7 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json?v=20260714f', { credentials: 'sam
       <span aria-hidden="true">·</span>
       <a class="youtube-demo-footer" href="https://youtu.be/sQQ-bVxjqWc?si=QYB2L2aDgYlc6JRc" target="_blank" rel="noopener noreferrer" aria-label="Watch BidetBud demo on YouTube"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg><span>Demo</span></a>
     </nav>
+    <p class="site-footer-cta"><button type="button" class="footer-cta-btn" id="footerAddBtn">Know a spot? Add it in 10 seconds.</button></p>
     <p class="site-footer-tagline">Built with passion &lt;3 · <span id="footerYear"></span></p>
   </footer>
 </div>
@@ -253,6 +311,49 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json?v=20260714f', { credentials: 'sam
   <div class="dialog detail-dialog" id="detailDialog">
     <button type="button" class="dialog-close" id="detailClose" aria-label="Close">×</button>
     <div id="detailContent"></div>
+    <div class="detail-sticky-footer" id="detailStickyFooter" hidden></div>
+  </div>
+</div>
+
+<div class="overlay" id="tripOverlay" role="dialog" aria-modal="true" aria-labelledby="tripTitle">
+  <div class="dialog" id="tripDialog">
+    <button type="button" class="dialog-close" id="tripClose" aria-label="Close">×</button>
+    <h2 id="tripTitle">Saved spots</h2>
+    <p class="sub">Your trip list is stored on this device only.</p>
+    <div id="tripList"></div>
+    <div class="dialog-actions">
+      <button type="button" class="btn btn-ghost" id="tripClearAll">Clear all</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay" id="notifyOverlay" role="dialog" aria-modal="true" aria-labelledby="notifyTitle">
+  <div class="dialog" id="notifyDialog">
+    <button type="button" class="dialog-close" id="notifyClose" aria-label="Close">×</button>
+    <h2 id="notifyTitle">Notify me for a city</h2>
+    <p class="sub">We will email you when new verified spots are added (manual for now).</p>
+    <div class="form">
+      <label for="notifyEmail">Your email</label>
+      <input id="notifyEmail" type="email" placeholder="you@example.com" autocomplete="email">
+      <label for="notifyCity">City or region</label>
+      <input id="notifyCity" placeholder="e.g. Houston, Sunset Park">
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-primary" id="notifySubmit">Subscribe</button>
+      </div>
+      <p class="report-status" id="notifyStatus" role="status" hidden></p>
+    </div>
+  </div>
+</div>
+
+<div class="overlay overlay-sheet" id="filterSheetOverlay" role="dialog" aria-modal="true" aria-labelledby="filterSheetTitle">
+  <div class="dialog filter-sheet-dialog" id="filterSheetDialog">
+    <button type="button" class="dialog-close" id="filterSheetClose" aria-label="Close">×</button>
+    <h2 id="filterSheetTitle">Filters</h2>
+    <div class="filter-sheet-body" id="filterSheetBody"></div>
+    <div class="dialog-actions filter-sheet-actions">
+      <button type="button" class="btn btn-ghost" id="filterSheetClear">Clear all</button>
+      <button type="button" class="btn btn-primary" id="filterSheetApply">Apply</button>
+    </div>
   </div>
 </div>
 
@@ -295,6 +396,8 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json?v=20260714f', { credentials: 'sam
       <input type="hidden" id="addHasBidet" value="verified">
       <label for="addNotes">Note <span class="label-optional">(optional)</span></label>
       <textarea id="addNotes" placeholder="Anything helpful: restroom tip, etc."></textarea>
+      <label for="addPhoto">Photo link <span class="label-optional">(optional)</span></label>
+      <input id="addPhoto" type="url" placeholder="Link to a photo (Instagram, Google Drive, etc.)">
       <input type="text" id="addHoney" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
       <div class="dialog-actions">
         <button type="button" class="btn btn-primary" id="submitAdd">Submit</button>

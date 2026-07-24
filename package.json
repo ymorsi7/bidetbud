@@ -4,7 +4,10 @@
   "description": "Community map of masajid and restaurants with bidets, washlets, and handheld sprayers — focused on the US, Canada, and the UK.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test scripts/test-app-core.cjs",
+    "test:unit": "node --test scripts/test-app-core.cjs",
+    "test:e2e": "node scripts/test-filter-layout.mjs && node scripts/test-legend-ui.mjs",
+    "test:all": "npm run test:unit && npm run test:e2e"
   },
   "repository": {
     "type": "git",
@@ -17,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/ymorsi7/bidetbud/issues"
   },
-  "homepage": "https://github.com/ymorsi7/bidetbud#readme"
+  "homepage": "https://github.com/ymorsi7/bidetbud#readme",
+  "devDependencies": {
+    "playwright": "^1.58.0"
+  }
 }
