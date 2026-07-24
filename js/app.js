@@ -105,36 +105,50 @@
     return 9;
   }
 
-  function nearMeMaxZoom(span, count){
-    if(count <= 1) return 14;
-    if(span > 0.75) return 10;
-    if(span > 0.28) return 11;
-    if(span > 0.12) return 12;
-    if(span > 0.05) return 13;
-    if(span > 0.02) return 14;
+  function nearMeFitPins(filtered){
+    if(!userLocation || !filtered.length) return [];
+    const ranked = filtered
+      .map(m => ({
+        m,
+        dist: haversineMiles(userLocation, { lat: +m.latitude, lng: +m.longitude })
+      }))
+      .sort((a, b) => a.dist - b.dist);
+    const nearestDist = ranked[0].dist;
+    // Zoom to the local cluster, not every pin in the 50 mi list (NYC has 100+).
+    const windowMi = Math.min(radiusMi, Math.max(3, nearestDist + 4));
+    const local = ranked.filter(x => x.dist <= windowMi);
+    const cap = Math.min(10, local.length || ranked.length);
+    return (local.length ? local : ranked).slice(0, cap).map(x => x.m);
+  }
+
+  function nearMeMaxZoom(span){
+    if(span > 0.45) return 11;
+    if(span > 0.18) return 12;
+    if(span > 0.08) return 13;
+    if(span > 0.035) return 14;
     return 15;
   }
 
   function fitNearMeView(filtered){
     if(!map || !userLocation || !nearMe) return;
     const userPt = [userLocation.lat, userLocation.lng];
-    if(!filtered.length){
+    const fitPins = nearMeFitPins(filtered);
+    if(!fitPins.length){
       map.setView(userPt, nearMeEmptyZoom(), { animate: false });
       return;
     }
     const bounds = L.latLngBounds([userPt]);
-    filtered.forEach(m => bounds.extend([+m.latitude, +m.longitude]));
+    fitPins.forEach(m => bounds.extend([+m.latitude, +m.longitude]));
     if(!bounds.isValid()) return;
     const span = boundsSpanDeg(bounds);
-    const pad = filtered.length <= 2 ? 0.38
-      : filtered.length <= 6 ? 0.26
-      : filtered.length <= 15 ? 0.18
-      : filtered.length <= 40 ? 0.12
-      : 0.08;
+    const pad = fitPins.length <= 2 ? 0.32
+      : fitPins.length <= 5 ? 0.22
+      : fitPins.length <= 10 ? 0.14
+      : 0.1;
     map.fitBounds(bounds.pad(pad), {
-      maxZoom: nearMeMaxZoom(span, filtered.length),
+      maxZoom: nearMeMaxZoom(span),
       animate: false,
-      padding: [52, 52]
+      padding: [56, 56]
     });
   }
 
@@ -869,12 +883,19 @@
     renderList(lastFiltered);
     renderMap(lastFiltered);
     if(nearMeFitPending && nearMe && userLocation){
-      fitNearMeView(lastFiltered);
       nearMeFitPending = false;
+      const pins = lastFiltered;
+      fitNearMeView(pins);
+      if(map){
+        setTimeout(()=>{
+          map.invalidateSize();
+          fitNearMeView(pins);
+        }, 0);
+      }
     }
     updateFilterUi();
     syncUrlFromState();
-    if(map) setTimeout(()=>map.invalidateSize(), 0);
+    if(map && !(nearMe && userLocation)) setTimeout(()=>map.invalidateSize(), 0);
   }
 
   function scheduleRefresh(){
