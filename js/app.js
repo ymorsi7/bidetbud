@@ -4,8 +4,12 @@
   const WEB3FORMS_ACCESS_KEY = 'b0f5343d-1608-4224-a49a-d32d13fbbdfe';
   const SITE_URL = 'https://bidetbud.com/';
   const COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'France', 'Russia', 'China'];
-  const POPULAR_CITIES = ['Bay Area', 'Houston', 'London', 'Toronto', 'Los Angeles', 'Chicago', 'Ellicott City'];
-  const RADIUS_OPTIONS = [25, 50, 100];
+  const POPULAR_CITIES = ['NYC', 'Bay Area', 'Houston', 'London', 'Toronto', 'Chicago', 'Dallas', 'Sunset Park', 'Williamsburg'];
+  const RADIUS_OPTIONS = [5, 10, 25, 50, 100];
+  const RECENT_SEARCH_KEY = 'bb_recent_searches';
+  const TRIP_KEY = 'bb_trips_v1';
+  const USE_KM_KEY = 'bb_use_km';
+  const ALONG_ROUTE_MI = 3;
   const MAP_MIN_ZOOM = 3;
   const DEFAULT_MAP_CENTER = { lat: 39.8283, lng: -98.5795 };
   const DEFAULT_MAP_ZOOM = 4;
@@ -15,6 +19,8 @@
   const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 
   let allLocations = [], userLocation = null, map, clusterGroup, countriesLayer;
+  let userMarker = null, userRadiusCircle = null, markerById = new Map(), highlightedMarkerId = null;
+  let useKm = false, alongRoute = null, searchAcIndex = -1, listFocusIndex = -1;
   let lastFiltered = [];
   let refreshTimer = null;
   let mapMoveTimer = null;
@@ -85,11 +91,12 @@
     return 'seed_' + Math.abs(h).toString(36);
   }
 
-  function haversineMiles(a,b){
+  const core = typeof BidetBudCore !== 'undefined' ? BidetBudCore : {};
+  const haversineMiles = core.haversineMiles || function(a, b){
     const R=3959,dLat=(b.lat-a.lat)*Math.PI/180,dLng=(b.lng-a.lng)*Math.PI/180;
     const x=Math.sin(dLat/2)**2+Math.cos(a.lat*Math.PI/180)*Math.cos(b.lat*Math.PI/180)*Math.sin(dLng/2)**2;
     return R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x));
-  }
+  };
 
   function boundsSpanDeg(bounds){
     if(!bounds || !bounds.isValid()) return 0;
@@ -106,27 +113,17 @@
   }
 
   function nearMeFitPins(filtered){
+    if(core.nearMeFitPins) return core.nearMeFitPins(filtered, userLocation, radiusMi);
     if(!userLocation || !filtered.length) return [];
     const ranked = filtered
-      .map(m => ({
-        m,
-        dist: haversineMiles(userLocation, { lat: +m.latitude, lng: +m.longitude })
-      }))
+      .map(m => ({ m, dist: haversineMiles(userLocation, { lat: +m.latitude, lng: +m.longitude }) }))
       .sort((a, b) => a.dist - b.dist);
-    const nearestDist = ranked[0].dist;
-    // Zoom to the local cluster, not every pin in the 50 mi list (NYC has 100+).
-    const windowMi = Math.min(radiusMi, Math.max(3, nearestDist + 4));
-    const local = ranked.filter(x => x.dist <= windowMi);
-    const cap = Math.min(10, local.length || ranked.length);
-    return (local.length ? local : ranked).slice(0, cap).map(x => x.m);
+    const windowMi = Math.min(radiusMi, Math.max(3, ranked[0].dist + 4));
+    return ranked.filter(x => x.dist <= windowMi).slice(0, 10).map(x => x.m);
   }
 
   function nearMeMaxZoom(span){
-    if(span > 0.45) return 11;
-    if(span > 0.18) return 12;
-    if(span > 0.08) return 13;
-    if(span > 0.035) return 14;
-    return 15;
+    return core.nearMeMaxZoom ? core.nearMeMaxZoom(span) : (span > 0.18 ? 12 : 14);
   }
 
   function fitNearMeView(filtered){
@@ -149,6 +146,375 @@
       maxZoom: nearMeMaxZoom(span),
       animate: false,
       padding: [56, 56]
+    });
+  }
+
+  function loadUseKm(){
+    try{ useKm = localStorage.getItem(USE_KM_KEY) === '1'; }catch(e){}
+  }
+  loadUseKm();
+
+  function formatDistance(mi){
+    return core.formatDistance ? core.formatDistance(mi, useKm) : (mi.toFixed(1) + ' mi');
+  }
+
+  function formatRadiusLabel(r){
+    return core.formatRadiusLabel ? core.formatRadiusLabel(r, useKm) : (r + ' mi');
+  }
+
+  function denseMetroRadius(lat, lng){
+    return core.denseMetroRadius ? core.denseMetroRadius(lat, lng) : 50;
+  }
+
+  function distToSegmentMi(pt, a, b){
+    return core.distToSegmentMi ? core.distToSegmentMi(pt, a, b) : haversineMiles(pt, a);
+  }
+
+  function saveRecentSearch(q){
+    const t = String(q || '').trim();
+    if(t.length < 2) return;
+    try{
+      let list = JSON.parse(localStorage.getItem(RECENT_SEARCH_KEY) || '[]');
+      list = [t, ...list.filter(x => x.toLowerCase() !== t.toLowerCase())].slice(0, 5);
+      localStorage.setItem(RECENT_SEARCH_KEY, JSON.stringify(list));
+    }catch(e){}
+  }
+
+  function getRecentSearches(){
+    try{
+      const list = JSON.parse(localStorage.getItem(RECENT_SEARCH_KEY) || '[]');
+      return Array.isArray(list) ? list : [];
+    }catch(e){ return []; }
+  }
+
+  function getTrips(){
+    try{
+      const list = JSON.parse(localStorage.getItem(TRIP_KEY) || '[]');
+      return Array.isArray(list) ? list : [];
+    }catch(e){ return []; }
+  }
+
+  function saveTrips(list){
+    try{ localStorage.setItem(TRIP_KEY, JSON.stringify(list)); }catch(e){}
+  }
+
+  function isInTrip(id){
+    return getTrips().some(t => t.id === id);
+  }
+
+  function toggleTrip(m){
+    let list = getTrips();
+    if(list.some(t => t.id === m.id)){
+      list = list.filter(t => t.id !== m.id);
+    } else {
+      list.unshift({ id: m.id, name: m.name, city: m.city, country: m.country });
+      list = list.slice(0, 50);
+    }
+    saveTrips(list);
+    updateTripBtnBadge();
+    return isInTrip(m.id);
+  }
+
+  function updateTripBtnBadge(){
+    const n = getTrips().length;
+    const btn = document.getElementById('tripBtn');
+    if(!btn) return;
+    btn.classList.toggle('has-badge', n > 0);
+    btn.title = n ? ('Saved spots (' + n + ')') : 'Saved spots';
+  }
+
+  function verificationPlainText(m){
+    return core.verificationPlainText ? core.verificationPlainText(m) : '';
+  }
+
+  function trustSourceLine(m){
+    if(m.verifiedMethod === 'community-sighting') return 'Added via community sighting';
+    if(m.verifiedMethod === 'manufacturer-reference') return 'From manufacturer locator (TOTO / Geberit)';
+    if(m.verifiedMethod === 'web-source') return 'From a web source with bidet evidence';
+    if(m.bidetStatus === 'verified') return 'Added via community report';
+    if(m.sourceUrl) return 'Listed from an online source';
+    return '';
+  }
+
+  function bidetLeadLabel(m){
+    return core.bidetLeadLabel ? core.bidetLeadLabel(m) : (m.name || '');
+  }
+
+  function mapsDirectionsUrl(m){
+    const q = encodeURIComponent([m.name, m.address, m.city].filter(Boolean).join(', '));
+    return 'https://www.google.com/maps/dir/?api=1&destination=' + q;
+  }
+
+  function updateUserMarker(){
+    if(userMarker && map){ map.removeLayer(userMarker); userMarker = null; }
+    if(userRadiusCircle && map){ map.removeLayer(userRadiusCircle); userRadiusCircle = null; }
+    if(!map || !nearMe || !userLocation) return;
+    const userIcon = L.divIcon({
+      html: '<div class="user-loc-dot"></div>',
+      className: 'user-loc-marker',
+      iconSize: [16, 16],
+      iconAnchor: [8, 8]
+    });
+    userMarker = L.marker([userLocation.lat, userLocation.lng], { icon: userIcon, zIndexOffset: 2000, interactive: false });
+    userMarker.addTo(map);
+    const radiusM = radiusMi * 1609.34;
+    userRadiusCircle = L.circle([userLocation.lat, userLocation.lng], {
+      radius: radiusM,
+      color: '#2563eb',
+      weight: 1.5,
+      fillColor: '#2563eb',
+      fillOpacity: 0.06,
+      interactive: false
+    });
+    userRadiusCircle.addTo(map);
+  }
+
+  function highlightMarker(id){
+    highlightedMarkerId = id;
+    markerById.forEach((marker, mid) => {
+      const el = marker.getElement?.();
+      if(el) el.classList.toggle('marker-highlight', mid === id);
+    });
+  }
+
+  function focusSpotOnMap(m, opts){
+    if(!map || !m) return;
+    const zoom = opts?.zoom || Math.max(map.getZoom(), 15);
+    map.setView([+m.latitude, +m.longitude], zoom, { animate: true });
+    highlightMarker(m.id);
+  }
+
+  function scrollToListCard(id){
+    document.querySelectorAll('.card').forEach(c => c.classList.remove('active', 'keyboard-focus'));
+    const card = document.querySelector('.card[data-id="' + id + '"]');
+    if(card){
+      card.classList.add('active');
+      card.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+  }
+
+  function updateNoBidetUi(){
+    const banner = document.getElementById('noBidetBanner');
+    if(banner) banner.hidden = !noBidetMode;
+    const q = getQuery();
+    const hint = document.getElementById('noBidetSearchHint');
+    if(!hint) return;
+    if(noBidetMode || !q){
+      hint.hidden = true;
+      return;
+    }
+    const hiddenNone = allLocations.filter(m =>
+      NO_BIDET(m.bidetStatus) && matchesSearch(m, q) && !noBidetMode
+    );
+    if(hiddenNone.length){
+      hint.innerHTML = 'We have a no-bidet record for <strong>' + escapeHtml(hiddenNone[0].name) + '</strong>. Turn on <button type="button" class="inline-link" id="hintEnableNoBidet">No bidet</button> to see it.';
+      hint.hidden = false;
+      document.getElementById('hintEnableNoBidet')?.addEventListener('click', () => setNoBidetMode(true));
+    } else {
+      hint.hidden = true;
+    }
+  }
+
+  function activeFilterItems(){
+    const items = [];
+    if(nearMe) items.push({ key: 'near', label: 'Near me' });
+    if(nearMe) items.push({ key: 'radius', label: 'Within ' + formatRadiusLabel(radiusMi) });
+    if(noBidetMode) items.push({ key: 'nobidet', label: 'No bidet' });
+    if(placeFilter === 'mosque') items.push({ key: 'place', label: 'Masajid' });
+    if(placeFilter === 'restaurant') items.push({ key: 'place', label: 'Restaurants' });
+    if(placeFilter === 'hotel') items.push({ key: 'place', label: 'Hotels' });
+    if(placeFilter === 'public') items.push({ key: 'place', label: 'Public' });
+    if(extraFilter === 'verified') items.push({ key: 'extra', label: 'User verified' });
+    if(extraFilter === 'warmed') items.push({ key: 'extra', label: 'Heated / TOTO' });
+    if(extraFilter === 'internet') items.push({ key: 'extra', label: 'From internet' });
+    if(extraFilter === 'public') items.push({ key: 'extra', label: 'Public access' });
+    if(extraFilter === 'limited') items.push({ key: 'extra', label: 'Guests only' });
+    if(countryFilter) items.push({ key: 'country', label: countryFilter });
+    if(showLimitedAccess && extraFilter !== 'limited') items.push({ key: 'limitedtoggle', label: 'Guests only on' });
+    if(alongRoute) items.push({ key: 'route', label: 'Along route' });
+    const q = getQuery();
+    if(q) items.push({ key: 'q', label: '"' + q + '"' });
+    return items;
+  }
+
+  function clearFilterKey(key){
+    if(key === 'near'){ nearMe = false; userLocation = null; nearMeFitPending = false; updateNearMeUi(); }
+    if(key === 'radius') radiusMi = 50;
+    if(key === 'nobidet') noBidetMode = false;
+    if(key === 'place') placeFilter = 'all';
+    if(key === 'extra') extraFilter = null;
+    if(key === 'country') countryFilter = null;
+    if(key === 'limitedtoggle') showLimitedAccess = false;
+    if(key === 'route') alongRoute = null;
+    if(key === 'q'){
+      document.getElementById('searchInput').value = '';
+      hideSearchAc();
+    }
+    initialBoundsDone = false;
+    updateFilterUi();
+    refresh();
+  }
+
+  function clearAllFilters(){
+    nearMe = false;
+    userLocation = null;
+    nearMeFitPending = false;
+    noBidetMode = false;
+    placeFilter = 'all';
+    extraFilter = null;
+    countryFilter = null;
+    showLimitedAccess = false;
+    alongRoute = null;
+    radiusMi = 50;
+    document.getElementById('searchInput').value = '';
+    hideSearchAc();
+    initialBoundsDone = false;
+    updateNearMeUi();
+    updateFilterUi();
+    refresh();
+  }
+
+  function updateActiveFiltersBar(){
+    const bar = document.getElementById('activeFilters');
+    if(!bar) return;
+    const items = activeFilterItems();
+    if(!items.length){ bar.hidden = true; bar.innerHTML = ''; return; }
+    bar.hidden = false;
+    bar.innerHTML = items.map(it =>
+      '<span class="active-filter-chip">' + escapeHtml(it.label) +
+      ' <button type="button" aria-label="Remove ' + escapeHtml(it.label) + '" data-clear="' + it.key + '">×</button></span>'
+    ).join('') + '<button type="button" class="active-filter-clear" id="clearAllFilters">Clear all</button>';
+    bar.querySelectorAll('[data-clear]').forEach(btn => {
+      btn.addEventListener('click', () => clearFilterKey(btn.dataset.clear));
+    });
+    document.getElementById('clearAllFilters')?.addEventListener('click', clearAllFilters);
+  }
+
+  function updateNearMeHint(filtered){
+    const el = document.getElementById('nearMeHint');
+    if(!el) return;
+    if(!nearMe || !userLocation){
+      el.hidden = true;
+      return;
+    }
+    const local = nearMeFitPins(filtered).length;
+    el.textContent = filtered.length
+      ? ('Showing ' + filtered.length + ' within ' + formatRadiusLabel(radiusMi) + (local ? '. Map zoomed to nearest ' + local + '.' : '.'))
+      : ('Nothing within ' + formatRadiusLabel(radiusMi) + '. Try a wider radius or search a city.');
+    el.hidden = false;
+  }
+
+  function updateUnitToggleUi(){
+    const btn = document.getElementById('unitToggle');
+    if(!btn) return;
+    btn.textContent = useKm ? 'km' : 'mi';
+    btn.setAttribute('aria-pressed', useKm ? 'true' : 'false');
+    document.querySelectorAll('#radiusRow button[data-radius]').forEach(b => {
+      const r = parseInt(b.dataset.radius, 10);
+      b.textContent = formatRadiusLabel(r);
+    });
+  }
+
+  function setDocumentTitleForSpot(m){
+    if(!m){ document.title = 'BidetBud'; return; }
+    const lead = bidetLeadLabel(m);
+    document.title = m.name + ' – ' + lead + ' | BidetBud';
+  }
+
+  function copyViewLink(){
+    const url = location.origin + location.pathname + (location.search || '');
+    navigator.clipboard?.writeText(url).then(() => alert('Link copied!')).catch(() => prompt('Copy link:', url));
+  }
+
+  function openAddFormPrefill(m, noBidet){
+    setOverlayOpen('addOverlay', true);
+    const nameEl = document.getElementById('addName');
+    const addrEl = document.getElementById('addAddress');
+    if(nameEl) nameEl.value = m?.name || '';
+    if(addrEl) addrEl.value = [m?.address, m?.city].filter(Boolean).join(', ');
+    setAddHasBidet(noBidet ? 'none' : 'verified');
+    nameEl?.focus();
+    if(typeof window.trackEvent === 'function'){
+      window.trackEvent('bidetbud_add_open', { source: 'prefill' });
+    }
+  }
+
+  function maybeShowLegendTip(){
+    try{
+      if(localStorage.getItem('bb_legend_tip') === '1') return;
+    }catch(e){ return; }
+    const tip = document.getElementById('legendTip');
+    if(tip) tip.hidden = false;
+  }
+
+  function dismissLegendTip(){
+    try{ localStorage.setItem('bb_legend_tip', '1'); }catch(e){}
+    const tip = document.getElementById('legendTip');
+    if(tip) tip.hidden = true;
+  }
+
+  function maybeShowFirstRunHints(){
+    try{
+      if(localStorage.getItem('bb_hint_nobidet') !== '1' && !noBidetMode){
+        const btn = document.getElementById('noBidetToggle');
+        if(btn){
+          btn.title = 'Report places without bidets too (first tip)';
+          setTimeout(() => { btn.title = 'Show places we\'ve recorded that do NOT have a bidet'; }, 8000);
+        }
+        localStorage.setItem('bb_hint_nobidet', '1');
+      }
+    }catch(e){}
+  }
+
+  async function geocodePlace(query){
+    const url = 'https://photon.komoot.io/api/?q=' + encodeURIComponent(query) + '&limit=1';
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('Could not look up place');
+    const data = await res.json();
+    const f = data.features?.[0];
+    if(!f?.geometry?.coordinates) throw new Error('Place not found');
+    return { lat: f.geometry.coordinates[1], lng: f.geometry.coordinates[0], label: f.properties?.name || query };
+  }
+
+  async function applyAlongRoute(fromQ, toQ){
+    const from = await geocodePlace(fromQ);
+    const to = await geocodePlace(toQ);
+    alongRoute = { from, to };
+    initialBoundsDone = false;
+    refresh();
+    if(map){
+      const bounds = L.latLngBounds([[from.lat, from.lng], [to.lat, to.lng]]);
+      map.fitBounds(bounds.pad(0.2), { maxZoom: 11 });
+    }
+  }
+
+  function renderTripList(){
+    const el = document.getElementById('tripList');
+    if(!el) return;
+    const trips = getTrips();
+    if(!trips.length){
+      el.innerHTML = '<p class="trip-empty">No saved spots yet. Open a place and tap Save to trip.</p>';
+      return;
+    }
+    el.innerHTML = trips.map(t =>
+      '<div class="trip-item" data-id="' + escapeHtml(t.id) + '">' +
+      '<div class="trip-item-main"><h3>' + escapeHtml(t.name) + '</h3><p>' + escapeHtml(t.city || '') + '</p></div>' +
+      '<button type="button" class="btn btn-ghost btn-sm js-trip-remove">Remove</button></div>'
+    ).join('');
+    el.querySelectorAll('.trip-item-main').forEach(node => {
+      node.addEventListener('click', () => {
+        setOverlayOpen('tripOverlay', false);
+        openDetail(node.closest('.trip-item').dataset.id);
+      });
+    });
+    el.querySelectorAll('.js-trip-remove').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.stopPropagation();
+        const id = btn.closest('.trip-item').dataset.id;
+        saveTrips(getTrips().filter(t => t.id !== id));
+        renderTripList();
+        updateTripBtnBadge();
+      });
     });
   }
 
@@ -292,6 +658,14 @@
     updateFilterUi();
     updateNearMeUi();
     suppressUrlWrite = false;
+    if(p.get('near') === '1' && !userLocation && navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(pos=>{
+        userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        if(!p.get('radius')) radiusMi = denseMetroRadius(userLocation.lat, userLocation.lng);
+        nearMeFitPending = true;
+        refresh();
+      }, ()=>{});
+    }
     return spotId;
   }
 
@@ -358,6 +732,9 @@
     });
     const radiusRow = document.getElementById('radiusRow');
     if(radiusRow) radiusRow.hidden = !nearMe;
+    updateUnitToggleUi();
+    updateNoBidetUi();
+    updateActiveFiltersBar();
   }
 
   function updateNearMeUi(){
@@ -429,7 +806,10 @@
     if(id === 'addOverlay' && open){
       setOverlayOpen('promoOverlay', false);
     }
-    if(id === 'detailOverlay' && !open) activeSpotId = null;
+    if(id === 'detailOverlay' && !open){
+      activeSpotId = null;
+      setDocumentTitleForSpot(null);
+    }
     if(!open || id === 'detailOverlay') syncUrlFromState();
   }
 
@@ -486,17 +866,17 @@
 
   function showThankYou(){
     const shareUrl = encodeURIComponent(SITE_URL);
-    const shareText = encodeURIComponent('Find masajid and restaurants with bidets. BidetBud');
+    const shareText = encodeURIComponent('We use BidetBud to find masajid and restaurants with bidets. Add spots your community should know about:');
     document.getElementById('thankYouContent').innerHTML =
       '<h2>Thanks for contributing!</h2>'+
-      '<p class="sub">We review every submission before it goes live.</p>'+
+      '<p class="sub">We review every submission before it goes live. Share with your local WhatsApp group so others can find (or avoid) spots.</p>'+
       '<div class="dialog-actions share-actions">'+
       '<button type="button" class="btn btn-primary" id="addAnotherSpot">Add another spot</button>'+
       '<button type="button" class="btn btn-ghost" id="thankYouDone">Done</button>'+
       '</div>'+
       '<p class="sub thank-share-label">Share BidetBud:</p>'+
       '<div class="dialog-actions share-actions thank-share-actions">'+
-      '<a class="btn btn-ghost" href="https://wa.me/?text='+shareText+'%20'+shareUrl+'" target="_blank" rel="noopener">WhatsApp</a>'+
+      '<a class="btn btn-ghost" href="https://wa.me/?text='+shareText+'%20'+shareUrl+'" target="_blank" rel="noopener">WhatsApp group</a>'+
       '<a class="btn btn-ghost" href="https://t.me/share/url?url='+shareUrl+'&text='+shareText+'" target="_blank" rel="noopener">Telegram</a>'+
       '<button type="button" class="btn btn-ghost" id="copySiteLink">Copy link</button>'+
       '</div>';
@@ -548,6 +928,8 @@
       if(!noBidetMode){
         if(placeFilter==='mosque' && m.type!=='mosque') return false;
         if(placeFilter==='restaurant' && m.type!=='restaurant') return false;
+        if(placeFilter==='hotel' && m.type!=='hotel') return false;
+        if(placeFilter==='public' && m.type!=='public') return false;
       }
       if(extraFilter==='warmed' && m.bidetStatus!=='warmed') return false;
       if(extraFilter==='verified' && m.bidetStatus!=='verified') return false;
@@ -560,17 +942,21 @@
         const dist = haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude});
         if(dist>radiusMi) return false;
       }
+      if(alongRoute){
+        const dist = distToSegmentMi(
+          { lat: +m.latitude, lng: +m.longitude },
+          alongRoute.from,
+          alongRoute.to
+        );
+        if(dist > ALONG_ROUTE_MI) return false;
+      }
       if(q) return matchesSearch(m, q);
       return true;
     });
   }
 
   function formatBidetType(s){
-    return String(s||'')
-      .split(',')
-      .map(p => p.replace(/\s+/g,' ').trim())
-      .filter(Boolean)
-      .join(', ');
+    return core.formatBidetType ? core.formatBidetType(s) : String(s || '');
   }
 
   function statusTag(m){
@@ -636,16 +1022,49 @@
 
   function emptyStateHtml(){
     let msg = 'No places match your filters.';
-    if(noBidetMode) msg = 'No spots recorded without a bidet here yet. Toggle "No bidet" off to see spots that do have one.';
-    else if(nearMe && placeFilter === 'mosque') msg = 'No masajid with bidets within '+radiusMi+' mi. Try a wider radius or search a nearby city.';
-    else if(nearMe) msg = 'Nothing within '+radiusMi+' mi. Try 100 mi or search a city name.';
-    else if(placeFilter === 'mosque') msg = 'No masajid match yet. Try another city or add a wudu-friendly spot you know.';
+    let actions = '';
+    if(noBidetMode){
+      msg = 'No spots recorded without a bidet here yet. Know one? Add it.';
+      actions = '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a no-bidet spot</button>';
+    } else if(nearMe && !getQuery()){
+      msg = 'Nothing within ' + formatRadiusLabel(radiusMi) + '. Try a wider radius or search a city name.';
+      actions = '<div class="empty-actions">' +
+        (radiusMi < 100 ? '<button type="button" class="btn btn-ghost" id="emptyWidenBtn">Widen to 100 mi</button>' : '') +
+        '<button type="button" class="btn btn-ghost" id="emptyNoBidetBtn">Show no-bidet spots</button>' +
+        '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a spot</button></div>';
+    } else if(nearMe && placeFilter === 'mosque'){
+      msg = 'No masajid with bidets within ' + formatRadiusLabel(radiusMi) + '. Try a wider radius or search a nearby city.';
+      actions = '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a spot</button>';
+    } else if(placeFilter === 'mosque'){
+      msg = 'No masajid match yet. Try another city or add a wudu-friendly spot you know.';
+      actions = '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a spot</button>';
+    } else {
+      actions = '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a spot</button>';
+    }
     const chips = POPULAR_CITIES.map(c=>'<button type="button" class="chip city-chip" data-city="'+escapeHtml(c)+'">'+escapeHtml(c)+'</button>').join('');
-    return '<div class="empty"><p class="empty-title">No matches</p><p class="empty-sub">'+msg+'</p><div class="empty-chips">'+chips+'</div><button type="button" class="btn btn-primary" style="margin-top:16px" id="emptyAddBtn">Add a spot</button></div>';
+    return '<div class="empty"><p class="empty-title">No matches</p><p class="empty-sub">'+msg+'</p><div class="empty-chips">'+chips+'</div>'+actions+'</div>';
+  }
+
+  function wireEmptyStateActions(){
+    document.getElementById('emptyAddBtn')?.addEventListener('click', ()=> openAddForm('empty_list'));
+    document.getElementById('emptyWidenBtn')?.addEventListener('click', ()=>{
+      radiusMi = 100;
+      nearMeFitPending = true;
+      updateFilterUi();
+      refresh();
+    });
+    document.getElementById('emptyNoBidetBtn')?.addEventListener('click', ()=> setNoBidetMode(true));
+    document.querySelectorAll('.city-chip').forEach(btn=>btn.addEventListener('click', ()=>{
+      document.getElementById('searchInput').value = btn.dataset.city;
+      hideSearchAc();
+      saveRecentSearch(btn.dataset.city);
+      refresh();
+    }));
   }
 
   function renderList(filtered){
     const q=getQuery(), el=document.getElementById('locationList');
+    el.classList.remove('location-list-loading');
     const verified = filtered.filter(m=>m.bidetStatus==='verified').length;
     const warmed = filtered.filter(m=>m.bidetStatus==='warmed').length;
     const internet = filtered.filter(m=>m.bidetStatus==='internet').length;
@@ -662,7 +1081,7 @@
     } else {
       countHtml = '<strong>'+filtered.length+'</strong> '+(filtered.length===1?'place':'places');
     }
-    if(nearMe) countHtml += ' within '+radiusMi+' mi';
+    if(nearMe) countHtml += ' within ' + formatRadiusLabel(radiusMi);
     const badges = [];
     if(masajid && placeFilter!=='mosque') badges.push(masajid+' masajid');
     const restaurants = filtered.filter(m=>m.type==='restaurant').length;
@@ -677,27 +1096,36 @@
     updateMobileTabBadge(filtered.length);
     if(!filtered.length){
       el.innerHTML = emptyStateHtml();
-      document.getElementById('emptyAddBtn')?.addEventListener('click', ()=> openAddForm('empty_list'));
-      el.querySelectorAll('.city-chip').forEach(btn=>btn.addEventListener('click', ()=>{
-        document.getElementById('searchInput').value = btn.dataset.city;
-        hideSearchAc();
-        refresh();
-      }));
+      wireEmptyStateActions();
+      updateNearMeHint(filtered);
       return;
     }
     el.innerHTML = sortedLocations(filtered).slice(0, LIST_CAP).map(m=>{
       let dist='';
-      if(nearMe && userLocation) dist = haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude}).toFixed(1)+' mi';
+      if(nearMe && userLocation) dist = formatDistance(haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude}));
       const limitedNote = m.bidetStatus==='none'
         ? '<p class="card-note card-note--none">We checked: no bidet or handheld sprayer here.</p>'
         : (m.access==='limited' ? '<p class="card-note">'+escapeHtml(m.accessNote)+'</p>' : '');
-      const cardClass = 'card '+cardStatusClass(m);
+      const cardClass = 'card '+cardStatusClass(m)+(activeSpotId===m.id?' active':'');
       const typeIcon = typeLabel(m.type);
-      const bidetLabel = formatBidetType(m.bidetType);
-      const bidetTag = bidetLabel ? '<span class="tag tag-bidet">'+escapeHtml(bidetLabel)+'</span>' : '';
-      return '<article class="'+cardClass+'" data-id="'+m.id+'"><h3>'+highlight(m.name,q)+'</h3><div class="card-tags">'+statusTag(m)+accessTag(m)+bidetTag+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+limitedNote+'<div class="card-meta"><span class="tag tag-type">'+typeIcon+'</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
+      const bidetLead = '<p class="card-bidet-lead">'+escapeHtml(bidetLeadLabel(m))+'</p>';
+      const trust = '<p class="card-trust">'+escapeHtml(verificationPlainText(m))+'</p>';
+      return '<article class="'+cardClass+'" data-id="'+m.id+'" tabindex="0" role="button" aria-label="'+escapeHtml(m.name)+'"><h3>'+highlight(m.name,q)+'</h3>'+bidetLead+'<div class="card-tags">'+statusTag(m)+accessTag(m)+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+limitedNote+trust+'<div class="card-meta"><span class="tag tag-type">'+typeIcon+'</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
     }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing '+LIST_CAP+' of '+filtered.length+'. Zoom the map or search to narrow results.</p>' : '');
-    el.querySelectorAll('.card').forEach(c=>c.addEventListener('click',()=>openDetail(c.dataset.id)));
+    el.querySelectorAll('.card').forEach((c, idx)=>{
+      c.addEventListener('click',()=>{
+        const m = allLocations.find(x => x.id === c.dataset.id);
+        if(m) focusSpotOnMap(m);
+        openDetail(c.dataset.id);
+      });
+      c.addEventListener('keydown', e=>{
+        if(e.key === 'Enter' || e.key === ' '){
+          e.preventDefault();
+          c.click();
+        }
+      });
+    });
+    updateNearMeHint(filtered);
   }
 
   function markersForMap(filtered){
@@ -716,16 +1144,24 @@
   function renderMap(filtered){
     if(!clusterGroup) return;
     clusterGroup.clearLayers();
+    markerById.clear();
     const mapRows = markersForMap(filtered);
     const markers = mapRows.map(m=>{
       const marker = L.marker([+m.latitude,+m.longitude],{icon:createIcon(m.bidetStatus,m.access)});
-      marker.on('click',()=>openDetail(m.id));
+      marker.on('click',()=>{
+        scrollToListCard(m.id);
+        openDetail(m.id);
+      });
       const tip = stripEmDash(m.access==='limited' ? m.name + ' (limited access)' : m.name);
       marker.bindTooltip(tip,{direction:'top',offset:[0,-12]});
+      markerById.set(m.id, marker);
       return marker;
     });
-    // Bulk insert (with chunkedLoading) so markers don't block the main thread.
     clusterGroup.addLayers(markers);
+    if(highlightedMarkerId && markerById.has(highlightedMarkerId)){
+      highlightMarker(highlightedMarkerId);
+    }
+    updateUserMarker();
     const shouldFit = !initialBoundsDone && filtered.length && !getQuery() && !nearMe && !activeSpotId;
     if(shouldFit){
       let fitTargets = filtered;
@@ -834,43 +1270,71 @@
     const m=allLocations.find(x=>x.id===id);
     if(!m) return;
     activeSpotId = id;
-    if(map) map.setView([+m.latitude,+m.longitude], Math.max(map.getZoom(),14));
-    document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
-    const cardEl = document.querySelector('.card[data-id="'+id+'"]');
-    if(cardEl){
-      cardEl.classList.add('active');
-      cardEl.scrollIntoView({block:'nearest',behavior:'smooth'});
-    }
-    const source = m.sourceUrl ? '<p class="sub" style="margin-top:12px"><a href="'+escapeHtml(m.sourceUrl)+'" target="_blank" rel="noopener">View web source ↗</a></p>' : '';
+    focusSpotOnMap(m);
+    scrollToListCard(id);
+    setDocumentTitleForSpot(m);
+    const distLine = (nearMe && userLocation)
+      ? '<p class="sub">' + formatDistance(haversineMiles(userLocation, { lat: +m.latitude, lng: +m.longitude })) + ' away</p>'
+      : '';
+    const source = m.sourceUrl ? '<p class="detail-source"><a href="'+escapeHtml(m.sourceUrl)+'" target="_blank" rel="noopener">View source ↗</a></p>' : '';
     const quote = m.sourceQuote ? '<blockquote class="source-quote"><strong>Review excerpt</strong>'+escapeHtml(m.sourceQuote)+'</blockquote>' : '';
-    const verifiedNote = m.verifiedMethod ? '<p class="verified-note">Verified '+escapeHtml(m.verifiedMethod)+'</p>' : '';
+    const trustLine = trustSourceLine(m);
+    const trustHtml = trustLine ? '<p class="detail-trust">'+escapeHtml(trustLine)+'</p>' : '';
     const shareLink = spotShareUrl(id);
-    const appleMaps = 'https://maps.apple.com/?daddr='+encodeURIComponent(m.latitude+','+m.longitude);
-    const googleMaps = 'https://www.google.com/maps/search/?api=1&query='+m.latitude+','+m.longitude;
+    const directionsUrl = mapsDirectionsUrl(m);
+    const appleMaps = 'https://maps.apple.com/?daddr='+encodeURIComponent([m.name, m.address].filter(Boolean).join(', '));
+    const googleMaps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent([m.name, m.address, m.city].filter(Boolean).join(', '));
+    const saved = isInTrip(m.id);
+    const stickyFooter = document.getElementById('detailStickyFooter');
+    const stickyHtml =
+      '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
+      '<button type="button" class="btn btn-ghost js-copy-spot-link-sticky">Share spot</button>';
+    if(stickyFooter){
+      stickyFooter.innerHTML = stickyHtml;
+      stickyFooter.hidden = !isMobile();
+      stickyFooter.querySelector('.js-copy-spot-link-sticky')?.addEventListener('click', ()=>{
+        navigator.clipboard?.writeText(shareLink).then(()=> alert('Link copied!')).catch(()=> prompt('Copy link:', shareLink));
+      });
+    }
     document.getElementById('detailContent').innerHTML =
       '<h2>'+escapeHtml(m.name)+'</h2>'+
       '<p class="sub">'+escapeHtml(typeLabel(m.type))+' · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
-      (m.bidetStatus==='none' ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\u2019ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : '')+
+      distLine+
+      '<p class="detail-bidet-callout">'+escapeHtml(bidetLeadLabel(m))+'</p>'+
+      '<p class="detail-trust">'+escapeHtml(verificationPlainText(m))+'</p>'+
+      (m.bidetStatus==='none' ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\'ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : '')+
       accessWarn(m)+
       '<p>'+escapeHtml(m.address)+'</p>'+
-      '<div class="row">'+statusTag(m)+accessTag(m)+(formatBidetType(m.bidetType)?'<span class="tag tag-bidet">'+escapeHtml(formatBidetType(m.bidetType))+'</span>':'')+'</div>'+
-      verifiedNote+quote+source+
+      '<div class="row">'+statusTag(m)+accessTag(m)+'</div>'+
+      trustHtml+quote+source+
       '<div class="dialog-actions detail-actions">'+
-      '<a class="btn btn-primary" href="'+googleMaps+'" target="_blank" rel="noopener">Google Maps</a>'+
-      (isIOS() ? '<a class="btn btn-primary" href="'+appleMaps+'" target="_blank" rel="noopener">Apple Maps</a>' : '')+
+      '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
+      '<a class="btn btn-ghost" href="'+googleMaps+'" target="_blank" rel="noopener">Open in Maps</a>'+
+      (isIOS() ? '<a class="btn btn-ghost" href="'+appleMaps+'" target="_blank" rel="noopener">Apple Maps</a>' : '')+
+      '<button type="button" class="btn btn-ghost js-trip-toggle">'+(saved ? 'Saved ✓' : 'Save to trip')+'</button>'+
       '<button type="button" class="btn btn-ghost js-copy-spot-link">Share spot</button>'+
       '<button type="button" class="btn btn-ghost js-copy-address">Copy address</button>'+
+      '<button type="button" class="btn btn-ghost js-report-no-bidet">Report no bidet here</button>'+
       '<button type="button" class="btn btn-ghost js-open-add-form">Add another</button>'+
       '</div>'+
       reportFormHtml(m);
-    document.getElementById('detailContent').querySelector('.js-copy-spot-link')?.addEventListener('click', ()=>{
+    const content = document.getElementById('detailContent');
+    content.querySelector('.js-copy-spot-link')?.addEventListener('click', ()=>{
       navigator.clipboard?.writeText(shareLink).then(()=> alert('Link copied!')).catch(()=> prompt('Copy link:', shareLink));
     });
-    document.getElementById('detailContent').querySelector('.js-copy-address')?.addEventListener('click', ()=>{
+    content.querySelector('.js-copy-address')?.addEventListener('click', ()=>{
       const txt = [m.name, m.address, m.city].filter(Boolean).join(', ');
       navigator.clipboard?.writeText(txt).then(()=> alert('Address copied!')).catch(()=>{});
     });
-    wireReportForm(document.getElementById('detailContent'), m);
+    content.querySelector('.js-trip-toggle')?.addEventListener('click', e=>{
+      const on = toggleTrip(m);
+      e.target.textContent = on ? 'Saved ✓' : 'Save to trip';
+    });
+    content.querySelector('.js-report-no-bidet')?.addEventListener('click', ()=>{
+      setOverlayOpen('detailOverlay', false);
+      openAddFormPrefill(m, true);
+    });
+    wireReportForm(content, m);
     setOverlayOpen('detailOverlay', true);
     syncUrlFromState();
     if(typeof window.trackEvent === 'function' && !fromUrl){
@@ -894,6 +1358,7 @@
       }
     }
     updateFilterUi();
+    updateUserMarker();
     syncUrlFromState();
     if(map && !(nearMe && userLocation)) setTimeout(()=>map.invalidateSize(), 0);
   }
@@ -912,7 +1377,7 @@
   }
 
   function resetAddForm(){
-    ['addName','addAddress','addNotes'].forEach(id=>{
+    ['addName','addAddress','addNotes','addPhoto'].forEach(id=>{
       const el=document.getElementById(id); if(el) el.value='';
     });
     setAddHasBidet('verified');
@@ -937,6 +1402,7 @@
       address: payload.address || '(not provided)',
       bidet_status: noBidet ? 'no bidet' : 'has bidet',
       notes: payload.notes || '(none)',
+      photo_link: payload.photoLink || '(none)',
       lookup_link: mapsQuery
         ? ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapsQuery))
         : '(none)',
@@ -1005,7 +1471,27 @@
   function renderSearchAc(){
     const q = getQuery();
     const box = document.getElementById('searchAc');
-    if(!box || q.length < 2){ hideSearchAc(); return; }
+    searchAcIndex = -1;
+    if(!box) return;
+    if(!q){
+      const recent = getRecentSearches();
+      const items = [];
+      if(recent.length){
+        items.push('<div class="search-ac-section">Recent</div>');
+        recent.forEach(r => {
+          items.push('<button type="button" class="search-ac-item" data-value="'+escapeHtml(r)+'"><span class="search-ac-label">'+escapeHtml(r)+'</span></button>');
+        });
+      }
+      items.push('<div class="search-ac-section">Popular</div>');
+      POPULAR_CITIES.slice(0, 6).forEach(c => {
+        items.push('<button type="button" class="search-ac-item" data-value="'+escapeHtml(c)+'"><span class="search-ac-label">'+escapeHtml(c)+'</span><span class="search-ac-hint">City</span></button>');
+      });
+      box.innerHTML = items.join('');
+      box.removeAttribute('hidden');
+      wireSearchAcItems(box);
+      return;
+    }
+    if(q.length < 2){ hideSearchAc(); return; }
     const nq = normalizeSearchText(q);
     const placeMatches = allLocations
       .filter(m => matchesSearch(m, q))
@@ -1036,13 +1522,40 @@
       '</button>'
     ).join('');
     box.removeAttribute('hidden');
+    wireSearchAcItems(box);
+  }
+
+  function wireSearchAcItems(box){
     box.querySelectorAll('.search-ac-item').forEach(btn=>btn.addEventListener('click', ()=>{
       document.getElementById('searchInput').value = btn.dataset.value;
       hideSearchAc();
+      saveRecentSearch(btn.dataset.value);
       if(isMobile()) setMobileView('list');
       refresh();
       maybeShowPromo('search');
     }));
+  }
+
+  function moveSearchAc(delta){
+    const box = document.getElementById('searchAc');
+    if(!box || box.hasAttribute('hidden')) return;
+    const items = [...box.querySelectorAll('.search-ac-item')];
+    if(!items.length) return;
+    searchAcIndex = Math.max(0, Math.min(items.length - 1, searchAcIndex + delta));
+    items.forEach((it, i) => it.classList.toggle('active', i === searchAcIndex));
+    items[searchAcIndex]?.scrollIntoView({ block: 'nearest' });
+  }
+
+  function selectSearchAcIndex(){
+    const box = document.getElementById('searchAc');
+    if(!box || searchAcIndex < 0) return false;
+    const items = box.querySelectorAll('.search-ac-item');
+    const btn = items[searchAcIndex];
+    if(btn){
+      btn.click();
+      return true;
+    }
+    return false;
   }
 
   function initPullRefresh(){
@@ -1056,7 +1569,17 @@
       if(dy > 70) pulling = true;
     }, {passive:true});
     el.addEventListener('touchend', ()=>{
-      if(pulling){ pulling = false; refresh(); }
+      if(!pulling){ pulling = false; return; }
+      pulling = false;
+      if(nearMe && navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(pos=>{
+          userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          nearMeFitPending = true;
+          refresh();
+        }, ()=> refresh());
+      } else {
+        refresh();
+      }
     }, {passive:true});
   }
 
@@ -1086,6 +1609,15 @@
       })
     });
     map.addLayer(clusterGroup);
+    clusterGroup.on('clusterclick', e=>{
+      const cluster = e.layer;
+      const childCount = cluster.getChildCount();
+      if(childCount <= 12){
+        map.fitBounds(cluster.getBounds().pad(0.15), { maxZoom: 16, animate: true });
+      } else {
+        map.fitBounds(cluster.getBounds().pad(0.08), { maxZoom: 14, animate: true });
+      }
+    });
     map.on('moveend', scheduleMapRefresh);
     map.on('zoomend', scheduleMapRefresh);
     map.zoomControl.setPosition(isMobile() ? 'topright' : 'bottomright');
@@ -1130,6 +1662,101 @@
     document.getElementById('menuLegend')?.addEventListener('click', ()=>{ drop.hidden = true; btn.setAttribute('aria-expanded', 'false'); setOverlayOpen('legendOverlay', true); });
   }
 
+  function requestNearMe(){
+    if(!navigator.geolocation){ alert('Geolocation not supported.'); return; }
+    navigator.geolocation.getCurrentPosition(pos=>{
+      userLocation = {lat:pos.coords.latitude,lng:pos.coords.longitude};
+      if(!new URLSearchParams(location.search).get('radius')){
+        radiusMi = denseMetroRadius(userLocation.lat, userLocation.lng);
+      }
+      nearMe = true;
+      nearMeFitPending = true;
+      updateNearMeUi();
+      updateFilterUi();
+      if(isMobile()) setMobileView('map');
+      refresh();
+      maybeShowPromo('nearme');
+    },()=>alert('Could not get your location.'));
+  }
+
+  function buildFilterSheet(){
+    const body = document.getElementById('filterSheetBody');
+    if(!body) return;
+    body.innerHTML =
+      '<div class="filter-sheet-section"><span class="filter-sheet-label">Place type</span>'+
+      '<div class="segmented" id="sheetPlaceFilter">'+
+      ['all','mosque','restaurant','hotel','public'].map(t =>
+        '<button type="button" data-type="'+t+'"'+(placeFilter===t?' class="active"':'')+'>'+
+        (t==='all'?'All':t==='mosque'?'Masajid':t==='restaurant'?'Restaurants':t==='hotel'?'Hotels':'Public')+
+        '</button>').join('')+'</div></div>'+
+      '<div class="filter-sheet-section"><span class="filter-sheet-label">Toggles</span>'+
+      '<div class="filter-toggles">'+
+      '<button type="button" class="filter-toggle'+(showLimitedAccess?' active':'')+'" data-sheet="limited">Guests only</button>'+
+      '<button type="button" class="filter-toggle'+(noBidetMode?' active':'')+'" data-sheet="nobidet">No bidet</button>'+
+      '</div></div>'+
+      '<div class="filter-sheet-section"><span class="filter-sheet-label">More</span>'+
+      '<div class="more-panel" id="sheetTypeChips">'+
+      ['verified','warmed','internet','public','limited','USA','UK','Canada','France','Russia','China'].map(t =>
+        '<button type="button" class="chip'+((COUNTRY_FILTERS.includes(t)?countryFilter===t:extraFilter===t)?' active':'')+'" data-type="'+t+'">'+t+'</button>'
+      ).join('')+'</div></div>'+
+      '<div class="filter-sheet-section"><span class="filter-sheet-label">Along route</span>'+
+      '<input id="routeFrom" placeholder="From (city or address)">'+
+      '<input id="routeTo" placeholder="To (city or address)">'+
+      '<button type="button" class="btn btn-ghost" id="routeApplyBtn">Show spots along route</button></div>';
+  }
+
+  function readFilterSheet(){
+    const pf = document.querySelector('#sheetPlaceFilter button.active');
+    if(pf) placeFilter = pf.dataset.type;
+    showLimitedAccess = Boolean(document.querySelector('[data-sheet="limited"].active'));
+    noBidetMode = Boolean(document.querySelector('[data-sheet="nobidet"].active'));
+    extraFilter = null;
+    countryFilter = null;
+    document.querySelectorAll('#sheetTypeChips .chip.active').forEach(btn=>{
+      const t = btn.dataset.type;
+      if(COUNTRY_FILTERS.includes(t)) countryFilter = t;
+      else extraFilter = t;
+    });
+    updateFilterUi();
+  }
+
+  async function submitNotify(){
+    const email = document.getElementById('notifyEmail')?.value.trim();
+    const city = document.getElementById('notifyCity')?.value.trim();
+    const status = document.getElementById('notifyStatus');
+    if(!email || !city){
+      alert('Please enter your email and a city.');
+      return;
+    }
+    const btn = document.getElementById('notifySubmit');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: 'BidetBud notify: ' + city,
+          from_name: 'BidetBud notify',
+          email,
+          city,
+          message: 'Please notify when new verified spots are added in ' + city
+        })
+      });
+      status.textContent = 'Thanks! We will watch for new spots in ' + city + '.';
+      status.hidden = false;
+      status.classList.add('is-ok');
+    } catch(e){
+      status.textContent = 'Could not send. Try again later.';
+      status.hidden = false;
+      status.classList.add('is-error');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Subscribe';
+    }
+  }
+
   function wire(){
     initSubmitPanel();
     initLegendHelp();
@@ -1146,7 +1773,31 @@
     searchInput.addEventListener('focus', renderSearchAc);
     searchInput.addEventListener('blur', ()=> setTimeout(hideSearchAc, 180));
     searchInput.addEventListener('keydown', e=>{
-      if(e.key === 'Enter'){ hideSearchAc(); maybeShowPromo('search'); }
+      if(e.key === 'ArrowDown'){ e.preventDefault(); moveSearchAc(1); return; }
+      if(e.key === 'ArrowUp'){ e.preventDefault(); moveSearchAc(-1); return; }
+      if(e.key === 'Enter'){
+        if(selectSearchAcIndex()) return;
+        hideSearchAc();
+        saveRecentSearch(searchInput.value.trim());
+        maybeShowPromo('search');
+      }
+    });
+
+    document.querySelectorAll('.quick-chip').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const q = btn.dataset.quick;
+        if(q === 'no-bidet'){ setNoBidetMode(true); return; }
+        placeFilter = q === 'near-masjid' ? 'mosque' : 'restaurant';
+        updateFilterUi();
+        requestNearMe();
+      });
+    });
+
+    document.getElementById('unitToggle')?.addEventListener('click', ()=>{
+      useKm = !useKm;
+      try{ localStorage.setItem(USE_KM_KEY, useKm ? '1' : '0'); }catch(e){}
+      updateFilterUi();
+      refresh();
     });
 
     document.querySelectorAll('#placeFilter button').forEach(btn=>{
@@ -1198,18 +1849,85 @@
         refresh();
         return;
       }
-      if(!navigator.geolocation){ alert('Geolocation not supported.'); return; }
-      navigator.geolocation.getCurrentPosition(pos=>{
-        userLocation = {lat:pos.coords.latitude,lng:pos.coords.longitude};
-        nearMe = true;
-        nearMeFitPending = true;
-        updateNearMeUi();
-        updateFilterUi();
-        if(isMobile()) setMobileView('map');
-        refresh();
-        maybeShowPromo('nearme');
-      },()=>alert('Could not get your location.'));
+      requestNearMe();
     });
+
+    document.getElementById('tripBtn')?.addEventListener('click', ()=>{
+      renderTripList();
+      setOverlayOpen('tripOverlay', true);
+    });
+    document.getElementById('tripClose')?.addEventListener('click', ()=> setOverlayOpen('tripOverlay', false));
+    document.getElementById('tripClearAll')?.addEventListener('click', ()=>{
+      saveTrips([]);
+      renderTripList();
+      updateTripBtnBadge();
+    });
+    document.getElementById('tripOverlay')?.addEventListener('click', e=>{
+      if(e.target.id === 'tripOverlay') setOverlayOpen('tripOverlay', false);
+    });
+
+    document.getElementById('menuCopyView')?.addEventListener('click', ()=>{
+      document.getElementById('menuDrop').hidden = true;
+      copyViewLink();
+    });
+    document.getElementById('menuTrip')?.addEventListener('click', ()=>{
+      document.getElementById('menuDrop').hidden = true;
+      renderTripList();
+      setOverlayOpen('tripOverlay', true);
+    });
+    document.getElementById('menuNotify')?.addEventListener('click', ()=>{
+      document.getElementById('menuDrop').hidden = true;
+      setOverlayOpen('notifyOverlay', true);
+    });
+    document.getElementById('notifyClose')?.addEventListener('click', ()=> setOverlayOpen('notifyOverlay', false));
+    document.getElementById('notifySubmit')?.addEventListener('click', submitNotify);
+    document.getElementById('notifyOverlay')?.addEventListener('click', e=>{
+      if(e.target.id === 'notifyOverlay') setOverlayOpen('notifyOverlay', false);
+    });
+
+    document.getElementById('mobileFilterBtn')?.addEventListener('click', ()=>{
+      buildFilterSheet();
+      setOverlayOpen('filterSheetOverlay', true);
+    });
+    document.getElementById('filterSheetClose')?.addEventListener('click', ()=> setOverlayOpen('filterSheetOverlay', false));
+    document.getElementById('filterSheetClear')?.addEventListener('click', ()=>{
+      clearAllFilters();
+      buildFilterSheet();
+    });
+    document.getElementById('filterSheetApply')?.addEventListener('click', ()=>{
+      readFilterSheet();
+      setOverlayOpen('filterSheetOverlay', false);
+      refresh();
+    });
+    document.getElementById('filterSheetOverlay')?.addEventListener('click', e=>{
+      if(e.target.id === 'filterSheetOverlay') setOverlayOpen('filterSheetOverlay', false);
+    });
+    document.getElementById('filterSheetBody')?.addEventListener('click', e=>{
+      const seg = e.target.closest('#sheetPlaceFilter button');
+      if(seg){
+        document.querySelectorAll('#sheetPlaceFilter button').forEach(b=>b.classList.toggle('active', b===seg));
+        return;
+      }
+      const toggle = e.target.closest('[data-sheet]');
+      if(toggle){ toggle.classList.toggle('active'); return; }
+      const chip = e.target.closest('#sheetTypeChips .chip');
+      if(chip){
+        document.querySelectorAll('#sheetTypeChips .chip').forEach(b=>{
+          if(b===chip) b.classList.toggle('active');
+          else if(!COUNTRY_FILTERS.includes(b.dataset.type) && !COUNTRY_FILTERS.includes(chip.dataset.type)) b.classList.remove('active');
+        });
+      }
+      if(e.target.id === 'routeApplyBtn'){
+        const from = document.getElementById('routeFrom')?.value.trim();
+        const to = document.getElementById('routeTo')?.value.trim();
+        if(from && to){
+          applyAlongRoute(from, to).catch(err=> alert(err.message || 'Could not find route'));
+        }
+      }
+    });
+
+    document.getElementById('legendTipDismiss')?.addEventListener('click', dismissLegendTip);
+    document.getElementById('footerAddBtn')?.addEventListener('click', ()=> openAddForm('footer'));
 
     document.querySelectorAll('.mobile-tab').forEach(tab=>{
       tab.addEventListener('click',()=> setMobileView(tab.dataset.view));
@@ -1228,7 +1946,7 @@
     document.getElementById('addClose').addEventListener('click',()=>{ setOverlayOpen('addOverlay', false); resetAddForm(); });
     document.getElementById('detailClose').addEventListener('click',()=> setOverlayOpen('detailOverlay', false));
     document.getElementById('thankYouClose')?.addEventListener('click', ()=> setOverlayOpen('thankYouOverlay', false));
-    ['detailOverlay','addOverlay','aboutOverlay','thankYouOverlay','legendOverlay'].forEach(id=>{
+    ['detailOverlay','addOverlay','aboutOverlay','thankYouOverlay','legendOverlay','tripOverlay','notifyOverlay','filterSheetOverlay'].forEach(id=>{
       const node = document.getElementById(id);
       if(node) node.addEventListener('click',e=>{ if(e.target.id===id) setOverlayOpen(id, false); });
     });
@@ -1249,8 +1967,30 @@
           setOverlayOpen('aboutOverlay', false);
           setOverlayOpen('thankYouOverlay', false);
           setOverlayOpen('legendOverlay', false);
+          setOverlayOpen('tripOverlay', false);
+          setOverlayOpen('notifyOverlay', false);
+          setOverlayOpen('filterSheetOverlay', false);
           resetAddForm();
         }
+        return;
+      }
+      if(e.key === 'ArrowDown' && !isTypingTarget(document.activeElement) && document.getElementById('detailOverlay')?.classList.contains('open') === false){
+        const cards = [...document.querySelectorAll('#locationList .card')];
+        if(!cards.length) return;
+        e.preventDefault();
+        listFocusIndex = Math.min(cards.length - 1, listFocusIndex + 1);
+        cards.forEach((c,i)=> c.classList.toggle('keyboard-focus', i === listFocusIndex));
+        cards[listFocusIndex]?.focus();
+        cards[listFocusIndex]?.scrollIntoView({ block: 'nearest' });
+      }
+      if(e.key === 'ArrowUp' && !isTypingTarget(document.activeElement)){
+        const cards = [...document.querySelectorAll('#locationList .card')];
+        if(!cards.length) return;
+        e.preventDefault();
+        listFocusIndex = Math.max(0, listFocusIndex - 1);
+        cards.forEach((c,i)=> c.classList.toggle('keyboard-focus', i === listFocusIndex));
+        cards[listFocusIndex]?.focus();
+        cards[listFocusIndex]?.scrollIntoView({ block: 'nearest' });
       }
     });
 
@@ -1268,7 +2008,8 @@
         name,
         address: document.getElementById('addAddress').value.trim(),
         bidetStatus,
-        notes: document.getElementById('addNotes').value.trim()
+        notes: document.getElementById('addNotes').value.trim(),
+        photoLink: document.getElementById('addPhoto')?.value.trim() || ''
       };
       const prev = btn.textContent;
       btn.disabled = true;
@@ -1297,8 +2038,12 @@
   function bootWithSeed(seed){
     window.BIDETBUD_SEED = seed || [];
     initData();
+    updateTripBtnBadge();
+    updateUnitToggleUi();
     refresh();
     showLoadToast();
+    maybeShowLegendTip();
+    maybeShowFirstRunHints();
     if(spotFromUrl) setTimeout(()=> openDetail(spotFromUrl, true), 400);
     if (typeof window.trackEvent === 'function') {
       window.trackEvent('bidetbud_view', { spots: String(allLocations.length) });
@@ -1311,8 +2056,18 @@
 
   seedPromise.then(bootWithSeed).catch(err => {
     console.error(err);
+    let cached = null;
+    try{
+      cached = JSON.parse(localStorage.getItem('bb_seed_cache_v1') || 'null');
+    }catch(e){}
     const el = document.getElementById('countLabel');
-    if(el) el.textContent = 'Could not load spots. Refresh to try again.';
+    if(Array.isArray(cached) && cached.length){
+      if(el) el.textContent = 'Showing cached spots (offline). Refresh when online.';
+      bootWithSeed(cached);
+      return;
+    }
+    if(el) el.innerHTML = 'Could not load spots. <button type="button" class="inline-link" id="retryLoadBtn">Retry</button>';
+    document.getElementById('retryLoadBtn')?.addEventListener('click', ()=> location.reload());
     bootWithSeed([]);
   });
 })();

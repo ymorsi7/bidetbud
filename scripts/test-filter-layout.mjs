@@ -33,35 +33,51 @@ function overlaps(a, b) {
   return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
 }
 
-async function checkViewport(page, label) {
-  const segmented = await page.locator('#placeFilter').boundingBox();
-  const guests = await page.locator('#limitedAccessToggle').boundingBox();
-  const noBidet = await page.locator('#noBidetToggle').boundingBox();
-  const more = await page.locator('.more-filters summary').boundingBox();
-  const boxes = [
-    ['segmented', segmented],
-    ['guests-only', guests],
-    ['no-bidet', noBidet],
-    ['more-filters', more],
-  ].filter(([, b]) => b);
-
+async function checkViewport(page, label, mobile) {
   const issues = [];
-  for (let i = 0; i < boxes.length; i++) {
-    for (let j = i + 1; j < boxes.length; j++) {
-      if (overlaps(boxes[i][1], boxes[j][1])) {
-        issues.push(`${boxes[i][0]} overlaps ${boxes[j][0]}`);
+  if (mobile) {
+    const filterBtn = await page.locator('#mobileFilterBtn').boundingBox();
+    const guests = await page.locator('#limitedAccessToggle').boundingBox();
+    const noBidet = await page.locator('#noBidetToggle').boundingBox();
+    const boxes = [
+      ['filters-btn', filterBtn],
+      ['guests-only', guests],
+      ['no-bidet', noBidet],
+    ].filter(([, b]) => b);
+    for (let i = 0; i < boxes.length; i++) {
+      for (let j = i + 1; j < boxes.length; j++) {
+        if (overlaps(boxes[i][1], boxes[j][1])) {
+          issues.push(`${boxes[i][0]} overlaps ${boxes[j][0]}`);
+        }
       }
     }
-  }
+  } else {
+    const segmented = await page.locator('#placeFilter').boundingBox();
+    const guests = await page.locator('#limitedAccessToggle').boundingBox();
+    const noBidet = await page.locator('#noBidetToggle').boundingBox();
+    const more = await page.locator('.more-filters summary').boundingBox();
+    const boxes = [
+      ['segmented', segmented],
+      ['guests-only', guests],
+      ['no-bidet', noBidet],
+      ['more-filters', more],
+    ].filter(([, b]) => b);
 
-  // Toggles should be side-by-side, not stacked on same x
-  if (guests && noBidet && guests.right > noBidet.left + 2) {
-    issues.push('guests-only and no-bidet toggles overlap horizontally');
-  }
+    for (let i = 0; i < boxes.length; i++) {
+      for (let j = i + 1; j < boxes.length; j++) {
+        if (overlaps(boxes[i][1], boxes[j][1])) {
+          issues.push(`${boxes[i][0]} overlaps ${boxes[j][0]}`);
+        }
+      }
+    }
 
-  // Segmented must be above toggles
-  if (segmented && guests && segmented.bottom > guests.top + 2) {
-    issues.push('segmented bleeds into toggle row');
+    if (guests && noBidet && guests.right > noBidet.left + 2) {
+      issues.push('guests-only and no-bidet toggles overlap horizontally');
+    }
+
+    if (segmented && guests && segmented.bottom > guests.top + 2) {
+      issues.push('segmented bleeds into toggle row');
+    }
   }
 
   if (issues.length) {
@@ -88,7 +104,7 @@ try {
       await page.locator('.mobile-tab[data-view="list"]').click();
       await page.waitForTimeout(200);
     }
-    await checkViewport(page, vp.name);
+    await checkViewport(page, vp.name, vp.mobile);
   }
 
   // Toggle interaction
