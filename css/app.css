@@ -396,12 +396,6 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
 .filter-sheet-section{display:flex;flex-direction:column;gap:8px}
 .filter-sheet-label{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
 .filter-sheet-actions{position:sticky;bottom:0;background:var(--surface);padding-top:12px;border-top:1px solid var(--line)}
-.trip-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}
-.trip-item:last-child{border-bottom:none}
-.trip-item-main{flex:1;min-width:0;cursor:pointer}
-.trip-item-main h3{font-size:.9375rem;margin:0 0 4px}
-.trip-item-main p{font-size:.75rem;color:var(--muted);margin:0}
-.trip-empty{font-size:.875rem;color:var(--muted);padding:12px 0}
 .site-footer-cta{margin:6px 0 0}
 .footer-cta-btn{border:none;background:transparent;font:inherit;font-size:.6875rem;font-weight:600;color:var(--brand);cursor:pointer;padding:4px;text-decoration:underline;text-underline-offset:2px}
 .unit-toggle{min-width:36px;font-weight:700}
@@ -419,8 +413,7 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .filter-toggles{flex:1}
   .detail-sticky-footer{padding-bottom:calc(4px + var(--safe-bottom))}
   .map-legend-tip{display:none}
-  .map-legend-stack .map-legend-tip{display:none}
-  .actions #tripBtn .btn-label{display:none}
+  .map-legend-stack   .map-legend-tip{display:none}
 }
 @media(min-width:821px){
   .detail-sticky-footer{display:none!important}

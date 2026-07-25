@@ -6,7 +6,6 @@
   const POPULAR_CITIES = ['NYC', 'Bay Area', 'Houston', 'London', 'Toronto', 'Chicago', 'Dallas', 'Sunset Park', 'Williamsburg'];
   const RADIUS_OPTIONS = [5, 10, 25, 50, 100];
   const RECENT_SEARCH_KEY = 'bb_recent_searches';
-  const TRIP_KEY = 'bb_trips_v1';
   const USE_KM_KEY = 'bb_use_km';
   const ALONG_ROUTE_MI = 3;
   const MAP_MIN_ZOOM = 3;
@@ -185,42 +184,6 @@
       const list = JSON.parse(localStorage.getItem(RECENT_SEARCH_KEY) || '[]');
       return Array.isArray(list) ? list : [];
     }catch(e){ return []; }
-  }
-
-  function getTrips(){
-    try{
-      const list = JSON.parse(localStorage.getItem(TRIP_KEY) || '[]');
-      return Array.isArray(list) ? list : [];
-    }catch(e){ return []; }
-  }
-
-  function saveTrips(list){
-    try{ localStorage.setItem(TRIP_KEY, JSON.stringify(list)); }catch(e){}
-  }
-
-  function isInTrip(id){
-    return getTrips().some(t => t.id === id);
-  }
-
-  function toggleTrip(m){
-    let list = getTrips();
-    if(list.some(t => t.id === m.id)){
-      list = list.filter(t => t.id !== m.id);
-    } else {
-      list.unshift({ id: m.id, name: m.name, city: m.city, country: m.country });
-      list = list.slice(0, 50);
-    }
-    saveTrips(list);
-    updateTripBtnBadge();
-    return isInTrip(m.id);
-  }
-
-  function updateTripBtnBadge(){
-    const n = getTrips().length;
-    const btn = document.getElementById('tripBtn');
-    if(!btn) return;
-    btn.classList.toggle('has-badge', n > 0);
-    btn.title = n ? ('Saved spots (' + n + ')') : 'Saved spots';
   }
 
   function verificationPlainText(m){
@@ -486,36 +449,6 @@
       const bounds = L.latLngBounds([[from.lat, from.lng], [to.lat, to.lng]]);
       map.fitBounds(bounds.pad(0.2), { maxZoom: 11 });
     }
-  }
-
-  function renderTripList(){
-    const el = document.getElementById('tripList');
-    if(!el) return;
-    const trips = getTrips();
-    if(!trips.length){
-      el.innerHTML = '<p class="trip-empty">No saved spots yet. Open a place and tap Save to trip.</p>';
-      return;
-    }
-    el.innerHTML = trips.map(t =>
-      '<div class="trip-item" data-id="' + escapeHtml(t.id) + '">' +
-      '<div class="trip-item-main"><h3>' + escapeHtml(t.name) + '</h3><p>' + escapeHtml(t.city || '') + '</p></div>' +
-      '<button type="button" class="btn btn-ghost btn-sm js-trip-remove">Remove</button></div>'
-    ).join('');
-    el.querySelectorAll('.trip-item-main').forEach(node => {
-      node.addEventListener('click', () => {
-        setOverlayOpen('tripOverlay', false);
-        openDetail(node.closest('.trip-item').dataset.id);
-      });
-    });
-    el.querySelectorAll('.js-trip-remove').forEach(btn => {
-      btn.addEventListener('click', e => {
-        e.stopPropagation();
-        const id = btn.closest('.trip-item').dataset.id;
-        saveTrips(getTrips().filter(t => t.id !== id));
-        renderTripList();
-        updateTripBtnBadge();
-      });
-    });
   }
 
   function normalizeSeed(row){
@@ -1284,7 +1217,6 @@
     const directionsUrl = mapsDirectionsUrl(m);
     const appleMaps = 'https://maps.apple.com/?daddr='+encodeURIComponent([m.name, m.address].filter(Boolean).join(', '));
     const googleMaps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent([m.name, m.address, m.city].filter(Boolean).join(', '));
-    const saved = isInTrip(m.id);
     const stickyFooter = document.getElementById('detailStickyFooter');
     const stickyHtml =
       '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
@@ -1311,7 +1243,6 @@
       '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
       '<a class="btn btn-ghost" href="'+googleMaps+'" target="_blank" rel="noopener">Open in Maps</a>'+
       (isIOS() ? '<a class="btn btn-ghost" href="'+appleMaps+'" target="_blank" rel="noopener">Apple Maps</a>' : '')+
-      '<button type="button" class="btn btn-ghost js-trip-toggle">'+(saved ? 'Saved ✓' : 'Save to trip')+'</button>'+
       '<button type="button" class="btn btn-ghost js-copy-spot-link">Share spot</button>'+
       '<button type="button" class="btn btn-ghost js-copy-address">Copy address</button>'+
       '<button type="button" class="btn btn-ghost js-report-no-bidet">Report no bidet here</button>'+
@@ -1325,10 +1256,6 @@
     content.querySelector('.js-copy-address')?.addEventListener('click', ()=>{
       const txt = [m.name, m.address, m.city].filter(Boolean).join(', ');
       navigator.clipboard?.writeText(txt).then(()=> alert('Address copied!')).catch(()=>{});
-    });
-    content.querySelector('.js-trip-toggle')?.addEventListener('click', e=>{
-      const on = toggleTrip(m);
-      e.target.textContent = on ? 'Saved ✓' : 'Save to trip';
     });
     content.querySelector('.js-report-no-bidet')?.addEventListener('click', ()=>{
       setOverlayOpen('detailOverlay', false);
@@ -1868,28 +1795,9 @@
       requestNearMe();
     });
 
-    document.getElementById('tripBtn')?.addEventListener('click', ()=>{
-      renderTripList();
-      setOverlayOpen('tripOverlay', true);
-    });
-    document.getElementById('tripClose')?.addEventListener('click', ()=> setOverlayOpen('tripOverlay', false));
-    document.getElementById('tripClearAll')?.addEventListener('click', ()=>{
-      saveTrips([]);
-      renderTripList();
-      updateTripBtnBadge();
-    });
-    document.getElementById('tripOverlay')?.addEventListener('click', e=>{
-      if(e.target.id === 'tripOverlay') setOverlayOpen('tripOverlay', false);
-    });
-
     document.getElementById('menuCopyView')?.addEventListener('click', ()=>{
       document.getElementById('menuDrop').hidden = true;
       copyViewLink();
-    });
-    document.getElementById('menuTrip')?.addEventListener('click', ()=>{
-      document.getElementById('menuDrop').hidden = true;
-      renderTripList();
-      setOverlayOpen('tripOverlay', true);
     });
     document.getElementById('menuNotify')?.addEventListener('click', ()=>{
       document.getElementById('menuDrop').hidden = true;
@@ -1962,7 +1870,7 @@
     document.getElementById('addClose').addEventListener('click',()=>{ setOverlayOpen('addOverlay', false); resetAddForm(); });
     document.getElementById('detailClose').addEventListener('click',()=> setOverlayOpen('detailOverlay', false));
     document.getElementById('thankYouClose')?.addEventListener('click', ()=> setOverlayOpen('thankYouOverlay', false));
-    ['detailOverlay','addOverlay','aboutOverlay','thankYouOverlay','legendOverlay','tripOverlay','notifyOverlay','filterSheetOverlay'].forEach(id=>{
+    ['detailOverlay','addOverlay','aboutOverlay','thankYouOverlay','legendOverlay','notifyOverlay','filterSheetOverlay'].forEach(id=>{
       const node = document.getElementById(id);
       if(node) node.addEventListener('click',e=>{ if(e.target.id===id) setOverlayOpen(id, false); });
     });
@@ -1983,7 +1891,6 @@
           setOverlayOpen('aboutOverlay', false);
           setOverlayOpen('thankYouOverlay', false);
           setOverlayOpen('legendOverlay', false);
-          setOverlayOpen('tripOverlay', false);
           setOverlayOpen('notifyOverlay', false);
           setOverlayOpen('filterSheetOverlay', false);
           resetAddForm();
@@ -2054,7 +1961,6 @@
   function bootWithSeed(seed){
     window.BIDETBUD_SEED = seed || [];
     initData();
-    updateTripBtnBadge();
     updateUnitToggleUi();
     refresh();
     showLoadToast();
