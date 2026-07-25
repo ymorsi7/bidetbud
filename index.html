@@ -112,7 +112,6 @@ window.__BIDET_SEED_P = (function(){
           <button type="button" class="btn btn-ghost btn-icon-only" id="menuBtn" aria-label="Menu" aria-haspopup="true"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
           <div class="menu-drop" id="menuDrop" hidden role="menu">
             <button type="button" role="menuitem" id="menuCopyView">Copy link to this view</button>
-            <button type="button" role="menuitem" id="menuTrip">Saved spots</button>
             <button type="button" role="menuitem" id="menuNotify">Notify me for a city</button>
             <button type="button" role="menuitem" id="menuAbout">About</button>
             <button type="button" role="menuitem" id="menuLegend">Map legend</button>
@@ -121,10 +120,6 @@ window.__BIDET_SEED_P = (function(){
             <a class="menu-drop-link" role="menuitem" href="https://youtu.be/sQQ-bVxjqWc?si=QYB2L2aDgYlc6JRc" target="_blank" rel="noopener noreferrer">Demo video</a>
           </div>
         </div>
-        <button type="button" class="btn btn-ghost" id="tripBtn" aria-label="Saved spots" title="Saved spots">
-          <svg class="btn-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          <span class="btn-label">Saved</span>
-        </button>
         <button type="button" class="btn btn-ghost" id="nearMeBtn" aria-label="Find places near me">
           <svg class="btn-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/></svg>
           <span class="btn-label">Near me</span>
@@ -312,18 +307,6 @@ window.__BIDET_SEED_P = (function(){
     <button type="button" class="dialog-close" id="detailClose" aria-label="Close">×</button>
     <div id="detailContent"></div>
     <div class="detail-sticky-footer" id="detailStickyFooter" hidden></div>
-  </div>
-</div>
-
-<div class="overlay" id="tripOverlay" role="dialog" aria-modal="true" aria-labelledby="tripTitle">
-  <div class="dialog" id="tripDialog">
-    <button type="button" class="dialog-close" id="tripClose" aria-label="Close">×</button>
-    <h2 id="tripTitle">Saved spots</h2>
-    <p class="sub">Your trip list is stored on this device only.</p>
-    <div id="tripList"></div>
-    <div class="dialog-actions">
-      <button type="button" class="btn btn-ghost" id="tripClearAll">Clear all</button>
-    </div>
   </div>
 </div>
 
