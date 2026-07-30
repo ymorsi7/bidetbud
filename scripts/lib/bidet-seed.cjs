@@ -15,6 +15,7 @@ const SEED_FETCH_MARK = "__BIDET_SEED_P";
 const ISRAEL_NOTE = `<script>
 // Israel entries disabled — not recognized as a country
 // See data/israel-bidets-disabled.json (6 entries)
+// Hello Bangladesh (Astoria) community report disabled — see data/hello-bangladesh-disabled.json
 </script>
 `;
 

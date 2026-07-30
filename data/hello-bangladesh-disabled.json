@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Hello Bangladesh",
+    "address": "30-05 36th Ave, Astoria, NY 11106",
+    "latitude": "40.7569545",
+    "longitude": "-73.9302476",
+    "city": "Astoria, NY",
+    "country": "USA",
+    "type": "restaurant",
+    "bidetStatus": "verified",
+    "access": "public",
+    "bidetType": "Handheld sprayer",
+    "verifiedMethod": "community-report",
+    "sourceQuote": "Community report: bidet/handheld sprayer in the restroom.",
+    "searchAliases": "Astoria, Queens, Dutch Kills",
+    "_disabledReason": "Commented out — community report withheld pending re-check"
+  }
+]
