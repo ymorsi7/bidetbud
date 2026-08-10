@@ -259,8 +259,8 @@ body.modal-open{overflow:hidden}
 .about-signoff{margin:20px 0 0;padding-top:18px;border-top:1px solid var(--line);text-align:center;font-size:.9375rem;font-weight:600;font-style:italic;color:var(--brand-deep)}
 
 .overlay-sheet.open{align-items:flex-end;padding:0;background:rgba(0,0,0,.28)}
-.detail-dialog{max-height:min(52dvh,440px)}
-.detail-dialog::before{content:'';display:block;width:36px;height:4px;border-radius:999px;background:rgba(24,24,27,.12);margin:0 auto 14px}
+.detail-dialog{max-height:min(78dvh,640px)}
+.detail-dialog::before{content:'';display:block;width:36px;height:4px;border-radius:999px;background:rgba(24,24,27,.12);margin:0 auto 14px;flex-shrink:0}
 @media(min-width:821px){
   .overlay-sheet.open{align-items:center;padding:20px;background:rgba(0,0,0,.32)}
   .detail-dialog{max-height:88vh}
@@ -328,10 +328,14 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .overlay{align-items:flex-end;padding:0}
   .overlay.open .dialog,.overlay.open .dialog.wide{border-radius:20px 20px 0 0;max-height:min(94dvh,900px);padding:16px 16px calc(16px + var(--safe-bottom));animation:sheetIn .28s cubic-bezier(.2,.8,.2,1)}
   .overlay.open #addDialog.dialog.wide{max-height:94dvh;border-radius:20px 20px 0 0}
-  .overlay-sheet.open .detail-dialog{max-height:min(72dvh,560px)}
-  .detail-dialog .dialog-close{width:40px;height:40px;top:10px;right:10px}
+  .overlay-sheet.open .detail-dialog{display:flex;flex-direction:column;overflow:hidden;padding:12px 0 0;max-height:min(78dvh,640px)}
+  .overlay-sheet.open .detail-dialog::before{margin-bottom:10px}
+  .detail-dialog .dialog-close{width:40px;height:40px;top:8px;right:12px;z-index:2}
+  #detailContent{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:4px 16px 12px}
   .detail-actions{flex-direction:column;gap:8px}
   .detail-actions .btn{width:100%;min-height:48px}
+  .detail-more-actions{display:flex;flex-direction:column;gap:8px;margin-top:16px;padding-top:16px;border-top:1px solid var(--line)}
+  .detail-more-actions .btn{width:100%;min-height:44px}
   .dialog-close{width:40px;height:40px}
   .about-legend-list{grid-template-columns:1fr}
   .promo-dialog .dialog-actions .btn{min-height:48px}
@@ -390,8 +394,15 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
 .detail-bidet-callout{font-size:1.0625rem;font-weight:700;color:var(--brand-deep);margin:12px 0 8px;line-height:1.35}
 .detail-trust{font-size:.8125rem;color:var(--muted);margin:0 0 12px;line-height:1.45}
 .detail-source{font-size:.75rem;color:var(--muted);margin-top:8px}
-.detail-sticky-footer{position:sticky;bottom:0;left:0;right:0;padding:12px 0 0;margin-top:12px;border-top:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:8px}
-.detail-sticky-footer .btn{width:100%;min-height:48px}
+.detail-sticky-footer{flex-shrink:0;padding:12px 16px calc(12px + var(--safe-bottom));margin-top:0;border-top:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:8px;box-shadow:0 -6px 20px rgba(0,0,0,.06)}
+.detail-footer-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.detail-footer-actions .btn-primary{grid-column:1 / -1}
+.detail-footer-actions .btn{width:100%;min-height:48px}
+.detail-footer-links{display:flex;align-items:center;justify-content:center;gap:6px;flex-wrap:wrap}
+.detail-link-btn{border:none;background:none;font:inherit;font-size:.8125rem;font-weight:600;color:var(--brand);cursor:pointer;padding:8px 6px;min-height:44px;-webkit-tap-highlight-color:transparent}
+.detail-footer-sep{color:var(--muted);font-size:.8125rem;user-select:none;line-height:1}
+.detail-address{margin:0 0 12px;line-height:1.45}
+.detail-trust--source{margin-top:-4px;font-size:.75rem}
 .search-ac-item.active{background:var(--brand-soft)}
 .search-ac-section{font-size:.625rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);padding:8px 12px 4px}
 .mobile-filter-btn{display:none;font-size:.75rem;gap:6px;padding:8px 12px;min-height:40px}
@@ -411,7 +422,7 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .quick-chip{flex-shrink:0}
   .mobile-filter-btn{display:inline-flex}
   .filter-row .segmented{display:none}
-  .detail-sticky-footer{padding-bottom:calc(4px + var(--safe-bottom))}
+  .detail-sticky-footer{padding-bottom:calc(12px + var(--safe-bottom))}
 }
 @media(min-width:821px){
   .detail-sticky-footer{display:none!important}
