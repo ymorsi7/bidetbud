@@ -41,6 +41,89 @@
     return r + ' mi';
   }
 
+  const MILE_REGIONS = new Set(['US', 'GB', 'LR', 'MM']);
+
+  function localeList(locales){
+    return locales && locales.length
+      ? locales
+      : (typeof navigator !== 'undefined' && navigator.languages?.length
+        ? [...navigator.languages]
+        : [typeof navigator !== 'undefined' ? navigator.language : 'en-US']);
+  }
+
+  function localeHasExplicitRegion(locales){
+    for(const lang of localeList(locales)){
+      const tag = String(lang || '').trim();
+      if(!tag) continue;
+      try{
+        if(new Intl.Locale(tag).region) return true;
+      }catch(e){
+        if(tag.split('-')[1]) return true;
+      }
+    }
+    return false;
+  }
+
+  /** True when UI should show km (Canada, most of world). False for miles (US, UK). */
+  function localePrefersKm(locales){
+    const list = localeList(locales);
+    for(const lang of list){
+      const tag = String(lang || '').trim();
+      if(!tag) continue;
+      let region = '';
+      try{
+        region = new Intl.Locale(tag).region || '';
+      }catch(e){
+        region = tag.split('-')[1]?.toUpperCase() || '';
+      }
+      if(!region) continue;
+      if(MILE_REGIONS.has(region)) return false;
+      return true;
+    }
+    const primary = String(list[0] || 'en-US').toLowerCase();
+    if(primary === 'en-us' || primary.endsWith('-us')) return false;
+    if(primary === 'en-gb' || primary.endsWith('-gb')) return false;
+    if(primary === 'en-ca' || primary.endsWith('-ca')) return true;
+    if(primary.startsWith('en')) return false;
+    return true;
+  }
+
+  /** No-permission hint from system timezone (refines locale for US vs Canada). */
+  function timezonePrefersKm(){
+    try{
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+      if(/^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|St_Johns|Regina|Yellowknife|Whitehorse|Iqaluit|Moncton|Glace_Bay|Goose_Bay)/.test(tz)) return true;
+      if(/^America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Anchorage|Honolulu|Detroit|Boise|Indiana|Menominee|Sitka|Metlakatla|Nome|Adak)/.test(tz)) return false;
+      if(tz === 'Europe/London') return false;
+      if(tz.startsWith('Australia/') || tz.startsWith('Pacific/Auckland')) return true;
+    }catch(e){}
+    return null;
+  }
+
+  /** When Near me provides coords, UK is unambiguous for miles. */
+  function inferUseKmFromCoords(lat, lng){
+    const la = +lat;
+    const lo = +lng;
+    if(!Number.isFinite(la) || !Number.isFinite(lo)) return null;
+    if(la >= 49.86 && la <= 60.95 && lo >= -8.65 && lo <= 1.92) return false;
+    if(la >= 1.15 && la <= 1.48 && lo >= 103.6 && lo <= 104.1) return true;
+    return null;
+  }
+
+  function resolveUseKm(opts){
+    const o = opts || {};
+    if(o.lat != null && o.lng != null){
+      const fromCoords = inferUseKmFromCoords(o.lat, o.lng);
+      if(fromCoords != null) return fromCoords;
+    }
+    const locales = o.locales || localeList();
+    if(!localeHasExplicitRegion(locales)){
+      const fromTz = timezonePrefersKm();
+      if(fromTz != null) return fromTz;
+    }
+    return localePrefersKm(locales);
+  }
+
   function distToSegmentMi(pt, a, b){
     const d12 = haversineMiles(a, b);
     if(d12 < 0.01) return haversineMiles(a, pt);
@@ -126,6 +209,10 @@
     denseMetroRadius,
     formatDistance,
     formatRadiusLabel,
+    localePrefersKm,
+    timezonePrefersKm,
+    inferUseKmFromCoords,
+    resolveUseKm,
     distToSegmentMi,
     nearMeFitPins,
     nearMeMaxZoom,

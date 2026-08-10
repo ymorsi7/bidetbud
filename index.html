@@ -27,7 +27,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
-<link rel="stylesheet" href="css/app.css?v=20260724c">
+<link rel="stylesheet" href="css/app.css?v=20260810e">
 <link rel="preload" href="bidet-seed.json?v=20260724c" as="fetch" crossorigin>
 <script>
 window.__BIDET_SEED_P = (function(){
@@ -54,12 +54,12 @@ window.__BIDET_SEED_P = (function(){
 <link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="preload" href="vendor/leaflet.js" as="script">
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
-<link rel="preload" href="js/core.js?v=20260724d" as="script">
-<link rel="preload" href="js/app.js?v=20260724d" as="script">
+<link rel="preload" href="js/core.js?v=20260810f" as="script">
+<link rel="preload" href="js/app.js?v=20260810f" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
-<script src="js/core.js?v=20260724d" defer></script>
-<script src="js/app.js?v=20260724d" defer></script>
+<script src="js/core.js?v=20260810f" defer></script>
+<script src="js/app.js?v=20260810f" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -112,7 +112,7 @@ window.__BIDET_SEED_P = (function(){
           <button type="button" class="btn btn-ghost btn-icon-only" id="menuBtn" aria-label="Menu" aria-haspopup="true"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
           <div class="menu-drop" id="menuDrop" hidden role="menu">
             <button type="button" role="menuitem" id="menuCopyView">Copy link to this view</button>
-            <button type="button" role="menuitem" id="menuNotify">Notify me for a city</button>
+            <!-- <button type="button" role="menuitem" id="menuNotify">Notify me for a city</button> -->
             <button type="button" role="menuitem" id="menuAbout">About</button>
             <button type="button" role="menuitem" id="menuLegend">Map legend</button>
             <a class="menu-drop-link" role="menuitem" href="halal.html">HalalBud map</a>
@@ -138,18 +138,19 @@ window.__BIDET_SEED_P = (function(){
     <div class="map-wrap">
       <div id="map" role="application" aria-label="Map of bidet locations"></div>
       <div class="map-legend-stack">
+        <!-- Legend first-run tip disabled
         <div class="map-legend-tip" id="legendTip" hidden role="status">
-          <p>Colors match map pins. Turn on <strong>No bidet</strong> in filters to show gray no-bidet spots.</p>
+          <p>Pin colors match the list. Use <strong>No bidet</strong> in filters for reported spots without one.</p>
           <button type="button" class="btn btn-ghost btn-sm" id="legendTipDismiss">Got it</button>
         </div>
+        -->
         <div class="map-legend" aria-label="Map legend">
-          <span class="legend-title">Legend</span>
           <div class="legend-items">
-            <span class="legend-item"><span class="legend-dot verified"></span> Verified</span>
-            <span class="legend-item"><span class="legend-dot warmed"></span> Heated</span>
-            <span class="legend-item"><span class="legend-dot internet"></span> Web</span>
-            <span class="legend-item"><span class="legend-dot limited"></span> Limited</span>
-            <span class="legend-item legend-item--none" id="legendNone" hidden><span class="legend-dot none"></span> No bidet</span>
+            <span class="legend-item"><span class="legend-dot verified" aria-hidden="true"></span>Verified</span>
+            <span class="legend-item"><span class="legend-dot warmed" aria-hidden="true"></span>Heated</span>
+            <span class="legend-item"><span class="legend-dot internet" aria-hidden="true"></span>Web</span>
+            <span class="legend-item"><span class="legend-dot limited" aria-hidden="true"></span>Limited</span>
+            <span class="legend-item legend-item--none" id="legendNone" hidden><span class="legend-dot none" aria-hidden="true"></span>No bidet</span>
           </div>
           <button type="button" class="legend-help-btn" id="legendHelpBtn" aria-label="Open full map legend">
             <svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="11" x2="12" y2="16"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
@@ -215,7 +216,6 @@ window.__BIDET_SEED_P = (function(){
           <button type="button" class="chip" data-radius="25">25 mi</button>
           <button type="button" class="chip active" data-radius="50">50 mi</button>
           <button type="button" class="chip" data-radius="100">100 mi</button>
-          <button type="button" class="chip unit-toggle" id="unitToggle" aria-pressed="false" title="Switch miles / kilometers">mi</button>
         </div>
         <p class="near-me-hint" id="nearMeHint" hidden></p>
         <div class="active-filters" id="activeFilters" hidden aria-label="Active filters"></div>
@@ -286,19 +286,12 @@ window.__BIDET_SEED_P = (function(){
   <footer class="site-footer">
     <nav class="site-footer-nav" aria-label="Site links">
       <a href="#" id="footerAbout">About</a>
-      <span aria-hidden="true">·</span>
       <a href="halal.html">HalalBud</a>
-      <span aria-hidden="true">·</span>
+      <a href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer">GitHub</a>
+      <a href="https://youtu.be/sQQ-bVxjqWc?si=QYB2L2aDgYlc6JRc" target="_blank" rel="noopener noreferrer">Demo</a>
       <a href="https://ymorsi7.github.io/Ayatica/" target="_blank" rel="noopener noreferrer">Ayatica</a>
-      <span aria-hidden="true">·</span>
-      <span>BidetBud</span>
-      <span aria-hidden="true">·</span>
-      <a class="github-star-footer" href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer" aria-label="Star on GitHub"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0 1 12 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222 0 1.606-.014 2.898-.014 3.293 0 .322.216.694.825.576C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg><span>Star</span></a>
-      <span aria-hidden="true">·</span>
-      <a class="youtube-demo-footer" href="https://youtu.be/sQQ-bVxjqWc?si=QYB2L2aDgYlc6JRc" target="_blank" rel="noopener noreferrer" aria-label="Watch BidetBud demo on YouTube"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg><span>Demo</span></a>
     </nav>
-    <p class="site-footer-cta"><button type="button" class="footer-cta-btn" id="footerAddBtn">Know a spot? Add it in 10 seconds.</button></p>
-    <p class="site-footer-tagline">Built with passion &lt;3 · <span id="footerYear"></span></p>
+    <p class="site-footer-copy">© <span id="footerYear"></span> BidetBud</p>
   </footer>
 </div>
 
@@ -310,6 +303,7 @@ window.__BIDET_SEED_P = (function(){
   </div>
 </div>
 
+<!--
 <div class="overlay" id="notifyOverlay" role="dialog" aria-modal="true" aria-labelledby="notifyTitle">
   <div class="dialog" id="notifyDialog">
     <button type="button" class="dialog-close" id="notifyClose" aria-label="Close">×</button>
@@ -327,6 +321,7 @@ window.__BIDET_SEED_P = (function(){
     </div>
   </div>
 </div>
+-->
 
 <div class="overlay overlay-sheet" id="filterSheetOverlay" role="dialog" aria-modal="true" aria-labelledby="filterSheetTitle">
   <div class="dialog filter-sheet-dialog" id="filterSheetDialog">
