@@ -1,15 +1,13 @@
 #!/usr/bin/env node
 /**
- * Legend tooltip must sit above the legend pill without overlapping it.
+ * Map legend bar should render without the first-run tip overlay.
  * Run: node scripts/test-legend-ui.mjs
  */
 import { chromium } from 'playwright';
 import { createServer } from 'http';
 import { readFileSync } from 'fs';
 import { join, extname } from 'path';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const { boxesOverlap } = require('../js/core.js');
+
 const ROOT = join(import.meta.dirname, '..');
 const MIME = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.png': 'image/png', '.ico': 'image/x-icon', '.json': 'application/json' };
 
@@ -37,36 +35,23 @@ try {
   const page = await browser.newPage();
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto(url, { waitUntil: 'domcontentloaded' });
-  await page.addInitScript(() => {
-    localStorage.removeItem('bb_legend_tip');
-  });
-  await page.reload({ waitUntil: 'domcontentloaded' });
-  await page.waitForFunction(() => {
-    const tip = document.getElementById('legendTip');
-    return tip && !tip.hidden;
-  }, { timeout: 10000 });
+  await page.waitForSelector('.map-legend', { timeout: 10000 });
 
   const tip = page.locator('#legendTip');
-  const tipText = await tip.innerText();
-  if(/Gray X/i.test(tipText)){
-    throw new Error('Legend tip copy should not mention "Gray X" (legend uses dots, not X icons)');
+  if (await tip.count()) {
+    if (await tip.isVisible()) throw new Error('Legend first-run tip should stay hidden/disabled');
   }
 
-  const legendBox = await page.locator('.map-legend').boundingBox();
-  const tipBox = await tip.boundingBox();
-  if(!legendBox || !tipBox) throw new Error('Could not measure legend or tip');
-
-  if(boxesOverlap(tipBox, legendBox)){
-    throw new Error('Legend tip overlaps the legend pill');
-  }
-  if(tipBox.bottom > legendBox.top + 2){
-    throw new Error('Legend tip should sit above the legend pill');
+  const legend = page.locator('.map-legend');
+  const text = await legend.innerText();
+  if (!/Verified/.test(text) || !/Limited/.test(text)) {
+    throw new Error('Legend bar missing expected items');
   }
 
-  await page.locator('#legendTipDismiss').click();
-  if(await tip.isVisible()) throw new Error('Legend tip did not dismiss');
+  await legend.locator('#legendHelpBtn').click();
+  await page.waitForSelector('#legendOverlay.open', { timeout: 5000 });
 
-  console.log('  ✓ legend tip layout and copy');
+  console.log('  ✓ legend bar renders; first-run tip disabled');
   console.log('\nLegend UI checks passed.');
 } finally {
   await browser?.close();

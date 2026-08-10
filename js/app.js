@@ -6,7 +6,6 @@
   const POPULAR_CITIES = ['NYC', 'Bay Area', 'Houston', 'London', 'Toronto', 'Chicago', 'Dallas', 'Sunset Park', 'Williamsburg'];
   const RADIUS_OPTIONS = [5, 10, 25, 50, 100];
   const RECENT_SEARCH_KEY = 'bb_recent_searches';
-  const USE_KM_KEY = 'bb_use_km';
   const ALONG_ROUTE_MI = 3;
   const MAP_MIN_ZOOM = 3;
   const DEFAULT_MAP_CENTER = { lat: 39.8283, lng: -98.5795 };
@@ -148,10 +147,14 @@
     });
   }
 
-  function loadUseKm(){
-    try{ useKm = localStorage.getItem(USE_KM_KEY) === '1'; }catch(e){}
+  function applyDistanceUnits(){
+    const lat = userLocation?.lat;
+    const lng = userLocation?.lng;
+    useKm = core.resolveUseKm
+      ? core.resolveUseKm({ lat, lng })
+      : (core.localePrefersKm ? core.localePrefersKm() : false);
+    updateRadiusChipLabels();
   }
-  loadUseKm();
 
   function formatDistance(mi){
     return core.formatDistance ? core.formatDistance(mi, useKm) : (mi.toFixed(1) + ' mi');
@@ -368,12 +371,8 @@
     el.hidden = false;
   }
 
-  function updateUnitToggleUi(){
-    const btn = document.getElementById('unitToggle');
-    if(!btn) return;
-    btn.textContent = useKm ? 'km' : 'mi';
-    btn.setAttribute('aria-pressed', useKm ? 'true' : 'false');
-    document.querySelectorAll('#radiusRow button[data-radius]').forEach(b => {
+  function updateRadiusChipLabels(){
+    document.querySelectorAll('#radiusRow button[data-radius]').forEach(b=>{
       const r = parseInt(b.dataset.radius, 10);
       b.textContent = formatRadiusLabel(r);
     });
@@ -404,11 +403,7 @@
   }
 
   function maybeShowLegendTip(){
-    try{
-      if(localStorage.getItem('bb_legend_tip') === '1') return;
-    }catch(e){ return; }
-    const tip = document.getElementById('legendTip');
-    if(tip) tip.hidden = false;
+    /* first-run legend tip disabled */
   }
 
   function dismissLegendTip(){
@@ -596,6 +591,7 @@
       navigator.geolocation.getCurrentPosition(pos=>{
         userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
         if(!p.get('radius')) radiusMi = denseMetroRadius(userLocation.lat, userLocation.lng);
+        applyDistanceUnits();
         nearMeFitPending = true;
         refresh();
       }, ()=>{});
@@ -666,7 +662,7 @@
     });
     const radiusRow = document.getElementById('radiusRow');
     if(radiusRow) radiusRow.hidden = !nearMe;
-    updateUnitToggleUi();
+    updateRadiusChipLabels();
     updateNoBidetUi();
     updateActiveFiltersBar();
   }
@@ -963,7 +959,7 @@
     } else if(nearMe && !getQuery()){
       msg = 'Nothing within ' + formatRadiusLabel(radiusMi) + '. Try a wider radius or search a city name.';
       actions = '<div class="empty-actions">' +
-        (radiusMi < 100 ? '<button type="button" class="btn btn-ghost" id="emptyWidenBtn">Widen to 100 mi</button>' : '') +
+        (radiusMi < 100 ? '<button type="button" class="btn btn-ghost" id="emptyWidenBtn">Widen to ' + formatRadiusLabel(100) + '</button>' : '') +
         '<button type="button" class="btn btn-ghost" id="emptyNoBidetBtn">Show no-bidet spots</button>' +
         '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a spot</button></div>';
     } else if(nearMe && placeFilter === 'mosque'){
@@ -1518,6 +1514,7 @@
       if(nearMe && navigator.geolocation){
         navigator.geolocation.getCurrentPosition(pos=>{
           userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+          applyDistanceUnits();
           nearMeFitPending = true;
           refresh();
         }, ()=> refresh());
@@ -1535,7 +1532,7 @@
     }).setView([DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng], DEFAULT_MAP_ZOOM);
     map.createPane('countriesPane');
     map.getPane('countriesPane').style.zIndex = 350;
-    addCartoVoyagerTiles(map, true, true);
+    addCartoVoyagerTiles(map, true, false);
     // Defer the (network + parse + polygon render) country overlay so it never
     // competes with first paint, tiles, or marker rendering.
     const loadCountries = () => loadBidetFriendlyCountries();
@@ -1613,6 +1610,7 @@
       if(!new URLSearchParams(location.search).get('radius')){
         radiusMi = denseMetroRadius(userLocation.lat, userLocation.lng);
       }
+      applyDistanceUnits();
       nearMe = true;
       nearMeFitPending = true;
       updateNearMeUi();
@@ -1737,13 +1735,6 @@
       });
     });
 
-    document.getElementById('unitToggle')?.addEventListener('click', ()=>{
-      useKm = !useKm;
-      try{ localStorage.setItem(USE_KM_KEY, useKm ? '1' : '0'); }catch(e){}
-      updateFilterUi();
-      refresh();
-    });
-
     document.querySelectorAll('#placeFilter button').forEach(btn=>{
       btn.addEventListener('click',()=>{
         placeFilter = btn.dataset.type;
@@ -1800,15 +1791,7 @@
       document.getElementById('menuDrop').hidden = true;
       copyViewLink();
     });
-    document.getElementById('menuNotify')?.addEventListener('click', ()=>{
-      document.getElementById('menuDrop').hidden = true;
-      setOverlayOpen('notifyOverlay', true);
-    });
-    document.getElementById('notifyClose')?.addEventListener('click', ()=> setOverlayOpen('notifyOverlay', false));
-    document.getElementById('notifySubmit')?.addEventListener('click', submitNotify);
-    document.getElementById('notifyOverlay')?.addEventListener('click', e=>{
-      if(e.target.id === 'notifyOverlay') setOverlayOpen('notifyOverlay', false);
-    });
+    // Notify-me-for-a-city disabled
 
     document.getElementById('mobileFilterBtn')?.addEventListener('click', ()=>{
       buildFilterSheet();
@@ -1851,9 +1834,6 @@
       }
     });
 
-    document.getElementById('legendTipDismiss')?.addEventListener('click', dismissLegendTip);
-    document.getElementById('footerAddBtn')?.addEventListener('click', ()=> openAddForm('footer'));
-
     document.querySelectorAll('.mobile-tab').forEach(tab=>{
       tab.addEventListener('click',()=> setMobileView(tab.dataset.view));
     });
@@ -1871,7 +1851,7 @@
     document.getElementById('addClose').addEventListener('click',()=>{ setOverlayOpen('addOverlay', false); resetAddForm(); });
     document.getElementById('detailClose').addEventListener('click',()=> setOverlayOpen('detailOverlay', false));
     document.getElementById('thankYouClose')?.addEventListener('click', ()=> setOverlayOpen('thankYouOverlay', false));
-    ['detailOverlay','addOverlay','aboutOverlay','thankYouOverlay','legendOverlay','notifyOverlay','filterSheetOverlay'].forEach(id=>{
+    ['detailOverlay','addOverlay','aboutOverlay','thankYouOverlay','legendOverlay','filterSheetOverlay'].forEach(id=>{
       const node = document.getElementById(id);
       if(node) node.addEventListener('click',e=>{ if(e.target.id===id) setOverlayOpen(id, false); });
     });
@@ -1892,7 +1872,6 @@
           setOverlayOpen('aboutOverlay', false);
           setOverlayOpen('thankYouOverlay', false);
           setOverlayOpen('legendOverlay', false);
-          setOverlayOpen('notifyOverlay', false);
           setOverlayOpen('filterSheetOverlay', false);
           resetAddForm();
         }
@@ -1962,10 +1941,9 @@
   function bootWithSeed(seed){
     window.BIDETBUD_SEED = seed || [];
     initData();
-    updateUnitToggleUi();
+    applyDistanceUnits();
     refresh();
     showLoadToast();
-    maybeShowLegendTip();
     maybeShowFirstRunHints();
     if(spotFromUrl) setTimeout(()=> openDetail(spotFromUrl, true), 400);
     if (typeof window.trackEvent === 'function') {

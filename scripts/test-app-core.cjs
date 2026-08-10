@@ -56,6 +56,32 @@ describe('formatDistance', () => {
   });
 });
 
+describe('resolveUseKm', () => {
+  it('uses miles for en-US locale', () => {
+    assert.equal(core.resolveUseKm({ locales: ['en-US'] }), false);
+  });
+
+  it('uses km for en-CA locale', () => {
+    assert.equal(core.resolveUseKm({ locales: ['en-CA'] }), true);
+  });
+
+  it('uses miles for en-GB locale', () => {
+    assert.equal(core.resolveUseKm({ locales: ['en-GB'] }), false);
+  });
+
+  it('uses km for fr-FR locale', () => {
+    assert.equal(core.resolveUseKm({ locales: ['fr-FR'] }), true);
+  });
+
+  it('uses miles when coords are in the UK', () => {
+    assert.equal(core.resolveUseKm({ lat: 51.5074, lng: -0.1278, locales: ['fr-FR'] }), false);
+  });
+
+  it('uses km when coords are in Singapore', () => {
+    assert.equal(core.resolveUseKm({ lat: 1.3521, lng: 103.8198, locales: ['en-US'] }), true);
+  });
+});
+
 describe('formatRadiusLabel', () => {
   it('shows mi or km', () => {
     assert.equal(formatRadiusLabel(10, false), '10 mi');
