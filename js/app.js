@@ -191,6 +191,7 @@
   }
 
   function trustSourceLine(m){
+    if(m.verifiedMethod === 'in person') return 'Verified in person';
     if(m.verifiedMethod === 'community-sighting') return 'Added via community sighting';
     if(m.verifiedMethod === 'manufacturer-reference') return 'From manufacturer locator (TOTO / Geberit)';
     if(m.verifiedMethod === 'web-source') return 'From a web source with bidet evidence';
