@@ -1196,6 +1196,21 @@
     });
   }
 
+  function wireDetailButtons(root, m, shareLink){
+    if(!root) return;
+    root.querySelector('.js-copy-spot-link')?.addEventListener('click', ()=>{
+      navigator.clipboard?.writeText(shareLink).then(()=> alert('Link copied!')).catch(()=> prompt('Copy link:', shareLink));
+    });
+    root.querySelector('.js-copy-address')?.addEventListener('click', ()=>{
+      const txt = [m.name, m.address, m.city].filter(Boolean).join(', ');
+      navigator.clipboard?.writeText(txt).then(()=> alert('Address copied!')).catch(()=>{});
+    });
+    root.querySelector('.js-report-no-bidet')?.addEventListener('click', ()=>{
+      setOverlayOpen('detailOverlay', false);
+      openAddFormPrefill(m, true);
+    });
+  }
+
   function openDetail(id, fromUrl){
     const m=allLocations.find(x=>x.id===id);
     if(!m) return;
@@ -1203,61 +1218,77 @@
     focusSpotOnMap(m);
     scrollToListCard(id);
     setDocumentTitleForSpot(m);
+    const mobile = isMobile();
     const distLine = (nearMe && userLocation)
       ? '<p class="sub">' + formatDistance(haversineMiles(userLocation, { lat: +m.latitude, lng: +m.longitude })) + ' away</p>'
       : '';
     const source = m.sourceUrl ? '<p class="detail-source"><a href="'+escapeHtml(m.sourceUrl)+'" target="_blank" rel="noopener">View source ↗</a></p>' : '';
     const quote = m.sourceQuote ? '<blockquote class="source-quote"><strong>Review excerpt</strong>'+escapeHtml(m.sourceQuote)+'</blockquote>' : '';
+    const verifyText = verificationPlainText(m);
     const trustLine = trustSourceLine(m);
-    const trustHtml = trustLine ? '<p class="detail-trust">'+escapeHtml(trustLine)+'</p>' : '';
+    const trustHtml = (trustLine && trustLine !== verifyText)
+      ? '<p class="detail-trust detail-trust--source">'+escapeHtml(trustLine)+'</p>'
+      : '';
     const shareLink = spotShareUrl(id);
     const directionsUrl = mapsDirectionsUrl(m);
     const appleMaps = 'https://maps.apple.com/?daddr='+encodeURIComponent([m.name, m.address].filter(Boolean).join(', '));
     const googleMaps = 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent([m.name, m.address, m.city].filter(Boolean).join(', '));
+    const mapsBtn = isIOS()
+      ? '<a class="btn btn-ghost" href="'+appleMaps+'" target="_blank" rel="noopener">Apple Maps</a>'
+      : '<a class="btn btn-ghost" href="'+googleMaps+'" target="_blank" rel="noopener">Open in Maps</a>';
+
     const stickyFooter = document.getElementById('detailStickyFooter');
-    const stickyHtml =
-      '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
-      '<button type="button" class="btn btn-ghost js-copy-spot-link-sticky">Share spot</button>';
     if(stickyFooter){
-      stickyFooter.innerHTML = stickyHtml;
-      stickyFooter.hidden = !isMobile();
-      stickyFooter.querySelector('.js-copy-spot-link-sticky')?.addEventListener('click', ()=>{
-        navigator.clipboard?.writeText(shareLink).then(()=> alert('Link copied!')).catch(()=> prompt('Copy link:', shareLink));
-      });
+      if(mobile){
+        stickyFooter.innerHTML =
+          '<div class="detail-footer-actions">'+
+          '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
+          mapsBtn+
+          '</div>'+
+          '<div class="detail-footer-links">'+
+          '<button type="button" class="detail-link-btn js-copy-spot-link">Share spot</button>'+
+          '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
+          '<button type="button" class="detail-link-btn js-copy-address">Copy address</button>'+
+          '</div>';
+        stickyFooter.hidden = false;
+        wireDetailButtons(stickyFooter, m, shareLink);
+      } else {
+        stickyFooter.innerHTML = '';
+        stickyFooter.hidden = true;
+      }
     }
+
+    const desktopActions =
+      '<div class="dialog-actions detail-actions detail-actions--desktop">'+
+      '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
+      mapsBtn+
+      '<button type="button" class="btn btn-ghost js-copy-spot-link">Share spot</button>'+
+      '<button type="button" class="btn btn-ghost js-copy-address">Copy address</button>'+
+      '<button type="button" class="btn btn-ghost js-report-no-bidet">Report no bidet here</button>'+
+      '<button type="button" class="btn btn-ghost js-open-add-form">Add another</button>'+
+      '</div>';
+
+    const mobileSecondary =
+      '<div class="detail-more-actions">'+
+      '<button type="button" class="btn btn-ghost js-report-no-bidet">Report no bidet here</button>'+
+      '<button type="button" class="btn btn-ghost js-open-add-form">Add another spot</button>'+
+      '</div>';
+
     document.getElementById('detailContent').innerHTML =
       '<h2>'+escapeHtml(m.name)+'</h2>'+
       '<p class="sub">'+escapeHtml(typeLabel(m.type))+' · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
       distLine+
       '<p class="detail-bidet-callout">'+escapeHtml(bidetLeadLabel(m))+'</p>'+
-      '<p class="detail-trust">'+escapeHtml(verificationPlainText(m))+'</p>'+
+      '<p class="detail-trust">'+escapeHtml(verifyText)+'</p>'+
       (m.bidetStatus==='none' ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\'ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : '')+
       accessWarn(m)+
-      '<p>'+escapeHtml(m.address)+'</p>'+
+      '<p class="detail-address">'+escapeHtml(m.address)+'</p>'+
       '<div class="row">'+statusTag(m)+accessTag(m)+'</div>'+
       trustHtml+quote+source+
-      '<div class="dialog-actions detail-actions">'+
-      '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
-      '<a class="btn btn-ghost" href="'+googleMaps+'" target="_blank" rel="noopener">Open in Maps</a>'+
-      (isIOS() ? '<a class="btn btn-ghost" href="'+appleMaps+'" target="_blank" rel="noopener">Apple Maps</a>' : '')+
-      '<button type="button" class="btn btn-ghost js-copy-spot-link">Share spot</button>'+
-      '<button type="button" class="btn btn-ghost js-copy-address">Copy address</button>'+
-      '<button type="button" class="btn btn-ghost js-report-no-bidet">Report no bidet here</button>'+
-      '<button type="button" class="btn btn-ghost js-open-add-form">Add another</button>'+
-      '</div>'+
+      (mobile ? mobileSecondary : desktopActions)+
       reportFormHtml(m);
     const content = document.getElementById('detailContent');
-    content.querySelector('.js-copy-spot-link')?.addEventListener('click', ()=>{
-      navigator.clipboard?.writeText(shareLink).then(()=> alert('Link copied!')).catch(()=> prompt('Copy link:', shareLink));
-    });
-    content.querySelector('.js-copy-address')?.addEventListener('click', ()=>{
-      const txt = [m.name, m.address, m.city].filter(Boolean).join(', ');
-      navigator.clipboard?.writeText(txt).then(()=> alert('Address copied!')).catch(()=>{});
-    });
-    content.querySelector('.js-report-no-bidet')?.addEventListener('click', ()=>{
-      setOverlayOpen('detailOverlay', false);
-      openAddFormPrefill(m, true);
-    });
+    wireDetailButtons(content, m, shareLink);
     wireReportForm(content, m);
     setOverlayOpen('detailOverlay', true);
     syncUrlFromState();
@@ -1265,6 +1296,15 @@
       window.trackEvent('bidetbud_spot_open', { id: id });
     }
   }
+
+  let detailLayoutTimer;
+  window.addEventListener('resize', ()=>{
+    clearTimeout(detailLayoutTimer);
+    detailLayoutTimer = setTimeout(()=>{
+      const ov = document.getElementById('detailOverlay');
+      if(activeSpotId && ov?.classList.contains('open')) openDetail(activeSpotId, true);
+    }, 120);
+  });
 
   function refresh(){
     lastFiltered = filterLocations();
