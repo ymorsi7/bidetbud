@@ -28,22 +28,35 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
 <link rel="stylesheet" href="css/app.css?v=20260810e">
-<link rel="preload" href="bidet-seed.json?v=20260724c" as="fetch" crossorigin>
+<link rel="preload" href="bidet-seed.json?v=20260810h" as="fetch" crossorigin>
 <script>
 window.__BIDET_SEED_P = (function(){
-  var url = 'bidet-seed.json?v=20260724c';
+  var SEED_VER = '20260810h';
+  var url = 'bidet-seed.json?v=' + SEED_VER;
+  var cacheKey = 'bb_seed_cache_' + SEED_VER;
+  function seedFingerprint(data){
+    if(!Array.isArray(data) || !data.length) return '0';
+    var last = data[data.length - 1];
+    return String(data.length) + ':' + (last && last.name ? last.name : '') + ':' + (last && last.latitude ? last.latitude : '');
+  }
   var live = fetch(url, { credentials: 'same-origin' })
     .then(function(r){ if(!r.ok) throw new Error('Could not load map data'); return r.json(); })
     .then(function(data){
-      try { localStorage.setItem('bb_seed_cache_v1', JSON.stringify(data)); } catch(e) {}
+      try { localStorage.setItem(cacheKey, JSON.stringify(data)); } catch(e) {}
       return data;
     });
   try {
-    var cached = localStorage.getItem('bb_seed_cache_v1');
+    var cached = localStorage.getItem(cacheKey);
     if(cached){
       var parsed = JSON.parse(cached);
       if(Array.isArray(parsed) && parsed.length){
-        live.catch(function(){});
+        var cachedFp = seedFingerprint(parsed);
+        live.then(function(fresh){
+          if(!Array.isArray(fresh) || !fresh.length) return;
+          if(seedFingerprint(fresh) === cachedFp) return;
+          try { localStorage.setItem(cacheKey, JSON.stringify(fresh)); } catch(e) {}
+          window.dispatchEvent(new CustomEvent('bidetbud-seed-update', { detail: fresh }));
+        }).catch(function(){});
         return Promise.resolve(parsed);
       }
     }
@@ -55,11 +68,11 @@ window.__BIDET_SEED_P = (function(){
 <link rel="preload" href="vendor/leaflet.js" as="script">
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
 <link rel="preload" href="js/core.js?v=20260810f" as="script">
-<link rel="preload" href="js/app.js?v=20260810f" as="script">
+<link rel="preload" href="js/app.js?v=20260810h" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
 <script src="js/core.js?v=20260810f" defer></script>
-<script src="js/app.js?v=20260810f" defer></script>
+<script src="js/app.js?v=20260810h" defer></script>
 <script>
 (function () {
   var queue = [];

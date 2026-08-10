@@ -1951,6 +1951,14 @@
     }
   }
 
+  window.addEventListener('bidetbud-seed-update', e=>{
+    const fresh = e.detail;
+    if(!Array.isArray(fresh) || !fresh.length) return;
+    const prev = window.BIDETBUD_SEED || [];
+    if(fresh.length === prev.length && fresh[fresh.length - 1]?.name === prev[prev.length - 1]?.name) return;
+    bootWithSeed(fresh);
+  });
+
   const seedPromise = window.__BIDET_SEED_P
     || fetch('bidet-seed.json', { credentials: 'same-origin' })
         .then(r => { if(!r.ok) throw new Error('Could not load map data'); return r.json(); });
@@ -1959,7 +1967,7 @@
     console.error(err);
     let cached = null;
     try{
-      cached = JSON.parse(localStorage.getItem('bb_seed_cache_v1') || 'null');
+      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20260810h') || 'null');
     }catch(e){}
     const el = document.getElementById('countLabel');
     if(Array.isArray(cached) && cached.length){
