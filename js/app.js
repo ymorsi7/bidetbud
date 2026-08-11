@@ -646,6 +646,8 @@
     }
     const legendNone = document.getElementById('legendNone');
     if(legendNone) legendNone.hidden = !noBidetMode;
+    const legendPopupNone = document.getElementById('legendPopupNone');
+    if(legendPopupNone) legendPopupNone.hidden = !noBidetMode;
     document.querySelectorAll('#placeFilter button').forEach(b=>{
       b.classList.toggle('active', b.dataset.type === placeFilter);
     });

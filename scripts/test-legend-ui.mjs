@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Map legend bar should render without the first-run tip overlay.
+ * Sidebar pin-colors control opens full legend modal.
  * Run: node scripts/test-legend-ui.mjs
  */
 import { chromium } from 'playwright';
@@ -35,23 +35,28 @@ try {
   const page = await browser.newPage();
   await page.setViewportSize({ width: 1280, height: 800 });
   await page.goto(url, { waitUntil: 'domcontentloaded' });
-  await page.waitForSelector('.map-legend', { timeout: 10000 });
+  await page.waitForSelector('.sidebar-legend', { timeout: 10000 });
 
-  const tip = page.locator('#legendTip');
-  if (await tip.count()) {
-    if (await tip.isVisible()) throw new Error('Legend first-run tip should stay hidden/disabled');
+  const mapLegend = page.locator('.map-legend');
+  if (await mapLegend.count()) {
+    throw new Error('On-map legend bar should be removed');
   }
 
-  const legend = page.locator('.map-legend');
+  const legend = page.locator('.sidebar-legend-btn');
   const text = await legend.innerText();
-  if (!/Verified/.test(text) || !/Limited/.test(text)) {
-    throw new Error('Legend bar missing expected items');
+  if (!/Pin colors/.test(text)) {
+    throw new Error('Sidebar legend missing Pin colors label');
   }
 
-  await legend.locator('#legendHelpBtn').click();
+  await legend.click();
   await page.waitForSelector('#legendOverlay.open', { timeout: 5000 });
+  const popup = page.locator('.legend-grid');
+  const popupText = await popup.innerText();
+  if (!/Verified/.test(popupText) || !/Web source/.test(popupText)) {
+    throw new Error('Legend popup missing expected items');
+  }
 
-  console.log('  ✓ legend bar renders; first-run tip disabled');
+  console.log('  ✓ sidebar pin colors opens legend modal');
   console.log('\nLegend UI checks passed.');
 } finally {
   await browser?.close();
