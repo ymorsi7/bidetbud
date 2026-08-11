@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Lemongrass Lodge",
+    "address": "Holtze",
+    "latitude": "-12.46918",
+    "longitude": "130.99845",
+    "city": "Northern Territory, Australia",
+    "country": "Australia",
+    "type": "hotel",
+    "sourceUrl": "https://www.airbnb.com.au/rooms/51268502",
+    "sourceQuote": "Airbnb listing lists Bidet as a host-selected amenity.",
+    "bidetType": "Bidet (Airbnb amenity tag)",
+    "access": "limited",
+    "accessNote": "Short-term rental; verify amenity on listing before booking."
+  },
+  {
+    "name": "Cosy Geodome with Fireplace and Hot tub",
+    "address": "Canterbury",
+    "latitude": "-44.9547",
+    "longitude": "170.4745",
+    "city": "New Zealand",
+    "country": "New Zealand",
+    "type": "hotel",
+    "sourceUrl": "https://www.airbnb.com.au/rooms/1299059631004741583",
+    "sourceQuote": "Airbnb listing lists Bidet as a host-selected amenity.",
+    "bidetType": "Bidet (Airbnb amenity tag)",
+    "access": "limited",
+    "accessNote": "Short-term rental; verify amenity on listing before booking."
+  },
+  {
+    "name": "Designer Villa | Panoramic Views & Private Spa",
+    "address": "Auckland",
+    "latitude": "-36.9256",
+    "longitude": "174.8615",
+    "city": "New Zealand",
+    "country": "New Zealand",
+    "type": "hotel",
+    "sourceUrl": "https://www.airbnb.com.au/rooms/1733175787083105050",
+    "sourceQuote": "Airbnb listing lists Bidet as a host-selected amenity.",
+    "bidetType": "Bidet (Airbnb amenity tag)",
+    "access": "limited",
+    "accessNote": "Short-term rental; verify amenity on listing before booking."
+  },
+  {
+    "name": "Slopehill Hideaway-Ski Lodge Dalefield Queenstown",
+    "address": "Queenstown",
+    "latitude": "-44.97554",
+    "longitude": "168.7807",
+    "city": "New Zealand",
+    "country": "New Zealand",
+    "type": "hotel",
+    "sourceUrl": "https://www.airbnb.com.au/rooms/1744834491872042666",
+    "sourceQuote": "Airbnb listing lists Bidet as a host-selected amenity.",
+    "bidetType": "Bidet (Airbnb amenity tag)",
+    "access": "limited",
+    "accessNote": "Short-term rental; verify amenity on listing before booking."
+  },
+  {
+    "name": "Matakana Retreat- Off grid African Safari Glamping",
+    "address": "Auckland",
+    "latitude": "-36.33414",
+    "longitude": "174.686",
+    "city": "New Zealand",
+    "country": "New Zealand",
+    "type": "hotel",
+    "sourceUrl": "https://www.airbnb.com.au/rooms/619780303334971253",
+    "sourceQuote": "Airbnb listing lists Bidet as a host-selected amenity.",
+    "bidetType": "Bidet (Airbnb amenity tag)",
+    "access": "limited",
+    "accessNote": "Short-term rental; verify amenity on listing before booking."
+  }
+]
