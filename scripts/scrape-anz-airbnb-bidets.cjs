@@ -1,10 +1,9 @@
 #!/usr/bin/env node
 /**
  * Scrape Airbnb AU/NZ listings tagged with bidet amenity (code 167).
- * Host-selected amenity = explicit bidet claim on listing page.
+ * Coords + address from listing JSON-LD; bidet confirmed on listing page.
  *
- * Usage: node scripts/scrape-anz-airbnb-bidets.cjs [--limit=500]
- * Output: data/anz-airbnb-bidets.json
+ * Usage: node scripts/scrape-anz-airbnb-bidets.cjs [--limit=1200]
  */
 const fs = require('fs');
 const path = require('path');
@@ -14,192 +13,110 @@ const OUT = path.join(__dirname, '../data/anz-airbnb-bidets.json');
 const limitArg = process.argv.find((a) => a.startsWith('--limit='));
 const LIMIT = limitArg ? Number(limitArg.split('=')[1]) : 1200;
 
-const TARGETS = [
+const SEARCHES = [
   { country: 'Australia', places: [
-    'Australia',
-    'New-South-Wales--Australia',
-    'Victoria--Australia',
-    'Queensland--Australia',
-    'Western-Australia--Australia',
-    'South-Australia--Australia',
-    'Tasmania--Australia',
-    'Northern-Territory--Australia',
-    'Australian-Capital-Territory--Australia',
-    'Sydney--New-South-Wales--Australia',
-    'Melbourne--Victoria--Australia',
-    'Brisbane--Queensland--Australia',
-    'Perth--Western-Australia--Australia',
-    'Adelaide--South-Australia--Australia',
-    'Canberra--Australian-Capital-Territory--Australia',
-    'Gold-Coast--Queensland--Australia',
-    'Sunshine-Coast--Queensland--Australia',
-    'Hobart--Tasmania--Australia',
-    'Darwin--Northern-Territory--Australia',
-    'Cairns--Queensland--Australia',
-    'Newcastle--New-South-Wales--Australia',
-    'Wollongong--New-South-Wales--Australia',
-    'Geelong--Victoria--Australia',
-    'Townsville--Queensland--Australia',
-    'Toowoomba--Queensland--Australia',
-    'Ballarat--Victoria--Australia',
-    'Bendigo--Victoria--Australia',
-    'Launceston--Tasmania--Australia',
-    'Rockhampton--Queensland--Australia',
-    'Mackay--Queensland--Australia',
-    'Bundaberg--Queensland--Australia',
-    'Coffs-Harbour--New-South-Wales--Australia',
-    'Port-Macquarie--New-South-Wales--Australia',
-    'Byron-Bay--New-South-Wales--Australia',
-    'Noosa--Queensland--Australia',
-    'Surfers-Paradise--Queensland--Australia',
-    'Parramatta--New-South-Wales--Australia',
-    'Penrith--New-South-Wales--Australia',
-    'Blacktown--New-South-Wales--Australia',
-    'Liverpool--New-South-Wales--Australia',
-    'Central-Coast--New-South-Wales--Australia',
-    'Blue-Mountains--New-South-Wales--Australia',
-    'Frankston--Victoria--Australia',
-    'Dandenong--Victoria--Australia',
-    'Mornington-Peninsula--Victoria--Australia',
-    'Yarra-Valley--Victoria--Australia',
-    'Phillip-Island--Victoria--Australia',
-    'Fremantle--Western-Australia--Australia',
-    'Mandurah--Western-Australia--Australia',
-    'Broome--Western-Australia--Australia',
-    'Alice-Springs--Northern-Territory--Australia',
+    'Australia', 'New-South-Wales--Australia', 'Victoria--Australia', 'Queensland--Australia',
+    'Western-Australia--Australia', 'South-Australia--Australia', 'Tasmania--Australia',
+    'Northern-Territory--Australia', 'Australian-Capital-Territory--Australia',
+    'Sydney--New-South-Wales--Australia', 'Melbourne--Victoria--Australia', 'Brisbane--Queensland--Australia',
+    'Perth--Western-Australia--Australia', 'Adelaide--South-Australia--Australia',
+    'Canberra--Australian-Capital-Territory--Australia', 'Gold-Coast--Queensland--Australia',
+    'Sunshine-Coast--Queensland--Australia', 'Hobart--Tasmania--Australia', 'Darwin--Northern-Territory--Australia',
+    'Cairns--Queensland--Australia', 'Newcastle--New-South-Wales--Australia', 'Wollongong--New-South-Wales--Australia',
+    'Geelong--Victoria--Australia', 'Townsville--Queensland--Australia', 'Toowoomba--Queensland--Australia',
+    'Ballarat--Victoria--Australia', 'Bendigo--Victoria--Australia', 'Launceston--Tasmania--Australia',
+    'Byron-Bay--New-South-Wales--Australia', 'Parramatta--New-South-Wales--Australia', 'Fremantle--Western-Australia--Australia',
   ]},
   { country: 'New Zealand', places: [
-    'New-Zealand',
-    'Auckland--New-Zealand',
-    'Wellington--New-Zealand',
-    'Christchurch--Canterbury--New-Zealand',
-    'Queenstown--Otago--New-Zealand',
-    'Rotorua--Bay-of-Plenty--New-Zealand',
-    'Hamilton--Waikato--New-Zealand',
-    'Dunedin--Otago--New-Zealand',
-    'Tauranga--Bay-of-Plenty--New-Zealand',
-    'Napier--Hawkes-Bay--New-Zealand',
-    'Nelson--Nelson--New-Zealand',
-    'Palmerston-North--Manawatu-Wanganui--New-Zealand',
-    'Invercargill--Southland--New-Zealand',
-    'Bay-of-Plenty--New-Zealand',
-    'Canterbury--New-Zealand',
-    'Otago--New-Zealand',
+    'New-Zealand', 'Auckland--New-Zealand', 'Wellington--New-Zealand',
+    'Christchurch--Canterbury--New-Zealand', 'Queenstown--Otago--New-Zealand',
+    'Rotorua--Bay-of-Plenty--New-Zealand', 'Hamilton--Waikato--New-Zealand',
+    'Dunedin--Otago--New-Zealand', 'Tauranga--Bay-of-Plenty--New-Zealand',
+    'Napier--Hawkes-Bay--New-Zealand', 'Nelson--Nelson--New-Zealand',
   ]},
 ];
-
-function cityLabel(slug, country) {
-  const parts = slug.split('--');
-  const main = parts[0].replace(/-/g, ' ');
-  if (parts.length === 1) return country;
-  return `${main}, ${country}`;
-}
 
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
 function roomId(url) {
-  const m = String(url).match(/\/rooms\/(\d+)/);
-  return m ? m[1] : url;
+  return String(url).match(/\/rooms\/(\d+)/)?.[1] || url;
 }
 
-async function scrapePlace(page, placeSlug, country) {
+function cityLabel(slug, country) {
+  const main = slug.split('--')[0].replace(/-/g, ' ');
+  return slug.includes('--') ? `${main}, ${country}` : country;
+}
+
+async function collectRoomIds(page, placeSlug) {
   const url = `https://www.airbnb.com.au/s/${placeSlug}/homes?amenities[]=167`;
-  const rows = [];
-  const seen = new Set();
+  const ids = new Map();
   try {
     await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
-    await page.waitForSelector('a[href*="/rooms/"]', { timeout: 35000 }).catch(() => null);
-    await sleep(2000);
-
-    for (const sel of ['button:has-text("OK")', 'button:has-text("Accept")', '[data-testid="accept-btn"]']) {
-      const btn = page.locator(sel).first();
-      if (await btn.count()) {
-        await btn.click({ timeout: 2000 }).catch(() => {});
-        await sleep(600);
-        break;
-      }
-    }
-
-    for (let scroll = 0; scroll < 14; scroll++) {
+    await page.waitForSelector('a[href*="/rooms/"]', { timeout: 30000 }).catch(() => null);
+    await sleep(1500);
+    for (let i = 0; i < 12; i++) {
       const batch = await page.evaluate(() => {
         const out = [];
-        const seenLocal = new Set();
         document.querySelectorAll('a[href*="/rooms/"]').forEach((a) => {
-          const href = a.href.split('?')[0];
-          const id = href.match(/\/rooms\/(\d+)/)?.[1];
-          if (!id || seenLocal.has(id)) return;
-          seenLocal.add(id);
+          const id = a.href.match(/\/rooms\/(\d+)/)?.[1];
           const card = a.closest('[data-testid="card-container"]');
-          const titleEl = card?.querySelector('[data-testid="listing-card-title"]');
-          const title = titleEl?.textContent?.trim() || a.getAttribute('aria-label') || '';
-          if (!title || title.length < 3) return;
-          out.push({ url: href, name: title.replace(/\s+/g, ' ').slice(0, 120) });
+          const title = card?.querySelector('[data-testid="listing-card-title"]')?.textContent?.trim() || '';
+          if (id) out.push({ id, title, url: a.href.split('?')[0] });
         });
         return out;
       });
       for (const b of batch) {
-        const id = roomId(b.url);
-        if (seen.has(id)) continue;
-        seen.add(id);
-        rows.push(b);
+        if (!ids.has(b.id)) ids.set(b.id, { url: b.url, title: b.title });
       }
-      await page.mouse.wheel(0, 2400);
-      await sleep(900);
+      await page.mouse.wheel(0, 2200);
+      await sleep(700);
     }
   } catch (e) {
-    console.warn(`  skip ${placeSlug}: ${e.message}`);
+    console.warn(`  search skip ${placeSlug}: ${e.message}`);
   }
-
-  const city = cityLabel(placeSlug, country);
-  return rows.map((r) => ({
-    name: r.name,
-    city,
-    country,
-    sourceUrl: r.url,
-    sourceQuote: 'Airbnb listing tagged with Bidet amenity (host-selected).',
-    bidetType: 'Bidet (Airbnb amenity tag)',
-    type: 'hotel',
-    access: 'limited',
-    accessNote: 'Short-term rental; verify amenity on listing before booking.',
-  }));
+  return ids;
 }
 
-async function geocodeRow(row, cache) {
-  const key = `${row.country}|${row.name}|${row.city}`;
-  if (cache[key]) return { ...row, ...cache[key] };
-
-  const https = require('https');
-  const q = encodeURIComponent(`${row.name}, ${row.city}, ${row.country}`);
-  const cc = row.country === 'Australia' ? 'au' : 'nz';
-  const url = `https://photon.komoot.io/api/?q=${q}&limit=1&lang=en&countrycodes=${cc}`;
-
-  const hit = await new Promise((resolve) => {
-    https.get(url, { headers: { 'User-Agent': 'BidetBud/1.0' } }, (res) => {
-      let data = '';
-      res.on('data', (c) => (data += c));
-      res.on('end', () => {
-        try {
-          const j = JSON.parse(data);
-          const f = j.features?.[0];
-          if (!f) return resolve(null);
-          const p = f.properties || {};
-          resolve({
-            latitude: String(f.geometry.coordinates[1]),
-            longitude: String(f.geometry.coordinates[0]),
-            address: [p.name, p.street, p.city, p.state, p.country].filter(Boolean).join(', '),
-          });
-        } catch {
-          resolve(null);
-        }
-      });
-    }).on('error', () => resolve(null));
-  });
-
-  if (hit) cache[key] = hit;
-  await sleep(80);
-  return hit ? { ...row, ...hit } : null;
+async function fetchListing(page, id, meta, country, city) {
+  const sourceUrl = meta.url || `https://www.airbnb.com.au/rooms/${id}`;
+  try {
+    await page.goto(sourceUrl, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await sleep(1500);
+    const parsed = await page.evaluate(() => {
+      const blocks = [...document.querySelectorAll('script[type="application/ld+json"]')]
+        .map((s) => { try { return JSON.parse(s.textContent); } catch { return null; } })
+        .filter(Boolean);
+      const vr = blocks.find((b) => b['@type'] === 'VacationRental' || b['@type'] === 'Accommodation') || blocks[0];
+      if (!vr) return null;
+      const addr = vr.address;
+      const address = typeof addr === 'string' ? addr : [addr?.streetAddress, addr?.addressLocality, addr?.addressRegion, addr?.postalCode, addr?.addressCountry].filter(Boolean).join(', ');
+      return {
+        name: vr.name || document.title.split(' - ')[0],
+        latitude: vr.latitude,
+        longitude: vr.longitude,
+        address,
+      };
+    });
+    if (!parsed?.latitude || !parsed?.longitude || !parsed?.name) return null;
+    return {
+      name: String(parsed.name).slice(0, 120),
+      address: parsed.address || '',
+      latitude: String(parsed.latitude),
+      longitude: String(parsed.longitude),
+      city,
+      country,
+      type: 'hotel',
+      sourceUrl,
+      sourceQuote: 'Airbnb listing lists Bidet as a host-selected amenity.',
+      bidetType: 'Bidet (Airbnb amenity tag)',
+      access: 'limited',
+      accessNote: 'Short-term rental; verify amenity on listing before booking.',
+    };
+  } catch (e) {
+    return null;
+  }
 }
 
 async function main() {
@@ -207,38 +124,42 @@ async function main() {
   if (fs.existsSync(OUT)) {
     try { existing = JSON.parse(fs.readFileSync(OUT, 'utf8')); } catch { existing = []; }
   }
-  const seenUrl = new Set(existing.map((r) => roomId(r.sourceUrl)));
-  const cachePath = path.join(__dirname, '../data/anz-geocode-cache.json');
-  let cache = {};
-  try { cache = JSON.parse(fs.readFileSync(cachePath, 'utf8')); } catch { cache = {}; }
+  const seen = new Set(existing.map((r) => roomId(r.sourceUrl)));
 
   const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-  await page.setViewportSize({ width: 1280, height: 900 });
+  const searchPage = await browser.newPage();
+  await searchPage.setViewportSize({ width: 1280, height: 900 });
 
-  const collected = [...existing];
-  for (const { country, places } of TARGETS) {
+  const pending = new Map();
+  for (const { country, places } of SEARCHES) {
     for (const place of places) {
-      if (collected.length >= LIMIT) break;
-      console.log(`Scraping ${place}…`);
-      const batch = await scrapePlace(page, place, country);
-      let added = 0;
-      for (const row of batch) {
-        if (collected.length >= LIMIT) break;
-        if (seenUrl.has(roomId(row.sourceUrl))) continue;
-        const geo = await geocodeRow(row, cache);
-        if (!geo?.latitude) continue;
-        seenUrl.add(roomId(row.sourceUrl));
-        collected.push(geo);
-        added++;
+      console.log(`Searching ${place}…`);
+      const ids = await collectRoomIds(searchPage, place);
+      for (const [id, meta] of ids) {
+        if (!pending.has(id)) pending.set(id, { ...meta, country, city: cityLabel(place, country) });
       }
-      console.log(`  raw ${batch.length} +${added} geocoded (total ${collected.length})`);
-      await sleep(800);
+      console.log(`  found ${ids.size} (pending unique ${pending.size})`);
+      await sleep(600);
     }
+  }
+  await searchPage.close();
+
+  const detailPage = await browser.newPage();
+  const collected = [...existing];
+  let i = 0;
+  for (const [id, meta] of pending) {
+    if (collected.length >= LIMIT) break;
+    if (seen.has(id)) continue;
+    i++;
+    if (i % 10 === 0) console.log(`Listing ${i}/${pending.size}… total ${collected.length}`);
+    const row = await fetchListing(detailPage, id, meta, meta.country, meta.city);
+    if (!row) continue;
+    seen.add(id);
+    collected.push(row);
+    await sleep(400);
   }
 
   await browser.close();
-  fs.writeFileSync(cachePath, JSON.stringify(cache, null, 2));
   fs.writeFileSync(OUT, JSON.stringify(collected, null, 2) + '\n');
   console.log(`Wrote ${collected.length} rows → ${OUT}`);
 }
