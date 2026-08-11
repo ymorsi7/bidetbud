@@ -13,6 +13,7 @@ const SOURCES = [
   path.join(__dirname, '../data/anz-verified-bidets.json'),
   path.join(__dirname, '../data/anz-airbnb-bidets.json'),
   path.join(__dirname, '../data/anz-web-crawl-bidets.json'),
+  path.join(__dirname, '../data/anz-reddit-bidets.json'),
 ];
 
 function normName(name) {
