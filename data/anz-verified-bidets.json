@@ -1,0 +1,62 @@
+[
+  {
+    "name": "W Melbourne",
+    "address": "314 Flinders Lane, Melbourne, VIC 3000, Australia",
+    "latitude": "-37.819909",
+    "longitude": "144.983225",
+    "city": "Melbourne, VIC",
+    "country": "Australia",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET / NEOREST",
+    "sourceUrl": "https://www.toto.com/en/project/w-melbourne.htm",
+    "sourceQuote": "TOTO case study: smart toilets in each room; Wow Suites feature WASHLET by TOTO.",
+    "access": "limited",
+    "accessNote": "Hotel guests"
+  },
+  {
+    "name": "Park Hyatt Sydney",
+    "address": "7 Hickson Road, The Rocks, Sydney, NSW 2000, Australia",
+    "latitude": "-33.8559936",
+    "longitude": "151.2088969",
+    "city": "Sydney, NSW",
+    "country": "Australia",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET / NEOREST",
+    "sourceUrl": "https://www.toto.com/en/project/pdf/reference23.pdf",
+    "sourceQuote": "TOTO Global Reference case study lists Park Hyatt Sydney with washlet install.",
+    "access": "limited",
+    "accessNote": "Hotel guests"
+  },
+  {
+    "name": "Crown Towers Sydney",
+    "address": "1 Barangaroo Avenue, Sydney, NSW 2000, Australia",
+    "latitude": "-33.8651715",
+    "longitude": "151.2019582",
+    "city": "Sydney, NSW",
+    "country": "Australia",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "TOTO WASHLET",
+    "sourceUrl": "http://pointfu.blogspot.com/2017/06/where-to-find-toto-washlets-outside-of.html",
+    "sourceQuote": "PointFu washlet hotel list (Apr 2025): Crown Towers Sydney.",
+    "access": "limited",
+    "accessNote": "Verify room category has washlet before booking"
+  },
+  {
+    "name": "Bay House Beachside Studios",
+    "address": "433 Tauranga Bay Road, Cape Foulwind 7892, New Zealand",
+    "latitude": "-41.7745782",
+    "longitude": "171.454329",
+    "city": "Tauranga Bay, West Coast",
+    "country": "New Zealand",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "TOTO WASHLET",
+    "sourceUrl": "http://pointfu.blogspot.com/2017/06/where-to-find-toto-washlets-outside-of.html",
+    "sourceQuote": "PointFu washlet hotel list (Apr 2025): Bay House Beachside Studios, Tauranga Bay NZ.",
+    "access": "limited",
+    "accessNote": "Vacation rental; verify before booking"
+  }
+]
