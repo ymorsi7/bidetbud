@@ -16,6 +16,15 @@ const LIMIT = limitArg ? Number(limitArg.split('=')[1]) : 1200;
 
 const TARGETS = [
   { country: 'Australia', places: [
+    'Australia',
+    'New-South-Wales--Australia',
+    'Victoria--Australia',
+    'Queensland--Australia',
+    'Western-Australia--Australia',
+    'South-Australia--Australia',
+    'Tasmania--Australia',
+    'Northern-Territory--Australia',
+    'Australian-Capital-Territory--Australia',
     'Sydney--New-South-Wales--Australia',
     'Melbourne--Victoria--Australia',
     'Brisbane--Queensland--Australia',
@@ -43,8 +52,24 @@ const TARGETS = [
     'Byron-Bay--New-South-Wales--Australia',
     'Noosa--Queensland--Australia',
     'Surfers-Paradise--Queensland--Australia',
+    'Parramatta--New-South-Wales--Australia',
+    'Penrith--New-South-Wales--Australia',
+    'Blacktown--New-South-Wales--Australia',
+    'Liverpool--New-South-Wales--Australia',
+    'Central-Coast--New-South-Wales--Australia',
+    'Blue-Mountains--New-South-Wales--Australia',
+    'Frankston--Victoria--Australia',
+    'Dandenong--Victoria--Australia',
+    'Mornington-Peninsula--Victoria--Australia',
+    'Yarra-Valley--Victoria--Australia',
+    'Phillip-Island--Victoria--Australia',
+    'Fremantle--Western-Australia--Australia',
+    'Mandurah--Western-Australia--Australia',
+    'Broome--Western-Australia--Australia',
+    'Alice-Springs--Northern-Territory--Australia',
   ]},
   { country: 'New Zealand', places: [
+    'New-Zealand',
     'Auckland--New-Zealand',
     'Wellington--New-Zealand',
     'Christchurch--Canterbury--New-Zealand',
@@ -57,59 +82,71 @@ const TARGETS = [
     'Nelson--Nelson--New-Zealand',
     'Palmerston-North--Manawatu-Wanganui--New-Zealand',
     'Invercargill--Southland--New-Zealand',
+    'Bay-of-Plenty--New-Zealand',
+    'Canterbury--New-Zealand',
+    'Otago--New-Zealand',
   ]},
 ];
 
 function cityLabel(slug, country) {
-  const main = slug.split('--')[0].replace(/-/g, ' ');
-  return `${main}, ${country === 'Australia' ? 'Australia' : 'NZ'}`;
+  const parts = slug.split('--');
+  const main = parts[0].replace(/-/g, ' ');
+  if (parts.length === 1) return country;
+  return `${main}, ${country}`;
 }
 
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
+function roomId(url) {
+  const m = String(url).match(/\/rooms\/(\d+)/);
+  return m ? m[1] : url;
+}
+
 async function scrapePlace(page, placeSlug, country) {
   const url = `https://www.airbnb.com.au/s/${placeSlug}/homes?amenities[]=167`;
   const rows = [];
+  const seen = new Set();
   try {
-    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 45000 });
-    await sleep(2500);
+    await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
+    await page.waitForSelector('a[href*="/rooms/"]', { timeout: 35000 }).catch(() => null);
+    await sleep(2000);
 
-    // Dismiss cookie/consent if present
     for (const sel of ['button:has-text("OK")', 'button:has-text("Accept")', '[data-testid="accept-btn"]']) {
       const btn = page.locator(sel).first();
       if (await btn.count()) {
         await btn.click({ timeout: 2000 }).catch(() => {});
-        await sleep(800);
+        await sleep(600);
         break;
       }
     }
 
-    for (let scroll = 0; scroll < 8; scroll++) {
+    for (let scroll = 0; scroll < 14; scroll++) {
       const batch = await page.evaluate(() => {
         const out = [];
-        const seen = new Set();
+        const seenLocal = new Set();
         document.querySelectorAll('a[href*="/rooms/"]').forEach((a) => {
           const href = a.href.split('?')[0];
-          if (seen.has(href)) return;
-          seen.add(href);
-          let name = '';
-          const card = a.closest('[data-testid="card-container"]') || a.closest('div[itemprop="itemListElement"]') || a.parentElement?.parentElement;
-          if (card) {
-            const t = card.querySelector('[data-testid="listing-card-title"]') || card.querySelector('span[id^="title_"]') || card.querySelector('div[aria-labelledby]');
-            name = t?.textContent?.trim() || '';
-          }
-          if (!name) name = a.getAttribute('aria-label') || a.textContent?.trim() || '';
-          name = name.replace(/\s+/g, ' ').slice(0, 120);
-          if (name.length < 3) return;
-          out.push({ url: href, name });
+          const id = href.match(/\/rooms\/(\d+)/)?.[1];
+          if (!id || seenLocal.has(id)) return;
+          seenLocal.add(id);
+          const card = a.closest('[data-testid="card-container"]');
+          const titleEl = card?.querySelector('[data-testid="listing-card-title"]');
+          const title = titleEl?.textContent?.trim() || a.getAttribute('aria-label') || '';
+          if (!title || title.length < 3) return;
+          out.push({ url: href, name: title.replace(/\s+/g, ' ').slice(0, 120) });
         });
         return out;
       });
-      for (const b of batch) rows.push(b);
-      await page.mouse.wheel(0, 2200);
-      await sleep(1200);
+      for (const b of batch) {
+        const id = roomId(b.url);
+        if (seen.has(id)) continue;
+        seen.add(id);
+        rows.push(b);
+      }
+      await page.mouse.wheel(0, 2400);
+      await sleep(900);
     }
   } catch (e) {
     console.warn(`  skip ${placeSlug}: ${e.message}`);
@@ -161,7 +198,7 @@ async function geocodeRow(row, cache) {
   });
 
   if (hit) cache[key] = hit;
-  await sleep(120);
+  await sleep(80);
   return hit ? { ...row, ...hit } : null;
 }
 
@@ -170,7 +207,7 @@ async function main() {
   if (fs.existsSync(OUT)) {
     try { existing = JSON.parse(fs.readFileSync(OUT, 'utf8')); } catch { existing = []; }
   }
-  const seenUrl = new Set(existing.map((r) => r.sourceUrl));
+  const seenUrl = new Set(existing.map((r) => roomId(r.sourceUrl)));
   const cachePath = path.join(__dirname, '../data/anz-geocode-cache.json');
   let cache = {};
   try { cache = JSON.parse(fs.readFileSync(cachePath, 'utf8')); } catch { cache = {}; }
@@ -188,15 +225,15 @@ async function main() {
       let added = 0;
       for (const row of batch) {
         if (collected.length >= LIMIT) break;
-        if (seenUrl.has(row.sourceUrl)) continue;
+        if (seenUrl.has(roomId(row.sourceUrl))) continue;
         const geo = await geocodeRow(row, cache);
         if (!geo?.latitude) continue;
-        seenUrl.add(row.sourceUrl);
+        seenUrl.add(roomId(row.sourceUrl));
         collected.push(geo);
         added++;
       }
-      console.log(`  +${added} (total ${collected.length})`);
-      await sleep(1500);
+      console.log(`  raw ${batch.length} +${added} geocoded (total ${collected.length})`);
+      await sleep(800);
     }
   }
 
