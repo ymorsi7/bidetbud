@@ -70,5 +70,20 @@
     "sourceUrl": "https://www.atly.com/location/Talkin-Tacos-Temple-Terrace",
     "sourceQuote": "Atly bathroom guide: strong>incredibly clean . Toilets come with bidets , a feature common in Arabic culture. Halal Halal options include",
     "verifiedMethod": "web-source"
+  },
+  {
+    "name": "Sultan's Kebab",
+    "address": "278 E Campbell Ave, Campbell, CA 95008",
+    "latitude": "37.2868782",
+    "longitude": "-121.9446133",
+    "city": "Campbell, CA",
+    "country": "USA",
+    "halalStatus": "full",
+    "cuisine": "Turkish",
+    "venueType": "restaurant",
+    "sourceUrl": "https://www.downtowncampbell.com/biz/sultans-kebab",
+    "sourceQuote": "User submission: owner says fully halal Turkish food; all dishes halal (other Sultan's Kebab locations also halal)",
+    "verifiedMethod": "user-submission",
+    "source": "user-submission"
   }
 ]
