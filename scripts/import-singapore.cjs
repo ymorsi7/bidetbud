@@ -80,6 +80,10 @@ function buildSourceQuote(remarks) {
 }
 
 function toSeedRow(row) {
+  const lat = Number(row.lat);
+  const lng = Number(row.lng);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return null;
+
   const access = mapAccess(row.Remarks);
   const accessNote =
     access === 'limited' ? (row.Remarks || '').trim() : '';
@@ -89,8 +93,8 @@ function toSeedRow(row) {
   return {
     name,
     address,
-    latitude: String(row.lat),
-    longitude: String(row.lng),
+    latitude: String(lat),
+    longitude: String(lng),
     city: formatRegion(row.Region),
     country: 'Singapore',
     type: mapType(row.Type, row.Location),
@@ -113,7 +117,7 @@ function dedupeKey(row) {
 
 const existing = readSeed();
 const sgRaw = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
-const sgRows = sgRaw.map(toSeedRow);
+const sgRows = sgRaw.map(toSeedRow).filter(Boolean);
 
 // Replace existing Singapore rows (refresh metadata) and add any new ones
 const nonSg = existing.filter((r) => r.country !== 'Singapore');
