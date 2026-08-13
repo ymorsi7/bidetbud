@@ -784,6 +784,91 @@ function rowKey(r) {
   return `${(r.name || '').toLowerCase()}|${r.latitude}|${r.longitude}`;
 }
 
+function hasValidCoords(r) {
+  const lat = Number(r.latitude);
+  const lon = Number(r.longitude);
+  if (!Number.isFinite(lat) || !Number.isFinite(lon)) return false;
+  if (Math.abs(lat) > 90 || Math.abs(lon) > 180) return false;
+  if (Math.abs(lat) < 0.001 && Math.abs(lon) < 0.001) return false;
+  return true;
+}
+
+function fuzzyNameKey(name) {
+  return decodeHtmlEntities(String(name || ''))
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/["'’`°.]/g, '')
+    .replace(/\b(the|restaurant|restaurante|cafe|café|grill|kitchen|house|and|&)\b/g, '')
+    .replace(/[^a-z0-9]+/g, '')
+    .trim();
+}
+
+function haversineM(a, b) {
+  const R = 6371000;
+  const toRad = (d) => (d * Math.PI) / 180;
+  const la1 = Number(a.latitude);
+  const lo1 = Number(a.longitude);
+  const la2 = Number(b.latitude);
+  const lo2 = Number(b.longitude);
+  if (![la1, lo1, la2, lo2].every(Number.isFinite)) return Infinity;
+  const dLat = toRad(la2 - la1);
+  const dLon = toRad(lo2 - lo1);
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(la1)) * Math.cos(toRad(la2)) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+}
+
+const NEARBY_DEDUPE_M = 150;
+
+function sourceRank(s) {
+  return { 'user-submission': 50, muis: 40, zabihah: 30, osm: 20 }[s] || 10;
+}
+
+function absorbRow(existing, incoming) {
+  if (
+    incoming.halalStatus === 'full' &&
+    (incoming.source === 'muis' || incoming.source === 'user-submission')
+  ) {
+    existing.halalStatus = 'full';
+  }
+  if ((incoming.address || '').length > (existing.address || '').length) {
+    existing.address = incoming.address;
+  }
+  if (!existing.city && incoming.city) existing.city = incoming.city;
+  if (!existing.cuisine && incoming.cuisine) existing.cuisine = incoming.cuisine;
+  if (incoming.hasBidet) {
+    existing.hasBidet = true;
+    if (incoming.bidetType) existing.bidetType = incoming.bidetType;
+    if (incoming.bidetSpotId) existing.bidetSpotId = incoming.bidetSpotId;
+  }
+  if (
+    sourceRank(incoming.source) > sourceRank(existing.source) &&
+    (incoming.source === 'muis' || incoming.source === 'user-submission') &&
+    incoming.sourceQuote
+  ) {
+    existing.sourceQuote = incoming.sourceQuote;
+  }
+}
+
+function fuzzyBucketKey(r) {
+  const nk = fuzzyNameKey(r.name);
+  if (nk.length < 4) return '';
+  return `${nk}|${String(r.country || '').toLowerCase()}`;
+}
+
+function findNearbyDupe(r, byFuzzy) {
+  const k = fuzzyBucketKey(r);
+  if (!k) return null;
+  const bucket = byFuzzy.get(k);
+  if (!bucket) return null;
+  for (const other of bucket) {
+    if (haversineM(r, other) <= NEARBY_DEDUPE_M) return other;
+  }
+  return null;
+}
+
 function isGenericListUrl(url) {
   const u = String(url || '').toLowerCase().split('#')[0].split('?')[0];
   return (
@@ -820,12 +905,23 @@ function normalizeRow(r) {
 function mergeRows(existing, incoming, { keepNonDefaultOnly = false } = {}) {
   const byUrl = new Map();
   const byKey = new Map();
+  const byFuzzy = new Map();
+
+  function indexRow(r) {
+    byKey.set(rowKey(r), r);
+    if (r.sourceUrl) byUrl.set(sourceUrlKey(r), r);
+    const fk = fuzzyBucketKey(r);
+    if (fk) {
+      if (!byFuzzy.has(fk)) byFuzzy.set(fk, []);
+      byFuzzy.get(fk).push(r);
+    }
+  }
+
   for (const raw of existing) {
     const r = normalizeRow(raw);
     if (keepNonDefaultOnly && isHalalDefaultCountry(r.country)) continue;
-    if (!r.latitude || !r.longitude || !r.name) continue;
-    byKey.set(rowKey(r), r);
-    if (r.sourceUrl) byUrl.set(sourceUrlKey(r), r);
+    if (!r.name || !hasValidCoords(r)) continue;
+    indexRow(r);
   }
   let added = 0;
   let skippedDefault = 0;
@@ -837,22 +933,22 @@ function mergeRows(existing, incoming, { keepNonDefaultOnly = false } = {}) {
       skippedDefault++;
       continue;
     }
-    if (!r.latitude || !r.longitude || !r.name) {
+    if (!r.name || !hasValidCoords(r)) {
       skippedInvalid++;
       continue;
     }
     const uk = r.sourceUrl ? sourceUrlKey(r) : '';
     const rk = rowKey(r);
-    if (uk && !isGenericListUrl(uk) && byUrl.has(uk)) {
+    const urlHit = uk && !isGenericListUrl(uk) ? byUrl.get(uk) : null;
+    const keyHit = byKey.get(rk);
+    const nearHit = findNearbyDupe(r, byFuzzy);
+    const dupe = urlHit || keyHit || nearHit;
+    if (dupe) {
+      absorbRow(dupe, r);
       skippedDupe++;
       continue;
     }
-    if (byKey.has(rk)) {
-      skippedDupe++;
-      continue;
-    }
-    byKey.set(rk, r);
-    if (uk) byUrl.set(uk, r);
+    indexRow(r);
     added++;
   }
   return {
