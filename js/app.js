@@ -60,10 +60,17 @@
   const FRIENDLY_SHADE_EXCLUDE_GEO = new Set(['Singapore']);
 
   function addCartoVoyagerTiles(targetMap, showAttribution, noWrap){
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    const cartoKey = (typeof window !== 'undefined' && window.BIDETBUD_CARTO_KEY) || '';
+    const url = cartoKey
+      ? 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=' + encodeURIComponent(cartoKey)
+      : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    L.tileLayer(url, {
       maxZoom: 19,
+      subdomains: cartoKey ? 'abcd' : 'abc',
       noWrap: Boolean(noWrap),
-      attribution: showAttribution ? '© OpenStreetMap · © CARTO' : undefined
+      attribution: showAttribution
+        ? (cartoKey ? '© OpenStreetMap · © CARTO' : '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
+        : undefined
     }).addTo(targetMap);
   }
 

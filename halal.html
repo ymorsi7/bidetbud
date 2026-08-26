@@ -17,7 +17,7 @@
 <link rel="apple-touch-icon" href="images/bidetbud-favicon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossorigin>
+<link rel="preconnect" href="https://a.tile.openstreetmap.org" crossorigin>
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
@@ -319,10 +319,17 @@
   }
 
   function addCartoVoyagerTiles(targetMap, showAttribution, noWrap){
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    const cartoKey = (typeof window !== 'undefined' && window.BIDETBUD_CARTO_KEY) || '';
+    const url = cartoKey
+      ? 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=' + encodeURIComponent(cartoKey)
+      : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    L.tileLayer(url, {
       maxZoom: 19,
+      subdomains: cartoKey ? 'abcd' : 'abc',
       noWrap: Boolean(noWrap),
-      attribution: showAttribution ? '© OpenStreetMap · © CARTO' : undefined
+      attribution: showAttribution
+        ? (cartoKey ? '© OpenStreetMap · © CARTO' : '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
+        : undefined
     }).addTo(targetMap);
   }
 
