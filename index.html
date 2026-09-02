@@ -28,10 +28,10 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
 <link rel="stylesheet" href="css/app.css?v=20260811b">
-<link rel="preload" href="bidet-seed.json?v=20260829a" as="fetch" crossorigin>
+<link rel="preload" href="bidet-seed.json?v=20260902a" as="fetch" crossorigin>
 <script>
 window.__BIDET_SEED_P = (function(){
-  var SEED_VER = '20260829a';
+  var SEED_VER = '20260902a';
   var url = 'bidet-seed.json?v=' + SEED_VER;
   var cacheKey = 'bb_seed_cache_' + SEED_VER;
   function seedFingerprint(data){
@@ -68,11 +68,11 @@ window.__BIDET_SEED_P = (function(){
 <link rel="preload" href="vendor/leaflet.js" as="script">
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
 <link rel="preload" href="js/core.js?v=20260810f" as="script">
-<link rel="preload" href="js/app.js?v=20260826a" as="script">
+<link rel="preload" href="js/app.js?v=20260902a" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
 <script src="js/core.js?v=20260810f" defer></script>
-<script src="js/app.js?v=20260826a" defer></script>
+<script src="js/app.js?v=20260902a" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -121,11 +121,10 @@ window.__BIDET_SEED_P = (function(){
         <div class="search-ac" id="searchAc" hidden role="listbox" aria-label="Search suggestions"></div>
       </div>
       <div class="actions">
-        <div class="menu-wrap">
+        <!-- <div class="menu-wrap">
           <button type="button" class="btn btn-ghost btn-icon-only" id="menuBtn" aria-label="Menu" aria-haspopup="true"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
           <div class="menu-drop" id="menuDrop" hidden role="menu">
             <button type="button" role="menuitem" id="menuCopyView">Copy link to this view</button>
-            <!-- <button type="button" role="menuitem" id="menuNotify">Notify me for a city</button> -->
             <button type="button" role="menuitem" id="menuAbout">About</button>
             <button type="button" role="menuitem" id="menuLegend">Map legend</button>
             <a class="menu-drop-link" role="menuitem" href="shop.html">Shop bidets</a>
@@ -134,7 +133,7 @@ window.__BIDET_SEED_P = (function(){
             <a class="menu-drop-link" role="menuitem" href="https://youtu.be/sQQ-bVxjqWc?si=QYB2L2aDgYlc6JRc" target="_blank" rel="noopener noreferrer">Demo video</a>
             <a class="menu-drop-link" role="menuitem" href="https://instagram.com/bidetbud" target="_blank" rel="noopener noreferrer">Instagram</a>
           </div>
-        </div>
+        </div> -->
         <button type="button" class="btn btn-ghost" id="nearMeBtn" aria-label="Find places near me">
           <svg class="btn-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/></svg>
           <span class="btn-label">Near me</span>
@@ -249,7 +248,7 @@ window.__BIDET_SEED_P = (function(){
       <div class="about-body">
         <p>I have a habit of getting annoyed at minor inconveniences and then trying to build a solution for them.</p>
         <p>As someone who travels regularly between the US and the Middle East, I noticed one thing the West evidently still hasn't figured out: bidets.</p>
-        <p>In the Middle East, bidets are something you just don't have to think about &mdash; a convenience we don't realize we're spoiled with until we return to the West.</p>
+        <p>In the Middle East, bidets are something you just don't have to think about, a convenience we don't realize we're spoiled with until we return to the West.</p>
         <p>This has been ruffling my feathers for years, so I built BidetBud: a free map where you can find masajid, restaurants, hotels, and public spots that actually have bidets / washlets across the US, Canada, and the UK.</p>
         <p>There are hundreds of pins on the map already, but its usefulness grows with every spot the community adds. If you know one, add it: name only is enough.</p>
         <div class="about-legend">
@@ -293,8 +292,8 @@ window.__BIDET_SEED_P = (function(){
   <footer class="site-footer">
     <nav class="site-footer-nav" aria-label="Site links">
       <a href="#" id="footerAbout">About</a>
-      <a href="shop.html">Shop bidets</a>
-      <a href="halal.html">HalalBud</a>
+      <!-- <a href="shop.html">Shop bidets</a> -->
+      <!-- <a href="halal.html">HalalBud</a> -->
       <a href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://youtu.be/sQQ-bVxjqWc?si=QYB2L2aDgYlc6JRc" target="_blank" rel="noopener noreferrer">Demo</a>
       <a href="https://instagram.com/bidetbud" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -368,7 +367,7 @@ window.__BIDET_SEED_P = (function(){
         <span class="legend-dot internet" aria-hidden="true"></span>
         <div>
           <strong>Web source</strong>
-          <span>Found online — not yet verified in person</span>
+          <span>Found online, not yet verified in person</span>
         </div>
       </li>
       <li class="legend-card">
@@ -389,7 +388,7 @@ window.__BIDET_SEED_P = (function(){
         <span class="legend-dot friendly-country" aria-hidden="true"></span>
         <div>
           <strong>Bidet-friendly country</strong>
-          <span>Green map shading — bidets are common; pins are specific spots</span>
+          <span>Green map shading: bidets are common; pins are specific spots</span>
         </div>
       </li>
     </ul>

@@ -1,4 +1,4 @@
-/* Shop page — scrolls; map chrome stays overflow-hidden. */
+/* Shop page: scrolls; map chrome stays overflow-hidden. */
 html.page-shop,
 html.page-shop body{
   overflow:auto;
