@@ -1,5 +1,5 @@
 (function(){
-  // Web3Forms access key — public client key (safe in source per web3forms.com docs).
+  // Web3Forms access key: public client key (safe in source per web3forms.com docs).
   const WEB3FORMS_ACCESS_KEY = 'b0f5343d-1608-4224-a49a-d32d13fbbdfe';
   const SITE_URL = 'https://bidetbud.com/';
   const COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'France', 'Russia', 'China'];
@@ -54,7 +54,7 @@
   function isBidetFriendlyCountry(country){
     return BIDET_FRIENDLY_COUNTRY_SET.has(String(country || '').trim().toLowerCase());
   }
-  // Natural Earth 50m — johan/world.geo.json omits Singapore (SG falls inside Malaysia's polygon).
+  // Natural Earth 50m: johan/world.geo.json omits Singapore (SG falls inside Malaysia's polygon).
   const BIDET_COUNTRY_GEOJSON_URL = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson';
   // Never shade these as bidet-friendly even if a coarse polygon swallows them.
   const FRIENDLY_SHADE_EXCLUDE_GEO = new Set(['Singapore']);
@@ -388,7 +388,7 @@
   function setDocumentTitleForSpot(m){
     if(!m){ document.title = 'BidetBud'; return; }
     const lead = bidetLeadLabel(m);
-    document.title = m.name + ' – ' + lead + ' | BidetBud';
+    document.title = m.name + ' - ' + lead + ' | BidetBud';
   }
 
   function copyViewLink(){
@@ -2016,7 +2016,7 @@
     console.error(err);
     let cached = null;
     try{
-      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20260829a') || 'null');
+      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20260902a') || 'null');
     }catch(e){}
     const el = document.getElementById('countLabel');
     if(Array.isArray(cached) && cached.length){
