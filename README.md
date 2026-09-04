@@ -82,6 +82,8 @@ PRs welcome for:
 
 Please keep diffs focused. Only add places with explicit bidet evidence.
 
+See [CHANGELOG.md](CHANGELOG.md) for what changed and when.
+
 ## License
 
 MIT :  see [LICENSE](LICENSE).
