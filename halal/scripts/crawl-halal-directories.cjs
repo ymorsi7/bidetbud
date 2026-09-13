@@ -13,9 +13,9 @@ const https = require('https');
 const { USER_AGENT, classifyHalalStatus } = require('./lib/halal-web.cjs');
 const { geocodeVenue, sleep } = require('./lib/halal-extra.cjs');
 
-const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'data/halal-directory-restaurants.json');
-const CACHE = path.join(ROOT, 'data/halal-directory-geocode-cache.json');
+const { HALAL_ROOT, REPO_ROOT } = require('./lib/paths.cjs');
+const OUT = path.join(HALAL_ROOT, 'data/halal-directory-restaurants.json');
+const CACHE = path.join(HALAL_ROOT, 'data/halal-directory-geocode-cache.json');
 
 const args = process.argv.slice(2);
 const DO_IMPORT = args.includes('--import');
@@ -220,10 +220,10 @@ async function main() {
   fs.writeFileSync(CACHE, JSON.stringify(cache, null, 2) + '\n');
   const out = [...byKey.values()].sort((a, b) => a.name.localeCompare(b.name));
   fs.writeFileSync(OUT, JSON.stringify(out, null, 2) + '\n');
-  console.log(`Halal directories: ${out.length} restaurants → ${path.relative(ROOT, OUT)}`);
+  console.log(`Halal directories: ${out.length} restaurants → ${path.relative(HALAL_ROOT, OUT)}`);
 
   if (DO_IMPORT) {
-    require('child_process').execSync('node scripts/import-halal-all.cjs', { cwd: ROOT, stdio: 'inherit' });
+    require('child_process').execSync('node halal/scripts/import-halal-all.cjs', { cwd: REPO_ROOT, stdio: 'inherit' });
   }
 }
 

@@ -6,12 +6,13 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 
 ## 2026-09
 
+- Repo layout: HalalBud under `halal/` (was `halal.html` + `data/halal-*` at repo root); shop under `shop/`. Old URLs redirect via `_redirects`.
 - Instagram link in footer and menu
 - Map tile fallback to OpenStreetMap when Carto Voyager needs an API key
 
 ## 2026-08
 
-- Shop page (`shop.html`) with a short list of bidet picks
+- Shop page (`/shop/`) with a short list of bidet picks
 - Community form submissions processed into the seed (Dallas, Bay Area, NYC, etc.)
 - Australia and New Zealand import scripts and data
 - Distance units follow the browser locale (mi vs km)
@@ -27,7 +28,7 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 - Bulk imports: TOTO WASHLET references, Geberit AquaClean hotels, Russia / China / Africa / Mexico crawlers
 - “Report incorrect info” and “no bidet here” on the add-spot form
 - Async seed load (`bidet-seed.json`) so the map opens faster ([#1](https://github.com/ymorsi7/bidetbud/pull/1))
-- **HalalBud** — separate halal restaurant map at `halal.html` ([#2](https://github.com/ymorsi7/bidetbud/pull/2))
+- **HalalBud** — separate halal restaurant map ([#2](https://github.com/ymorsi7/bidetbud/pull/2)); now served at `/halal/`
 - Search: acronym matching (e.g. ICSD → Islamic Center of San Diego)
 - Filter overlay and legend UI fixes
 - Add-spot form moved to Web3Forms (was FormSubmit on GitHub Pages)

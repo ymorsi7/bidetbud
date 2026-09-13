@@ -23,10 +23,10 @@ const {
   compactNdjsonToJson,
 } = require('./lib/halal-web.cjs');
 
-const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'data/zabihah-halal-restaurants.json');
+const { HALAL_ROOT, REPO_ROOT } = require('./lib/paths.cjs');
+const OUT = path.join(HALAL_ROOT, 'data/zabihah-halal-restaurants.json');
 const OUT_NDJSON = ndjsonPath(OUT);
-const STATE = path.join(ROOT, 'data/zabihah-listings-crawl-state.json');
+const STATE = path.join(HALAL_ROOT, 'data/zabihah-listings-crawl-state.json');
 const SITEMAP_INDEX = 'https://www.zabihah.com/sitemap.xml';
 
 const args = process.argv.slice(2);
@@ -123,7 +123,7 @@ async function discoverListingUrls() {
 }
 
 function embedHalalPage() {
-  require('child_process').execSync('node scripts/import-halal-all.cjs', { cwd: ROOT, stdio: 'inherit' });
+  require('child_process').execSync('node halal/scripts/import-halal-all.cjs', { cwd: REPO_ROOT, stdio: 'inherit' });
 }
 
 async function main() {

@@ -15,7 +15,7 @@ const {
   cleanVenueName,
   guessNameFromUrl,
   looksLikeShop,
-} = require('./africa-web.cjs');
+} = require('../../../scripts/lib/africa-web.cjs');
 const { classifyHalalStatus } = require('./halal-web.cjs');
 const { isHalalDefaultCountry } = require('./halal-default-countries.cjs');
 

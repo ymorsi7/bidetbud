@@ -1,7 +1,7 @@
 /**
  * Cross-reference halal venues with BidetBud seed (restaurant/hotel bidets).
  */
-const { readSeed } = require('./bidet-seed.cjs');
+const { readSeed } = require('../../../scripts/lib/bidet-seed.cjs');
 
 const HAS_BIDET = new Set(['verified', 'warmed', 'internet']);
 const STOP = new Set(['the', 'and', 'halal', 'restaurant', 'cafe', 'coffee', 'kitchen', 'grill', 'bar']);

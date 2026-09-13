@@ -8,8 +8,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'data/halal-restaurants-seed.json');
+const { HALAL_ROOT, REPO_ROOT } = require('./lib/paths.cjs');
+const OUT = path.join(HALAL_ROOT, 'data/halal-restaurants-seed.json');
 
 const SOURCES = [
   'data/atly-na-bidets.json',
@@ -33,7 +33,7 @@ const seen = new Set();
 const rows = [];
 
 for (const rel of SOURCES) {
-  const file = path.join(ROOT, rel);
+  const file = path.join(HALAL_ROOT, rel);
   if (!fs.existsSync(file)) continue;
   const list = JSON.parse(fs.readFileSync(file, 'utf8'));
   for (const r of list) {
@@ -62,5 +62,5 @@ for (const rel of SOURCES) {
 
 rows.sort((a, b) => a.name.localeCompare(b.name));
 fs.writeFileSync(OUT, JSON.stringify(rows, null, 2) + '\n');
-console.log(`Wrote ${rows.length} halal restaurants → ${path.relative(ROOT, OUT)}`);
-console.log('Run node scripts/import-halal-all.cjs to merge into halal.html');
+console.log(`Wrote ${rows.length} halal restaurants → ${path.relative(HALAL_ROOT, OUT)}`);
+console.log('Run node halal/scripts/import-halal-all.cjs to merge into halal/index.html');

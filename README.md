@@ -36,14 +36,15 @@ Don’t open `index.html` as a `file://` URL :  some assets and GeoJSON need HTT
 ## Layout
 
 ```
-index.html              App shell
-js/app.js               UI logic
-bidet-seed.json         Slim seed (fetched async)
-vendor/                 Leaflet + MarkerCluster
-css/app.css             Styles
-data/bidet-restaurants.json   Full location rows
-scripts/                One-off import / geocode / crawl helpers
-images/                 Logo + favicons
+index.html                    BidetBud map
+js/app.js                     Map UI
+bidet-seed.json               Slim bidet seed (async fetch)
+data/bidet-restaurants.json   Full bidet rows for scripts
+scripts/                      Bidet import / geocode / crawl helpers
+css/  images/  vendor/         Shared static assets
+
+halal/                        HalalBud map (see halal/README.md)
+shop/                         Affiliate shop page
 ```
 
 ## Add a spot
