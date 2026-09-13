@@ -22,7 +22,7 @@ const STATE = path.join(__dirname, '../data/global-crawl-state.json');
 const REDDIT_RAW = path.join(__dirname, '../data/global-crawler-reddit-raw.json');
 
 const BIDET_RE =
-  /\bbidet(s|\s+toilet|\s+attachment|\s+hand\s+shower|\s+functions?|-style|\s+and\s+wudu)?\b|\bbid[eé]\b|\bwashlet\b|\btoto[\s®™]*\s*(toilet|bidet|washlet|smart)?\b|\b(toilet|bathroom|baño)[^.\n]{0,40}\btoto\b|\bshattaf\b|\bhandheld sprayer\b|\bhand shower\b|\bjapanese toilet\b|\binodoro\s+(japon[eé]s|inteligente|autom[aá]tico)\b|\basiento\s+t[eé]rmico\b|\bducha\s+de\s+mano\b|\belectronic\s+bidet\b|\bheated\s+toilet[^.\n]{0,40}bidet/i;
+  /\bbidet(s|\s+toilet|\s+attachment|\s+hand\s+shower|\s+functions?|-style|\s+and\s+wudu)?\b|\bbid[eé]\b|\bwashlet\b|\btoto[\s®™]*\s*(toilet|bidet|washlet|smart)?\b|\b(toilet|bathroom|baño)[^.\n]{0,40}\btoto\b|\bshattaf\b|\bhandheld sprayer\b|\bhand shower\b|\bjapanese toilet\b|\binodoro\s+(japon[eé]s|inteligente|autom[aá]tico)\b|\basiento\s+t[eé]rmico\b|\bducha\s+de\s+mano\b|\belectronic\s+bidet\b|\bheated\s+toilet[^.\n]{0,40}bidet|\bbidet[^.\n]{0,40}heated toilet|\btoilet with a bidet|\bsmart japanese toilet\b|\belectric bidet\b/i;
 
 const ATLY_SITEMAPS = [
   ...Array.from({ length: 5 }, (_, i) => `https://www.atly.com/static/sitemaps/gfe-steps-sitemap-${i}.xml`),
@@ -89,7 +89,13 @@ for (const country of NON_FRIENDLY_SLUGS) {
 const args = process.argv.slice(2);
 const hoursArg = args.find((a) => a.startsWith('--hours='));
 const HOURS = hoursArg ? Number(hoursArg.split('=')[1]) : 6;
+const slugBurstArg = args.find((a) => a.startsWith('--slug-burst='));
+const SLUG_BURST = slugBurstArg ? Number(slugBurstArg.split('=')[1]) : 0;
+const listBurstArg = args.find((a) => a.startsWith('--list-burst='));
+const LIST_BURST = listBurstArg ? Number(listBurstArg.split('=')[1]) : 0;
 const DO_IMPORT = args.includes('--import');
+const FRESH_LISTS = args.includes('--fresh-lists');
+const FRESH_LOCS = args.includes('--fresh-locs');
 
 function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
@@ -97,7 +103,7 @@ function sleep(ms) {
 
 function fetchText(url) {
   return new Promise((resolve, reject) => {
-    https
+    const req = https
       .get(
         url,
         {
@@ -118,8 +124,9 @@ function fetchText(url) {
           res.on('data', (c) => (data += c));
           res.on('end', () => resolve(data));
         }
-      )
-      .on('error', reject);
+      );
+    req.setTimeout(45000, () => req.destroy(new Error('timeout')));
+    req.on('error', reject);
   });
 }
 
@@ -375,7 +382,7 @@ async function processListBatch(state, rows, batchSize = 15) {
 
 async function processLocation(state, rows, cand) {
   const key = cand.url.replace(/\/$/, '');
-  if (state.processedLocs[key]) return false;
+  if (!FRESH_LOCS && state.processedLocs[key]) return false;
   state.processedLocs[key] = Date.now();
   try {
     const html = await fetchText(cand.url);
@@ -450,16 +457,62 @@ async function redditBatch(state, rows) {
 function runImport() {
   const { execFileSync } = require('child_process');
   try {
-    execFileSync('node', [path.join(__dirname, 'import-global-crawler.cjs')], { stdio: 'inherit' });
+    execFileSync('node', [path.join(__dirname, 'import-crawler-json.cjs')], { stdio: 'inherit' });
   } catch (e) {
     console.warn('Import failed:', e.message);
   }
 }
 
 async function main() {
-  const endTime = Date.now() + HOURS * 3600 * 1000;
   const state = loadState();
   let rows = loadOut();
+
+  if (LIST_BURST > 0) {
+    console.log(`List burst — up to ${LIST_BURST} Atly list pages (bathroom guides)`);
+    const start = Number(state.listBurstIndex) || 0;
+    const lists = PROBE_URLS.slice(start, start + LIST_BURST);
+    state.listBurstIndex = start + lists.length;
+    console.log(`List slice ${start}–${state.listBurstIndex} of ${PROBE_URLS.length} bathroom probe URLs`);
+    let found = 0;
+    for (const listUrl of lists) {
+      if (!FRESH_LISTS && state.processedLists[listUrl]) continue;
+      state.processedLists[listUrl] = Date.now();
+      try {
+        const html = await fetchText(listUrl);
+        if (html.length < 8000 || html.includes('Page not found')) continue;
+        for (const c of extractBidetCandidates(html, listUrl)) {
+          if (await processLocation(state, rows, c)) found++;
+        }
+        state.stats.lists++;
+        await sleep(180);
+      } catch (e) {
+        console.warn('List fail:', listUrl, e.message);
+      }
+    }
+    saveState(state);
+    saveOut(rows);
+    console.log(`List burst done: +${found} locations, total crawler rows ${rows.length}`);
+    if (DO_IMPORT) runImport();
+    return;
+  }
+
+  if (SLUG_BURST > 0) {
+    console.log(`Slug burst — up to ${SLUG_BURST} Atly location pages`);
+    let scanned = 0;
+    while (scanned < SLUG_BURST && state.slugQueue.length) {
+      const batch = Math.min(40, SLUG_BURST - scanned);
+      await deepScanSlugBatch(state, rows, batch);
+      scanned += batch;
+      saveState(state);
+      saveOut(rows);
+      console.log(`Burst progress: ${scanned}/${SLUG_BURST}, rows=${rows.length}, slugs left=${state.slugQueue.length}`);
+    }
+    console.log(`Burst done. Total crawler rows: ${rows.length}`);
+    if (DO_IMPORT) runImport();
+    return;
+  }
+
+  const endTime = Date.now() + HOURS * 3600 * 1000;
   let cycle = 0;
 
   console.log(`Global crawler starting — ${HOURS}h, non-friendly countries only`);

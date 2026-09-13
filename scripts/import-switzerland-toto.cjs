@@ -84,11 +84,6 @@ function dedupeKey(row) {
 }
 
 async function main() {
-      if (!match) {
-    console.error('BIDETBUD_SEED not found');
-    process.exit(1);
-  }
-
   const existing = readSeed();
   const finder = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
   const cache = loadCache();

@@ -236,6 +236,8 @@ body.modal-open{overflow:hidden}
 .form input,.form select,.form textarea{width:100%;border:1px solid var(--line);border-radius:var(--radius-sm);padding:10px 12px;font:inherit;font-size:.875rem;background:#fff;transition:border-color .15s,box-shadow .15s}
 .form input:focus,.form select:focus,.form textarea:focus{outline:none;border-color:rgba(13,148,136,.35);box-shadow:0 0 0 4px var(--brand-soft)}
 .form textarea{min-height:72px;resize:vertical}
+.form-error{margin:10px 0 0;font-size:.8125rem;font-weight:600;color:#b91c1c;line-height:1.4}
+.site-footer-live{font-size:.75rem;color:var(--muted);margin-left:4px}
 
 .promo-dialog{max-width:400px;text-align:center;padding:28px 24px 24px}
 .promo-logo{width:64px;height:64px;margin:0 auto 16px;object-fit:contain}

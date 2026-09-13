@@ -73,7 +73,10 @@ function toSeedRow(row) {
 
 const existing = readSeed();
 const seen = new Set(existing.map(dedupeKey));
-const seenUrl = new Set(existing.filter((r) => r.sourceUrl).map((r) => r.sourceUrl));
+function evidenceKey(row) {
+  return [row.sourceUrl || '', normName(row.name)].join('|');
+}
+const seenEvidence = new Set(existing.filter((r) => r.sourceUrl).map(evidenceKey));
 
 let added = 0;
 let skipped = 0;
@@ -95,7 +98,7 @@ for (const dataPath of SOURCES) {
       continue;
     }
     const row = toSeedRow(item);
-    if (seenUrl.has(row.sourceUrl)) {
+    if (seenEvidence.has(evidenceKey(row))) {
       skipped++;
       continue;
     }
@@ -104,12 +107,12 @@ for (const dataPath of SOURCES) {
       skipped++;
       continue;
     }
-    if (existing.some((e) => isNearDuplicate(e, row))) {
+    if (merged.some((e) => isNearDuplicate(e, row))) {
       skipped++;
       continue;
     }
     seen.add(key);
-    seenUrl.add(row.sourceUrl);
+    seenEvidence.add(evidenceKey(row));
     merged.push(row);
     added++;
   }

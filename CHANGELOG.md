@@ -4,9 +4,45 @@ BidetBud started as **BidetBeacon** on [ymorsi7.github.io](https://github.com/ym
 
 Format: newest first. Skips routine “added N pins” commits unless it was a big batch.
 
-## 2026-09
+## 2026-10 (early)
 
-- Repo layout: HalalBud under `halal/` (was `halal.html` + `data/halal-*` at repo root); shop under `shop/`. Old URLs redirect via `_redirects`.
+- **Open-access** pins ~**2,460+** on the default map (was ~2,120); **`npm run count:public`** gates releases at **3,000**
+- Singapore `@toiletswithbidetsg` import: handicap / family-toilet sightings count as **public** (mall & hawker restrooms, not “limited”)
+- `scripts/lib/map-public-access.cjs`, `normalize-seed-access.cjs`, `count-mappable-public.cjs`
+- Atly global crawler **`--slug-burst=`** for batch slug deep-scans; `import-crawler-json.cjs` (fast merge, no Reddit geocode)
+- Fixed stale `if (!match)` guards in several `import-*.cjs` scripts (seed lives in JSON now, not `index.html`)
+- `import-france.cjs` keeps TOTO Try WASHLET + Geberit rows when refreshing curated France data
+- Re-synced TOTO Try WASHLET finder (~1,310 EU showrooms, `access: public`)
+- Reddit + Atly crawl merges: hundreds of **public** restaurant/coffee rows (USA, UK, Canada, France, …)
+- Country filters: **Germany**, **Australia**, **Mexico** (desktop + mobile sheet)
+- Slim seed carries `verifiedMethod` again so trust lines work from JSON fetch
+- Import scripts dedupe on **source URL + venue name** (one article can cite many hotels)
+- JSON-LD `WebSite` on the map home page
+- Seed cache **`20261005a`**
+
+## 2026-09 (late)
+
+**Week of 2026-09-28**
+
+- +9 net-new map rows from curated imports (~3,728 total): six Tokyo hotels (Mighty Travels WASHLET roundup), Yosaku Portland, and other NA supplemental entries
+- Manual spot tests for Yosaku, Ayat Bushwick, Miyabi 45th
+
+**Week of 2026-09-21**
+
+- `import-verified-expansion.cjs` / `import-na-bidets.cjs` / `import-western.cjs` evidence dedupe fix
+- Re-ran expansion + NA imports after dedupe change
+
+**Week of 2026-09-14** (validator sprint)
+
+- Seed validator (`npm run test:seed`) for map rows, sources, and slim/full drift
+- Singapore country filter chip; meta and About copy match global coverage
+- Footer **Copy link** (⋯ menu still hidden; shop/HalalBud footer links stay commented out)
+- Add-spot form inline errors; photo link must be http(s)
+- Search/normalize logic in `js/search-seed.js`; Playwright smoke test (load, ICSD search, detail)
+
+## 2026-09 (mid)
+
+- Repo layout: HalalBud under `halal/`; shop under `shop/`. Old URLs redirect via `_redirects`.
 - Instagram link in footer and menu
 - Map tile fallback to OpenStreetMap when Carto Voyager needs an API key
 
@@ -47,6 +83,6 @@ Hosted at `ymorsi7.github.io/new/bidetbeacon.html`, linked from the portfolio si
 
 ---
 
-**Counts (approx., `main` today):** ~3,700 bidet pins across 56 countries.
+**Counts (approx., `main` today):** ~3,870 seed rows; **~2,460** mappable **open access** pins — run `node scripts/scrape-atly-na.cjs` + `import-na-bidets.cjs` / global list bursts to push past **3,000** (`npm run count:public`).
 
 Pre-migration git history: `git log --oneline -- new/bidetbeacon.html` in [ymorsi7/ymorsi7.github.io](https://github.com/ymorsi7/ymorsi7.github.io). Post-migration: `git log --oneline` here.

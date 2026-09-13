@@ -67,7 +67,11 @@ const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
 
 const seen = new Set(existing.map(dedupeKey));
-const seenUrl = new Set(existing.filter((r) => r.sourceUrl).map((r) => r.sourceUrl));
+/** One article can cite many hotels — dedupe by URL + name, not URL alone. */
+function evidenceKey(row) {
+  return [row.sourceUrl || '', normName(row.name)].join('|');
+}
+const seenEvidence = new Set(existing.filter((r) => r.sourceUrl).map(evidenceKey));
 
 let added = 0;
 let skipped = 0;
@@ -75,7 +79,8 @@ const merged = [...existing];
 
 for (const item of verified) {
   const row = toSeedRow(item);
-  if (seenUrl.has(row.sourceUrl)) {
+  const evKey = evidenceKey(row);
+  if (seenEvidence.has(evKey)) {
     skipped++;
     continue;
   }
@@ -84,12 +89,12 @@ for (const item of verified) {
     skipped++;
     continue;
   }
-  if (existing.some((e) => isNearDuplicate(e, row))) {
+  if (merged.some((e) => isNearDuplicate(e, row))) {
     skipped++;
     continue;
   }
   seen.add(key);
-  seenUrl.add(row.sourceUrl);
+  seenEvidence.add(evKey);
   merged.push(row);
   added++;
 }

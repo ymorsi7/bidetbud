@@ -155,11 +155,6 @@ async function main() {
     process.exit(1);
   }
 
-      if (!match) {
-    console.error('BIDETBUD_SEED not found');
-    process.exit(1);
-  }
-
   const existing = readSeed();
   const batch = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
   const cache = loadCache();
