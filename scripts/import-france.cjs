@@ -58,7 +58,12 @@ if (!fs.existsSync(verifiedPath)) {
 
 const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
-const preserved = existing.filter((row) => row.country !== 'France');
+const preserved = existing.filter(
+  (row) =>
+    row.country !== 'France' ||
+    String(row.sourceUrl || '').includes('try-washlettm') ||
+    String(row.sourceQuote || '').includes('AquaClean Hotel Locator')
+);
 const seen = new Set(preserved.map(dedupeKey));
 let added = 0;
 

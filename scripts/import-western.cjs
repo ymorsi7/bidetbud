@@ -78,9 +78,10 @@ const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
 
 const seen = new Set(existing.map(dedupeKey));
-const seenUrl = new Set(
-  existing.filter((r) => r.sourceUrl).map((r) => r.sourceUrl)
-);
+function evidenceKey(row) {
+  return [row.sourceUrl || '', normName(row.name)].join('|');
+}
+const seenEvidence = new Set(existing.filter((r) => r.sourceUrl).map(evidenceKey));
 
 let added = 0;
 let skipped = 0;
@@ -99,8 +100,8 @@ for (const item of verified) {
   const row = toSeedRow(item);
   const key = dedupeKey(row);
 
-  if (seenUrl.has(row.sourceUrl)) {
-    console.log('Skip (sourceUrl exists):', row.name);
+  if (seenEvidence.has(evidenceKey(row))) {
+    console.log('Skip (evidence exists):', row.name);
     skipped++;
     continue;
   }
@@ -109,14 +110,14 @@ for (const item of verified) {
     skipped++;
     continue;
   }
-  if (existing.some((e) => isNearDuplicate(e, row))) {
+  if (merged.some((e) => isNearDuplicate(e, row))) {
     console.log('Skip (near duplicate):', row.name);
     skipped++;
     continue;
   }
 
   seen.add(key);
-  seenUrl.add(row.sourceUrl);
+  seenEvidence.add(evidenceKey(row));
   merged.push(row);
   added++;
 }

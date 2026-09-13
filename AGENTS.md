@@ -160,6 +160,19 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 
 ---
 
+## Public access counts
+
+The default map hides `access: "limited"` pins unless the visitor enables “Guests only”. The
+**open access** badge uses `access === "public"`. Check progress with:
+
+```bash
+npm run count:public   # exits 1 until ≥3000 mappable public pins
+node scripts/normalize-seed-access.cjs   # after changing access rules
+```
+
+Singapore community rows use `scripts/lib/map-public-access.cjs` — **handicap / family toilet**
+sightings in public malls stay `public` (stall-specific notes go in `accessNote`).
+
 ## Singapore data import
 
 Source: `https://www.bidetbud.com/data/bidets.geolocation.json` (584 locations, synced from [@toiletswithbidetsg](https://www.instagram.com/toiletswithbidetsg/)).
@@ -228,6 +241,16 @@ the searched country's code** (so venues can't drift into the wrong nation).
 # 90-minute crawl, then merge results into the seed:
 node scripts/crawl-africa-web.cjs --minutes=90 --import
 
+### Global Atly crawler (public restaurants / cafés)
+
+`scripts/crawl-global-bidets.cjs` discovers Atly “best bathroom” list pages, deep-scans
+location slugs, and merges into the seed via `import-crawler-json.cjs` (fast — no Reddit geocode).
+
+```bash
+node scripts/crawl-global-bidets.cjs --hours=2 --import
+node scripts/crawl-global-bidets.cjs --list-burst=80 --fresh-lists --import
+```
+
 # crawl only (writes data/africa-web-crawl-bidets.json), import later:
 node scripts/crawl-africa-web.cjs --minutes=90
 node scripts/import-africa.cjs
@@ -288,6 +311,68 @@ node scripts/crawl-nordic-web.cjs --reset --minutes=90
 It is **resumable**: progress lives in `data/nordic-crawl-state.json` and the
 geocode cache in `data/nordic-geocode-cache.json`; rows stream to
 `data/nordic-web-crawl-bidets.json` as they're found.
+
+## Atly bathroom guides (sitemap sweep)
+
+Atly publishes per-neighbourhood "best bathroom" guides and per-venue pages whose
+editorial copy often names a bidet. The original import only walked ~40
+hand-written list URLs; `crawl-atly-sitemap.cjs` instead reads Atly's sitemap
+index, keeps every bathroom-topic list page (~7.6k, all in the `top-ten`
+sitemaps), collects the venues those lists link to, then checks each venue page
+for explicit bidet evidence.
+
+```bash
+node scripts/crawl-atly-sitemap.cjs --minutes=90          # crawl only
+node scripts/crawl-atly-sitemap.cjs --minutes=90 --import # crawl, then merge
+node scripts/import-atly-sitemap.cjs                      # merge later
+node scripts/crawl-atly-sitemap.cjs --reset               # clear discovery + state
+```
+
+Resumable: discovered lists live in `data/atly-bathroom-lists.json`, progress in
+`data/atly-sitemap-state.json`, rows stream to `data/atly-sitemap-bidets.json`.
+Parsing lives in `scripts/lib/atly-web.cjs` — Atly renders its editorial copy as
+rich-text runs inside the Next.js payload, so the helpers rebuild those
+paragraphs before matching the bidet regex, and read coordinates from ld+json.
+Bidet-friendly countries are skipped, and a row is only kept when the venue's own
+page names a bidet (not just the list page it came from).
+
+## Closomat wash-and-dry toilets (UK)
+
+Closomat publishes a Google My Map of the Changing Places facilities it has
+installed, split into two layers. Only the "Changing Places with a Closomat
+Toilet" layer counts — a Closomat is a wash-and-dry toilet, so it is per-venue
+bidet evidence; the "conventional toilet" layer is dropped. The map stores
+addresses rather than points, so postcodes are resolved through api.postcodes.io.
+
+```bash
+node scripts/scrape-closomat-uk.cjs   # -> data/closomat-uk-bidets.json (64 rows)
+node scripts/import-closomat-uk.cjs
+```
+
+All get `type: "public"`, `bidetStatus: "warmed"`,
+`verifiedMethod: "manufacturer-reference"`, `access: "public"`.
+
+**Checked and rejected:** the national Changing Places registry
+(`changing-places.org/api/getToilets`, 2,678 venues) has no wash-and-dry field in
+its equipment vocabulary, so it cannot be bulk-imported.
+
+## OpenStreetMap bidet tags
+
+OSM records bidets under the `toilets:*` namespace — `toilets:wash=bidet_spray`
+(handheld bidet shower), `toilets:wash=washlet` (electronic bidet seat), and the
+older `toilets:bidet=yes`. Those tags are per-object evidence, so they pass the
+verification policy.
+
+```bash
+node scripts/import-osm-bidets.cjs           # fetch + merge
+node scripts/import-osm-bidets.cjs --fetch   # refresh data/osm-bidet-toilets.json only
+```
+
+Yield is currently tiny (~70 objects worldwide, and all but one sit in
+bidet-friendly countries), but the query is cheap and the tag is growing. The
+Overpass query is scoped to `amenity=toilets` because an unscoped search on
+`toilets:wash` times out, and countries come from reverse geocoding (cached in
+`data/osm-geocode-cache.json`) since most objects carry no `addr:country`.
 
 ## UK data import (TOTO "Try WASHLET" finder)
 

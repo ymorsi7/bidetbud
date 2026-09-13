@@ -4,10 +4,12 @@
   "description": "Community map of masajid and restaurants with bidets, washlets, and handheld sprayers — focused on the US, Canada, and the UK.",
   "main": "index.js",
   "scripts": {
-    "test": "node --test scripts/test-app-core.cjs",
-    "test:unit": "node --test scripts/test-app-core.cjs",
-    "test:e2e": "node scripts/test-filter-layout.mjs && node scripts/test-legend-ui.mjs",
-    "test:all": "npm run test:unit && npm run test:e2e"
+    "test": "node --test scripts/test-app-core.cjs && node scripts/test-manual-spots.cjs && node scripts/validate-bidet-seed.cjs --warn-only",
+    "test:unit": "node --test scripts/test-app-core.cjs && node scripts/test-manual-spots.cjs",
+    "test:seed": "node scripts/validate-bidet-seed.cjs",
+    "test:e2e": "node scripts/test-filter-layout.mjs && node scripts/test-legend-ui.mjs && node scripts/test-bidet-smoke.mjs",
+    "test:all": "npm run test:unit && node scripts/validate-bidet-seed.cjs --warn-only && npm run test:e2e",
+    "count:public": "node scripts/count-mappable-public.cjs --min=3000"
   },
   "repository": {
     "type": "git",

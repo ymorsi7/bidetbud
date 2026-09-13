@@ -4,17 +4,20 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>BidetBud</title>
-<meta name="description" content="Find masajid, restaurants, hotels, and public restrooms with bidets. User verified and web-sourced listings in the USA, UK, and Canada.">
+<meta name="description" content="Find masajid, restaurants, hotels, and public restrooms with bidets. Community verified and web-sourced listings worldwide.">
 <meta name="theme-color" content="#18181b">
 <meta property="og:type" content="website">
 <meta property="og:title" content="BidetBud: Find bidets at masajid &amp; establishments">
-<meta property="og:description" content="Community map of masajid, restaurants, hotels, and public restrooms with bidets in the US, Canada, and UK.">
+<meta property="og:description" content="Community map of masajid, restaurants, hotels, and public restrooms with bidets worldwide.">
 <meta property="og:url" content="https://bidetbud.com/">
 <meta property="og:image" content="https://bidetbud.com/images/bidetbud-favicon-192.png">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="BidetBud">
 <meta name="twitter:description" content="Find masajid and restaurants with bidets near you.">
 <meta name="twitter:image" content="https://bidetbud.com/images/bidetbud-favicon-192.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"BidetBud","url":"https://bidetbud.com/","description":"Community map of masajid, restaurants, hotels, and public restrooms with bidets."}
+</script>
 <link rel="icon" href="images/bidetbud-favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="images/bidetbud-favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="images/bidetbud-favicon-192.png">
@@ -28,10 +31,10 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
 <link rel="stylesheet" href="css/app.css?v=20260811b">
-<link rel="preload" href="bidet-seed.json?v=20260902a" as="fetch" crossorigin>
+<link rel="preload" href="bidet-seed.json?v=20261005a" as="fetch" crossorigin>
 <script>
 window.__BIDET_SEED_P = (function(){
-  var SEED_VER = '20260902a';
+  var SEED_VER = '20261005a';
   var url = 'bidet-seed.json?v=' + SEED_VER;
   var cacheKey = 'bb_seed_cache_' + SEED_VER;
   function seedFingerprint(data){
@@ -68,11 +71,13 @@ window.__BIDET_SEED_P = (function(){
 <link rel="preload" href="vendor/leaflet.js" as="script">
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
 <link rel="preload" href="js/core.js?v=20260810f" as="script">
-<link rel="preload" href="js/app.js?v=20260902a" as="script">
+<link rel="preload" href="js/search-seed.js?v=20261005a" as="script">
+<link rel="preload" href="js/app.js?v=20261005a" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
 <script src="js/core.js?v=20260810f" defer></script>
-<script src="js/app.js?v=20260902a" defer></script>
+<script src="js/search-seed.js?v=20261005a" defer></script>
+<script src="js/app.js?v=20261005a" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -197,6 +202,10 @@ window.__BIDET_SEED_P = (function(){
               <button type="button" class="chip" data-type="USA">USA</button>
               <button type="button" class="chip" data-type="UK">UK</button>
               <button type="button" class="chip" data-type="Canada">Canada</button>
+              <button type="button" class="chip" data-type="Singapore">Singapore</button>
+              <button type="button" class="chip" data-type="Germany">Germany</button>
+              <button type="button" class="chip" data-type="Australia">Australia</button>
+              <button type="button" class="chip" data-type="Mexico">Mexico</button>
               <button type="button" class="chip" data-type="France">France</button>
               <button type="button" class="chip" data-type="Russia">Russia</button>
               <button type="button" class="chip" data-type="China">China</button>
@@ -249,7 +258,7 @@ window.__BIDET_SEED_P = (function(){
         <p>I have a habit of getting annoyed at minor inconveniences and then trying to build a solution for them.</p>
         <p>As someone who travels regularly between the US and the Middle East, I noticed one thing the West evidently still hasn't figured out: bidets.</p>
         <p>In the Middle East, bidets are something you just don't have to think about, a convenience we don't realize we're spoiled with until we return to the West.</p>
-        <p>This has been ruffling my feathers for years, so I built BidetBud: a free map where you can find masajid, restaurants, hotels, and public spots that actually have bidets / washlets across the US, Canada, and the UK.</p>
+        <p>This has been ruffling my feathers for years, so I built BidetBud: a free map where you can find masajid, restaurants, hotels, and public spots that actually have bidets or washlets. It started in the US, Canada, and the UK and has grown from there.</p>
         <p>There are hundreds of pins on the map already, but its usefulness grows with every spot the community adds. If you know one, add it: name only is enough.</p>
         <div class="about-legend">
           <span class="about-legend-title">Pin colors</span>
@@ -292,6 +301,8 @@ window.__BIDET_SEED_P = (function(){
   <footer class="site-footer">
     <nav class="site-footer-nav" aria-label="Site links">
       <a href="#" id="footerAbout">About</a>
+      <a href="#" id="footerCopyLink">Copy link</a>
+      <span class="site-footer-live" id="copyLinkStatus" aria-live="polite"></span>
       <!-- <a href="shop/">Shop bidets</a> -->
       <!-- <a href="halal/">HalalBud</a> -->
       <a href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer">GitHub</a>
@@ -424,6 +435,7 @@ window.__BIDET_SEED_P = (function(){
       <label for="addPhoto">Photo link <span class="label-optional">(optional)</span></label>
       <input id="addPhoto" type="url" placeholder="Link to a photo (Instagram, Google Drive, etc.)">
       <input type="text" id="addHoney" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <p class="form-error" id="addFormError" role="alert" hidden></p>
       <div class="dialog-actions">
         <button type="button" class="btn btn-primary" id="submitAdd">Submit</button>
       </div>

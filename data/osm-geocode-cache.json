@@ -1,0 +1,282 @@
+{
+  "node/559742452": {
+    "iso": "ES",
+    "city": "Donostia / San Sebastián"
+  },
+  "node/5453784518": {
+    "iso": "PH",
+    "city": "Dasmariñas"
+  },
+  "node/6970835779": {
+    "iso": "KH",
+    "city": "ក្រុងសិរីសោភ័ណ"
+  },
+  "node/10216071886": {
+    "iso": "PH",
+    "city": "Makati"
+  },
+  "node/10810647705": {
+    "iso": "PH",
+    "city": "Iloilo City"
+  },
+  "node/12677967371": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967376": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967377": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967378": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967379": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967380": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967381": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967382": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967383": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967384": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967385": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967386": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967387": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967388": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967389": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967394": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967395": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12677967396": {
+    "iso": "PH",
+    "city": "Dumaguete"
+  },
+  "node/12846317823": {
+    "iso": "PH",
+    "city": "Muntinlupa"
+  },
+  "node/12846317824": {
+    "iso": "PH",
+    "city": "Muntinlupa"
+  },
+  "node/13014615299": {
+    "iso": "PH",
+    "city": "Quezon City"
+  },
+  "node/13352905797": {
+    "iso": "PH",
+    "city": "Iloilo City"
+  },
+  "node/13354829163": {
+    "iso": "PH",
+    "city": "Iloilo City"
+  },
+  "node/13358714496": {
+    "iso": "PH",
+    "city": "Iloilo City"
+  },
+  "node/13556672389": {
+    "iso": "IN",
+    "city": "Delhi"
+  },
+  "node/13556672392": {
+    "iso": "IN",
+    "city": "Delhi"
+  },
+  "node/13556672400": {
+    "iso": "IN",
+    "city": "Delhi"
+  },
+  "node/13568761782": {
+    "iso": "IN",
+    "city": "Delhi"
+  },
+  "node/13568761798": {
+    "iso": "IN",
+    "city": "Delhi"
+  },
+  "node/13568771903": {
+    "iso": "IN",
+    "city": "Delhi"
+  },
+  "node/13568771907": {
+    "iso": "IN",
+    "city": "Delhi"
+  },
+  "node/13628916374": {
+    "iso": "IN",
+    "city": "Delhi"
+  },
+  "node/13681529716": {
+    "iso": "IN",
+    "city": "New Delhi"
+  },
+  "node/13681529745": {
+    "iso": "IN",
+    "city": "New Delhi"
+  },
+  "node/13784189327": {
+    "iso": "JP",
+    "city": "熱海市"
+  },
+  "node/13813346537": {
+    "iso": "KR",
+    "city": "제주시"
+  },
+  "node/13817524167": {
+    "iso": "KR",
+    "city": "서귀포시"
+  },
+  "node/13848973951": {
+    "iso": "KR",
+    "city": "속초시"
+  },
+  "node/13907648871": {
+    "iso": "IN",
+    "city": ""
+  },
+  "node/13907648878": {
+    "iso": "IN",
+    "city": ""
+  },
+  "node/13907648880": {
+    "iso": "IN",
+    "city": ""
+  },
+  "node/13907648883": {
+    "iso": "IN",
+    "city": ""
+  },
+  "node/13907648889": {
+    "iso": "IN",
+    "city": ""
+  },
+  "node/13907648890": {
+    "iso": "IN",
+    "city": ""
+  },
+  "node/13907648896": {
+    "iso": "IN",
+    "city": ""
+  },
+  "node/14143922867": {
+    "iso": "PH",
+    "city": "Makati"
+  },
+  "node/14144089947": {
+    "iso": "PH",
+    "city": "Makati"
+  },
+  "node/14167955044": {
+    "iso": "KH",
+    "city": "ក្រុងសិរីសោភ័ណ"
+  },
+  "node/14168881682": {
+    "iso": "KH",
+    "city": "ក្រុងសំរោង"
+  },
+  "way/1286711326": {
+    "iso": "PH",
+    "city": "Muntinlupa"
+  },
+  "way/1295586208": {
+    "iso": "PH",
+    "city": "San Juan"
+  },
+  "way/1299443369": {
+    "iso": "PH",
+    "city": "Rosario"
+  },
+  "way/1313140830": {
+    "iso": "PH",
+    "city": "Dasmariñas"
+  },
+  "way/1314070291": {
+    "iso": "PH",
+    "city": "Dasmariñas"
+  },
+  "way/1336391771": {
+    "iso": "PH",
+    "city": "Dasmariñas"
+  },
+  "way/1353052615": {
+    "iso": "PH",
+    "city": "Dasmariñas"
+  },
+  "way/1371958065": {
+    "iso": "PH",
+    "city": "Las Piñas"
+  },
+  "way/1455624968": {
+    "iso": "PH",
+    "city": "Dasmariñas"
+  },
+  "way/1458979298": {
+    "iso": "PH",
+    "city": "Tagaytay"
+  },
+  "way/1474632140": {
+    "iso": "PH",
+    "city": "Tagaytay"
+  },
+  "way/1483760237": {
+    "iso": "PH",
+    "city": "General Trias"
+  },
+  "way/1483980613": {
+    "iso": "PH",
+    "city": "Imus"
+  },
+  "way/1487075195": {
+    "iso": "IN",
+    "city": "New Delhi"
+  },
+  "way/1539016433": {
+    "iso": "PH",
+    "city": "Dasmariñas"
+  },
+  "way/1540389298": {
+    "iso": "PH",
+    "city": "Muntinlupa"
+  }
+}

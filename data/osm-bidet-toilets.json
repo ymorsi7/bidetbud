@@ -1,0 +1,1334 @@
+[
+  {
+    "type": "node",
+    "id": 559742452,
+    "lat": 43.3124784,
+    "lon": -1.9801455,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "gender_segregated": "no",
+      "handwashing:soap": "yes",
+      "opening_hours": "24/7",
+      "supervised": "no",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "electric_hand_dryer",
+      "toilets:handwashing": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "washlet"
+    }
+  },
+  {
+    "type": "node",
+    "id": 5453784518,
+    "lat": 14.3005111,
+    "lon": 120.9577511,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "changing_table": "yes",
+      "fee": "no",
+      "handwashing:soap": "yes",
+      "level": "2",
+      "male": "yes",
+      "name": "Male Restroom",
+      "power_supply": "yes",
+      "service:electricity": "limited",
+      "toilets:access": "yes",
+      "toilets:disposal": "flush",
+      "toilets:fee": "no",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "yes",
+      "toilets:handwashing:num": "3",
+      "toilets:paper_supplied": "yes",
+      "toilets:paper_supplied:fee": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "toilets:wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 6970835779,
+    "lat": 13.5863477,
+    "lon": 102.9604397,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "fee": "no",
+      "gender_segregated": "yes",
+      "handwashing:soap": "yes",
+      "panoramax": "4ae6a4d4-8b33-4724-92cb-2b9ca3ee2747",
+      "panoramax:0": "55ef3bc0-09ed-435d-b723-c1093043f19c",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "paper_towel",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray"
+    }
+  },
+  {
+    "type": "node",
+    "id": 10216071886,
+    "lat": 14.5508012,
+    "lon": 121.027849,
+    "tags": {
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "no",
+      "handwashing:soap": "yes",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "electric_hand_dryer",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 10810647705,
+    "lat": 10.7318312,
+    "lon": 122.5498016,
+    "tags": {
+      "amenity": "toilets",
+      "female": "yes",
+      "male": "yes",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967371,
+    "lat": 9.3118825,
+    "lon": 123.3050554,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967376,
+    "lat": 9.3091762,
+    "lon": 123.3092938,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "fee": "no",
+      "operator": "Llaollao",
+      "toilets:disposal": "flush",
+      "toilets:wash": "bidet_spray"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967377,
+    "lat": 9.3226419,
+    "lon": 123.3120605,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "toilets:bidet": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967378,
+    "lat": 9.3089973,
+    "lon": 123.305954,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:bidet": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967379,
+    "lat": 9.3093657,
+    "lon": 123.307719,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "yes",
+      "fee": "no",
+      "toilets:bidet": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967380,
+    "lat": 9.3082139,
+    "lon": 123.308868,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967381,
+    "lat": 9.3137496,
+    "lon": 123.3026573,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "yes",
+      "male": "yes",
+      "toilets:bidet": "yes",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967382,
+    "lat": 9.3137085,
+    "lon": 123.302562,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "yes",
+      "female": "yes",
+      "toilets:bidet": "yes",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967383,
+    "lat": 9.3137559,
+    "lon": 123.3027294,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "yes",
+      "toilets:bidet": "yes",
+      "unisex": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967384,
+    "lat": 9.3154403,
+    "lon": 123.306585,
+    "tags": {
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967385,
+    "lat": 9.3119764,
+    "lon": 123.3078402,
+    "tags": {
+      "amenity": "toilets",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967386,
+    "lat": 9.3271337,
+    "lon": 123.3042091,
+    "tags": {
+      "amenity": "toilets",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967387,
+    "lat": 9.3261293,
+    "lon": 123.3065864,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967388,
+    "lat": 9.3116018,
+    "lon": 123.307712,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967389,
+    "lat": 9.3176731,
+    "lon": 123.3072093,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967394,
+    "lat": 9.3067141,
+    "lon": 123.3085872,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:bidet": "yes",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967395,
+    "lat": 9.3276747,
+    "lon": 123.3100683,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "no",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12677967396,
+    "lat": 9.3202114,
+    "lon": 123.3102208,
+    "tags": {
+      "amenity": "toilets",
+      "toilets:bidet": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12846317823,
+    "lat": 14.4249048,
+    "lon": 121.0302484,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "level": "3",
+      "level:ref": "3",
+      "male": "yes",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "electric_hand_dryer",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray"
+    }
+  },
+  {
+    "type": "node",
+    "id": 12846317824,
+    "lat": 14.424916,
+    "lon": 121.0302142,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "female": "yes",
+      "level": "3",
+      "level:ref": "3",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "electric_hand_dryer",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13014615299,
+    "lat": 14.6133251,
+    "lon": 121.0383643,
+    "tags": {
+      "amenity": "toilets",
+      "fee": "yes",
+      "name": "Pay Lounge",
+      "toilets:disposal": "flush",
+      "toilets:wash": "washlet"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13352905797,
+    "lat": 10.6997631,
+    "lon": 122.5515875,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "check_date": "2025-12-05",
+      "toilets:wash": "bidet_spray"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13354829163,
+    "lat": 10.696608,
+    "lon": 122.5619698,
+    "tags": {
+      "access": "customers",
+      "addr:housename": "The Coffee Studio",
+      "amenity": "toilets",
+      "level": "0",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:wash": "bidet_spray",
+      "toilets:wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13358714496,
+    "lat": 10.7180707,
+    "lon": 122.5444127,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "gender_segregated": "no",
+      "handwashing:soap": "yes",
+      "panoramax": "c2cf59fa-6cc8-4aec-b2ef-e06e192d4e8b",
+      "panoramax:0": "9b23c1b4-0e2a-4ac0-a115-19a2f7d5fb1e",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "paper_towel",
+      "toilets:handwashing": "yes",
+      "toilets:hygienic_cleansing": "bidet_spray;toilet_paper",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray",
+      "toilets:wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13556672389,
+    "lat": 28.5172323,
+    "lon": 77.1998798,
+    "tags": {
+      "access": "private",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "no",
+      "level": "0",
+      "name": "JugMug Thela",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray",
+      "unisex": "yes",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13556672392,
+    "lat": 28.5172384,
+    "lon": 77.1998916,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "no",
+      "female": "yes",
+      "level": "0",
+      "name": "JugMug Thela",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13556672400,
+    "lat": 28.517234,
+    "lon": 77.1999046,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "no",
+      "level": "0",
+      "male": "yes",
+      "name": "JugMug Thela",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13568761782,
+    "lat": 28.6686067,
+    "lon": 77.2278879,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "yes",
+      "level": "-1",
+      "male": "yes",
+      "name": "Sulabh Toilet Complex",
+      "operator": "Sulabh International Social Service Organization",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated;squat;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13568761798,
+    "lat": 28.6685842,
+    "lon": 77.2278106,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "yes",
+      "level": "-1",
+      "male": "yes",
+      "name": "Sulabh Toilet Complex",
+      "operator": "Sulabh International Social Service Organization",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated;squat;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13568771903,
+    "lat": 28.6685839,
+    "lon": 77.2279001,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "yes",
+      "female": "yes",
+      "level": "-1",
+      "name": "Sulabh Toilet Complex",
+      "operator": "Sulabh International Social Service Organization",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated;squat",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13568771907,
+    "lat": 28.6685614,
+    "lon": 77.2278228,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "yes",
+      "female": "yes",
+      "level": "-1",
+      "name": "Sulabh Toilet Complex",
+      "operator": "Sulabh International Social Service Organization",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated;squat",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13628916374,
+    "lat": 28.6046683,
+    "lon": 77.2894121,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "charge:conditional": "2 INR @ \"urinal\", 5 INR @ \"toilet\"",
+      "drinking_water": "no",
+      "fee:conditional": "no @ \"persons with disabilities\"",
+      "level": "0",
+      "name": "Sulabh Toilet Complex",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray",
+      "unisex": "yes",
+      "wheelchair": "designated"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13681529716,
+    "lat": 28.6172897,
+    "lon": 77.2135365,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "handwashing:soap": "yes",
+      "level": "0",
+      "male": "yes",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "electric_hand_dryer",
+      "toilets:handwashing": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13681529745,
+    "lat": 28.6172738,
+    "lon": 77.2135377,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "female": "yes",
+      "handwashing:soap": "yes",
+      "level": "0",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "electric_hand_dryer",
+      "toilets:handwashing": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13784189327,
+    "lat": 35.1030985,
+    "lon": 139.0775642,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "gender_segregated": "yes",
+      "handwashing:soap": "yes",
+      "level": "2",
+      "supervised": "no",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "electric_hand_dryer",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "washlet"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13813346537,
+    "lat": 33.4838233,
+    "lon": 126.3781939,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "check_date": "2026-05-10",
+      "fee": "no",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "washlet"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13817524167,
+    "lat": 33.2342815,
+    "lon": 126.5135938,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "check_date": "2026-05-11",
+      "fee": "no",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:position": "seated",
+      "toilets:wash": "washlet",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13848973951,
+    "lat": 38.185031,
+    "lon": 128.6014493,
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "check_date": "2026-05-20",
+      "fee": "no",
+      "level": "0",
+      "portable": "no",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "washlet",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13907648871,
+    "lat": 32.0282646,
+    "lon": 76.7306944,
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "fee": "no",
+      "level": "0",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "separate",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "washlet",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13907648878,
+    "lat": 32.0282523,
+    "lon": 76.7307252,
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "fee": "no",
+      "level": "0",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "separate",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "washlet",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13907648880,
+    "lat": 32.0282837,
+    "lon": 76.7306471,
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "fee": "no",
+      "level": "0",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "separate",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "washlet",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13907648883,
+    "lat": 32.0282756,
+    "lon": 76.7306702,
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "fee": "no",
+      "level": "0",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "separate",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "washlet",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13907648889,
+    "lat": 32.0282589,
+    "lon": 76.7307087,
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "fee": "no",
+      "level": "0",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "separate",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "washlet",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13907648890,
+    "lat": 32.0282701,
+    "lon": 76.7306817,
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "fee": "no",
+      "level": "0",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "separate",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "washlet",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 13907648896,
+    "lat": 32.0282796,
+    "lon": 76.730658,
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "fee": "no",
+      "level": "0",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "separate",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "washlet",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 14143922867,
+    "lat": 14.5593053,
+    "lon": 121.0249194,
+    "tags": {
+      "access": "permissive",
+      "addr:floor": "G/F",
+      "addr:housename": "Dowell Tower Residences",
+      "addr:street": "Valero Street",
+      "addr:unit": "Retail 2 & 3",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "check_date": "2026-09-03",
+      "fee": "no",
+      "level": "0",
+      "operator": "Omotesando Koffee",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "type": "node",
+    "id": 14144089947,
+    "lat": 14.5595805,
+    "lon": 121.0234685,
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "check_date": "2026-09-03",
+      "fee": "no",
+      "operator": "La Pita",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:position": "seated",
+      "toilets:wash": "washlet",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 14167955044,
+    "lat": 13.5800716,
+    "lon": 102.9759164,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "gender_segregated": "yes",
+      "handwashing:soap": "yes",
+      "opening_hours": "24/7",
+      "panoramax": "3cf214b0-25fd-40a9-9ff5-106be4f443bb",
+      "panoramax:0": "f11033c3-7e0d-49b3-b4c5-44ed57e2921e",
+      "panoramax:1": "1bb6d39c-4e64-4124-b9d3-b49fcd3465f2",
+      "panoramax:2": "a84ca321-93d6-4f12-a58c-aa8aba41deb5",
+      "panoramax:3": "3c20b6a4-67be-4df7-b9c5-aa264ef828dc",
+      "supervised": "interval",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "squat",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "node",
+    "id": 14168881682,
+    "lat": 14.1702558,
+    "lon": 103.5135612,
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "changing_table": "no",
+      "fee": "no",
+      "gender_segregated": "yes",
+      "handwashing:soap": "no",
+      "opening_hours": "24/7",
+      "panoramax": "e1564eb6-2152-4f31-9688-be3f79cfc041",
+      "panoramax:0": "97746d82-81e2-4034-afe6-087f7df00a39",
+      "panoramax:1": "31b110a5-47ed-413b-9744-52a8b3bb76d6",
+      "panoramax:2": "40e8aaba-0f05-4b40-afb6-500e5546bfcc",
+      "supervised": "no",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "electric_hand_dryer",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1286711326,
+    "center": {
+      "lat": 14.4240015,
+      "lon": 121.0311172
+    },
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "no",
+      "indoor": "room",
+      "level": "0",
+      "level:ref": "LG",
+      "male": "yes",
+      "room": "toilet",
+      "toilets:disposal": "flush;bucket",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "toilets:wheelchair": "limited"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1295586208,
+    "center": {
+      "lat": 13.6733498,
+      "lon": 121.394459
+    },
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "building": "toilets",
+      "building:colour": "brown",
+      "building:levels": "1",
+      "male": "yes",
+      "toilets:disposal": "flush",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1299443369,
+    "center": {
+      "lat": 16.2261551,
+      "lon": 120.4974359
+    },
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "no",
+      "indoor": "room",
+      "level": "0",
+      "room": "toilet",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1313140830,
+    "center": {
+      "lat": 14.3202096,
+      "lon": 120.9625794
+    },
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "no",
+      "indoor": "room",
+      "level": "0",
+      "male": "yes",
+      "room": "toilet",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:num_chambers": "4",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1314070291,
+    "center": {
+      "lat": 14.3217424,
+      "lon": 120.9640777
+    },
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "fee": "no",
+      "indoor": "room",
+      "level": "1",
+      "male": "yes",
+      "room": "toilet",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:num_chambers": "2",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1336391771,
+    "center": {
+      "lat": 14.3209375,
+      "lon": 120.9628573
+    },
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "indoor": "room",
+      "level": "0",
+      "level:ref": "1",
+      "male": "yes",
+      "room": "toilet",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1353052615,
+    "center": {
+      "lat": 14.3211129,
+      "lon": 120.962838
+    },
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "indoor": "room",
+      "level": "0",
+      "level:ref": "1",
+      "male": "yes",
+      "room": "toilet",
+      "toilets:disposal": "flush",
+      "toilets:handwashing": "yes",
+      "toilets:num_chambers": "4",
+      "toilets:num_chambers:seated": "2",
+      "toilets:num_chambers:urinal": "2",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1371958065,
+    "center": {
+      "lat": 14.4150721,
+      "lon": 121.0171854
+    },
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "indoor": "room",
+      "level": "0",
+      "level:ref": "1",
+      "male": "yes",
+      "room": "toilet",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "electric_hand_washer;toilet_paper",
+      "toilets:handwashing": "yes",
+      "toilets:handwashing:num": "3",
+      "toilets:num_chambers": "8",
+      "toilets:num_chambers:seated": "3",
+      "toilets:num_chambers:urinal": "5",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "yes"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1455624968,
+    "center": {
+      "lat": 14.2988744,
+      "lon": 120.9506398
+    },
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "indoor": "room",
+      "level": "0",
+      "room": "toilet",
+      "toilets:access": "permissive",
+      "toilets:handwashing": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1458979298,
+    "center": {
+      "lat": 14.1175979,
+      "lon": 120.9619421
+    },
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "fee:conditional": "no @ customers",
+      "indoor": "room",
+      "level": "-1",
+      "room": "toilet",
+      "toilets:disposal": "bucket",
+      "toilets:handwashing": "yes",
+      "toilets:num_chambers": "1",
+      "toilets:num_chambers:seated": "1",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray",
+      "unisex": "yes"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1474632140,
+    "center": {
+      "lat": 14.1270207,
+      "lon": 120.9603587
+    },
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "no",
+      "indoor": "room",
+      "level": "0",
+      "level:ref": "1",
+      "male": "yes",
+      "room": "toilet",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "yes",
+      "toilets:handwashing:num": "2",
+      "toilets:num_chambers": "5",
+      "toilets:num_chambers:seated": "3",
+      "toilets:num_chambers:urinal": "2",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "wheelchair": "limited"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1483760237,
+    "center": {
+      "lat": 14.3737178,
+      "lon": 120.8798049
+    },
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee": "no",
+      "indoor": "room",
+      "level": "0",
+      "level:ref": "1",
+      "room": "toilet",
+      "toilets:disposal": "flush;bucket",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray",
+      "unisex": "yes",
+      "wheelchair": "no"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1483980613,
+    "center": {
+      "lat": 14.3828424,
+      "lon": 120.9599652
+    },
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "fee": "no",
+      "indoor": "room",
+      "level": "1",
+      "level:ref": "2",
+      "male": "yes",
+      "room": "toilet",
+      "toilets:hands_drying": "electric_hand_dryer",
+      "toilets:handwashing": "yes",
+      "toilets:num_chambers:urinal": "4",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1487075195,
+    "center": {
+      "lat": 28.6253478,
+      "lon": 77.2331889
+    },
+    "tags": {
+      "access": "yes",
+      "amenity": "toilets",
+      "drinking_water": "no",
+      "fee:conditional": "no @ \"persons with disabilities\"",
+      "indoor": "room",
+      "level": "0",
+      "room": "toilet",
+      "toilets:disposal": "flush",
+      "toilets:hands_drying": "no",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "no",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray",
+      "unisex": "yes",
+      "wheelchair": "designated"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1539016433,
+    "center": {
+      "lat": 14.349693,
+      "lon": 120.973873
+    },
+    "tags": {
+      "access": "permissive",
+      "amenity": "toilets",
+      "building": "toilets",
+      "building:colour": "cyan",
+      "building:levels": "1",
+      "level": "0",
+      "noname": "yes",
+      "operator": "Tinatangi Cafe",
+      "shower": "yes",
+      "toilets:access": "permissive",
+      "toilets:disposal": "flush",
+      "toilets:fee": "no",
+      "toilets:gender_segregated": "yes",
+      "toilets:hands_drying": "paper_towel",
+      "toilets:handwashing": "yes",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated;urinal",
+      "toilets:wash": "bidet_spray",
+      "toilets:wheelchair": "no"
+    }
+  },
+  {
+    "type": "way",
+    "id": 1540389298,
+    "center": {
+      "lat": 14.4245864,
+      "lon": 121.0265474
+    },
+    "tags": {
+      "access": "customers",
+      "amenity": "toilets",
+      "fee": "no",
+      "indoor": "room",
+      "is_in": "Ooma;Manam Café",
+      "level": "0",
+      "room": "toilet",
+      "toilets:access": "customers",
+      "toilets:disposal": "flush",
+      "toilets:gender_segregated": "no",
+      "toilets:hands_drying": "paper_towel",
+      "toilets:handwashing": "yes",
+      "toilets:handwashing:num": "1",
+      "toilets:menstrual_products": "no",
+      "toilets:paper_supplied": "yes",
+      "toilets:position": "seated",
+      "toilets:wash": "bidet_spray",
+      "toilets:wheelchair": "yes",
+      "unisex": "yes"
+    }
+  }
+]

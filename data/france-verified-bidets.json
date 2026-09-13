@@ -694,6 +694,21 @@
     ]
   },
   {
+    "name": "Chambres & suites modernes",
+    "address": "La Suite des Prés Verts,  Chambre avec Jacuzzi Privatif,  Rue Général Cremer,  Châteauneuf,  Bourgogne-Franche-Comté",
+    "city": "Châteauneuf",
+    "type": "hotel",
+    "bidetStatus": "internet",
+    "bidetType": "WC lavant / Washlet",
+    "sourceUrl": "https://www.hotel-spa-fairway.com/hotel-arras/suites-chambres-hotel-moderne.php",
+    "sourceQuote": "Source web FR: Les Suites offrent un bel espace de vie, certaines avec terrasse privative, petit jardin, baignoire balnéo et/ou toilettes japonaises",
+    "verifiedMethod": "web-source",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "47.2184918",
+    "longitude": "4.6409107"
+  },
+  {
     "name": "Aman Le Mélézin",
     "address": "310 Rue de Bellecôte, 73120 Courchevel",
     "latitude": "45.414167",
@@ -743,6 +758,21 @@
     "sourceUrl": "https://eu.toto.com/fr/service/tester-le-washlettm",
     "sourceQuote": "TOTO France WASHLET Finder: public location where visitors can test WASHLET",
     "verifiedMethod": "manufacturer-reference"
+  },
+  {
+    "name": "Les Neiges, Courchevel",
+    "address": "Rue Notre-Dame-des-Neiges,  Courchevel,  Auvergne-Rhône-Alpes,  France",
+    "city": "Courchevel",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST",
+    "sourceUrl": "https://eu.toto.com/fr/lentreprise/references/les-neiges-courchevel",
+    "sourceQuote": "TOTO Europe FR: Référence TOTO Europe : NEOREST EW TCF994WGE#NW1 (expiré) NEOREST® WC EW, suspendu CW994P#NW1 (expiré) L'hôtel est situé à quelques pas de la tr",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "45.4180689",
+    "longitude": "6.6509093"
   },
   {
     "name": "Hostellerie de Levernois",
@@ -824,6 +854,36 @@
     "accessNote": "Hotel guests only"
   },
   {
+    "name": "Boutique Colette, Paris",
+    "address": "Colette Boutique,  Place de la Halle,  Morteau,  Bourgogne-Franche-Comté,  France",
+    "city": "Morteau",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST",
+    "sourceUrl": "https://eu.toto.com/fr/lentreprise/references/boutique-colette-paris",
+    "sourceQuote": "TOTO Europe FR: Référence TOTO Europe : NEOREST® LE, WC avec WASHLET® intégré CW998DF (expiré) ‘Concept store', le magasin Colette s'est affirmé",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "47.0565638",
+    "longitude": "6.6036082"
+  },
+  {
+    "name": "Tester le WASHLET®",
+    "address": "Le Testeron,  Moulis-en-Médoc,  Nouvelle-Aquitaine,  France",
+    "city": "Moulis-en-Médoc",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST",
+    "sourceUrl": "https://eu.toto.com/fr/service/tester-le-washlettm",
+    "sourceQuote": "Source web FR: Tester un WASHLET® près de chez vous | TOTO Europe GLOBAL NETWORK TOTO GLOBAL TOTO U",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "45.0712798",
+    "longitude": "-0.7376531"
+  },
+  {
     "name": "Hôtel Le Mosaïque",
     "address": "21 Rue Mosaïque, 11100 Narbonne",
     "latitude": "43.182750",
@@ -855,6 +915,36 @@
     "verifiedMethod": "manufacturer-reference",
     "access": "limited",
     "accessNote": "Hotel guests only"
+  },
+  {
+    "name": "Maison Albar – Imperator Hotel",
+    "address": "Maison Albar - Le Vendome,  Rue du Helder,  Paris,  France",
+    "latitude": "48.8717636",
+    "longitude": "2.3348191",
+    "city": "Nîmes",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "WASHLET® GL 2",
+    "sourceUrl": "https://eu.toto.com/en/company-information/references/maison-albar-imperator-hotel",
+    "sourceQuote": "TOTO Europe reference: WASHLET® GL 2.0 with hidden connections TCF6532C3GV1 (discontinued)",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons"
+  },
+  {
+    "name": "À Hostellerie de Levernois, Geberit participe aux nouveaux codes  de l’hospitalité haut de gamme",
+    "address": "Avenue Ledru Rollin 75012 Paris – France",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Geberit AquaClean",
+    "sourceUrl": "https://www.cattoire.com/architecture-btp/a-hostellerie-de-levernois-geberit-participe-aux-nouveaux-codes-de-lhospitalite-haut-de-gamme/",
+    "sourceQuote": "Source web FR: salle de bains est &eacute;quip&eacute;e de WC lavants Geberit AquaClean",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "48.8512454",
+    "longitude": "2.3760934"
   },
   {
     "name": "AC Hotel Paris Porte Maillot",
@@ -1013,6 +1103,21 @@
     "accessNote": "Hotel guests and patrons"
   },
   {
+    "name": "Hôtel Chouchou, Paris",
+    "address": "RUE_HELDER_TEMOIN_BD-7_d64091",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET",
+    "sourceUrl": "https://eu.toto.com/fr/lentreprise/references/hotel-chouchou-paris",
+    "sourceQuote": "TOTO Europe FR: Référence TOTO Europe : WASHLET® GL 2.0 avec prises invisibles TCF6532C3GV1 (expiré) Inauguré le 14 septembre 2020, le chouchou est la nouvelle",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "48.8564263",
+    "longitude": "2.3525276"
+  },
+  {
     "name": "Hôtel Edouard VI",
     "address": "61 Boulevard du Montparnasse, 75006 Paris",
     "latitude": "48.842500",
@@ -1067,7 +1172,37 @@
     "verifiedMethod": "manufacturer-reference"
   },
   {
+    "name": "Hôtel Palace Park Hyatt Paris-Vendôme",
+    "address": "Park Hyatt Paris-Vendôme,  Rue de la Paix,  Paris,  Île-de-France,  France",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "WC lavant / Washlet",
+    "sourceUrl": "https://eu.toto.com/fr/lentreprise/references/hotel-palace-park-hyatt-paris-vendome",
+    "sourceQuote": "TOTO Europe FR: Référence TOTO Europe : CW998CH (expiré) L’hôtel Park Hyatt Paris-Vendôme surplombe la célèbre Rue de la Paix et se situe à quelques pas de la p",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "48.8690233",
+    "longitude": "2.330489"
+  },
+  {
     "name": "Hôtel Plaza Athénée",
+    "address": "Hôtel Plaza Athénée,  Rue du Boccador,  Paris,  France",
+    "latitude": "48.8663815",
+    "longitude": "2.3038926",
+    "city": "Paris",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET",
+    "sourceUrl": "https://eu.toto.com/en/company-information/references/hotel-plaza-athenee-paris-france",
+    "sourceQuote": "TOTO Europe reference: NEOREST® WX2 TCF95280GEU",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Hotel guests and patrons"
+  },
+  {
+    "name": "Hôtel Plaza Athénée – Paris, France",
     "address": "Hôtel Plaza Athénée,  Rue du Boccador,  Paris,  France",
     "latitude": "48.8663815",
     "longitude": "2.3038926",
@@ -1188,6 +1323,21 @@
     "verifiedMethod": "manufacturer-reference",
     "access": "limited",
     "accessNote": "Hotel guests and patrons"
+  },
+  {
+    "name": "Le Restaurant Blanc – Paris 16è",
+    "address": "Le Mouton Blanc,  Rue d'Auteuil,  Paris,  Île-de-France,  France",
+    "city": "Paris",
+    "type": "restaurant",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST",
+    "sourceUrl": "https://eu.toto.com/fr/lentreprise/references/le-restaurant-blanc-paris-16e",
+    "sourceQuote": "TOTO Europe FR: Référence TOTO Europe : NEOREST® WX1 TCF95180GEU Ouvert en toute discrétion fin 2023, le restaurant Blanc fait sensation avec le retour attendu",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "48.8477513",
+    "longitude": "2.2658149"
   },
   {
     "name": "Le Royal Monceau Raffles Paris",
@@ -1336,6 +1486,21 @@
     "verifiedMethod": "manufacturer-reference"
   },
   {
+    "name": "Restaurant L’Agapé, Paris",
+    "address": "L'Opéra Restaurant,  Place Jacques Rouché,  Paris,  Île-de-France,  France",
+    "city": "Paris",
+    "type": "restaurant",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST",
+    "sourceUrl": "https://eu.toto.com/fr/lentreprise/references/restaurant-lagape-paris",
+    "sourceQuote": "TOTO Europe FR: Référence TOTO Europe : LUMINIST/R Vasque MRZ700BCB1 (expiré) NEOREST® SE, WC avec WASHLET® intégré CW997DF (expiré) Ouvert en mars 2008, L'Agap",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "48.8720949",
+    "longitude": "2.3323339"
+  },
+  {
     "name": "Restaurant Yen, Paris",
     "address": "Yen,  Rue Saint-Benoît,  Paris,  France",
     "latitude": "48.8545059",
@@ -1381,6 +1546,36 @@
     "accessNote": "Restaurant patrons"
   },
   {
+    "name": "The Restaurant Blanc – Paris 16è",
+    "address": "Rue de Longchamp,  Paris,  France",
+    "latitude": "48.8650727",
+    "longitude": "2.2875105",
+    "city": "Paris",
+    "type": "restaurant",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET",
+    "sourceUrl": "https://eu.toto.com/en/company-information/references/the-restaurant-blanc-paris-16e",
+    "sourceQuote": "TOTO Europe reference: NEOREST® WX1 TCF95180GEU",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "public",
+    "accessNote": "Restaurant patrons"
+  },
+  {
+    "name": "DESIGN",
+    "address": "École supérieure d'art et design Le Havre-Rouen (site de Rouen),  Rue Richard Wagner,  Rouen,  Normandie,  France",
+    "city": "Rouen",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "Geberit AquaClean",
+    "sourceUrl": "https://www.geberit-alba.fr/",
+    "sourceQuote": "Geberit Alba FR: nu --> Une expérience unique Les technologies Geberit Des bénéfices multiples Les hôteliers témoignent Contact AVEC LES WC LAVANTS,  FAITES LA DIFFÉRENCE",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "49.4481678",
+    "longitude": "1.1372635"
+  },
+  {
     "name": "Hotel L’Armancette, Saint-Gervais-les-Bains",
     "address": "Saint-Gervais-les-Bains,  France",
     "latitude": "45.8928549",
@@ -1394,6 +1589,21 @@
     "verifiedMethod": "manufacturer-reference",
     "access": "limited",
     "accessNote": "Hotel guests and patrons"
+  },
+  {
+    "name": "Hôtel L’Armancette, Saint-Gervais-les-Bains",
+    "address": "L'Armancette,  Route de Saint-Nicolas de Véroce,  Saint-Gervais-les-Bains,  Auvergne-Rhône-Alpes,  France",
+    "city": "Saint-Gervais-les-Bains",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO WASHLET",
+    "sourceUrl": "https://eu.toto.com/fr/lentreprise/references/hotel-larmancette-saint-gervais-les-bains",
+    "sourceQuote": "TOTO Europe FR: Référence TOTO Europe : WASHLET® SG 2.0 TCF403REGV1 (expiré) L’hôtel L’Armancette est une adresse pour initiés et amateurs de paysages préservés",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "45.8524631",
+    "longitude": "6.723563"
   },
   {
     "name": "Hôtel Le Bouclier d'Or",
@@ -1412,5 +1622,20 @@
     "sourceUrl": "https://eu.toto.com/fr/service/tester-le-washlettm",
     "sourceQuote": "TOTO France WASHLET Finder: public location where visitors can test WASHLET",
     "verifiedMethod": "manufacturer-reference"
+  },
+  {
+    "name": "Références européennes",
+    "address": "Institut des Hautes Études Européennes - Villa Knopf,  Rue Schiller,  Strasbourg,  Grand Est,  France",
+    "city": "Strasbourg",
+    "type": "hotel",
+    "bidetStatus": "warmed",
+    "bidetType": "TOTO NEOREST",
+    "sourceUrl": "https://eu.toto.com/fr/lentreprise/references",
+    "sourceQuote": "TOTO Europe FR: Référence TOTO Europe : WASHLET® WASHLET® Wellness Propreté Design Durabilité Confort Produits Produits Showroom Inspiration Passez au WASHLET NEOREST®",
+    "verifiedMethod": "manufacturer-reference",
+    "access": "limited",
+    "accessNote": "Clients de l'établissement — vérifier avant visite",
+    "latitude": "48.5898596",
+    "longitude": "7.7649549"
   }
 ]

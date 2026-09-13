@@ -382,9 +382,7 @@ async function geocodeVenue(v, cache) {
 }
 
 async function main() {
-      if (!match) process.exit(1);
-
-  let existing = JSON.parse(match[1]);
+  let existing = readSeed();
   const before = existing.length;
 
   const purged = existing.filter((r) => !isJunkRedditRow(r));

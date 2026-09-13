@@ -42,16 +42,10 @@ function mapType(sgType, location) {
   return 'public';
 }
 
+const { mapSingaporeAccess } = require('./lib/map-public-access.cjs');
+
 function mapAccess(remarks) {
-  const r = (remarks || '').toLowerCase();
-  if (
-    /handicap|hotel room|all rooms|members only|staff only|private|showroom/.test(
-      r
-    )
-  ) {
-    return 'limited';
-  }
-  return 'public';
+  return mapSingaporeAccess(remarks);
 }
 
 function mapBidetType(sgType, remarks) {

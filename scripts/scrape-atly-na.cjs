@@ -10,6 +10,7 @@ const https = require('https');
 const OUT = path.join(__dirname, '../data/atly-na-bidets.json');
 const DISCOVERED = path.join(__dirname, '../data/atly-discovered-urls.json');
 const ALL_URLS = path.join(__dirname, '../data/atly-all-urls.json');
+const PROBE_URLS = path.join(__dirname, '../data/atly-bathroom-probe-urls.json');
 
 const BASE_LIST_URLS = [
   'https://www.atly.com/united-states/best-bathroom-fine-dining',
@@ -60,6 +61,7 @@ const LIST_URLS = [
     ...BASE_LIST_URLS,
     ...(fs.existsSync(DISCOVERED) ? JSON.parse(fs.readFileSync(DISCOVERED, 'utf8')) : []),
     ...(fs.existsSync(ALL_URLS) ? JSON.parse(fs.readFileSync(ALL_URLS, 'utf8')) : []),
+    ...(fs.existsSync(PROBE_URLS) ? JSON.parse(fs.readFileSync(PROBE_URLS, 'utf8')) : []),
   ]),
 ];
 

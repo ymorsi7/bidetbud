@@ -10,7 +10,14 @@ import { readFileSync } from 'fs';
 import { join, extname } from 'path';
 
 const ROOT = join(import.meta.dirname, '..');
-const MIME = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.png': 'image/png', '.ico': 'image/x-icon' };
+const MIME = {
+  '.html': 'text/html',
+  '.css': 'text/css',
+  '.js': 'text/javascript',
+  '.json': 'application/json',
+  '.png': 'image/png',
+  '.ico': 'image/x-icon',
+};
 
 function startServer(port = 8765) {
   return new Promise((resolve) => {

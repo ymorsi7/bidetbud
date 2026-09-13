@@ -122,11 +122,6 @@ function toSeedRow(row, coord) {
 }
 
 async function main() {
-      if (!match) {
-    console.error('BIDETBUD_SEED not found');
-    process.exit(1);
-  }
-
   const existing = readSeed();
   const rows = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
   const cache = loadCache();

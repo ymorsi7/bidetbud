@@ -141,8 +141,6 @@ if (!fs.existsSync(rawPath)) {
 }
 
 async function main() {
-if (!match) process.exit(1);
-
 const existing = readSeed();
 const raw = JSON.parse(fs.readFileSync(rawPath, 'utf8'));
 const cache = loadCache();

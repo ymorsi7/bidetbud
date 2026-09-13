@@ -2,7 +2,7 @@
   // Web3Forms access key: public client key (safe in source per web3forms.com docs).
   const WEB3FORMS_ACCESS_KEY = 'b0f5343d-1608-4224-a49a-d32d13fbbdfe';
   const SITE_URL = 'https://bidetbud.com/';
-  const COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'France', 'Russia', 'China'];
+  const COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'Singapore', 'Germany', 'Australia', 'Mexico', 'France', 'Russia', 'China'];
   const POPULAR_CITIES = ['NYC', 'Bay Area', 'Houston', 'London', 'Toronto', 'Chicago', 'Dallas', 'Sunset Park', 'Williamsburg'];
   const RADIUS_OPTIONS = [5, 10, 25, 50, 100];
   const RECENT_SEARCH_KEY = 'bb_recent_searches';
@@ -14,6 +14,14 @@
   const HAS_BIDET = s => s === 'verified' || s === 'warmed' || s === 'internet';
   const NO_BIDET = s => s === 'none';
   const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+
+  const {
+    stableSeedId,
+    normalizeSeed,
+    normalizeSearchText,
+    searchScore,
+    matchesSearch,
+  } = typeof BidetBudSearch !== 'undefined' ? BidetBudSearch : {};
 
   let allLocations = [], userLocation = null, map, clusterGroup, countriesLayer;
   let userMarker = null, userRadiusCircle = null, markerById = new Map(), highlightedMarkerId = null;
@@ -88,12 +96,6 @@
     }
     if (!count) return { lat: 20, lng: 0 };
     return { lat: (minLat + maxLat) / 2, lng: (minLng + maxLng) / 2 };
-  }
-
-  function stableSeedId(row){
-    const s = (row.name||'') + '|' + row.latitude + '|' + row.longitude;
-    let h = 0; for (let i=0;i<s.length;i++) h = ((h<<5)-h+s.charCodeAt(i))|0;
-    return 'seed_' + Math.abs(h).toString(36);
   }
 
   const core = typeof BidetBudCore !== 'undefined' ? BidetBudCore : {};
@@ -393,7 +395,17 @@
 
   function copyViewLink(){
     const url = location.origin + location.pathname + (location.search || '');
-    navigator.clipboard?.writeText(url).then(() => alert('Link copied!')).catch(() => prompt('Copy link:', url));
+    const live = document.getElementById('copyLinkStatus');
+    const done = () => {
+      if(live){
+        live.textContent = 'Link copied';
+        setTimeout(() => { live.textContent = ''; }, 2500);
+      } else alert('Link copied!');
+    };
+    navigator.clipboard?.writeText(url).then(done).catch(() => {
+      const picked = prompt('Copy link:', url);
+      if(picked != null && live) done();
+    });
   }
 
   function openAddFormPrefill(m, noBidet){
@@ -454,100 +466,11 @@
     }
   }
 
-  function normalizeSeed(row){
-    const s = row.bidetStatus;
-    let defaultType = 'Verified bidet';
-    if(s === 'warmed') defaultType = 'Heated seat';
-    else if(s === 'internet') defaultType = 'Web source';
-    else if(s === 'none') defaultType = '';
-    const access = row.access === 'limited' ? 'limited' : 'public';
-    return {
-      id: stableSeedId(row), name: row.name, address: row.address||'', latitude: String(row.latitude), longitude: String(row.longitude),
-      city: row.city||'', country: row.country||'', type: row.type||'mosque', bidetStatus: s,
-      bidetType: row.bidetType || defaultType,
-      sourceUrl: row.sourceUrl || '',
-      sourceQuote: row.sourceQuote || '',
-      verifiedMethod: row.verifiedMethod || '',
-      searchAliases: row.searchAliases || '',
-      access,
-      accessNote: access === 'limited' ? (row.accessNote || 'Not a regular public restroom') : ''
-    };
-  }
-
   function initData(){
     allLocations = (window.BIDETBUD_SEED||[])
       .map(normalizeSeed)
       .filter(l => HAS_BIDET(l.bidetStatus) || NO_BIDET(l.bidetStatus))
       .filter(l => !isBidetFriendlyCountry(l.country));
-  }
-
-  function ensureSearchMeta(m){
-    if(!m._search) m._search = buildSearchMeta(m);
-  }
-
-  const SEARCH_STOP = new Set(['the','a','an','and','or','of','at','in','on','for','to','&']);
-
-  function normalizeSearchText(s){
-    return String(s || '').toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
-  }
-
-  function nameWords(name){
-    return normalizeSearchText(name).split(' ').filter(w => w && !SEARCH_STOP.has(w));
-  }
-
-  function buildSearchMeta(m){
-    const words = nameWords(m.name);
-    const acronym = words.map(w => w[0]).join('');
-    const hay = normalizeSearchText([m.name, m.city, m.address, m.country, m.bidetType, m.searchAliases].filter(Boolean).join(' '));
-    const aliases = new Set([acronym]);
-    if(m.searchAliases){
-      String(m.searchAliases).split(/[,;|]/).forEach(a => {
-        const t = normalizeSearchText(a).replace(/\s/g, '');
-        if(t) aliases.add(t);
-      });
-    }
-    return { hay, words, acronym, aliases: [...aliases] };
-  }
-
-  function matchesInitials(words, compact){
-    if(!compact) return false;
-    let wi = 0;
-    for(let i = 0; i < compact.length; i++){
-      while(wi < words.length && words[wi][0] !== compact[i]) wi++;
-      if(wi >= words.length) return false;
-      wi++;
-    }
-    return true;
-  }
-
-  function searchScore(m, rawQ){
-    const q = normalizeSearchText(rawQ);
-    if(!q) return 0;
-    ensureSearchMeta(m);
-    const s = m._search;
-    const compact = q.replace(/\s/g, '');
-    if(s.hay.includes(q)){
-      if(s.hay.startsWith(q)) return 90;
-      if(normalizeSearchText(m.name).startsWith(q)) return 85;
-      return 70;
-    }
-    if(compact.length >= 2){
-      if(s.acronym === compact) return 100;
-      if(s.aliases.some(a => a === compact)) return 98;
-      if(s.acronym.startsWith(compact)) return 88;
-      if(s.aliases.some(a => a.startsWith(compact))) return 86;
-      if(matchesInitials(s.words, compact)) return 75;
-    }
-    const tokens = q.split(' ').filter(Boolean);
-    if(tokens.length > 1){
-      const hayWords = s.hay.split(' ');
-      if(tokens.every(t => hayWords.some(w => w.startsWith(t)))) return 65;
-    }
-    return 0;
-  }
-
-  function matchesSearch(m, rawQ){
-    return searchScore(m, rawQ) > 0;
   }
 
   function spotShareUrl(id){
@@ -1353,6 +1276,8 @@
     ['addName','addAddress','addNotes','addPhoto'].forEach(id=>{
       const el=document.getElementById(id); if(el) el.value='';
     });
+    const errEl = document.getElementById('addFormError');
+    if(errEl){ errEl.textContent = ''; errEl.hidden = true; }
     setAddHasBidet('verified');
   }
 
@@ -1687,7 +1612,7 @@
       '</div></div>'+
       '<div class="filter-sheet-section"><span class="filter-sheet-label">More</span>'+
       '<div class="more-panel" id="sheetTypeChips">'+
-      ['verified','warmed','internet','public','limited','USA','UK','Canada','France','Russia','China'].map(t =>
+      ['verified','warmed','internet','public','limited','USA','UK','Canada','Singapore','Germany','Australia','Mexico','France','Russia','China'].map(t =>
         '<button type="button" class="chip'+((COUNTRY_FILTERS.includes(t)?countryFilter===t:extraFilter===t)?' active':'')+'" data-type="'+t+'">'+t+'</button>'
       ).join('')+'</div></div>'+
       '<div class="filter-sheet-section"><span class="filter-sheet-label">Along route</span>'+
@@ -1888,6 +1813,7 @@
     });
     document.getElementById('aboutClose').addEventListener('click',()=> setOverlayOpen('aboutOverlay', false));
     document.getElementById('footerAbout')?.addEventListener('click', e=>{ e.preventDefault(); setOverlayOpen('aboutOverlay', true); });
+    document.getElementById('footerCopyLink')?.addEventListener('click', e=>{ e.preventDefault(); copyViewLink(); });
     const footerYear = document.getElementById('footerYear');
     if(footerYear) footerYear.textContent = String(new Date().getFullYear());
     document.getElementById('addBtn').addEventListener('click',()=> openAddForm('header'));
@@ -1948,12 +1874,31 @@
 
     document.getElementById('submitAdd').addEventListener('click', async ()=>{
       const btn = document.getElementById('submitAdd');
+      const errEl = document.getElementById('addFormError');
+      const showErr = (msg) => {
+        if(errEl){
+          errEl.textContent = msg;
+          errEl.hidden = !msg;
+        } else if(msg) alert(msg);
+      };
+      showErr('');
       if(document.getElementById('addHoney').value) return;
       const name=document.getElementById('addName').value.trim();
       if(!name){
-        alert('Please enter a place name.');
+        showErr('Enter a place name.');
         document.getElementById('addName')?.focus();
         return;
+      }
+      const photoRaw = document.getElementById('addPhoto')?.value.trim() || '';
+      if(photoRaw){
+        try {
+          const u = new URL(photoRaw);
+          if(!/^https?:$/i.test(u.protocol)) throw new Error('bad protocol');
+        } catch {
+          showErr('Photo link must be a full http(s) URL.');
+          document.getElementById('addPhoto')?.focus();
+          return;
+        }
       }
       const bidetStatus = getAddHasBidet();
       const payload={
@@ -2016,7 +1961,7 @@
     console.error(err);
     let cached = null;
     try{
-      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20260902a') || 'null');
+      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261005a') || 'null');
     }catch(e){}
     const el = document.getElementById('countLabel');
     if(Array.isArray(cached) && cached.length){

@@ -164,11 +164,6 @@ async function redditToRows() {
 }
 
 async function main() {
-      if (!match) {
-    console.error('BIDETBUD_SEED not found');
-    process.exit(1);
-  }
-
   const existing = readSeed();
   const seen = new Set(existing.map(dedupeKey));
   const seenUrl = new Set(existing.filter((r) => r.sourceUrl).map((r) => r.sourceUrl));
