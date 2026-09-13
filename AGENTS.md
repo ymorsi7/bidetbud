@@ -20,8 +20,10 @@ Related but separate project: [bidetbud.com](https://www.bidetbud.com/) is the S
 ## Repository layout
 
 ```
-index.html                          App shell (~22 KB); logic in js/app.js; seed in bidet-seed.json
-css/app.css                         All UI styles (Inter font, zinc palette)
+index.html                          BidetBud map; logic in js/app.js; seed in bidet-seed.json
+halal/                              HalalBud map (index.html, seed.json, data/, scripts/) — see halal/README.md
+shop/                               Affiliate shop page (index.html)
+css/app.css                         Shared UI styles (Inter font, zinc palette)
 css/github-star.css                 Footer link styles
 images/                             Logo and favicons
 data/singapore-bidets.geolocation.json   Cached SG source (community bidet sightings only)

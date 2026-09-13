@@ -6,7 +6,7 @@ const readline = require('readline');
 const https = require('https');
 const { isHalalDefaultCountry } = require('./halal-default-countries.cjs');
 
-const USER_AGENT = 'HalalBud/1.0 (+https://bidetbud.com/halal.html; community halal map)';
+const USER_AGENT = 'HalalBud/1.0 (+https://bidetbud.com/halal/; community halal map)';
 
 const ISO_TO_COUNTRY = {
   US: 'USA',

@@ -14,9 +14,9 @@ const path = require('path');
 const https = require('https');
 const { USER_AGENT, countryFromCode, classifyHalalStatus, sleep } = require('./lib/halal-web.cjs');
 
-const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'data/osm-halal-restaurants.json');
-const STATE = path.join(ROOT, 'data/osm-halal-crawl-state.json');
+const { HALAL_ROOT, REPO_ROOT } = require('./lib/paths.cjs');
+const OUT = path.join(HALAL_ROOT, 'data/osm-halal-restaurants.json');
+const STATE = path.join(HALAL_ROOT, 'data/osm-halal-crawl-state.json');
 
 const MIRRORS = [
   'https://overpass-api.de/api/interpreter',
@@ -279,9 +279,9 @@ async function main() {
     await sleep(4000);
   }
 
-  console.log(`\nOSM halal: ${st.rows.length} rows (+${added} this run) → ${path.relative(ROOT, OUT)}`);
+  console.log(`\nOSM halal: ${st.rows.length} rows (+${added} this run) → ${path.relative(HALAL_ROOT, OUT)}`);
   if (DO_IMPORT) {
-    require('child_process').execSync('node scripts/import-halal-all.cjs', { cwd: ROOT, stdio: 'inherit' });
+    require('child_process').execSync('node halal/scripts/import-halal-all.cjs', { cwd: REPO_ROOT, stdio: 'inherit' });
   }
 }
 

@@ -19,9 +19,9 @@ const {
   hasHalalEvidence,
 } = require('./lib/halal-extra.cjs');
 
-const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'data/halal-reddit-restaurants.json');
-const CACHE = path.join(ROOT, 'data/halal-reddit-geocode-cache.json');
+const { HALAL_ROOT, REPO_ROOT } = require('./lib/paths.cjs');
+const OUT = path.join(HALAL_ROOT, 'data/halal-reddit-restaurants.json');
+const CACHE = path.join(HALAL_ROOT, 'data/halal-reddit-geocode-cache.json');
 
 const args = process.argv.slice(2);
 const DO_IMPORT = args.includes('--import');
@@ -113,7 +113,7 @@ async function main() {
   console.log(`Reddit halal: ${rows.length} restaurants (${geocoded} new · ${scraped} leads scanned)`);
 
   if (DO_IMPORT) {
-    require('child_process').execSync('node scripts/import-halal-all.cjs', { cwd: ROOT, stdio: 'inherit' });
+    require('child_process').execSync('node halal/scripts/import-halal-all.cjs', { cwd: REPO_ROOT, stdio: 'inherit' });
   }
 }
 

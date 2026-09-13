@@ -9,12 +9,12 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="HalalBud: Halal food outside the Muslim world">
 <meta property="og:description" content="Map of fully halal restaurants and halal-option spots in the USA, UK, Canada, and beyond.">
-<meta property="og:url" content="https://bidetbud.com/halal.html">
+<meta property="og:url" content="https://bidetbud.com/halal/">
 <meta property="og:image" content="https://bidetbud.com/images/bidetbud-favicon-192.png">
-<link rel="icon" href="images/bidetbud-favicon.ico" sizes="any">
-<link rel="icon" type="image/png" sizes="32x32" href="images/bidetbud-favicon-32.png">
-<link rel="icon" type="image/png" sizes="192x192" href="images/bidetbud-favicon-192.png">
-<link rel="apple-touch-icon" href="images/bidetbud-favicon-192.png">
+<link rel="icon" href="../images/bidetbud-favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="../images/bidetbud-favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="../images/bidetbud-favicon-192.png">
+<link rel="apple-touch-icon" href="../images/bidetbud-favicon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://a.tile.openstreetmap.org" crossorigin>
@@ -23,9 +23,9 @@
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" crossorigin="">
 <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" crossorigin="">
-<link rel="stylesheet" href="css/github-star.css">
-<link rel="stylesheet" href="css/app.css">
-<link rel="preload" href="halal-seed.json" as="fetch">
+<link rel="stylesheet" href="../css/github-star.css">
+<link rel="stylesheet" href="../css/app.css">
+<link rel="preload" href="seed.json" as="fetch">
 <script>
 (function () {
   var queue = [];
@@ -57,8 +57,8 @@
 <div class="shell">
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="halal.html">
-        <div class="logo"><img src="images/bidetbud-logo.png" alt="HalalBud logo" width="38" height="38" decoding="async"></div>
+      <a class="brand" href="./">
+        <div class="logo"><img src="../images/bidetbud-logo.png" alt="HalalBud logo" width="38" height="38" decoding="async"></div>
         <div class="brand-text">
           <h1>HalalBud</h1>
           <p>Halal restaurants outside the Muslim world</p>
@@ -75,7 +75,7 @@
           <div class="menu-drop" id="menuDrop" hidden role="menu">
             <button type="button" role="menuitem" id="menuAbout">About</button>
             <button type="button" role="menuitem" id="menuLegend">Map legend</button>
-            <a class="menu-drop-link" role="menuitem" href="index.html">BidetBud map</a>
+            <a class="menu-drop-link" role="menuitem" href="../index.html">BidetBud map</a>
             <a class="menu-drop-link" role="menuitem" href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
         </div>
@@ -156,7 +156,7 @@
     <div class="dialog about-dialog" id="aboutDialog">
       <button type="button" class="dialog-close" id="aboutClose" aria-label="Close">×</button>
       <div class="about-head">
-        <img class="about-logo" src="images/bidetbud-logo.png" alt="" width="52" height="52" decoding="async">
+        <img class="about-logo" src="../images/bidetbud-logo.png" alt="" width="52" height="52" decoding="async">
         <div class="about-head-text">
           <h2 id="aboutTitle">About HalalBud</h2>
           <p class="about-tagline">Halal food when you're far from home</p>
@@ -174,7 +174,7 @@
             <li><span class="legend-dot friendly-country"></span> Halal-by-default country (green shading)</li>
           </ul>
         </div>
-        <p class="sub" style="margin-top:16px">Sibling project to <a href="index.html">BidetBud</a>: find masajid and restaurants with bidets.</p>
+        <p class="sub" style="margin-top:16px">Sibling project to <a href="../index.html">BidetBud</a>: find masajid and restaurants with bidets.</p>
       </div>
     </div>
   </div>
@@ -188,7 +188,7 @@
     <nav class="site-footer-nav" aria-label="Site links">
       <a href="#" id="footerAbout">About</a>
       <span aria-hidden="true">·</span>
-      <a href="index.html">BidetBud</a>
+      <a href="../index.html">BidetBud</a>
       <span aria-hidden="true">·</span>
       <a href="https://ymorsi7.github.io/Ayatica/" target="_blank" rel="noopener noreferrer">Ayatica</a>
       <span aria-hidden="true">·</span>
@@ -279,7 +279,7 @@
 (function(){
   const SUBMIT_EMAIL = 'ymorsi8+bidet@gmail.com';
   const WEB3FORMS_ACCESS_KEY = 'b0f5343d-1608-4224-a49a-d32d13fbbdfe';
-  const SITE_URL = 'https://bidetbud.com/halal.html';
+  const SITE_URL = 'https://bidetbud.com/halal/';
   const COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'Singapore', 'France', 'Germany', 'Australia'];
   const POPULAR_CITIES = ['Houston', 'London', 'Toronto', 'New York', 'Chicago', 'Detroit', 'Los Angeles'];
   const MAP_MIN_ZOOM = 3;
@@ -360,9 +360,9 @@
     const type = m.bidetType ? escapeHtml(m.bidetType) : 'Bidet confirmed';
     const bidetLink = m.bidetSpotId
       ? '<a class="btn btn-ghost" href="index.html?spot='+encodeURIComponent(m.bidetSpotId)+'">View on BidetBud map</a>'
-      : '<a class="btn btn-ghost" href="index.html">Browse BidetBud map</a>';
+      : '<a class="btn btn-ghost" href="../index.html">Browse BidetBud map</a>';
     return '<div class="bidet-callout"><p class="bidet-callout-title"><span class="tag tag-bidet">Bidet in restroom</span></p>'+
-      '<p class="sub">'+type+': cross-referenced with <a href="index.html">BidetBud</a>.</p>'+
+      '<p class="sub">'+type+': cross-referenced with <a href="../index.html">BidetBud</a>.</p>'+
       '<div class="dialog-actions" style="margin-top:10px">'+bidetLink+'</div></div>';
   }
 
@@ -853,14 +853,14 @@
         resolve(window.HALALBUD_SEED);
         return;
       }
-      const src = new URL('halal-seed.js', location.href).href;
+      const src = new URL('seed.js', location.href).href;
       const existing = document.querySelector('script[data-halal-seed]');
       if(existing){
         existing.addEventListener('load', () => {
           if(Array.isArray(window.HALALBUD_SEED)) resolve(window.HALALBUD_SEED);
-          else reject(new Error('halal-seed.js missing HALALBUD_SEED'));
+          else reject(new Error('seed.js missing HALALBUD_SEED'));
         });
-        existing.addEventListener('error', () => reject(new Error('halal-seed.js failed to load')));
+        existing.addEventListener('error', () => reject(new Error('seed.js failed to load')));
         return;
       }
       const s = document.createElement('script');
@@ -869,9 +869,9 @@
       s.dataset.halalSeed = '1';
       s.onload = () => {
         if(Array.isArray(window.HALALBUD_SEED)) resolve(window.HALALBUD_SEED);
-        else reject(new Error('halal-seed.js missing HALALBUD_SEED'));
+        else reject(new Error('seed.js missing HALALBUD_SEED'));
       };
-      s.onerror = () => reject(new Error('halal-seed.js not found (404)'));
+      s.onerror = () => reject(new Error('seed.js not found (404)'));
       document.head.appendChild(s);
     });
   }
@@ -881,7 +881,7 @@
       setLoadingStatus('Loading restaurant list…');
       return loadSeedScript();
     }
-    const jsonUrl = new URL('halal-seed.json', location.href).href;
+    const jsonUrl = new URL('seed.json', location.href).href;
     try{
       setLoadingStatus('Downloading restaurant list…');
       const res = await fetch(jsonUrl, { cache: 'no-cache' });
@@ -892,7 +892,7 @@
         if(Array.isArray(rows)) return rows;
       }
     }catch(e){
-      console.warn('halal-seed.json unavailable, using halal-seed.js', e);
+      console.warn('seed.json unavailable, using seed.js', e);
     }
     setLoadingStatus('Loading restaurant list…');
     return loadSeedScript();
@@ -1164,7 +1164,7 @@
     }catch(err){
       console.error(err);
       const hint = location.protocol === 'file:'
-        ? 'Open via http://localhost:8080/halal.html (not file://)'
+        ? 'Open via http://localhost:8080/halal/ (not file://)'
         : (err && err.message ? err.message : 'Unknown error');
       setLoadingStatus('Could not load restaurant data. ' + hint);
     }

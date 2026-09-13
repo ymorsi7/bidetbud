@@ -10,8 +10,8 @@ const fs = require('fs');
 const path = require('path');
 const { fetchText, parseZabihahHtml, heuristicZabihahRow, mapPool, readVenueRows, compactNdjsonToJson } = require('./lib/halal-web.cjs');
 
-const ROOT = path.join(__dirname, '..');
-const IN = path.join(ROOT, 'data/zabihah-halal-restaurants.json');
+const { HALAL_ROOT, REPO_ROOT } = require('./lib/paths.cjs');
+const IN = path.join(HALAL_ROOT, 'data/zabihah-halal-restaurants.json');
 const OUT = IN;
 
 const args = process.argv.slice(2);
@@ -106,7 +106,7 @@ async function main() {
   await compactNdjsonToJson(IN);
 
   if (DO_IMPORT) {
-    require('child_process').execSync('node scripts/import-halal-all.cjs', { cwd: ROOT, stdio: 'inherit' });
+    require('child_process').execSync('node halal/scripts/import-halal-all.cjs', { cwd: REPO_ROOT, stdio: 'inherit' });
   }
 }
 

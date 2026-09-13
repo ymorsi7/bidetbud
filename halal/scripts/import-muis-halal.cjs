@@ -10,8 +10,8 @@ const path = require('path');
 const https = require('https');
 const { USER_AGENT } = require('./lib/halal-web.cjs');
 
-const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'data/muis-halal-restaurants.json');
+const { HALAL_ROOT, REPO_ROOT } = require('./lib/paths.cjs');
+const OUT = path.join(HALAL_ROOT, 'data/muis-halal-restaurants.json');
 const URL =
   'https://raw.githubusercontent.com/msocietyhq/muis-datasets-unofficial/main/halal-directory/data.json';
 
@@ -54,7 +54,7 @@ async function main() {
     }));
 
   fs.writeFileSync(OUT, JSON.stringify(rows, null, 2) + '\n');
-  console.log(`Wrote ${rows.length} MUIS establishments → ${path.relative(ROOT, OUT)}`);
+  console.log(`Wrote ${rows.length} MUIS establishments → ${path.relative(HALAL_ROOT, OUT)}`);
 }
 
 main().catch((e) => {

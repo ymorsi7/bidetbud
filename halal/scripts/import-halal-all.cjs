@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Merge all halal list sources into data/halal-restaurants.json, then embed
- * into halal.html (static site — no runtime fetch).
+ * into halal/index.html (static site — no runtime fetch).
  *
  * Sources (if present):
  *   data/zabihah-halal-restaurants.json
@@ -12,15 +12,15 @@
  *   data/halal-directory-restaurants.json
  *   data/halal-restaurants-seed.json  (Atly / manual)
  *
- *   node scripts/import-halal-all.cjs
+ *   node halal/scripts/import-halal-all.cjs
  */
 const fs = require('fs');
 const path = require('path');
 const { mergeRows, readVenueRows, rowKey, normalizeRow } = require('./lib/halal-web.cjs');
 const { attachBidetMatches, loadBidetRows } = require('./lib/halal-bidet-crossref.cjs');
+const { HALAL_ROOT, REPO_ROOT } = require('./lib/paths.cjs');
 
-const ROOT = path.join(__dirname, '..');
-const OUT = path.join(ROOT, 'data/halal-restaurants.json');
+const OUT = path.join(HALAL_ROOT, 'data/halal-restaurants.json');
 
 const SOURCES = [
   { file: 'data/zabihah-halal-restaurants.json', label: 'Zabihah' },
@@ -33,7 +33,7 @@ const SOURCES = [
 ];
 
 function readJson(rel) {
-  const p = path.join(ROOT, rel);
+  const p = path.join(HALAL_ROOT, rel);
   if (!fs.existsSync(p) && !fs.existsSync(p.replace(/\.json$/i, '.ndjson'))) return [];
   const list = readVenueRows(p);
   if (rel === 'data/osm-halal-restaurants.json') {
@@ -90,7 +90,7 @@ const netLabel =
       : ` (${netVsPrev > 0 ? '+' : ''}${netVsPrev} vs last import)`;
 
 console.log(
-  `Halal import: ${merged.length} restaurants${netLabel} → ${path.relative(ROOT, OUT)}`,
+  `Halal import: ${merged.length} restaurants${netLabel} → ${path.relative(REPO_ROOT, OUT)}`,
 );
 for (const s of stats) {
   const parts = [`${s.inFile} in file`, `${s.added} unique`];
@@ -142,7 +142,7 @@ if (zabihahRows.length > 50) {
   }
 }
 
-require('child_process').execSync('node scripts/embed-halal-seed.cjs', {
-  cwd: ROOT,
+require('child_process').execSync('node halal/scripts/embed-halal-seed.cjs', {
+  cwd: REPO_ROOT,
   stdio: 'inherit',
 });
