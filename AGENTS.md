@@ -144,7 +144,8 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 | Normalization | `normalizeSeed`, `stableSeedId`, `HAS_BIDET` |
 | Search | `searchScore`, `matchesSearch`, acronym/`searchAliases` support |
 | Filters | `placeFilter` (all/mosque/restaurant), `extraFilter`, `countryFilter` |
-| URL state | `syncUrlFromState`, `applyUrlState` — params: `q`, `type`, `filter`, `country`, `near`, `radius`, `spot` |
+| URL state | `syncUrlFromState`, `applyUrlState` — params: `q`, `type`, `filter`, `country`, `near`, `radius`, `spot`, `sort`, `view` |
+| Viewport scoping | `rowsInView`, `currentViewBounds`, `viewportScopingActive`, `fitToSearchResults`, `fitMapToMatches` |
 | Map | Leaflet map, `createIcon`, cluster group |
 | Types UI | `typeLabel` — maps `mosque` / `restaurant` / `hotel` / `public` |
 | Friendly countries | `BIDET_FRIENDLY_COUNTRIES` + GeoJSON overlay (bidets common nationally) |
@@ -156,7 +157,24 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 
 - Use **masajid** (not “masajed”) in all user-facing copy.
 - Internal `type` value remains `mosque`; UI label is “Masjid”.
-- Country filter chips: USA, UK, Canada, Singapore (`data-type` on chips doubles as country code for those four).
+- Country filter chips are **generated from the seed** by `buildCountryFilters` / `renderCountryChips`: any country with at least `COUNTRY_CHIP_MIN` (10) mappable pins gets a chip, ranked by pin count. The literal in `COUNTRY_FILTERS` is only the pre-seed fallback, and `?country=` accepts any country in the data, chip or not. Because chips are re-rendered after load, `#typeChips` clicks are **delegated** — don't go back to binding each button.
+
+## List/map coupling
+
+The sidebar list shows only spots inside the current map view (`rowsInView`),
+so panning or zooming re-renders it. Consequences to keep in mind:
+
+- `currentViewBounds` caches the last bounds seen while the map had a non-zero
+  size. On mobile the map is `display:none` behind the List tab and reports
+  garbage bounds; without the cache the list reads "0 places".
+- Near-me and along-route opt out (`viewportScopingActive`) since they already
+  scope by distance.
+- Typing a query flies the map to the matches (`fitToSearchResults`), so the
+  view and the list stay in agreement.
+- A shared link has to carry the view, hence the `view=lat,lng,zoom` param.
+  When it's present, `initMap` honours it and skips the initial auto-fit.
+
+Covered by `scripts/test-viewport-list.mjs` (part of `npm run test:e2e`).
 
 ---
 
@@ -240,6 +258,7 @@ the searched country's code** (so venues can't drift into the wrong nation).
 ```bash
 # 90-minute crawl, then merge results into the seed:
 node scripts/crawl-africa-web.cjs --minutes=90 --import
+```
 
 ### Global Atly crawler (public restaurants / cafés)
 
@@ -250,6 +269,19 @@ location slugs, and merges into the seed via `import-crawler-json.cjs` (fast —
 node scripts/crawl-global-bidets.cjs --hours=2 --import
 node scripts/crawl-global-bidets.cjs --list-burst=80 --fresh-lists --import
 ```
+
+### LATAM / Canada / ANZ / China (Atly + web)
+
+```bash
+node scripts/scrape-atly-latam.cjs          # MX / CO / VE / PY list pages -> data/atly-latam-bidets.json
+node scripts/scrape-latam-wide.cjs          # hotel amenity pages (MX/CO/VE)
+node scripts/import-regional-atly.cjs       # merge Atly regional + LATAM into seed
+node scripts/import-latam.cjs
+node scripts/import-anz.cjs
+node scripts/import-china.cjs
+```
+
+**Paraguay / Colombia:** only add rows with explicit bidet evidence (Atly bathroom copy, amenity lists, TOTO case studies). Empty Atly list pages are normal — do not bulk-import hotels without bidet proof.
 
 # crawl only (writes data/africa-web-crawl-bidets.json), import later:
 node scripts/crawl-africa-web.cjs --minutes=90

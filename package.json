@@ -7,9 +7,16 @@
     "test": "node --test scripts/test-app-core.cjs && node scripts/test-manual-spots.cjs && node scripts/validate-bidet-seed.cjs --warn-only",
     "test:unit": "node --test scripts/test-app-core.cjs && node scripts/test-manual-spots.cjs",
     "test:seed": "node scripts/validate-bidet-seed.cjs",
-    "test:e2e": "node scripts/test-filter-layout.mjs && node scripts/test-legend-ui.mjs && node scripts/test-bidet-smoke.mjs",
+    "test:e2e": "node scripts/test-filter-layout.mjs && node scripts/test-legend-ui.mjs && node scripts/test-bidet-smoke.mjs && node scripts/test-viewport-list.mjs",
     "test:all": "npm run test:unit && node scripts/validate-bidet-seed.cjs --warn-only && npm run test:e2e",
-    "count:public": "node scripts/count-mappable-public.cjs --min=3000"
+    "count:public": "node scripts/count-mappable-public.cjs --min=3000",
+    "scrape:atly:uk": "node scripts/scrape-atly-country.cjs --country=UK --max-lists=400 --max-locs=1500",
+    "scrape:atly:au": "node scripts/scrape-atly-country.cjs --country=Australia --max-lists=400 --max-locs=1200",
+    "crawl:uk": "node scripts/crawl-uk-web.cjs --minutes=60 --import",
+    "crawl:anz": "node scripts/crawl-anz-web.cjs --minutes=60 --import",
+    "crawl:atly": "node scripts/crawl-atly-sitemap.cjs --minutes=120 --import",
+    "crawl:global": "node scripts/crawl-global-bidets.cjs --hours=2 --import",
+    "import:regional": "node scripts/import-regional-atly.cjs && node scripts/normalize-seed-access.cjs"
   },
   "repository": {
     "type": "git",

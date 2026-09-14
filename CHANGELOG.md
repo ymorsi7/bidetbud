@@ -6,6 +6,21 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 
 ## 2026-10 (early)
 
+**Map/list rework**
+
+- The sidebar list is now **scoped to the map view** — panning or zooming re-renders it, and the count line reads "N places in view of M". Previously the list was global and alphabetical, so the map could sit over North America while the first card was a toilet in Singapore
+- Typing a query **flies the map to the matches** instead of leaving them off-screen in a distant cluster
+- Default sort is **closest to the map centre** (or to you, with Near me); added a **Closest / Verified first / A–Z** sort control
+- **Country chips are generated from the seed** (any country with 10+ pins, ranked by count) instead of ten hard-coded names — Austria, Switzerland, Netherlands, Belgium and Denmark are now filterable, and `?country=` accepts anything in the data
+- Shareable **`view=lat,lng,zoom`** and **`sort=`** URL params, so a copied link reproduces what you were looking at
+- Empty views get a **"Show all N"** escape hatch rather than a dead end
+- Fixed: mobile filter toggles rendered as **unlabelled icons** below 420px (a bare padlock for "Guests only"); the icon drops instead of the label now
+- Fixed: **Escape threw** on every keypress because the commented-out three-dots menu was queried unguarded, so it never closed any dialog
+- Dropped the "N open access" count chip when every result is open access
+- New regression test `scripts/test-viewport-list.mjs` in `npm run test:e2e`
+
+**Data**
+
 - **Open-access** pins ~**2,460+** on the default map (was ~2,120); **`npm run count:public`** gates releases at **3,000**
 - Singapore `@toiletswithbidetsg` import: handicap / family-toilet sightings count as **public** (mall & hawker restrooms, not “limited”)
 - `scripts/lib/map-public-access.cjs`, `normalize-seed-access.cjs`, `count-mappable-public.cjs`

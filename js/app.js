@@ -2,7 +2,10 @@
   // Web3Forms access key: public client key (safe in source per web3forms.com docs).
   const WEB3FORMS_ACCESS_KEY = 'b0f5343d-1608-4224-a49a-d32d13fbbdfe';
   const SITE_URL = 'https://bidetbud.com/';
-  const COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'Singapore', 'Germany', 'Australia', 'Mexico', 'France', 'Russia', 'China'];
+  // Rebuilt from the seed on load; this literal is only the pre-seed fallback.
+  let COUNTRY_FILTERS = ['USA', 'UK', 'Canada', 'Mexico', 'Colombia', 'Australia', 'New Zealand', 'China', 'Singapore', 'Germany', 'France', 'Russia'];
+  // A country needs at least this many pins to earn a filter chip.
+  const COUNTRY_CHIP_MIN = 10;
   const POPULAR_CITIES = ['NYC', 'Bay Area', 'Houston', 'London', 'Toronto', 'Chicago', 'Dallas', 'Sunset Park', 'Williamsburg'];
   const RADIUS_OPTIONS = [5, 10, 25, 50, 100];
   const RECENT_SEARCH_KEY = 'bb_recent_searches';
@@ -30,8 +33,14 @@
   let refreshTimer = null;
   let mapMoveTimer = null;
   const LIST_CAP = 200;
-  const MAP_MARKER_CAP = 2500;
+  const MAP_MARKER_CAP = 6000;
   let placeFilter = 'all', extraFilter = null, countryFilter = null, noBidetMode = false, showLimitedAccess = false;
+  let sortMode = 'closest';
+  let lastFitKey = null;
+  let pendingView = null;
+  let lastViewBounds = null;
+  // Rows matching the filters globally, vs. the subset inside the current map view.
+  let totalMatchCount = 0;
   let nearMe = false, radiusMi = 50, nearMeFitPending = false;
   let suppressUrlWrite = false, initialBoundsDone = false, activeSpotId = null;
 
@@ -471,6 +480,39 @@
       .map(normalizeSeed)
       .filter(l => HAS_BIDET(l.bidetStatus) || NO_BIDET(l.bidetStatus))
       .filter(l => !isBidetFriendlyCountry(l.country));
+    buildCountryFilters();
+    renderCountryChips();
+  }
+
+  function buildCountryFilters(){
+    const counts = new Map();
+    for(const m of allLocations){
+      const c = String(m.country || '').trim();
+      if(c) counts.set(c, (counts.get(c) || 0) + 1);
+    }
+    const ranked = [...counts.entries()]
+      .filter(([, n]) => n >= COUNTRY_CHIP_MIN)
+      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+      .map(([c]) => c);
+    if(ranked.length) COUNTRY_FILTERS = ranked;
+    // A country deep-linked via ?country= stays selectable even below the threshold.
+    if(countryFilter && !COUNTRY_FILTERS.includes(countryFilter)) COUNTRY_FILTERS.push(countryFilter);
+  }
+
+  function renderCountryChips(){
+    const panel = document.getElementById('typeChips');
+    if(!panel) return;
+    const divider = panel.querySelector('.chip-divider');
+    if(!divider) return;
+    let node = divider.nextElementSibling;
+    while(node){
+      const next = node.nextElementSibling;
+      node.remove();
+      node = next;
+    }
+    divider.insertAdjacentHTML('afterend', COUNTRY_FILTERS.map(c =>
+      '<button type="button" class="chip'+(countryFilter===c?' active':'')+'" data-type="'+escapeHtml(c)+'">'+escapeHtml(c)+'</button>'
+    ).join(''));
   }
 
   function spotShareUrl(id){
@@ -490,9 +532,23 @@
     if(noBidetMode) p.set('nobidet', '1');
     if(showLimitedAccess) p.set('limited', '1');
     if(nearMe){ p.set('near', '1'); p.set('radius', String(radiusMi)); }
+    if(sortMode !== 'closest') p.set('sort', sortMode);
+    // The list is scoped to the map view, so a shared link has to carry the view.
+    if(map && !nearMe){
+      const c = map.getCenter();
+      p.set('view', c.lat.toFixed(4) + ',' + c.lng.toFixed(4) + ',' + map.getZoom());
+    }
     if(activeSpotId) p.set('spot', activeSpotId);
     const next = p.toString() ? '?' + p.toString() : location.pathname;
     history.replaceState(null, '', next);
+  }
+
+  function parseViewParam(raw){
+    if(!raw) return null;
+    const [lat, lng, zoom] = String(raw).split(',').map(Number);
+    if(!isFinite(lat) || !isFinite(lng) || !isFinite(zoom)) return null;
+    if(lat < -90 || lat > 90 || lng < -180 || lng > 180) return null;
+    return { lat, lng, zoom: Math.max(MAP_MIN_ZOOM, Math.min(19, zoom)) };
   }
 
   function applyUrlState(){
@@ -510,10 +566,18 @@
       const spot = allLocations.find(x => x.id === spotId);
       if(spot && spot.access === 'limited') showLimitedAccess = true;
     }
+    // Any country in the seed is linkable, not just the ones with a chip.
     const country = p.get('country');
-    if(country && COUNTRY_FILTERS.includes(country)) countryFilter = country;
+    if(country) countryFilter = country;
     if(p.get('near') === '1') nearMe = true;
     if(p.get('radius')) radiusMi = parseInt(p.get('radius'), 10) || 50;
+    const sort = p.get('sort');
+    if(sort === 'verified' || sort === 'name'){
+      sortMode = sort;
+      const sel = document.getElementById('sortSelect');
+      if(sel) sel.value = sort;
+    }
+    pendingView = parseViewParam(p.get('view'));
     updateFilterUi();
     updateNearMeUi();
     suppressUrlWrite = false;
@@ -854,8 +918,22 @@
     });
   }
 
+  const STATUS_RANK = { verified: 0, warmed: 1, internet: 2, none: 3 };
+
+  // Anchor for "closest": the user's position when we have it, otherwise the
+  // centre of what they're currently looking at.
+  function distanceAnchor(){
+    if(userLocation) return userLocation;
+    if(map){
+      const c = map.getCenter();
+      return { lat: c.lat, lng: c.lng };
+    }
+    return null;
+  }
+
   function sortedLocations(list){
     const q = getQuery();
+    const anchor = sortMode === 'name' ? null : distanceAnchor();
     return [...list].sort((a,b)=>{
       if(q){
         const sa = searchScore(a, q), sb = searchScore(b, q);
@@ -865,10 +943,14 @@
         if(a.access==='public') return -1;
         if(b.access==='public') return 1;
       }
-      if(nearMe && userLocation){
-        const da=haversineMiles(userLocation,{lat:+a.latitude,lng:+a.longitude});
-        const db=haversineMiles(userLocation,{lat:+b.latitude,lng:+b.longitude});
-        return da-db;
+      if(sortMode === 'verified'){
+        const ra = STATUS_RANK[a.bidetStatus] ?? 9, rb = STATUS_RANK[b.bidetStatus] ?? 9;
+        if(ra !== rb) return ra - rb;
+      }
+      if(anchor){
+        const da=haversineMiles(anchor,{lat:+a.latitude,lng:+a.longitude});
+        const db=haversineMiles(anchor,{lat:+b.latitude,lng:+b.longitude});
+        if(da !== db) return da-db;
       }
       return a.name.localeCompare(b.name);
     });
@@ -885,6 +967,14 @@
   function emptyStateHtml(){
     let msg = 'No places match your filters.';
     let actions = '';
+    // The filters do match somewhere, just not inside the current map view.
+    if(!nearMe && viewportScopingActive() && totalMatchCount > 0){
+      return '<div class="empty"><p class="empty-title">Nothing in this view</p>'+
+        '<p class="empty-sub">Pan or zoom the map, or jump out to see all '+totalMatchCount+' matching '+(totalMatchCount===1?'spot':'spots')+'.</p>'+
+        '<div class="empty-actions"><button type="button" class="btn btn-primary" id="emptyZoomOutBtn">Show all '+totalMatchCount+'</button>'+
+        '<button type="button" class="btn btn-ghost" id="emptyAddBtn">Add a spot</button></div>'+
+        '<div class="empty-chips">'+POPULAR_CITIES.map(c=>'<button type="button" class="chip city-chip" data-city="'+escapeHtml(c)+'">'+escapeHtml(c)+'</button>').join('')+'</div></div>';
+    }
     if(noBidetMode){
       msg = 'No spots recorded without a bidet here yet. Know one? Add it.';
       actions = '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a no-bidet spot</button>';
@@ -916,6 +1006,7 @@
       refresh();
     });
     document.getElementById('emptyNoBidetBtn')?.addEventListener('click', ()=> setNoBidetMode(true));
+    document.getElementById('emptyZoomOutBtn')?.addEventListener('click', ()=> fitMapToMatches());
     document.querySelectorAll('.city-chip').forEach(btn=>btn.addEventListener('click', ()=>{
       document.getElementById('searchInput').value = btn.dataset.city;
       hideSearchAc();
@@ -944,11 +1035,15 @@
       countHtml = '<strong>'+filtered.length+'</strong> '+(filtered.length===1?'place':'places');
     }
     if(nearMe) countHtml += ' within ' + formatRadiusLabel(radiusMi);
+    else if(viewportScopingActive() && totalMatchCount > filtered.length){
+      countHtml += ' in view <span class="count-of-total">of '+totalMatchCount+'</span>';
+    }
     const badges = [];
     if(masajid && placeFilter!=='mosque') badges.push(masajid+' masajid');
     const restaurants = filtered.filter(m=>m.type==='restaurant').length;
     if(restaurants && placeFilter!=='restaurant') badges.push(restaurants+' restaurants');
-    if(pub && placeFilter==='all') badges.push(pub+' open access');
+    // "open access" only says something when some results are guests-only.
+    if(pub && limited && placeFilter==='all') badges.push(pub+' open access');
     if(limited) badges.push(limited+' guests only');
     if(verified) badges.push(verified+' verified');
     if(warmed) badges.push(warmed+' heated');
@@ -992,15 +1087,8 @@
 
   function markersForMap(filtered){
     if(!filtered.length) return [];
-    const q = getQuery();
-    let rows = filtered;
-    if(map && !q && !nearMe && !activeSpotId && filtered.length > 1200){
-      const bounds = map.getBounds().pad(0.25);
-      const inView = filtered.filter(m => bounds.contains([+m.latitude, +m.longitude]));
-      if(inView.length) rows = inView;
-    }
-    if(rows.length > MAP_MARKER_CAP) return rows.slice(0, MAP_MARKER_CAP);
-    return rows;
+    if(filtered.length > MAP_MARKER_CAP) return filtered.slice(0, MAP_MARKER_CAP);
+    return filtered;
   }
 
   function renderMap(filtered){
@@ -1238,9 +1326,58 @@
     }, 120);
   });
 
+  // The list mirrors the map: only spots inside the current view are listed.
+  // Near-me has its own radius, so it opts out.
+  function viewportScopingActive(){
+    return Boolean(map) && !nearMe && !alongRoute;
+  }
+
+  function fitMapToMatches(){
+    if(!map || !lastFiltered.length) return;
+    const bounds = L.latLngBounds(lastFiltered.map(m=>[+m.latitude,+m.longitude]));
+    if(bounds.isValid()) map.fitBounds(bounds.pad(0.1), { maxZoom: 12, animate: true });
+  }
+
+  // On mobile the map is hidden behind the List tab, where it reports a zero
+  // size and nonsense bounds, so fall back to the last view we actually saw.
+  function currentViewBounds(){
+    if(!map) return null;
+    const size = map.getSize();
+    if(size.x > 0 && size.y > 0){
+      const b = map.getBounds();
+      if(b && b.isValid()) lastViewBounds = b;
+    }
+    return lastViewBounds;
+  }
+
+  function rowsInView(rows){
+    if(!viewportScopingActive()) return rows;
+    const bounds = currentViewBounds();
+    if(!bounds) return rows;
+    return rows.filter(m => bounds.contains([+m.latitude, +m.longitude]));
+  }
+
+  // Jump the map to the matches when the query changes, so the view and the
+  // list agree instead of leaving results off-screen in a distant cluster.
+  function fitToSearchResults(rows){
+    if(!map || !rows.length || nearMe || activeSpotId) return false;
+    const q = getQuery();
+    const key = q + '|' + placeFilter + '|' + (extraFilter||'') + '|' + (countryFilter||'');
+    if(!q || key === lastFitKey) return false;
+    lastFitKey = key;
+    const bounds = L.latLngBounds(rows.slice(0, 50).map(m=>[+m.latitude,+m.longitude]));
+    if(!bounds.isValid()) return false;
+    map.fitBounds(bounds.pad(0.25), { maxZoom: 14, animate: false });
+    return true;
+  }
+
   function refresh(){
     lastFiltered = filterLocations();
-    renderList(lastFiltered);
+    totalMatchCount = lastFiltered.length;
+    if(!getQuery()) lastFitKey = null;
+    fitToSearchResults(lastFiltered);
+    const inView = rowsInView(lastFiltered);
+    renderList(inView);
     renderMap(lastFiltered);
     if(nearMeFitPending && nearMe && userLocation){
       nearMeFitPending = false;
@@ -1268,7 +1405,9 @@
     clearTimeout(mapMoveTimer);
     mapMoveTimer = setTimeout(()=>{
       mapMoveTimer = null;
-      if(clusterGroup && lastFiltered.length && !getQuery() && !nearMe && !activeSpotId) renderMap(lastFiltered);
+      if(!clusterGroup || !lastFiltered.length) return;
+      if(viewportScopingActive()) renderList(rowsInView(lastFiltered));
+      syncUrlFromState();
     }, 180);
   }
 
@@ -1504,6 +1643,11 @@
       minZoom:MAP_MIN_ZOOM,
       worldCopyJump:true
     }).setView([DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng], DEFAULT_MAP_ZOOM);
+    if(pendingView){
+      map.setView([pendingView.lat, pendingView.lng], pendingView.zoom, { animate: false });
+      initialBoundsDone = true;
+      pendingView = null;
+    }
     map.createPane('countriesPane');
     map.getPane('countriesPane').style.zIndex = 350;
     addCartoVoyagerTiles(map, true, false);
@@ -1514,10 +1658,8 @@
     else setTimeout(loadCountries, 1200);
     clusterGroup = L.markerClusterGroup({
       maxClusterRadius:40,
-      chunkedLoading:true,
-      chunkInterval:80,
-      chunkDelay:8,
-      removeOutsideVisibleBounds:true,
+      chunkedLoading:false,
+      removeOutsideVisibleBounds:false,
       iconCreateFunction:c=>L.divIcon({
         html:'<div style="background:#047857;color:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;border:2px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.18)">'+c.getChildCount()+'</div>',
         className:'custom-marker', iconSize:[36,36]
@@ -1612,7 +1754,7 @@
       '</div></div>'+
       '<div class="filter-sheet-section"><span class="filter-sheet-label">More</span>'+
       '<div class="more-panel" id="sheetTypeChips">'+
-      ['verified','warmed','internet','public','limited','USA','UK','Canada','Singapore','Germany','Australia','Mexico','France','Russia','China'].map(t =>
+      ['verified','warmed','internet','public','limited','USA','UK','Canada','Mexico','Colombia','Australia','New Zealand','China','Singapore','Germany','France','Russia'].map(t =>
         '<button type="button" class="chip'+((COUNTRY_FILTERS.includes(t)?countryFilter===t:extraFilter===t)?' active':'')+'" data-type="'+t+'">'+t+'</button>'
       ).join('')+'</div></div>'+
       '<div class="filter-sheet-section"><span class="filter-sheet-label">Along route</span>'+
@@ -1716,28 +1858,35 @@
         refresh();
       });
     });
+    document.getElementById('sortSelect')?.addEventListener('change', e=>{
+      sortMode = e.target.value;
+      refresh();
+      if(typeof window.trackEvent === 'function') window.trackEvent('bidetbud_sort_change', { mode: sortMode });
+    });
     document.getElementById('noBidetToggle')?.addEventListener('click',()=>{
       setNoBidetMode(!noBidetMode);
     });
     document.getElementById('limitedAccessToggle')?.addEventListener('click',()=>{
       setShowLimitedAccess(!showLimitedAccess);
     });
-    document.querySelectorAll('#typeChips .chip').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        const t = btn.dataset.type;
-        if(COUNTRY_FILTERS.includes(t)){
-          countryFilter = countryFilter === t ? null : t;
-        } else if(extraFilter===t){
-          extraFilter = null;
-        } else {
-          extraFilter = t;
-          if(t === 'limited') showLimitedAccess = true;
-          // Bidet-status chips are meaningless while viewing no-bidet spots.
-          if(t==='verified' || t==='warmed' || t==='internet') noBidetMode = false;
-        }
-        updateFilterUi();
-        refresh();
-      });
+    // Delegated: country chips are re-rendered from the seed after load.
+    document.getElementById('typeChips')?.addEventListener('click', e=>{
+      const btn = e.target.closest('.chip[data-type]');
+      if(!btn) return;
+      const t = btn.dataset.type;
+      if(COUNTRY_FILTERS.includes(t)){
+        countryFilter = countryFilter === t ? null : t;
+        initialBoundsDone = false;
+      } else if(extraFilter===t){
+        extraFilter = null;
+      } else {
+        extraFilter = t;
+        if(t === 'limited') showLimitedAccess = true;
+        // Bidet-status chips are meaningless while viewing no-bidet spots.
+        if(t==='verified' || t==='warmed' || t==='internet') noBidetMode = false;
+      }
+      updateFilterUi();
+      refresh();
     });
     document.querySelectorAll('#radiusRow button').forEach(btn=>{
       btn.addEventListener('click', ()=>{
@@ -1762,7 +1911,8 @@
     });
 
     document.getElementById('menuCopyView')?.addEventListener('click', ()=>{
-      document.getElementById('menuDrop').hidden = true;
+      const menuDrop = document.getElementById('menuDrop');
+      if(menuDrop) menuDrop.hidden = true;
       copyViewLink();
     });
     // Notify-me-for-a-city disabled
@@ -1838,7 +1988,9 @@
       }
       if(e.key==='Escape'){
         hideSearchAc();
-        document.getElementById('menuDrop').hidden = true;
+        // The three-dots menu is currently commented out of the markup.
+        const menuDrop = document.getElementById('menuDrop');
+        if(menuDrop) menuDrop.hidden = true;
         if(document.getElementById('promoOverlay')?.classList.contains('open')){
           dismissPromoPopup();
         } else {
@@ -1961,7 +2113,7 @@
     console.error(err);
     let cached = null;
     try{
-      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261005a') || 'null');
+      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261009a') || 'null');
     }catch(e){}
     const el = document.getElementById('countLabel');
     if(Array.isArray(cached) && cached.length){

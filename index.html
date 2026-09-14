@@ -31,10 +31,10 @@
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
 <link rel="stylesheet" href="css/app.css?v=20260811b">
-<link rel="preload" href="bidet-seed.json?v=20261005a" as="fetch" crossorigin>
+<link rel="preload" href="bidet-seed.json?v=20261009a" as="fetch" crossorigin>
 <script>
 window.__BIDET_SEED_P = (function(){
-  var SEED_VER = '20261005a';
+  var SEED_VER = '20261009a';
   var url = 'bidet-seed.json?v=' + SEED_VER;
   var cacheKey = 'bb_seed_cache_' + SEED_VER;
   function seedFingerprint(data){
@@ -71,13 +71,13 @@ window.__BIDET_SEED_P = (function(){
 <link rel="preload" href="vendor/leaflet.js" as="script">
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
 <link rel="preload" href="js/core.js?v=20260810f" as="script">
-<link rel="preload" href="js/search-seed.js?v=20261005a" as="script">
-<link rel="preload" href="js/app.js?v=20261005a" as="script">
+<link rel="preload" href="js/search-seed.js?v=20261009a" as="script">
+<link rel="preload" href="js/app.js?v=20261009a" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
 <script src="js/core.js?v=20260810f" defer></script>
-<script src="js/search-seed.js?v=20261005a" defer></script>
-<script src="js/app.js?v=20261005a" defer></script>
+<script src="js/search-seed.js?v=20261009a" defer></script>
+<script src="js/app.js?v=20261009a" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -223,6 +223,7 @@ window.__BIDET_SEED_P = (function(){
         <p class="near-me-hint" id="nearMeHint" hidden></p>
         <div class="active-filters" id="activeFilters" hidden aria-label="Active filters"></div>
         <p class="count-line" id="countLabel">Loading…</p>
+        <div class="list-toolbar">
         <div class="sidebar-legend">
           <button type="button" class="sidebar-legend-btn" id="legendHelpBtn" aria-label="Open map legend">
             <span class="sidebar-legend-dots" aria-hidden="true">
@@ -234,6 +235,12 @@ window.__BIDET_SEED_P = (function(){
             </span>
             <span class="sidebar-legend-label">Pin colors</span>
           </button>
+        </div>
+          <select class="sort-select" id="sortSelect" aria-label="Sort results">
+            <option value="closest">Closest first</option>
+            <option value="verified">Verified first</option>
+            <option value="name">A–Z</option>
+          </select>
         </div>
       </div>
       <div id="locationList" class="location-list-loading">
