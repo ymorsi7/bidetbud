@@ -9,6 +9,7 @@ const path = require('path');
 
 const SOURCES = [
   path.join(__dirname, '../data/atly-na-bidets.json'),
+  path.join(__dirname, '../data/atly-usa-bidets.json'),
   path.join(__dirname, '../data/mexico-verified-bidets.json'),
   path.join(__dirname, '../data/coast-hotels-na.json'),
   path.join(__dirname, '../data/canada-atly-bidets.json'),

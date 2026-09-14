@@ -90,6 +90,11 @@ body.modal-open{overflow:hidden}
 .legend-dot.friendly-country{background:#2dd4bf}
 .legend-dot.none{background:var(--none)}
 .legend-dot[hidden]{display:none}
+.list-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.list-toolbar .sidebar-legend{margin-top:0;padding-top:0;border-top:none}
+.sort-select{margin-left:auto;border:1px solid var(--line);background:#fff;border-radius:var(--radius-sm);padding:5px 8px;font:inherit;font-size:.75rem;font-weight:500;color:var(--muted);cursor:pointer}
+.sort-select:hover,.sort-select:focus-visible{color:var(--text);border-color:rgba(24,24,27,.16)}
+.count-of-total{color:var(--muted);font-weight:500}
 .sidebar-legend{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
 .sidebar-legend-btn{display:inline-flex;align-items:center;gap:8px;border:none;background:transparent;padding:4px 0;font:inherit;cursor:pointer;color:var(--muted);font-size:.75rem;font-weight:500;line-height:1;-webkit-tap-highlight-color:transparent;transition:color .15s}
 .sidebar-legend-btn:hover,.sidebar-legend-btn:focus-visible{color:var(--text)}
@@ -334,6 +339,7 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .card-tags{margin:8px 0 10px}
   .mobile-tabs{display:flex}
   .sidebar-legend{display:none}
+  .list-toolbar{margin-top:8px;padding-top:8px}
   .overlay{align-items:flex-end;padding:0}
   .overlay.open .dialog,.overlay.open .dialog.wide{border-radius:20px 20px 0 0;max-height:min(94dvh,900px);padding:16px 16px calc(16px + var(--safe-bottom));animation:sheetIn .28s cubic-bezier(.2,.8,.2,1)}
   .overlay.open #addDialog.dialog.wide{max-height:94dvh;border-radius:20px 20px 0 0}
@@ -366,8 +372,9 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .brand-text h1{font-size:.875rem}
   .actions #addBtn .btn-label-short{display:inline}
   .actions #addBtn .btn-label-full{display:none}
-  .filter-toggle{font-size:.6875rem;padding:10px 6px;gap:4px}
-  .filter-toggle span{display:none}
+  /* Drop the icon, never the label: a bare padlock doesn't say "guests only". */
+  .filter-toggle{font-size:.625rem;padding:10px 4px;gap:4px}
+  .filter-toggle .ui-icon{display:none}
 }
 @media(min-width:821px){
   .mobile-tabs{display:none!important}

@@ -42,6 +42,9 @@ const BASE_LISTS = [
   'https://www.atly.com/venezuela/best-bathroom-restaurant',
   'https://www.atly.com/venezuela/best-bathroom-coffee',
   'https://www.atly.com/venezuela/best-bathroom-hotel',
+  'https://www.atly.com/paraguay/best-bathroom-restaurant',
+  'https://www.atly.com/paraguay/best-bathroom-coffee',
+  'https://www.atly.com/paraguay/best-bathroom-hotel',
 ];
 
 const LIST_URLS = [

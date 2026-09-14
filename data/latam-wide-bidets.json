@@ -7,7 +7,7 @@
     "bidetStatus": "internet",
     "bidetType": "Bidet",
     "sourceUrl": "https://www.momondo.com/hotels/cabo-san-lucas/Garza-Blanca-Resort-Spa-Los-Cabos.mhd4592073.ksp",
-    "sourceQuote": "Web source (ES/EN): gy-free room\",\"Balcony\",\"Soundproof rooms\",\"Bathtub\",\"Soundproofing\",\"Bidet\",\"Stovetop\",\"Body soap\",\"Bottle of water\",\"Breakfast in the room\",\"Tea/coffee maker\",\"Telephone\",\"Tile/marble floor\",\"Refrigerator\",\"Toilet\",\"Toilet paper\",\"Sauna\",\"Clothes rack\",\"Trash cans\",\"C",
+    "sourceQuote": "Web source (ES/EN): gy-free room\",\"Balcony\",\"Soundproof rooms\",\"Bathtub\",\"Soundproofing\",\"Bidet\",\"Gym\",\"Stovetop\",\"Body soap\",\"Bottle of water\",\"Breakfast in the room\",\"Tea/coffee maker\",\"Telephone\",\"Tile/marble floor\",\"Refrigerator\",\"Toilet\",\"Toilet paper\",\"Sauna\",\"Clothes rack\",\"Trash ca",
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests; verify room type",
@@ -34,7 +34,7 @@
   {
     "name": "Hotel Mousai Cancun",
     "country": "Mexico",
-    "city": "Cancún, Quintana Roo",
+    "city": "Quintana Roo",
     "type": "hotel",
     "bidetStatus": "internet",
     "bidetType": "Bidet",
@@ -43,9 +43,9 @@
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests; verify room type",
-    "latitude": "21.1142721",
-    "longitude": "-86.7586579",
-    "address": "Avenida Kukulcán, Mz52, Cancún, Quintana Roo, México"
+    "latitude": "21.1527467",
+    "longitude": "-86.8425761",
+    "address": "Quintana Roo, México"
   },
   {
     "name": "Hotel Mousai Puerto Vallarta",
@@ -71,7 +71,7 @@
     "bidetStatus": "warmed",
     "bidetType": "TOTO / washlet bidet",
     "sourceUrl": "https://www.lasalcobas.com/our-property/services-amenities",
-    "sourceQuote": "Web source (ES/EN): albornoces de felpa y toallas de baño extragrandes. Inodoros TOTO con bidé integrado Artículos de baño exclusivos de Bvlgari y jabones corporales artesanales Signature de Las Alcobas. Servicio de mayordomo de baño Televisor LCD de pan",
+    "sourceQuote": "Web source (ES/EN): m jets, as well as plush bathrobes and oversized bath towels TOTO toilets with integrated bidets Exclusive Bvlgari bath amenities and handcrafted Las Alcobas Signature body soaps Bath butler service 55-inch Samsung flat-screen LCD tel",
     "verifiedMethod": "web-source",
     "access": "limited",
     "accessNote": "Hotel guests; verify room type",

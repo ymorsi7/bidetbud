@@ -21,7 +21,7 @@ const SOURCES = [
   path.join(__dirname, '../data/na-supplemental-bidets.json'),
 ];
 
-const LATAM = new Set(['Mexico', 'Colombia', 'Venezuela']);
+const LATAM = new Set(['Mexico', 'Colombia', 'Venezuela', 'Paraguay']);
 
 function normName(name) {
   return String(name).toLowerCase().replace(/[^a-z0-9]/g, '');
@@ -72,7 +72,10 @@ function toSeedRow(row) {
 
 const existing = readSeed();
 const seen = new Set(existing.map(dedupeKey));
-const seenUrl = new Set(existing.filter((r) => r.sourceUrl).map((r) => r.sourceUrl));
+function evidenceKey(row) {
+  return [row.sourceUrl || '', normName(row.name)].join('|');
+}
+const seenEvidence = new Set(existing.filter((r) => r.sourceUrl).map(evidenceKey));
 
 let added = 0;
 let skipped = 0;
@@ -95,7 +98,8 @@ for (const dataPath of SOURCES) {
       continue;
     }
     const row = toSeedRow(item);
-    if (seenUrl.has(row.sourceUrl) && existing.some((e) => isNearDuplicate(e, row))) {
+    const ev = evidenceKey(row);
+    if (seenEvidence.has(ev)) {
       skipped++;
       continue;
     }
@@ -109,7 +113,7 @@ for (const dataPath of SOURCES) {
       continue;
     }
     seen.add(key);
-    seenUrl.add(row.sourceUrl);
+    seenEvidence.add(ev);
     merged.push(row);
     added++;
     byCountry[row.country] = (byCountry[row.country] || 0) + 1;

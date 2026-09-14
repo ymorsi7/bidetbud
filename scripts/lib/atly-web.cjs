@@ -89,6 +89,42 @@ function bidetQuote(html) {
   return cleanQuote(best);
 }
 
+/**
+ * Atly list pages embed dead opaque IDs (e.g. WdglZPZkE8X) alongside real slugs
+ * (CrabHouseTimesSquare). Only the human-readable slugs resolve to venue pages.
+ */
+function isLikelyAtlyLocationSlug(slug) {
+  if (!slug || slug.length < 4) return false;
+  if (slug.startsWith('_')) return false;
+  if (slug.includes('-')) return true;
+  if (/[a-z]{4,}/.test(slug)) return true;
+  if (/[A-Z][a-z]+[A-Z]/.test(slug)) return true;
+  if (slug.length <= 12 && /[A-Z]/.test(slug) && /[a-z]/.test(slug) && !/[a-z]{5,}/.test(slug)) {
+    return false;
+  }
+  return slug.length >= 13;
+}
+
+function extractLocationSlugs(html) {
+  const raw = [...new Set([...html.matchAll(/\/location\/([A-Za-z0-9_-]+)/g)].map((m) => m[1]))];
+  const good = raw.filter(isLikelyAtlyLocationSlug);
+  return good.length ? good : raw;
+}
+
+/** Venue /location/ URLs whose surrounding list copy explicitly names a bidet. */
+function bidetVenueUrlsFromListHtml(html, { window = 6000, base = 'https://www.atly.com' } = {}) {
+  const found = new Set();
+  for (const m of html.matchAll(/\/location\/([A-Za-z0-9_-]+)/g)) {
+    if (!isLikelyAtlyLocationSlug(m[1])) continue;
+    const slice = html.slice(
+      Math.max(0, m.index - window),
+      Math.min(html.length, m.index + window)
+    );
+    if (BIDET_RE.test(slice)) found.add(`${base}/location/${m[1]}`);
+  }
+  return found;
+}
+
 function ldJsonBlocks(html) {
   return [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
     .map((m) => {
@@ -151,6 +187,9 @@ module.exports = {
   cleanQuote,
   editorialParagraphs,
   bidetQuote,
+  isLikelyAtlyLocationSlug,
+  extractLocationSlugs,
+  bidetVenueUrlsFromListHtml,
   ldJsonBlocks,
   parseLocationPage,
   resolveCountry,
