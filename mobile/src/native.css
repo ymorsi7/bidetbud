@@ -1,10 +1,24 @@
-/* Capacitor WebView only (html.capacitor-native is set by native-bridge.js). */
+/* Capacitor WebView only (html.capacitor-native is set at sync + boot). */
+
+html.capacitor-native{
+  --native-safe-top:max(62px, env(safe-area-inset-top, 0px));
+  --native-safe-bottom:max(20px, env(safe-area-inset-bottom, 0px));
+}
 
 html.capacitor-native,
 html.capacitor-native body,
 html.capacitor-native .shell{
+  position:fixed;
+  inset:0;
+  width:100%;
+  max-width:100%;
   height:100%;
   height:100dvh;
+  overflow:hidden;
+  overscroll-behavior:none;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  touch-action:manipulation;
 }
 
 html.capacitor-native .topbar{
@@ -17,7 +31,6 @@ html.capacitor-native .app-main{
   max-width:none;
 }
 
-/* Native tab bar: indicator under the label, hide the 999+ list badge. */
 html.capacitor-native .mobile-tab::after{
   top:auto;
   bottom:0;
@@ -29,34 +42,83 @@ html.capacitor-native .mobile-tab-badge{
   display:none!important;
 }
 
-/* WKWebView zooms the page when a focused field is under 16px. */
-html.capacitor-native{
-  -webkit-text-size-adjust:100%;
-  text-size-adjust:100%;
-}
-html.capacitor-native .form input,
-html.capacitor-native .form select,
-html.capacitor-native .form textarea{
-  font-size:16px;
+html.capacitor-native input,
+html.capacitor-native select,
+html.capacitor-native textarea{
+  font-size:16px!important;
+  max-width:100%;
 }
 
-/* Suggest-a-spot: bottom sheet, not a stretched full-screen dialog. */
-html.capacitor-native #addOverlay.open{
-  align-items:flex-end;
-  padding:0;
-}
-html.capacitor-native #addDialog.dialog.wide{
-  max-width:100%;
+html.capacitor-native .overlay,
+html.capacitor-native .dialog{
   width:100%;
-  max-height:min(72svh,560px);
+  max-width:100%;
+  overflow-x:hidden;
+  animation:none!important;
+  transform:none!important;
+}
+
+/* Keep every sheet below the Dynamic Island. */
+html.capacitor-native .overlay.open{
+  align-items:stretch;
+  justify-content:flex-end;
+  padding:var(--native-safe-top) 0 0;
+  box-sizing:border-box;
+}
+
+html.capacitor-native .overlay.open .dialog,
+html.capacitor-native .overlay.open .dialog.wide{
+  width:100%;
+  max-width:100%;
+  margin:0;
   border-radius:20px 20px 0 0;
-  padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));
+  padding:16px 16px var(--native-safe-bottom);
+  overflow-x:hidden;
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+}
+
+html.capacitor-native #addOverlay.open{
+  display:flex;
+  flex-direction:column;
+  align-items:stretch;
+}
+
+html.capacitor-native #addDialog.dialog.wide{
+  flex:1 1 auto;
+  min-height:0;
+  height:auto;
+  max-height:none;
+  border-radius:20px 20px 0 0;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  padding:16px 16px var(--native-safe-bottom);
+}
+
+html.capacitor-native #addDialog h2,
+html.capacitor-native #addDialog .sub{
+  position:static;
+  flex-shrink:0;
+  top:auto;
+}
+
+html.capacitor-native #addDialog .form{
+  flex:1 1 auto;
+  min-height:0;
   overflow-y:auto;
   -webkit-overflow-scrolling:touch;
 }
-html.capacitor-native #addDialog .dialog-close{
+
+html.capacitor-native .dialog-close{
   top:8px;
-  right:8px;
+  right:10px;
   width:44px;
   height:44px;
+  z-index:5;
+}
+
+html.capacitor-native #addDialog .dialog-close{
+  top:8px;
 }

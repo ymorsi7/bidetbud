@@ -31,6 +31,11 @@ const config: CapacitorConfig = {
       backgroundColor: '#f4f4f5',
       overlaysWebView: true,
     },
+    Keyboard: {
+      // Do not resize/pan the WebView when a field is focused — that is what
+      // zoomed the Suggest a spot sheet off-screen on iOS.
+      resize: 'none',
+    },
   },
   ios: {
     // never: CSS env(safe-area-*) owns the notch. `automatic` double-pads

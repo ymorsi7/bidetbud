@@ -114,21 +114,20 @@ try {
       nameFont: getComputedStyle(name).fontSize,
       dialogTop: dialogBox.top,
       dialogHeight: dialogBox.height,
-      closeRight: closeBox.right,
+      dialogOverflowX: dialog.scrollWidth > dialog.clientWidth + 1,
+      pageOverflowX: document.documentElement.scrollWidth > window.innerWidth + 1,
+      titleVisible: document.querySelector('#addDialog h2')?.getBoundingClientRect().top >= 0,
       closeVisible: closeBox.width > 0 && closeBox.right <= window.innerWidth && closeBox.top >= 0,
     };
   });
-  if (addLayout.alignItems !== 'flex-end') {
-    throw new Error('add overlay should be a bottom sheet, got align-items ' + addLayout.alignItems);
-  }
   if (addLayout.nameFont !== '16px') {
     throw new Error('add name field must be 16px to avoid iOS zoom, got ' + addLayout.nameFont);
   }
-  if (addLayout.dialogTop < 40) {
-    throw new Error('add sheet is oversized (top at ' + addLayout.dialogTop + ')');
+  if (addLayout.dialogOverflowX || addLayout.pageOverflowX) {
+    throw new Error('add sheet requires sideways scroll');
   }
-  if (addLayout.dialogHeight > 720) {
-    throw new Error('add sheet taller than expected: ' + addLayout.dialogHeight);
+  if (!addLayout.titleVisible) {
+    throw new Error('Suggest a spot title is scrolled out of view');
   }
   if (!addLayout.closeVisible) {
     throw new Error('add close button is clipped or off-screen');

@@ -16,6 +16,7 @@ const LOCATION_COPY =
   'BidetBud uses your location only to find bidet spots near you.';
 
 const IOS_PLIST = path.join(MOBILE, 'ios', 'App', 'App', 'Info.plist');
+const IOS_SCENE = path.join(MOBILE, 'ios', 'App', 'App', 'SceneDelegate.swift');
 const ANDROID_MANIFEST = path.join(
   MOBILE,
   'android',
@@ -34,6 +35,111 @@ const ANDROID_STRINGS = path.join(
   'values',
   'strings.xml'
 );
+
+const SCENE_DELEGATE_SWIFT = `import UIKit
+import Capacitor
+
+class BridgeViewController: CAPBridgeViewController, UIScrollViewDelegate {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(lockWebViewZoom),
+            name: UIResponder.keyboardWillChangeFrameNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(lockWebViewZoom),
+            name: UIResponder.keyboardDidShowNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(lockWebViewZoom),
+            name: UIResponder.keyboardDidHideNotification,
+            object: nil
+        )
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        lockWebViewZoom()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        lockWebViewZoom()
+    }
+
+    @objc private func lockWebViewZoom() {
+        guard let scrollView = webView?.scrollView else { return }
+        scrollView.delegate = self
+        scrollView.isScrollEnabled = false
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 1.0
+        scrollView.bouncesZoom = false
+        scrollView.bounces = false
+        scrollView.alwaysBounceVertical = false
+        scrollView.alwaysBounceHorizontal = false
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        scrollView.pinchGestureRecognizer?.isEnabled = false
+        scrollView.panGestureRecognizer.isEnabled = false
+        scrollView.contentInsetAdjustmentBehavior = .never
+        scrollView.setZoomScale(1.0, animated: false)
+        if scrollView.contentOffset != .zero {
+            scrollView.contentOffset = .zero
+        }
+    }
+
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return nil
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset != .zero {
+            scrollView.contentOffset = .zero
+        }
+    }
+
+    func scrollViewDidZoom(_ scrollView: UIScrollView) {
+        if scrollView.zoomScale != 1.0 {
+            scrollView.setZoomScale(1.0, animated: false)
+        }
+    }
+}
+
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    var window: UIWindow?
+
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+        guard let windowScene = scene as? UIWindowScene else { return }
+
+        window = UIWindow(windowScene: windowScene)
+        window?.rootViewController = BridgeViewController()
+        window?.makeKeyAndVisible()
+
+        SceneDelegateProxy.shared.scene(scene, willConnectTo: session, options: connectionOptions)
+    }
+
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        SceneDelegateProxy.shared.scene(scene, openURLContexts: URLContexts)
+    }
+
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        SceneDelegateProxy.shared.scene(scene, continue: userActivity)
+    }
+}
+`;
+
+function patchSceneDelegate(file) {
+  const next = SCENE_DELEGATE_SWIFT;
+  const prev = fs.readFileSync(file, 'utf8');
+  if (prev === next) return false;
+  fs.writeFileSync(file, next);
+  return true;
+}
 
 function setPlistString(xml, key, value) {
   const re = new RegExp(
@@ -190,6 +296,15 @@ function main() {
     }
   } else {
     console.log('patch-native: ios/ not present yet (run npm run cap:add)');
+  }
+
+  if (fs.existsSync(IOS_SCENE)) {
+    if (patchSceneDelegate(IOS_SCENE)) {
+      console.log('patch-native: updated ios SceneDelegate (WebView zoom lock)');
+      n++;
+    } else {
+      console.log('patch-native: ios SceneDelegate already patched');
+    }
   }
 
   if (fs.existsSync(ANDROID_MANIFEST)) {
