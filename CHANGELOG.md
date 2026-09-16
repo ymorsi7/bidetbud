@@ -4,6 +4,15 @@ BidetBud started as **BidetBeacon** on [ymorsi7.github.io](https://github.com/ym
 
 Format: newest first. Skips routine “added N pins” commits unless it was a big batch.
 
+## 2026-09-15
+
+**Mobile (Capacitor)**
+
+- iOS + Android shell under `mobile/` wrapping the same static map (offline `sync:web` → `www/`, optional live refresh of `bidet-seed.json` from bidetbud.com)
+- Capacitor 8, bundle id `com.bidetbud.app`, custom scheme `bidetbud://open?spot=&view=&country=`
+- Smoke, deep-link unit tests, Playwright at 390×844; GitHub Actions job `Mobile` / `mobile` (no Xcode)
+- Native trees (`ios/`, `android/`, `www/`) stay gitignored so Netlify still publishes the repo root
+
 ## 2026-10 (early)
 
 **Map/list rework**

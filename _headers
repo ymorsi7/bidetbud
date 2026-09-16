@@ -3,6 +3,9 @@
   Referrer-Policy: strict-origin-when-cross-origin
 
 /bidet-seed.json
+  Access-Control-Allow-Origin: *
+  Access-Control-Allow-Methods: GET, HEAD, OPTIONS
+  Access-Control-Allow-Headers: *
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 /bidet-seed.js

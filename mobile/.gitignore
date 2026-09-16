@@ -1,0 +1,8 @@
+node_modules/
+ios/
+android/
+www/
+assets/logo.png
+icons/
+.DS_Store
+*.log
