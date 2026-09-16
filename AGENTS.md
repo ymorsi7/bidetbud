@@ -21,6 +21,7 @@ Related but separate project: [bidetbud.com](https://www.bidetbud.com/) is the S
 
 ```
 index.html                          BidetBud map; logic in js/app.js; seed in bidet-seed.json
+mobile/                             Capacitor iOS + Android shell (see mobile/README.md)
 halal/                              HalalBud map (index.html, seed.json, data/, scripts/) — see halal/README.md
 shop/                               Affiliate shop page (index.html)
 css/app.css                         Shared UI styles (Inter font, zinc palette)
@@ -56,7 +57,7 @@ scripts/
 
 **Keep it static.** Do not add:
 
-- Node/npm build pipelines, React/Vue, or SSR
+- Node/npm build pipelines, React/Vue, or SSR **at the repo root** (Capacitor tooling stays under `mobile/` only)
 - Service workers, PWA manifests, or install prompts (removed intentionally)
 - Backend APIs or server-side geocoding at runtime
 
@@ -490,6 +491,27 @@ supersedes them (more venues, exact coordinates). Curated French hotels remain i
 
 ---
 
+## Mobile app (`mobile/`)
+
+Capacitor wraps the **same** static map. `sync:web` copies root assets into `mobile/www/`; the app does **not** maintain a second seed. When online, the WebView may refresh from `https://bidetbud.com/bidet-seed.json?v=<SEED_VER>` (same `SEED_VER` / `bb_seed_cache_*` keys as `index.html`).
+
+**Tracked:** `mobile/package.json`, `capacitor.config.ts`, `src/`, `scripts/`, README. **Gitignored:** `mobile/ios`, `mobile/android`, `mobile/www`, `mobile/node_modules` — Netlify still publishes the repo root only. Fresh clone: `cap add` + `cap:sync` (do not edit `www/` by hand).
+
+```bash
+cd mobile
+npm install
+npm run sync:web          # root map + seed → mobile/www
+npx cap add ios && npx cap add android   # once per clone
+npm run cap:sync          # www + plugins + Info.plist / manifest patches
+npm run ios               # or: npm run android
+npm test                  # sync + smoke + deep-link unit tests
+npm run test:mobile:playwright   # www @ 390×844 (Chromium)
+```
+
+CI: GitHub Actions workflow **`Mobile`**, job **`mobile`** (`.github/workflows/mobile.yml`) — lint, `npm test`, Playwright; no Xcode. From repo root: `npm run test:mobile`. Store / simulator / deep-link `adb` steps are in `mobile/README.md`.
+
+---
+
 ## Local development
 
 ```bash
@@ -533,6 +555,7 @@ When changing layout, test filter chips, three-dots menu, search dropdown, and m
 | Fix coordinates | `MANUAL` in `apply-address-fixes.cjs`, then run script |
 | New filter/country | Update chip HTML, `updateFilterUi`, click handler, and `applyUrlState` |
 | UI change | Edit `css/app.css` + minimal HTML/JS in `index.html` |
+| Mobile app | `cd mobile && npm run sync:web` after web/seed changes; see Mobile app section |
 
 ---
 

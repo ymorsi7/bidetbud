@@ -1,0 +1,8 @@
+/* Capacitor WebView only (html.capacitor-native is set by native-bridge.js).
+   Status bar uses Style.LIGHT (dark icons) on zinc-100 so the topbar
+   must be opaque — glass over the map fails contrast in the notch. */
+html.capacitor-native .topbar{
+  background:#f4f4f5;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+}
