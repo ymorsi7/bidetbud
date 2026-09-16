@@ -411,7 +411,8 @@
     const done = () => {
       if(live){
         live.textContent = 'Link copied';
-        setTimeout(() => { live.textContent = ''; }, 2500);
+        live.hidden = false;
+        setTimeout(() => { live.textContent = ''; live.hidden = true; }, 2500);
       } else alert('Link copied!');
     };
     navigator.clipboard?.writeText(url).then(done).catch(() => {

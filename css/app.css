@@ -271,7 +271,8 @@ body.modal-open{overflow:hidden}
 .form textarea{min-height:72px;resize:vertical}
 .form-error{margin:10px 0 0;font-size:.8125rem;font-weight:600;color:#b91c1c;line-height:1.4}
 .form-error[hidden]{display:none}
-.site-footer-live{font-size:.75rem;color:var(--muted);margin-left:4px}
+.site-footer-live{font-size:.75rem;color:var(--muted);margin:0}
+.site-footer-live:empty,.site-footer-live[hidden]{display:none!important}
 
 .promo-dialog{max-width:400px;text-align:center;padding:28px 24px 24px}
 .promo-logo{width:64px;height:64px;margin:0 auto 16px;object-fit:contain}
