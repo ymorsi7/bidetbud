@@ -340,9 +340,11 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .mobile-tabs{display:flex}
   .sidebar-legend{display:none}
   .list-toolbar{margin-top:8px;padding-top:8px}
+  .form input,.form select,.form textarea{font-size:16px}
   .overlay{align-items:flex-end;padding:0}
   .overlay.open .dialog,.overlay.open .dialog.wide{border-radius:20px 20px 0 0;max-height:min(94dvh,900px);padding:16px 16px calc(16px + var(--safe-bottom));animation:sheetIn .28s cubic-bezier(.2,.8,.2,1)}
-  .overlay.open #addDialog.dialog.wide{max-height:94dvh;border-radius:20px 20px 0 0}
+  #addOverlay.open{align-items:flex-end}
+  .overlay.open #addDialog.dialog.wide{max-height:min(78dvh,620px);border-radius:20px 20px 0 0;padding-top:18px}
   .overlay-sheet.open .legend-dialog{max-height:min(82dvh,560px);padding:20px 16px calc(16px + var(--safe-bottom))}
   .overlay-sheet.open .detail-dialog{display:flex;flex-direction:column;overflow:hidden;padding:12px 0 0;max-height:min(78dvh,640px)}
   .overlay-sheet.open .detail-dialog::before{margin-bottom:10px}
