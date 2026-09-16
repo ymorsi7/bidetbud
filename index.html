@@ -287,9 +287,9 @@ window.__BIDET_SEED_P = (function(){
       <button type="button" class="dialog-close" id="promoClose" aria-label="Close">×</button>
       <img class="promo-logo" src="images/bidetbud-logo.png" alt="" width="72" height="72" decoding="async">
       <h2 id="promoTitle">Help others find clean wudu spaces</h2>
-      <p class="promo-lead">BidetBud is community-built. Know a place with a bidet, or without? Use <strong>Add spot</strong> in the <strong>top right</strong> anytime.</p>
+      <p class="promo-lead">BidetBud is community-built. Know a place with a bidet, or without? Tap <strong>+</strong> on the map, or <strong>Add spot</strong> in the header.</p>
       <ol class="promo-steps">
-        <li>Tap <strong>Add spot</strong> (top right of the header)</li>
+        <li>Open <strong>Suggest a spot</strong></li>
         <li>Enter the place name and whether it has a bidet</li>
         <li>Submit. We review before it goes live</li>
       </ol>
@@ -299,6 +299,10 @@ window.__BIDET_SEED_P = (function(){
       </div>
     </div>
   </div>
+
+  <button type="button" class="map-fab" id="addFab" aria-label="Suggest a spot">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  </button>
 
   <nav class="mobile-tabs" role="tablist" aria-label="Map or list view">
     <button type="button" class="mobile-tab active" data-view="map" role="tab" aria-selected="true"><svg class="mobile-tab-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="mobile-tab-label">Map</span></button>
@@ -414,40 +418,62 @@ window.__BIDET_SEED_P = (function(){
   </div>
 </div>
 
-<div class="overlay" id="thankYouOverlay" role="dialog" aria-modal="true">
-  <div class="dialog" id="thankYouDialog">
-    <button type="button" class="dialog-close" id="thankYouClose" aria-label="Close">×</button>
-    <div id="thankYouContent"></div>
+<div class="overlay add-screen" id="thankYouOverlay" role="dialog" aria-modal="true" aria-labelledby="thankYouTitle">
+  <div class="dialog add-screen-dialog" id="thankYouDialog">
+    <header class="add-screen-bar">
+      <span class="add-screen-bar-end" aria-hidden="true"></span>
+      <h2 id="thankYouTitle">You're all set</h2>
+      <button type="button" class="add-screen-cancel add-screen-done" id="thankYouClose">Done</button>
+    </header>
+    <div class="add-screen-body" id="thankYouContent"></div>
+    <div class="add-screen-foot">
+      <button type="button" class="btn btn-primary" id="addAnotherSpot">Add another spot</button>
+    </div>
   </div>
 </div>
 
 <div class="overlay add-screen" id="addOverlay" role="dialog" aria-modal="true" aria-labelledby="addTitle">
-  <div class="dialog wide" id="addDialog">
+  <div class="dialog wide add-screen-dialog" id="addDialog">
     <header class="add-screen-bar">
+      <button type="button" class="add-screen-cancel" id="addClose">Cancel</button>
       <h2 id="addTitle">Suggest a spot</h2>
-      <button type="button" class="add-screen-back" id="addClose">Close</button>
+      <span class="add-screen-bar-end" aria-hidden="true"></span>
     </header>
-    <p class="sub" id="addIntro">Just the name is enough. We'll look it up. Every submission is reviewed before it goes live.</p>
-    <div class="form" id="emailPanel">
+    <div class="add-screen-body form" id="emailPanel">
+      <p class="sub" id="addIntro">Name and whether it has a bidet is enough. We review every submission before it goes live.</p>
+      <p class="add-update-banner" id="addUpdateBanner" hidden></p>
       <label for="addName">Name *</label>
-      <input id="addName" required placeholder="e.g. Masjid Al-Noor, Qahwah House" style="font-size:16px">
-      <label for="addAddress">Where? <span class="label-optional">(optional)</span></label>
-      <input id="addAddress" placeholder="City, address, or neighborhood" style="font-size:16px">
+      <input id="addName" required placeholder="e.g. Masjid Al-Noor, Qahwah House" autocomplete="off" style="font-size:16px">
+      <div id="addDupes" class="add-dupes" hidden></div>
       <p class="form-label" id="addHasBidetLabel">Bidet?</p>
       <div class="segmented add-bidet-segmented" role="group" aria-labelledby="addHasBidetLabel">
         <button type="button" class="active" data-value="verified" aria-pressed="true">Has bidet</button>
         <button type="button" data-value="none" aria-pressed="false">No bidet</button>
       </div>
       <input type="hidden" id="addHasBidet" value="verified">
-      <label for="addNotes">Note <span class="label-optional">(optional)</span></label>
-      <textarea id="addNotes" placeholder="Anything helpful: restroom tip, etc." style="font-size:16px"></textarea>
-      <label for="addPhoto">Photo link <span class="label-optional">(optional)</span></label>
-      <input id="addPhoto" type="url" placeholder="Link to a photo (Instagram, Google Drive, etc.)" style="font-size:16px">
+      <input type="hidden" id="addUpdateOf" value="">
+      <details class="add-more" id="addMoreDetails">
+        <summary>More details <span class="label-optional">(optional)</span></summary>
+        <label for="addAddress">Where?</label>
+        <input id="addAddress" placeholder="City, address, or neighborhood" style="font-size:16px">
+        <label for="addNotes">Note</label>
+        <textarea id="addNotes" placeholder="Restroom tip, stall, hours…" style="font-size:16px"></textarea>
+        <p class="form-label">Photo</p>
+        <input type="file" id="addPhotoFile" accept="image/*" hidden>
+        <button type="button" class="btn btn-ghost add-photo-btn" id="addPhotoBtn">
+          <svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          <span class="add-photo-label">Add a photo</span>
+        </button>
+        <div class="add-photo-preview" id="addPhotoPreview" hidden>
+          <img id="addPhotoThumb" alt="Selected photo">
+          <button type="button" class="add-photo-remove" id="addPhotoRemove">Remove</button>
+        </div>
+      </details>
       <input type="text" id="addHoney" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
       <p class="form-error" id="addFormError" role="alert" hidden></p>
-      <div class="dialog-actions">
-        <button type="button" class="btn btn-primary" id="submitAdd">Submit</button>
-      </div>
+    </div>
+    <div class="add-screen-foot">
+      <button type="button" class="btn btn-primary" id="submitAdd">Submit</button>
     </div>
   </div>
 </div>

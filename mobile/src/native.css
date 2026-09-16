@@ -49,7 +49,8 @@ html.capacitor-native textarea{
 html.capacitor-native body.add-screen-open .shell{
   display:none!important;
 }
-html.capacitor-native body.add-screen-open #addOverlay.open{
+html.capacitor-native body.add-screen-open #addOverlay.open,
+html.capacitor-native body.add-screen-open #thankYouOverlay.open{
   position:absolute !important;
   inset:0 !important;
   top:0 !important;
@@ -66,7 +67,7 @@ html.capacitor-native body.add-screen-open #addOverlay.open{
   animation:none !important;
   transform:none !important;
 }
-html.capacitor-native body.add-screen-open #addDialog.dialog.wide{
+html.capacitor-native body.add-screen-open .add-screen-dialog{
   width:100%;
   max-width:100%;
   height:100%;
@@ -75,8 +76,8 @@ html.capacitor-native body.add-screen-open #addDialog.dialog.wide{
   box-shadow:none;
   overflow:hidden;
 }
-html.capacitor-native .add-screen-bar{
-  position:static;
+html.capacitor-native .map-fab{
+  bottom:calc(52px + var(--safe-bottom) + 12px);
 }
 html.capacitor-native .overlay,
 html.capacitor-native .dialog{

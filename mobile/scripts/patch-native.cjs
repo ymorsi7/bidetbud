@@ -14,6 +14,10 @@ const APP_ID = 'com.bidetbud.app';
 const APP_NAME = 'BidetBud';
 const LOCATION_COPY =
   'BidetBud uses your location only to find bidet spots near you.';
+const CAMERA_COPY =
+  'BidetBud uses the camera so you can attach a photo when suggesting a spot.';
+const PHOTOS_COPY =
+  'BidetBud accesses your photos so you can attach a picture when suggesting a spot.';
 
 const IOS_PLIST = path.join(MOBILE, 'ios', 'App', 'App', 'Info.plist');
 const IOS_SCENE = path.join(MOBILE, 'ios', 'App', 'App', 'SceneDelegate.swift');
@@ -158,6 +162,36 @@ function patchInfoPlist(file) {
   let xml = fs.readFileSync(file, 'utf8');
   let changed = false;
 
+  if (!xml.includes('NSCameraUsageDescription')) {
+    xml = xml.replace(
+      /<dict>/,
+      '<dict>\n\t<key>NSCameraUsageDescription</key>\n\t<string>' +
+        CAMERA_COPY +
+        '</string>'
+    );
+    changed = true;
+  }
+
+  if (!xml.includes('NSPhotoLibraryUsageDescription')) {
+    xml = xml.replace(
+      /<dict>/,
+      '<dict>\n\t<key>NSPhotoLibraryUsageDescription</key>\n\t<string>' +
+        PHOTOS_COPY +
+        '</string>'
+    );
+    changed = true;
+  }
+
+  if (!xml.includes('NSPhotoLibraryAddUsageDescription')) {
+    xml = xml.replace(
+      /<dict>/,
+      '<dict>\n\t<key>NSPhotoLibraryAddUsageDescription</key>\n\t<string>' +
+        PHOTOS_COPY +
+        '</string>'
+    );
+    changed = true;
+  }
+
   if (!xml.includes('NSLocationWhenInUseUsageDescription')) {
     xml = xml.replace(
       /<dict>/,
@@ -229,6 +263,9 @@ function patchAndroidManifest(file) {
 
   xml = ensurePermission(xml, 'android.permission.ACCESS_COARSE_LOCATION');
   xml = ensurePermission(xml, 'android.permission.ACCESS_FINE_LOCATION');
+  xml = ensurePermission(xml, 'android.permission.CAMERA');
+  xml = ensurePermission(xml, 'android.permission.READ_MEDIA_IMAGES');
+  xml = ensurePermission(xml, 'android.permission.READ_EXTERNAL_STORAGE');
 
   if (!xml.includes('android:scheme="bidetbud"')) {
     const filter = [
