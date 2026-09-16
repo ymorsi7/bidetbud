@@ -43,6 +43,9 @@
   let totalMatchCount = 0;
   let nearMe = false, radiusMi = 50, nearMeFitPending = false;
   let suppressUrlWrite = false, initialBoundsDone = false, activeSpotId = null;
+  // First paint: world view + full list; after the user pans/zooms, list mirrors the map again.
+  let listViewportScoping = false;
+  let autoFitUntil = 0;
 
   // Countries where bidets, washlets, or handheld sprayers are the norm, not spot-level exceptions.
   const BIDET_FRIENDLY_COUNTRIES = [
@@ -578,6 +581,7 @@
       if(sel) sel.value = sort;
     }
     pendingView = parseViewParam(p.get('view'));
+    listViewportScoping = Boolean(pendingView);
     updateFilterUi();
     updateNearMeUi();
     suppressUrlWrite = false;
@@ -1114,14 +1118,11 @@
     updateUserMarker();
     const shouldFit = !initialBoundsDone && filtered.length && !getQuery() && !nearMe && !activeSpotId;
     if(shouldFit){
-      let fitTargets = filtered;
-      if(!countryFilter){
-        const usa = filtered.filter(m => m.country === 'USA');
-        if(usa.length) fitTargets = usa;
-      }
-      const bounds = L.latLngBounds(fitTargets.map(m=>[+m.latitude,+m.longitude]));
+      const bounds = L.latLngBounds(filtered.map(m=>[+m.latitude,+m.longitude]));
       if(bounds.isValid()){
-        map.fitBounds(bounds.pad(0.12),{maxZoom:10,animate:false});
+        markAutoFit();
+        const maxZoom = countryFilter ? 8 : 4;
+        map.fitBounds(bounds.pad(0.1), { maxZoom, animate: false });
         if(map.getZoom() < MAP_MIN_ZOOM) map.setZoom(MAP_MIN_ZOOM);
         initialBoundsDone = true;
       }
@@ -1329,13 +1330,28 @@
   // The list mirrors the map: only spots inside the current view are listed.
   // Near-me has its own radius, so it opts out.
   function viewportScopingActive(){
-    return Boolean(map) && !nearMe && !alongRoute;
+    return Boolean(map) && !nearMe && !alongRoute && listViewportScoping;
+  }
+
+  function markAutoFit(ms = 450){
+    autoFitUntil = Date.now() + ms;
+  }
+
+  function onUserMapViewChange(){
+    if(Date.now() < autoFitUntil) return;
+    if(!nearMe && !alongRoute) listViewportScoping = true;
+    scheduleMapRefresh();
   }
 
   function fitMapToMatches(){
     if(!map || !lastFiltered.length) return;
+    listViewportScoping = false;
     const bounds = L.latLngBounds(lastFiltered.map(m=>[+m.latitude,+m.longitude]));
-    if(bounds.isValid()) map.fitBounds(bounds.pad(0.1), { maxZoom: 12, animate: true });
+    if(bounds.isValid()){
+      markAutoFit();
+      map.fitBounds(bounds.pad(0.1), { maxZoom: 4, animate: true });
+      refresh();
+    }
   }
 
   // On mobile the map is hidden behind the List tab, where it reports a zero
@@ -1367,6 +1383,8 @@
     lastFitKey = key;
     const bounds = L.latLngBounds(rows.slice(0, 50).map(m=>[+m.latitude,+m.longitude]));
     if(!bounds.isValid()) return false;
+    listViewportScoping = true;
+    markAutoFit();
     map.fitBounds(bounds.pad(0.25), { maxZoom: 14, animate: false });
     return true;
   }
@@ -1675,8 +1693,8 @@
         map.fitBounds(cluster.getBounds().pad(0.08), { maxZoom: 14, animate: true });
       }
     });
-    map.on('moveend', scheduleMapRefresh);
-    map.on('zoomend', scheduleMapRefresh);
+    map.on('moveend', onUserMapViewChange);
+    map.on('zoomend', onUserMapViewChange);
     map.zoomControl.setPosition(isMobile() ? 'topright' : 'bottomright');
     const mobileMq = window.matchMedia('(max-width:820px)');
     mobileMq.addEventListener('change', e=>{
@@ -2113,7 +2131,7 @@
     console.error(err);
     let cached = null;
     try{
-      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261009a') || 'null');
+      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261010a') || 'null');
     }catch(e){}
     const el = document.getElementById('countLabel');
     if(Array.isArray(cached) && cached.length){
