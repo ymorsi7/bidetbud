@@ -1,10 +1,5 @@
 /* Capacitor WebView only (html.capacitor-native is set at sync + boot). */
 
-html.capacitor-native{
-  --native-safe-top:max(62px, env(safe-area-inset-top, 0px));
-  --native-safe-bottom:max(20px, env(safe-area-inset-bottom, 0px));
-}
-
 html.capacitor-native,
 html.capacitor-native body,
 html.capacitor-native .shell{
@@ -25,6 +20,7 @@ html.capacitor-native .topbar{
   background:#f4f4f5;
   -webkit-backdrop-filter:none;
   backdrop-filter:none;
+  padding-top:0;
 }
 
 html.capacitor-native .app-main{
@@ -49,76 +45,41 @@ html.capacitor-native textarea{
   max-width:100%;
 }
 
+/* Full-screen Suggest a spot page — not a popup. */
+html.capacitor-native body.add-screen-open .shell{
+  display:none!important;
+}
+html.capacitor-native body.add-screen-open #addOverlay.open{
+  position:absolute !important;
+  inset:0 !important;
+  top:0 !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  width:100% !important;
+  height:100% !important;
+  padding:0 !important;
+  margin:0 !important;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  animation:none !important;
+  transform:none !important;
+}
+html.capacitor-native body.add-screen-open #addDialog.dialog.wide{
+  width:100%;
+  max-width:100%;
+  height:100%;
+  max-height:none;
+  border-radius:0;
+  box-shadow:none;
+  overflow:hidden;
+}
+html.capacitor-native .add-screen-bar{
+  position:static;
+}
 html.capacitor-native .overlay,
 html.capacitor-native .dialog{
-  width:100%;
-  max-width:100%;
-  overflow-x:hidden;
   animation:none!important;
   transform:none!important;
-}
-
-/* Keep every sheet below the Dynamic Island. */
-html.capacitor-native .overlay.open{
-  align-items:stretch;
-  justify-content:flex-end;
-  padding:var(--native-safe-top) 0 0;
-  box-sizing:border-box;
-}
-
-html.capacitor-native .overlay.open .dialog,
-html.capacitor-native .overlay.open .dialog.wide{
-  width:100%;
-  max-width:100%;
-  margin:0;
-  border-radius:20px 20px 0 0;
-  padding:16px 16px var(--native-safe-bottom);
-  overflow-x:hidden;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
-}
-
-html.capacitor-native #addOverlay.open{
-  display:flex;
-  flex-direction:column;
-  align-items:stretch;
-}
-
-html.capacitor-native #addDialog.dialog.wide{
-  flex:1 1 auto;
-  min-height:0;
-  height:auto;
-  max-height:none;
-  border-radius:20px 20px 0 0;
-  display:flex;
-  flex-direction:column;
-  overflow:hidden;
-  padding:16px 16px var(--native-safe-bottom);
-}
-
-html.capacitor-native #addDialog h2,
-html.capacitor-native #addDialog .sub{
-  position:static;
-  flex-shrink:0;
-  top:auto;
-}
-
-html.capacitor-native #addDialog .form{
-  flex:1 1 auto;
-  min-height:0;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-}
-
-html.capacitor-native .dialog-close{
-  top:8px;
-  right:10px;
-  width:44px;
-  height:44px;
-  z-index:5;
-}
-
-html.capacitor-native #addDialog .dialog-close{
-  top:8px;
 }

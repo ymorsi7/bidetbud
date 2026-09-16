@@ -733,6 +733,7 @@
     el.classList.toggle('open', open);
     const anyOpen = document.querySelector('.overlay.open');
     document.body.classList.toggle('modal-open', Boolean(anyOpen));
+    document.body.classList.toggle('add-screen-open', document.getElementById('addOverlay')?.classList.contains('open') && isMobile());
     if(id === 'addOverlay' && open){
       setOverlayOpen('promoOverlay', false);
     }
