@@ -46,6 +46,11 @@ function copyDir(src, dest, skipNames) {
 }
 
 function rewriteIndex(html) {
+  html = html.replace(
+    /<meta name="viewport"[^>]*>/i,
+    '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content">'
+  );
+
   if (!/<base\s/i.test(html)) {
     html = html.replace(
       /<meta name="viewport"[^>]*>/i,

@@ -56,6 +56,7 @@ ok(/<base href="\.\/"\s*\/?>/i.test(html), 'index.html has <base href="./">');
 ok(html.includes('js/native-bridge.js'), 'index.html loads js/native-bridge.js');
 ok(html.includes('js/deep-link.js'), 'index.html loads js/deep-link.js');
 ok(html.includes('css/native.css'), 'index.html loads css/native.css');
+ok(/maximum-scale=1/.test(html), 'native viewport locks scale so iOS will not zoom inputs');
 ok(!existsSync(join(WWW, 'shop')), 'www/ does not contain shop/');
 ok(!existsSync(join(WWW, 'halal')), 'www/ does not contain halal/');
 ok(!existsSync(join(WWW, 'data')), 'www/ does not contain data/');

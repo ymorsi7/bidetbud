@@ -427,7 +427,7 @@
     if(nameEl) nameEl.value = m?.name || '';
     if(addrEl) addrEl.value = [m?.address, m?.city].filter(Boolean).join(', ');
     setAddHasBidet(noBidet ? 'none' : 'verified');
-    nameEl?.focus();
+    focusAddName();
     if(typeof window.trackEvent === 'function'){
       window.trackEvent('bidetbud_add_open', { source: 'prefill' });
     }
@@ -743,9 +743,17 @@
     if(!open || id === 'detailOverlay') syncUrlFromState();
   }
 
+  function focusAddName(){
+    const nameEl = document.getElementById('addName');
+    if(!nameEl) return;
+    /* Focusing during the sheet slide makes iOS WKWebView zoom/offset the overlay. */
+    if(isMobile()) setTimeout(() => nameEl.focus(), 320);
+    else nameEl.focus();
+  }
+
   function openAddForm(source){
     setOverlayOpen('addOverlay', true);
-    document.getElementById('addName')?.focus();
+    focusAddName();
     if(typeof window.trackEvent === 'function'){
       window.trackEvent('bidetbud_add_open', { source: source || 'unknown' });
     }

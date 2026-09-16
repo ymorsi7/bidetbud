@@ -28,3 +28,35 @@ html.capacitor-native .mobile-tab::after{
 html.capacitor-native .mobile-tab-badge{
   display:none!important;
 }
+
+/* WKWebView zooms the page when a focused field is under 16px. */
+html.capacitor-native{
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+}
+html.capacitor-native .form input,
+html.capacitor-native .form select,
+html.capacitor-native .form textarea{
+  font-size:16px;
+}
+
+/* Suggest-a-spot: bottom sheet, not a stretched full-screen dialog. */
+html.capacitor-native #addOverlay.open{
+  align-items:flex-end;
+  padding:0;
+}
+html.capacitor-native #addDialog.dialog.wide{
+  max-width:100%;
+  width:100%;
+  max-height:min(72svh,560px);
+  border-radius:20px 20px 0 0;
+  padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));
+  overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+}
+html.capacitor-native #addDialog .dialog-close{
+  top:8px;
+  right:8px;
+  width:44px;
+  height:44px;
+}
