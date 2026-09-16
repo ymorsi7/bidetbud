@@ -57,6 +57,8 @@ ok(html.includes('js/native-bridge.js'), 'index.html loads js/native-bridge.js')
 ok(html.includes('js/deep-link.js'), 'index.html loads js/deep-link.js');
 ok(html.includes('css/native.css'), 'index.html loads css/native.css');
 ok(/maximum-scale=1/.test(html), 'native viewport locks scale so iOS will not zoom inputs');
+ok(/user-scalable=no/.test(html), 'native viewport disables pinch-zoom of the page');
+ok(/\bcapacitor-native\b/.test(html), 'index.html marks the WebView shell for native CSS');
 ok(!existsSync(join(WWW, 'shop')), 'www/ does not contain shop/');
 ok(!existsSync(join(WWW, 'halal')), 'www/ does not contain halal/');
 ok(!existsSync(join(WWW, 'data')), 'www/ does not contain data/');
@@ -88,6 +90,8 @@ const bridge = existsSync(join(WWW, 'js/native-bridge.js'))
   : '';
 ok(bridge.includes('https://bidetbud.com/'), 'native-bridge refreshes seed from bidetbud.com');
 ok(bridge.includes('bb_seed_cache_'), 'native-bridge uses the same cache key pattern');
+ok(bridge.includes('lockNativeViewport'), 'native-bridge pins the WebView so iOS cannot pan/zoom the page');
+ok(bridge.includes('setScroll'), 'native-bridge disables iOS keyboard WebView scroll');
 
 if (failed) {
   console.error('\n' + failed + ' check(s) failed');

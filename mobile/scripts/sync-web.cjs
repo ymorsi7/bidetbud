@@ -48,8 +48,20 @@ function copyDir(src, dest, skipNames) {
 function rewriteIndex(html) {
   html = html.replace(
     /<meta name="viewport"[^>]*>/i,
-    '<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover, interactive-widget=resizes-content">'
+    '<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">'
   );
+
+  if (!/\bcapacitor-native\b/.test(html)) {
+    html = html.replace(
+      /<html\b([^>]*)>/i,
+      (m, attrs) => {
+        if (/\bclass=/.test(attrs)) {
+          return m.replace(/class=(["'])/, 'class=$1capacitor-native ');
+        }
+        return '<html class="capacitor-native"' + attrs + '>';
+      }
+    );
+  }
 
   if (!/<base\s/i.test(html)) {
     html = html.replace(

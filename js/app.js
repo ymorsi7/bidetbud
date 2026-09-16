@@ -744,11 +744,10 @@
   }
 
   function focusAddName(){
-    const nameEl = document.getElementById('addName');
-    if(!nameEl) return;
-    /* Focusing during the sheet slide makes iOS WKWebView zoom/offset the overlay. */
-    if(isMobile()) setTimeout(() => nameEl.focus(), 320);
-    else nameEl.focus();
+    /* iOS WKWebView zooms/pans the page if we focus an input on open. */
+    if(document.documentElement.classList.contains('capacitor-native')) return;
+    if(isMobile()) return;
+    document.getElementById('addName')?.focus();
   }
 
   function openAddForm(source){

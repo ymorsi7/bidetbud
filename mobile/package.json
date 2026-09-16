@@ -30,6 +30,7 @@
     "@capacitor/core": "^8.5.1",
     "@capacitor/geolocation": "^8.0.0",
     "@capacitor/ios": "^8.5.1",
+    "@capacitor/keyboard": "^8.0.5",
     "@capacitor/splash-screen": "^8.0.0",
     "@capacitor/status-bar": "^8.0.0"
   },

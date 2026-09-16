@@ -116,6 +116,18 @@
 
     patchGeolocation(P);
 
+    if (P.Keyboard) {
+      if (typeof P.Keyboard.setScroll === 'function') {
+        P.Keyboard.setScroll({ isDisabled: true }).catch(function () {});
+      }
+      if (typeof P.Keyboard.setAccessoryBarVisible === 'function') {
+        P.Keyboard.setAccessoryBarVisible({ isVisible: false }).catch(function () {});
+      }
+      if (typeof P.Keyboard.setResizeMode === 'function') {
+        P.Keyboard.setResizeMode({ mode: 'none' }).catch(function () {});
+      }
+    }
+
     if (P.App) {
       if (typeof P.App.getLaunchUrl === 'function') {
         P.App.getLaunchUrl()
@@ -131,7 +143,91 @@
       }
     }
 
+    lockNativeViewport();
     refreshSeedFromLive();
+  }
+
+  function lockNativeViewport() {
+    function pin() {
+      window.scrollTo(0, 0);
+      if (document.documentElement) {
+        document.documentElement.scrollLeft = 0;
+        document.documentElement.scrollTop = 0;
+      }
+      if (document.body) {
+        document.body.scrollLeft = 0;
+        document.body.scrollTop = 0;
+      }
+      var vv = window.visualViewport;
+      if (vv) {
+        document.documentElement.style.setProperty('--vv-height', Math.round(vv.height) + 'px');
+        if (vv.scale && vv.scale !== 1) {
+          document.documentElement.style.zoom = String(1 / vv.scale);
+        } else {
+          document.documentElement.style.zoom = '';
+        }
+      }
+    }
+    function hardenInputs() {
+      var nodes = document.querySelectorAll('input, select, textarea');
+      for (var i = 0; i < nodes.length; i++) {
+        nodes[i].style.fontSize = '16px';
+      }
+    }
+    pin();
+    hardenInputs();
+    window.addEventListener(
+      'scroll',
+      function () {
+        if (window.scrollX || window.scrollY) window.scrollTo(0, 0);
+      },
+      { passive: true }
+    );
+    document.addEventListener(
+      'gesturestart',
+      function (e) {
+        e.preventDefault();
+      },
+      { passive: false }
+    );
+    document.addEventListener(
+      'gesturechange',
+      function (e) {
+        e.preventDefault();
+      },
+      { passive: false }
+    );
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('scroll', pin);
+      window.visualViewport.addEventListener('resize', pin);
+    }
+    document.addEventListener(
+      'focusin',
+      function (e) {
+        var t = e.target;
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT')) {
+          t.style.fontSize = '16px';
+          try {
+            t.focus({ preventScroll: true });
+          } catch (err) {}
+        }
+        var Keyboard =
+          window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Keyboard;
+        if (Keyboard && typeof Keyboard.setAccessoryBarVisible === 'function') {
+          Keyboard.setAccessoryBarVisible({ isVisible: false }).catch(function () {});
+        }
+        pin();
+        setTimeout(pin, 0);
+        setTimeout(pin, 50);
+        setTimeout(pin, 300);
+      },
+      true
+    );
+    document.addEventListener('focusout', function () {
+      document.documentElement.style.zoom = '';
+      setTimeout(pin, 0);
+      setTimeout(pin, 300);
+    });
   }
 
   function start() {
