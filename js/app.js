@@ -411,7 +411,8 @@
     const done = () => {
       if(live){
         live.textContent = 'Link copied';
-        setTimeout(() => { live.textContent = ''; }, 2500);
+        live.hidden = false;
+        setTimeout(() => { live.textContent = ''; live.hidden = true; }, 2500);
       } else alert('Link copied!');
     };
     navigator.clipboard?.writeText(url).then(done).catch(() => {
@@ -420,14 +421,38 @@
     });
   }
 
+  function setAddScreenTitle(text){
+    const title = document.getElementById('addTitle');
+    if(title) title.textContent = text || 'Suggest a spot';
+  }
+
+  function setAddUpdateBanner(m){
+    const el = document.getElementById('addUpdateBanner');
+    if(!el) return;
+    if(m && m.name){
+      el.hidden = false;
+      el.textContent = 'Updating “' + m.name + '”. Change what’s wrong and submit.';
+    } else {
+      el.hidden = true;
+      el.textContent = '';
+    }
+  }
+
   function openAddFormPrefill(m, noBidet){
-    setOverlayOpen('addOverlay', true);
+    resetAddForm();
     const nameEl = document.getElementById('addName');
     const addrEl = document.getElementById('addAddress');
+    const updateEl = document.getElementById('addUpdateOf');
     if(nameEl) nameEl.value = m?.name || '';
     if(addrEl) addrEl.value = [m?.address, m?.city].filter(Boolean).join(', ');
+    if(updateEl) updateEl.value = m?.id || '';
     setAddHasBidet(noBidet ? 'none' : 'verified');
-    nameEl?.focus();
+    setAddScreenTitle(m?.name ? 'Suggest an update' : 'Suggest a spot');
+    setAddUpdateBanner(m);
+    const more = document.getElementById('addMoreDetails');
+    if(more && addrEl?.value) more.open = true;
+    setOverlayOpen('addOverlay', true);
+    renderAddDuplicates();
     if(typeof window.trackEvent === 'function'){
       window.trackEvent('bidetbud_add_open', { source: 'prefill' });
     }
@@ -677,7 +702,7 @@
   function initSubmitPanel(){
     const intro = document.getElementById('addIntro');
     if(intro){
-      intro.textContent = 'Just the name is enough. We\'ll look it up. Every submission is reviewed before it goes live.';
+      intro.textContent = 'Name and whether it has a bidet is enough. We review every submission before it goes live.';
     }
     const emailPanel = document.getElementById('emailPanel');
     if(emailPanel) emailPanel.hidden = false;
@@ -733,6 +758,10 @@
     el.classList.toggle('open', open);
     const anyOpen = document.querySelector('.overlay.open');
     document.body.classList.toggle('modal-open', Boolean(anyOpen));
+    document.body.classList.toggle('add-screen-open', isMobile() && (
+      document.getElementById('addOverlay')?.classList.contains('open') ||
+      document.getElementById('thankYouOverlay')?.classList.contains('open')
+    ));
     if(id === 'addOverlay' && open){
       setOverlayOpen('promoOverlay', false);
     }
@@ -743,9 +772,18 @@
     if(!open || id === 'detailOverlay') syncUrlFromState();
   }
 
-  function openAddForm(source){
-    setOverlayOpen('addOverlay', true);
+  function focusAddName(){
+    /* iOS WKWebView zooms/pans the page if we focus an input on open. */
+    if(document.documentElement.classList.contains('capacitor-native')) return;
+    if(isMobile()) return;
     document.getElementById('addName')?.focus();
+  }
+
+  function openAddForm(source){
+    resetAddForm();
+    setAddScreenTitle('Suggest a spot');
+    setOverlayOpen('addOverlay', true);
+    focusAddName();
     if(typeof window.trackEvent === 'function'){
       window.trackEvent('bidetbud_add_open', { source: source || 'unknown' });
     }
@@ -798,26 +836,13 @@
     const shareUrl = encodeURIComponent(SITE_URL);
     const shareText = encodeURIComponent('We use BidetBud to find masajid and restaurants with bidets. Add spots your community should know about:');
     document.getElementById('thankYouContent').innerHTML =
-      '<h2>Thanks for contributing!</h2>'+
-      '<p class="sub">We review every submission before it goes live. Share with your local WhatsApp group so others can find (or avoid) spots.</p>'+
+      '<p class="sub">Thanks — we review every submission before it goes live. Share BidetBud with a group that would use it.</p>'+
       '<div class="dialog-actions share-actions">'+
-      '<button type="button" class="btn btn-primary" id="addAnotherSpot">Add another spot</button>'+
-      '<button type="button" class="btn btn-ghost" id="thankYouDone">Done</button>'+
-      '</div>'+
-      '<p class="sub thank-share-label">Share BidetBud:</p>'+
-      '<div class="dialog-actions share-actions thank-share-actions">'+
-      '<a class="btn btn-ghost" href="https://wa.me/?text='+shareText+'%20'+shareUrl+'" target="_blank" rel="noopener">WhatsApp group</a>'+
+      '<a class="btn btn-ghost" href="https://wa.me/?text='+shareText+'%20'+shareUrl+'" target="_blank" rel="noopener">WhatsApp</a>'+
       '<a class="btn btn-ghost" href="https://t.me/share/url?url='+shareUrl+'&text='+shareText+'" target="_blank" rel="noopener">Telegram</a>'+
       '<button type="button" class="btn btn-ghost" id="copySiteLink">Copy link</button>'+
       '</div>';
     setOverlayOpen('thankYouOverlay', true);
-    document.getElementById('addAnotherSpot')?.addEventListener('click', ()=>{
-      setOverlayOpen('thankYouOverlay', false);
-      openAddForm('add_another');
-    });
-    document.getElementById('thankYouDone')?.addEventListener('click', ()=>{
-      setOverlayOpen('thankYouOverlay', false);
-    });
     document.getElementById('copySiteLink')?.addEventListener('click', ()=>{
       navigator.clipboard?.writeText(SITE_URL).then(()=> alert('Link copied!')).catch(()=>{});
     });
@@ -1230,6 +1255,10 @@
       setOverlayOpen('detailOverlay', false);
       openAddFormPrefill(m, true);
     });
+    root.querySelector('.js-suggest-update')?.addEventListener('click', ()=>{
+      setOverlayOpen('detailOverlay', false);
+      openAddFormPrefill(m, NO_BIDET(m.bidetStatus));
+    });
   }
 
   function openDetail(id, fromUrl){
@@ -1270,6 +1299,11 @@
           '<button type="button" class="detail-link-btn js-copy-spot-link">Share spot</button>'+
           '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
           '<button type="button" class="detail-link-btn js-copy-address">Copy address</button>'+
+          '</div>'+
+          '<div class="detail-footer-links">'+
+          '<button type="button" class="detail-link-btn js-suggest-update">Suggest an update</button>'+
+          '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
+          '<button type="button" class="detail-link-btn js-report-no-bidet">Report no bidet</button>'+
           '</div>';
         stickyFooter.hidden = false;
         wireDetailButtons(stickyFooter, m, shareLink);
@@ -1285,14 +1319,8 @@
       mapsBtn+
       '<button type="button" class="btn btn-ghost js-copy-spot-link">Share spot</button>'+
       '<button type="button" class="btn btn-ghost js-copy-address">Copy address</button>'+
+      '<button type="button" class="btn btn-ghost js-suggest-update">Suggest an update</button>'+
       '<button type="button" class="btn btn-ghost js-report-no-bidet">Report no bidet here</button>'+
-      '<button type="button" class="btn btn-ghost js-open-add-form">Add another</button>'+
-      '</div>';
-
-    const mobileSecondary =
-      '<div class="detail-more-actions">'+
-      '<button type="button" class="btn btn-ghost js-report-no-bidet">Report no bidet here</button>'+
-      '<button type="button" class="btn btn-ghost js-open-add-form">Add another spot</button>'+
       '</div>';
 
     document.getElementById('detailContent').innerHTML =
@@ -1306,7 +1334,7 @@
       '<p class="detail-address">'+escapeHtml(m.address)+'</p>'+
       '<div class="row">'+statusTag(m)+accessTag(m)+'</div>'+
       trustHtml+quote+source+
-      (mobile ? mobileSecondary : desktopActions)+
+      (mobile ? '' : desktopActions)+
       reportFormHtml(m);
     const content = document.getElementById('detailContent');
     wireDetailButtons(content, m, shareLink);
@@ -1430,16 +1458,127 @@
   }
 
   function resetAddForm(){
-    ['addName','addAddress','addNotes','addPhoto'].forEach(id=>{
+    ['addName','addAddress','addNotes','addUpdateOf'].forEach(id=>{
       const el=document.getElementById(id); if(el) el.value='';
     });
     const errEl = document.getElementById('addFormError');
     if(errEl){ errEl.textContent = ''; errEl.hidden = true; }
+    const more = document.getElementById('addMoreDetails');
+    if(more) more.open = false;
+    clearAddPhoto();
     setAddHasBidet('verified');
+    setAddScreenTitle('Suggest a spot');
+    setAddUpdateBanner(null);
+    const dupes = document.getElementById('addDupes');
+    if(dupes){ dupes.innerHTML = ''; dupes.hidden = true; }
   }
 
   function getAddHasBidet(){
     return document.getElementById('addHasBidet')?.value || 'verified';
+  }
+
+  let addPhotoBlob = null;
+  let addPhotoObjectUrl = '';
+  let addDupeTimer = null;
+
+  function clearAddPhoto(){
+    addPhotoBlob = null;
+    if(addPhotoObjectUrl){
+      URL.revokeObjectURL(addPhotoObjectUrl);
+      addPhotoObjectUrl = '';
+    }
+    const fileEl = document.getElementById('addPhotoFile');
+    if(fileEl) fileEl.value = '';
+    const preview = document.getElementById('addPhotoPreview');
+    const thumb = document.getElementById('addPhotoThumb');
+    const btn = document.getElementById('addPhotoBtn');
+    if(preview) preview.hidden = true;
+    if(thumb) thumb.removeAttribute('src');
+    if(btn){
+      const label = btn.querySelector('.add-photo-label');
+      if(label) label.textContent = 'Add a photo';
+      else btn.textContent = 'Add a photo';
+    }
+  }
+
+  function setAddPhotoFromBlob(blob){
+    if(!blob){ clearAddPhoto(); return; }
+    addPhotoBlob = blob;
+    if(addPhotoObjectUrl) URL.revokeObjectURL(addPhotoObjectUrl);
+    addPhotoObjectUrl = URL.createObjectURL(blob);
+    const preview = document.getElementById('addPhotoPreview');
+    const thumb = document.getElementById('addPhotoThumb');
+    const btn = document.getElementById('addPhotoBtn');
+    if(thumb) thumb.src = addPhotoObjectUrl;
+    if(preview) preview.hidden = false;
+    if(btn){
+      const label = btn.querySelector('.add-photo-label');
+      if(label) label.textContent = 'Replace photo';
+      else btn.textContent = 'Replace photo';
+    }
+    const more = document.getElementById('addMoreDetails');
+    if(more) more.open = true;
+  }
+
+  function blobFromBase64(b64, mime){
+    const bin = atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for(let i=0;i<bin.length;i++) arr[i] = bin.charCodeAt(i);
+    return new Blob([arr], { type: mime || 'image/jpeg' });
+  }
+
+  async function pickAddPhoto(){
+    const Camera = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Camera;
+    if(Camera && typeof Camera.getPhoto === 'function'){
+      try {
+        const photo = await Camera.getPhoto({
+          quality: 70,
+          allowEditing: false,
+          resultType: 'base64',
+          source: 'PROMPT',
+          saveToGallery: false
+        });
+        if(photo && photo.base64String){
+          setAddPhotoFromBlob(blobFromBase64(photo.base64String, photo.format === 'png' ? 'image/png' : 'image/jpeg'));
+        }
+        return;
+      } catch (err) {
+        if(err && (err.message === 'User cancelled photos app' || err.message === 'User cancelled')) return;
+      }
+    }
+    document.getElementById('addPhotoFile')?.click();
+  }
+
+  function findAddDuplicates(name){
+    const q = (name || '').trim();
+    if(q.length < 3 || typeof searchScore !== 'function') return [];
+    const skipId = document.getElementById('addUpdateOf')?.value || '';
+    return allLocations
+      .filter(m => m && m.id !== skipId)
+      .map(m => ({ m, score: searchScore(m, q) }))
+      .filter(x => x.score >= 70)
+      .sort((a,b) => b.score - a.score)
+      .slice(0, 3)
+      .map(x => x.m);
+  }
+
+  function renderAddDuplicates(){
+    const box = document.getElementById('addDupes');
+    if(!box) return;
+    const name = document.getElementById('addName')?.value || '';
+    const hits = findAddDuplicates(name);
+    if(!hits.length){
+      box.innerHTML = '';
+      box.hidden = true;
+      return;
+    }
+    box.hidden = false;
+    box.innerHTML = '<p class="add-dupe-hint">Already on the map — tap to open</p>' + hits.map(m =>
+      '<button type="button" class="add-dupe" data-id="'+escapeHtml(m.id)+'">'+
+      '<strong>'+escapeHtml(m.name)+'</strong>'+
+      '<span>'+escapeHtml([m.city, m.country].filter(Boolean).join(', '))+'</span>'+
+      '</button>'
+    ).join('');
   }
 
   async function submitViaWeb3Forms(payload){
@@ -1457,17 +1596,30 @@
       address: payload.address || '(not provided)',
       bidet_status: noBidet ? 'no bidet' : 'has bidet',
       notes: payload.notes || '(none)',
-      photo_link: payload.photoLink || '(none)',
+      photo_link: payload.photoFile ? '(photo attached)' : '(none)',
+      update_of: payload.updateOf || '(new spot)',
       lookup_link: mapsQuery
         ? ('https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(mapsQuery))
         : '(none)',
       botcheck: ''
     };
-    const res = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-      body: JSON.stringify(body)
-    });
+    let res;
+    if(payload.photoFile){
+      const fd = new FormData();
+      Object.keys(body).forEach(k => fd.append(k, body[k]));
+      fd.append('attachment', payload.photoFile, payload.photoName || 'spot.jpg');
+      res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: fd
+      });
+    } else {
+      res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify(body)
+      });
+    }
     const data = await res.json().catch(() => ({}));
     if(!res.ok || data.success === false){
       throw new Error(data.message || 'Submission failed. Try again in a moment.');
@@ -1985,6 +2137,30 @@
     const footerYear = document.getElementById('footerYear');
     if(footerYear) footerYear.textContent = String(new Date().getFullYear());
     document.getElementById('addBtn').addEventListener('click',()=> openAddForm('header'));
+    document.getElementById('addFab')?.addEventListener('click',()=> openAddForm('fab'));
+    document.getElementById('addName')?.addEventListener('input', ()=>{
+      clearTimeout(addDupeTimer);
+      addDupeTimer = setTimeout(renderAddDuplicates, 180);
+    });
+    document.getElementById('addDupes')?.addEventListener('click', e=>{
+      const btn = e.target.closest('.add-dupe');
+      if(!btn) return;
+      const id = btn.getAttribute('data-id');
+      if(!id) return;
+      setOverlayOpen('addOverlay', false);
+      resetAddForm();
+      openDetail(id);
+    });
+    document.getElementById('addPhotoBtn')?.addEventListener('click', ()=> pickAddPhoto());
+    document.getElementById('addPhotoFile')?.addEventListener('change', e=>{
+      const file = e.target.files && e.target.files[0];
+      if(file) setAddPhotoFromBlob(file);
+    });
+    document.getElementById('addPhotoRemove')?.addEventListener('click', ()=> clearAddPhoto());
+    document.getElementById('addMoreDetails')?.addEventListener('toggle', ()=>{
+      const more = document.getElementById('addMoreDetails');
+      if(more && more.open) more.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    });
     document.getElementById('detailContent').addEventListener('click', e=>{
       if(e.target.closest('.js-open-add-form')){
         setOverlayOpen('detailOverlay', false);
@@ -1994,9 +2170,19 @@
     document.getElementById('addClose').addEventListener('click',()=>{ setOverlayOpen('addOverlay', false); resetAddForm(); });
     document.getElementById('detailClose').addEventListener('click',()=> setOverlayOpen('detailOverlay', false));
     document.getElementById('thankYouClose')?.addEventListener('click', ()=> setOverlayOpen('thankYouOverlay', false));
+    document.getElementById('addAnotherSpot')?.addEventListener('click', ()=>{
+      setOverlayOpen('thankYouOverlay', false);
+      openAddForm('add_another');
+    });
     ['detailOverlay','addOverlay','aboutOverlay','thankYouOverlay','legendOverlay','filterSheetOverlay'].forEach(id=>{
       const node = document.getElementById(id);
-      if(node) node.addEventListener('click',e=>{ if(e.target.id===id) setOverlayOpen(id, false); });
+      if(!node) return;
+      node.addEventListener('click',e=>{
+        if(e.target.id!==id) return;
+        if((id==='addOverlay' || id==='thankYouOverlay') && isMobile()) return;
+        setOverlayOpen(id, false);
+        if(id==='addOverlay') resetAddForm();
+      });
     });
     document.addEventListener('keydown',e=>{
       if(e.key==='/' && !isTypingTarget(document.activeElement)){
@@ -2059,24 +2245,15 @@
         document.getElementById('addName')?.focus();
         return;
       }
-      const photoRaw = document.getElementById('addPhoto')?.value.trim() || '';
-      if(photoRaw){
-        try {
-          const u = new URL(photoRaw);
-          if(!/^https?:$/i.test(u.protocol)) throw new Error('bad protocol');
-        } catch {
-          showErr('Photo link must be a full http(s) URL.');
-          document.getElementById('addPhoto')?.focus();
-          return;
-        }
-      }
       const bidetStatus = getAddHasBidet();
       const payload={
         name,
         address: document.getElementById('addAddress').value.trim(),
         bidetStatus,
         notes: document.getElementById('addNotes').value.trim(),
-        photoLink: document.getElementById('addPhoto')?.value.trim() || ''
+        photoFile: addPhotoBlob,
+        photoName: addPhotoBlob && addPhotoBlob.type === 'image/png' ? 'spot.png' : 'spot.jpg',
+        updateOf: document.getElementById('addUpdateOf')?.value || ''
       };
       const prev = btn.textContent;
       btn.disabled = true;

@@ -1,0 +1,86 @@
+/* Capacitor WebView only (html.capacitor-native is set at sync + boot). */
+
+html.capacitor-native,
+html.capacitor-native body,
+html.capacitor-native .shell{
+  position:fixed;
+  inset:0;
+  width:100%;
+  max-width:100%;
+  height:100%;
+  height:100dvh;
+  overflow:hidden;
+  overscroll-behavior:none;
+  -webkit-text-size-adjust:100%;
+  text-size-adjust:100%;
+  touch-action:manipulation;
+}
+
+html.capacitor-native .topbar{
+  background:#f4f4f5;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+  padding-top:0;
+}
+
+html.capacitor-native .app-main{
+  max-width:none;
+}
+
+html.capacitor-native .mobile-tab::after{
+  top:auto;
+  bottom:0;
+  left:28%;
+  right:28%;
+  border-radius:2px 2px 0 0;
+}
+html.capacitor-native .mobile-tab-badge{
+  display:none!important;
+}
+
+html.capacitor-native input,
+html.capacitor-native select,
+html.capacitor-native textarea{
+  font-size:16px!important;
+  max-width:100%;
+}
+
+/* Full-screen Suggest a spot page — not a popup. */
+html.capacitor-native body.add-screen-open .shell{
+  display:none!important;
+}
+html.capacitor-native body.add-screen-open #addOverlay.open,
+html.capacitor-native body.add-screen-open #thankYouOverlay.open{
+  position:absolute !important;
+  inset:0 !important;
+  top:0 !important;
+  left:0 !important;
+  right:0 !important;
+  bottom:0 !important;
+  width:100% !important;
+  height:100% !important;
+  padding:0 !important;
+  margin:0 !important;
+  background:#fff;
+  display:flex;
+  flex-direction:column;
+  animation:none !important;
+  transform:none !important;
+}
+html.capacitor-native body.add-screen-open .add-screen-dialog{
+  width:100%;
+  max-width:100%;
+  height:100%;
+  max-height:none;
+  border-radius:0;
+  box-shadow:none;
+  overflow:hidden;
+}
+html.capacitor-native .map-fab{
+  bottom:calc(52px + var(--safe-bottom) + 12px);
+}
+html.capacitor-native .overlay,
+html.capacitor-native .dialog{
+  animation:none!important;
+  transform:none!important;
+}
