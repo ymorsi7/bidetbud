@@ -104,6 +104,9 @@
     var P = (window.Capacitor && window.Capacitor.Plugins) || {};
 
     if (P.StatusBar) {
+      if (typeof P.StatusBar.setOverlaysWebView === 'function') {
+        P.StatusBar.setOverlaysWebView({ overlay: true }).catch(function () {});
+      }
       P.StatusBar.setStyle({ style: 'LIGHT' }).catch(function () {});
       P.StatusBar.setBackgroundColor({ color: '#f4f4f5' }).catch(function () {});
     }

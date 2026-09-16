@@ -33,10 +33,10 @@ const config: CapacitorConfig = {
     },
   },
   ios: {
-    contentInset: 'automatic',
+    // never: CSS env(safe-area-*) owns the notch. `automatic` double-pads
+    // with .topbar { padding-top: var(--safe-top) } and leaves a huge gap.
+    contentInset: 'never',
     preferredContentMode: 'mobile',
-    // Keep the default capacitor:// WebView scheme so it does not
-    // collide with the bidetbud:// deep-link scheme.
   },
   android: {
     allowMixedContent: false,
