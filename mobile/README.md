@@ -58,6 +58,10 @@ Bundle id **`com.bidetbud.app`**, display name **BidetBud**. Location permission
 
 Location is **Near me only** — not tracking, not ads. `patch-native.cjs` writes that string into iOS `Info.plist` and Android `strings.xml`.
 
+Camera / photos (Suggest a spot): `patch-native.cjs` also writes `NSCameraUsageDescription`, `NSPhotoLibraryUsageDescription`, and Android `CAMERA` / media permissions. Copy:
+
+> BidetBud uses the camera so you can attach a photo when suggesting a spot.
+
 ## Daily dev loop
 
 ```bash
