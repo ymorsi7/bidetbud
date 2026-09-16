@@ -2,3 +2,7 @@
 Thumbs.db
 *.log
 node_modules/
+mobile/node_modules/
+mobile/ios/
+mobile/android/
+mobile/www/

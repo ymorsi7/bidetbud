@@ -1,0 +1,42 @@
+{
+  "name": "bidetbud-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "description": "BidetBud Capacitor shell — iOS and Android wrap the same static map as bidetbud.com.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "sync:web": "node scripts/sync-web.cjs",
+    "cap:sync": "npm run sync:web && npx cap sync && node scripts/patch-native.cjs",
+    "cap:add": "npm run sync:web && npx cap add ios && npx cap add android && node scripts/patch-native.cjs",
+    "ios": "npm run cap:sync && npx cap run ios",
+    "android": "npm run cap:sync && npx cap run android",
+    "open:ios": "npx cap open ios",
+    "open:android": "npx cap open android",
+    "doctor": "npx cap doctor",
+    "assets": "node scripts/prepare-assets.cjs && npx capacitor-assets generate --ios --android --iconBackgroundColor \"#18181b\" --iconBackgroundColorDark \"#18181b\" --splashBackgroundColor \"#18181b\" --splashBackgroundColorDark \"#18181b\"",
+    "test": "npm run test:mobile",
+    "test:mobile": "node scripts/sync-web.cjs && node scripts/test-mobile-smoke.mjs && node --test scripts/test-deep-link.mjs",
+    "test:mobile:playwright": "node scripts/sync-web.cjs && node scripts/test-mobile-playwright.mjs",
+    "test:deep-link": "node --test scripts/test-deep-link.mjs",
+    "lint": "node --check scripts/sync-web.cjs && node --check scripts/patch-native.cjs && node --check scripts/prepare-assets.cjs && node --check src/native-bridge.js && node --check src/deep-link.cjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.1",
+    "@capacitor/app": "^8.0.0",
+    "@capacitor/core": "^8.5.1",
+    "@capacitor/geolocation": "^8.0.0",
+    "@capacitor/ios": "^8.5.1",
+    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
+    "@capacitor/cli": "^8.5.1",
+    "playwright": "^1.58.0",
+    "typescript": "^7.0.2"
+  }
+}
