@@ -187,8 +187,12 @@ body.modal-open{overflow:hidden}
 .dialog .sub{color:var(--muted);font-size:.875rem;margin:6px 0 14px;line-height:1.5}
 .dialog.wide{max-width:640px}
 #addOverlay.open{align-items:stretch;padding:0}
-#addDialog.dialog.wide{max-width:560px;width:100%;max-height:min(92dvh,720px);overflow-y:auto;overflow-x:hidden;padding:20px;display:block}
-#addDialog .sub{flex-shrink:0}
+#addDialog.dialog.wide{max-width:560px;width:100%;max-height:min(92dvh,720px);overflow-y:auto;overflow-x:hidden;padding:0;display:flex;flex-direction:column}
+#addDialog .sub{flex-shrink:0;padding:0 20px}
+#addDialog .form{padding:0 20px 20px}
+.add-screen-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-shrink:0;padding:16px 12px 12px 20px;position:sticky;top:0;background:#fff;z-index:2}
+.add-screen-bar h2{padding-right:0;margin:0}
+.add-screen-back{border:none;background:transparent;font:inherit;font-size:.9375rem;font-weight:600;color:var(--brand-deep);min-height:44px;padding:0 10px;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .label-optional{font-weight:500;color:var(--muted);font-size:.85em}
 #addDialog .form-label{display:block;font-size:.6875rem;font-weight:600;color:var(--muted);margin:14px 0 8px;text-transform:uppercase;letter-spacing:.04em}
 #addDialog .add-bidet-segmented{margin:0}
@@ -196,8 +200,7 @@ body.modal-open{overflow:hidden}
 #addDialog .add-bidet-segmented button.active[data-value="verified"]{color:var(--brand-deep)}
 #addDialog .add-bidet-segmented button.active[data-value="none"]{color:#3f3f46}
 #addDialog textarea{min-height:56px}
-#addDialog h2{flex-shrink:0;position:sticky;top:0;background:#fff;z-index:2;padding-bottom:8px;margin-bottom:0}
-#addDialog .dialog-close{z-index:3}
+#addDialog h2{flex-shrink:0;letter-spacing:-.03em}
 .dialog a:not(.btn){color:var(--brand-deep);font-weight:600;text-decoration:none}
 .dialog a:not(.btn):hover{text-decoration:underline}
 .dialog .row{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0}
@@ -344,8 +347,12 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .overlay,.dialog{max-width:100%;overflow-x:hidden}
   .overlay{align-items:flex-end;padding:0}
   .overlay.open .dialog,.overlay.open .dialog.wide{border-radius:20px 20px 0 0;max-height:min(94dvh,900px);padding:16px 16px calc(16px + var(--safe-bottom));animation:sheetIn .28s ease;transform:none}
-  #addOverlay.open{align-items:flex-end}
-  .overlay.open #addDialog.dialog.wide{max-height:min(78dvh,620px);border-radius:20px 20px 0 0;padding-top:18px;animation:none;transform:none}
+  body.add-screen-open .shell{display:none!important}
+  body.add-screen-open #addOverlay.open{position:absolute;inset:0;align-items:stretch;padding:0;background:#fff;display:flex;flex-direction:column}
+  body.add-screen-open #addDialog.dialog.wide{max-height:none;height:100%;border-radius:0;box-shadow:none;padding:0;animation:none;display:flex;flex-direction:column;overflow:hidden}
+  body.add-screen-open .add-screen-bar{padding:12px 8px 12px 16px;border-bottom:1px solid var(--line)}
+  body.add-screen-open #addDialog .sub{padding:14px 16px 0}
+  body.add-screen-open #addDialog .form{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:8px 16px calc(16px + var(--safe-bottom))}
   .overlay-sheet.open .legend-dialog{max-height:min(82dvh,560px);padding:20px 16px calc(16px + var(--safe-bottom))}
   .overlay-sheet.open .detail-dialog{display:flex;flex-direction:column;overflow:hidden;padding:12px 0 0;max-height:min(78dvh,640px)}
   .overlay-sheet.open .detail-dialog::before{margin-bottom:10px}

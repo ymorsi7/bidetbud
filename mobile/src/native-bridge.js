@@ -105,7 +105,7 @@
 
     if (P.StatusBar) {
       if (typeof P.StatusBar.setOverlaysWebView === 'function') {
-        P.StatusBar.setOverlaysWebView({ overlay: true }).catch(function () {});
+        P.StatusBar.setOverlaysWebView({ overlay: false }).catch(function () {});
       }
       P.StatusBar.setStyle({ style: 'LIGHT' }).catch(function () {});
       P.StatusBar.setBackgroundColor({ color: '#f4f4f5' }).catch(function () {});
@@ -148,24 +148,27 @@
   }
 
   function lockNativeViewport() {
+    var root = document.documentElement;
     function pin() {
       window.scrollTo(0, 0);
-      if (document.documentElement) {
-        document.documentElement.scrollLeft = 0;
-        document.documentElement.scrollTop = 0;
-      }
+      root.scrollLeft = 0;
+      root.scrollTop = 0;
       if (document.body) {
         document.body.scrollLeft = 0;
         document.body.scrollTop = 0;
       }
+      root.style.zoom = '';
       var vv = window.visualViewport;
       if (vv) {
-        document.documentElement.style.setProperty('--vv-height', Math.round(vv.height) + 'px');
-        if (vv.scale && vv.scale !== 1) {
-          document.documentElement.style.zoom = String(1 / vv.scale);
-        } else {
-          document.documentElement.style.zoom = '';
-        }
+        root.style.setProperty('--vv-top', Math.round(vv.offsetTop) + 'px');
+        root.style.setProperty('--vv-left', Math.round(vv.offsetLeft) + 'px');
+        root.style.setProperty('--vv-width', Math.round(vv.width) + 'px');
+        root.style.setProperty('--vv-height', Math.round(vv.height) + 'px');
+      } else {
+        root.style.setProperty('--vv-top', '0px');
+        root.style.setProperty('--vv-left', '0px');
+        root.style.setProperty('--vv-width', window.innerWidth + 'px');
+        root.style.setProperty('--vv-height', window.innerHeight + 'px');
       }
     }
     function hardenInputs() {
@@ -217,6 +220,10 @@
           Keyboard.setAccessoryBarVisible({ isVisible: false }).catch(function () {});
         }
         pin();
+        var add = document.getElementById('addDialog');
+        var form = document.getElementById('emailPanel');
+        if (add) add.scrollTop = 0;
+        if (form) form.scrollTop = 0;
         setTimeout(pin, 0);
         setTimeout(pin, 50);
         setTimeout(pin, 300);
@@ -224,7 +231,6 @@
       true
     );
     document.addEventListener('focusout', function () {
-      document.documentElement.style.zoom = '';
       setTimeout(pin, 0);
       setTimeout(pin, 300);
     });

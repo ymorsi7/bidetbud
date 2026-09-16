@@ -421,10 +421,12 @@ window.__BIDET_SEED_P = (function(){
   </div>
 </div>
 
-<div class="overlay" id="addOverlay" role="dialog" aria-modal="true">
+<div class="overlay add-screen" id="addOverlay" role="dialog" aria-modal="true" aria-labelledby="addTitle">
   <div class="dialog wide" id="addDialog">
-    <button type="button" class="dialog-close" id="addClose" aria-label="Close">×</button>
-    <h2>Suggest a spot</h2>
+    <header class="add-screen-bar">
+      <h2 id="addTitle">Suggest a spot</h2>
+      <button type="button" class="add-screen-back" id="addClose">Close</button>
+    </header>
     <p class="sub" id="addIntro">Just the name is enough. We'll look it up. Every submission is reviewed before it goes live.</p>
     <div class="form" id="emailPanel">
       <label for="addName">Name *</label>

@@ -25,11 +25,11 @@ const config: CapacitorConfig = {
       splashImmersive: true,
     },
     StatusBar: {
-      // Light chrome (dark icons) over the zinc/Inter topbar.
-      // Safe-area padding already lives in css/app.css (--safe-top / --safe-bottom).
+      // Light chrome (dark icons). Do not overlay the WebView — otherwise
+      // iOS pans focused inputs under the Dynamic Island.
       style: 'LIGHT',
       backgroundColor: '#f4f4f5',
-      overlaysWebView: true,
+      overlaysWebView: false,
     },
     Keyboard: {
       // Do not resize/pan the WebView when a field is focused — that is what

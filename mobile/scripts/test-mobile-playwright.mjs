@@ -98,41 +98,61 @@ try {
 
   await page.locator('#addBtn').click();
   await page.waitForFunction(
-    () => document.getElementById('addOverlay')?.classList.contains('open'),
+    () => document.body.classList.contains('add-screen-open'),
     { timeout: 3000 }
   );
   const addLayout = await page.evaluate(() => {
-    const overlay = document.getElementById('addOverlay');
-    const dialog = document.getElementById('addDialog');
-    const name = document.getElementById('addName');
+    const title = document.getElementById('addTitle');
     const close = document.getElementById('addClose');
-    const overlayStyle = getComputedStyle(overlay);
-    const dialogBox = dialog.getBoundingClientRect();
+    const name = document.getElementById('addName');
+    const shell = document.querySelector('.shell');
+    const titleBox = title.getBoundingClientRect();
     const closeBox = close.getBoundingClientRect();
     return {
-      alignItems: overlayStyle.alignItems,
+      shellHidden: getComputedStyle(shell).display === 'none',
       nameFont: getComputedStyle(name).fontSize,
-      dialogTop: dialogBox.top,
-      dialogHeight: dialogBox.height,
-      dialogOverflowX: dialog.scrollWidth > dialog.clientWidth + 1,
+      titleText: (title.textContent || '').trim(),
+      titleTop: titleBox.top,
+      titleVisible: titleBox.bottom > 0 && titleBox.top < window.innerHeight && titleBox.height > 0,
+      closeText: (close.textContent || '').trim(),
+      closeVisible: closeBox.width > 0 && closeBox.top >= 0 && closeBox.right <= window.innerWidth,
       pageOverflowX: document.documentElement.scrollWidth > window.innerWidth + 1,
-      titleVisible: document.querySelector('#addDialog h2')?.getBoundingClientRect().top >= 0,
-      closeVisible: closeBox.width > 0 && closeBox.right <= window.innerWidth && closeBox.top >= 0,
     };
   });
+  if (!addLayout.shellHidden) {
+    throw new Error('Suggest a spot should replace the map, not sit in a popup over it');
+  }
+  if (addLayout.titleText !== 'Suggest a spot') {
+    throw new Error('missing Suggest a spot screen title');
+  }
+  if (!addLayout.titleVisible || addLayout.titleTop < 0) {
+    throw new Error('Suggest a spot title is not on screen');
+  }
+  if (addLayout.closeText !== 'Close' || !addLayout.closeVisible) {
+    throw new Error('Close control missing on the add screen');
+  }
   if (addLayout.nameFont !== '16px') {
     throw new Error('add name field must be 16px to avoid iOS zoom, got ' + addLayout.nameFont);
   }
-  if (addLayout.dialogOverflowX || addLayout.pageOverflowX) {
-    throw new Error('add sheet requires sideways scroll');
+  if (addLayout.pageOverflowX) {
+    throw new Error('add screen requires sideways scroll');
   }
-  if (!addLayout.titleVisible) {
-    throw new Error('Suggest a spot title is scrolled out of view');
+
+  await page.locator('#addName').click();
+  const afterFocus = await page.evaluate(() => {
+    const title = document.getElementById('addTitle');
+    const box = title.getBoundingClientRect();
+    return { top: box.top, visible: box.height > 0 && box.top >= 0 && box.top < 120 };
+  });
+  if (!afterFocus.visible) {
+    throw new Error('title left the screen after focusing the name field (top=' + afterFocus.top + ')');
   }
-  if (!addLayout.closeVisible) {
-    throw new Error('add close button is clipped or off-screen');
-  }
-  await page.keyboard.press('Escape');
+
+  await page.locator('#addClose').click();
+  await page.waitForFunction(
+    () => !document.body.classList.contains('add-screen-open'),
+    { timeout: 3000 }
+  );
 
   if (pageErrors.length) {
     throw new Error('pageerror on load: ' + pageErrors.join('; '));
@@ -140,7 +160,7 @@ try {
 
   console.log('  ✓ seed loaded (' + countText.trim().slice(0, 80) + ')');
   console.log('  ✓ Map / List tabs visible and switchable at 390×844');
-  console.log('  ✓ Suggest a spot sheet is a bottom sheet with 16px inputs');
+  console.log('  ✓ Suggest a spot is a full-screen page with a Close control');
   console.log('  ✓ no pageerror');
   console.log('\nmobile Playwright checks passed.');
 } finally {
