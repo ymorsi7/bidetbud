@@ -21,6 +21,7 @@
     "test": "npm run test:mobile",
     "test:mobile": "node scripts/sync-web.cjs && node scripts/test-mobile-smoke.mjs && node --test scripts/test-deep-link.mjs",
     "test:mobile:playwright": "node scripts/sync-web.cjs && node scripts/test-mobile-playwright.mjs",
+    "store:play": "node scripts/export-play-store-assets.mjs",
     "test:deep-link": "node --test scripts/test-deep-link.mjs",
     "lint": "node --check scripts/sync-web.cjs && node --check scripts/patch-native.cjs && node --check scripts/prepare-assets.cjs && node --check src/native-bridge.js && node --check src/deep-link.cjs"
   },
