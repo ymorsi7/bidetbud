@@ -45,6 +45,12 @@ const MANUAL = {
     latitude: '32.8205714',
     longitude: '-117.1654667',
   },
+  'Islamic Center of Tucson': {
+    address: '901 E 1st St, Tucson, AZ 85719',
+    city: 'Tucson, AZ',
+    latitude: '32.2345873',
+    longitude: '-110.9576512',
+  },
   'King Fahad Mosque': {
     latitude: '34.011522',
     longitude: '-118.410197',
