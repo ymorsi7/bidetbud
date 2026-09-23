@@ -19,7 +19,7 @@ const DEEP_LINK_SRC = path.join(MOBILE, 'src', 'deep-link.cjs');
 const NATIVE_CSS_SRC = path.join(MOBILE, 'src', 'native.css');
 
 const COPY_DIRS = ['js', 'css', 'vendor'];
-const NEVER_COPY = new Set(['shop', 'halal', 'data', 'scripts', 'mobile', 'node_modules', '.git']);
+const NEVER_COPY = new Set(['shop', 'halal', 'privacy', 'data', 'scripts', 'mobile', 'node_modules', '.git']);
 
 function ensureDir(dir) {
   fs.mkdirSync(dir, { recursive: true });
@@ -104,7 +104,7 @@ function rewriteIndex(html) {
 }
 
 function assertNoSiblingApps() {
-  for (const blocked of ['shop', 'halal', 'data', 'scripts']) {
+  for (const blocked of ['shop', 'halal', 'privacy', 'data', 'scripts']) {
     const p = path.join(WWW, blocked);
     if (fs.existsSync(p)) {
       throw new Error('sync-web must not copy ' + blocked + '/ into www (' + p + ')');

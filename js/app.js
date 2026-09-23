@@ -1527,23 +1527,49 @@
     return new Blob([arr], { type: mime || 'image/jpeg' });
   }
 
+  function blobFromNativePhoto(photo){
+    if(!photo) return Promise.resolve(null);
+    if(photo.base64String){
+      return Promise.resolve(blobFromBase64(photo.base64String, photo.format === 'png' ? 'image/png' : 'image/jpeg'));
+    }
+    const src = photo.webPath || photo.path;
+    if(!src) return Promise.resolve(null);
+    return fetch(src).then(function(res){ return res.ok ? res.blob() : null; }).catch(function(){ return null; });
+  }
+
+  function isNativePhotoCancel(err){
+    const msg = err && err.message ? String(err.message) : '';
+    return /cancel/i.test(msg);
+  }
+
   async function pickAddPhoto(){
     const Camera = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Camera;
-    if(Camera && typeof Camera.getPhoto === 'function'){
+    const platform = window.Capacitor && typeof window.Capacitor.getPlatform === 'function'
+      ? window.Capacitor.getPlatform()
+      : 'web';
+    if(Camera){
       try {
-        const photo = await Camera.getPhoto({
-          quality: 70,
-          allowEditing: false,
-          resultType: 'base64',
-          source: 'PROMPT',
-          saveToGallery: false
-        });
-        if(photo && photo.base64String){
-          setAddPhotoFromBlob(blobFromBase64(photo.base64String, photo.format === 'png' ? 'image/png' : 'image/jpeg'));
+        // Android: system photo picker only — no READ_MEDIA_IMAGES / READ_MEDIA_VIDEO.
+        if(platform === 'android' && typeof Camera.pickImages === 'function'){
+          const gallery = await Camera.pickImages({ quality: 70, limit: 1 });
+          const blob = await blobFromNativePhoto(gallery && gallery.photos && gallery.photos[0]);
+          if(blob) setAddPhotoFromBlob(blob);
+          return;
         }
-        return;
+        if(typeof Camera.getPhoto === 'function'){
+          const photo = await Camera.getPhoto({
+            quality: 70,
+            allowEditing: false,
+            resultType: 'base64',
+            source: 'PROMPT',
+            saveToGallery: false
+          });
+          const blob = await blobFromNativePhoto(photo);
+          if(blob) setAddPhotoFromBlob(blob);
+          return;
+        }
       } catch (err) {
-        if(err && (err.message === 'User cancelled photos app' || err.message === 'User cancelled')) return;
+        if(isNativePhotoCancel(err)) return;
       }
     }
     document.getElementById('addPhotoFile')?.click();

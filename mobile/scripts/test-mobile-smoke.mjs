@@ -61,6 +61,7 @@ ok(/user-scalable=no/.test(html), 'native viewport disables pinch-zoom of the pa
 ok(/\bcapacitor-native\b/.test(html), 'index.html marks the WebView shell for native CSS');
 ok(!existsSync(join(WWW, 'shop')), 'www/ does not contain shop/');
 ok(!existsSync(join(WWW, 'halal')), 'www/ does not contain halal/');
+ok(!existsSync(join(WWW, 'privacy')), 'www/ does not contain privacy/');
 ok(!existsSync(join(WWW, 'data')), 'www/ does not contain data/');
 ok(/src="js\/app\.js/.test(html), 'index.html loads js/app.js relatively');
 ok(/href="css\/app\.css/.test(html), 'index.html loads css/app.css relatively');
