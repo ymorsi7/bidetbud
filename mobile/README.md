@@ -58,7 +58,7 @@ Bundle id **`com.bidetbud.app`**, display name **BidetBud**. Location permission
 
 Location is **Near me only** — not tracking, not ads. `patch-native.cjs` writes that string into iOS `Info.plist` and Android `strings.xml`.
 
-Camera / photos (Suggest a spot): `patch-native.cjs` also writes `NSCameraUsageDescription`, `NSPhotoLibraryUsageDescription`, and Android `CAMERA` / media permissions. Copy:
+Camera / photos (Suggest a spot): iOS usage strings stay in `Info.plist`. Android keeps `CAMERA` only and **strips** `READ_MEDIA_IMAGES` / `READ_MEDIA_VIDEO` / storage — the add-spot flow uses the system photo picker, which Play treats as one-shot access. Copy:
 
 > BidetBud uses the camera so you can attach a photo when suggesting a spot.
 

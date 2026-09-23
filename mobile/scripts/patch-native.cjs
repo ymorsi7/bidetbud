@@ -257,6 +257,37 @@ function ensurePermission(xml, name) {
   );
 }
 
+function stripPermissionUses(xml, name) {
+  const re = new RegExp(
+    '\\s*<uses-permission\\b[^>]*android:name="' +
+      name.replace(/\./g, '\\.') +
+      '"[^/]*/>',
+    'g'
+  );
+  return xml.replace(re, '');
+}
+
+function ensurePermissionRemoved(xml, name) {
+  xml = stripPermissionUses(xml, name);
+  if (!xml.includes('xmlns:tools=')) {
+    xml = xml.replace(
+      /<manifest\b([^>]*)>/,
+      '<manifest xmlns:tools="http://schemas.android.com/tools"$1>'
+    );
+  }
+  const mark =
+    'android:name="' + name + '" tools:node="remove"';
+  if (xml.includes(mark)) return xml;
+  return xml.replace(
+    /<manifest\b[^>]*>/,
+    (m) =>
+      m +
+      '\n    <uses-permission android:name="' +
+      name +
+      '" tools:node="remove" />'
+  );
+}
+
 function patchAndroidManifest(file) {
   let xml = fs.readFileSync(file, 'utf8');
   const before = xml;
@@ -264,8 +295,11 @@ function patchAndroidManifest(file) {
   xml = ensurePermission(xml, 'android.permission.ACCESS_COARSE_LOCATION');
   xml = ensurePermission(xml, 'android.permission.ACCESS_FINE_LOCATION');
   xml = ensurePermission(xml, 'android.permission.CAMERA');
-  xml = ensurePermission(xml, 'android.permission.READ_MEDIA_IMAGES');
-  xml = ensurePermission(xml, 'android.permission.READ_EXTERNAL_STORAGE');
+  // Photo picker only — do not declare broad gallery access (Play Photo/Video policy).
+  xml = ensurePermissionRemoved(xml, 'android.permission.READ_MEDIA_IMAGES');
+  xml = ensurePermissionRemoved(xml, 'android.permission.READ_MEDIA_VIDEO');
+  xml = ensurePermissionRemoved(xml, 'android.permission.READ_EXTERNAL_STORAGE');
+  xml = ensurePermissionRemoved(xml, 'android.permission.WRITE_EXTERNAL_STORAGE');
 
   if (!xml.includes('android:scheme="bidetbud"')) {
     const filter = [
