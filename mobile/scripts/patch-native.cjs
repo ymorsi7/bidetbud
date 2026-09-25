@@ -12,6 +12,7 @@ const path = require('path');
 const MOBILE = path.resolve(__dirname, '..');
 const APP_ID = 'com.bidetbud.app';
 const APP_NAME = 'BidetBud';
+const APPLE_TEAM = '9U4YC847Z3';
 const LOCATION_COPY =
   'BidetBud uses your location only to find bidet spots near you.';
 const CAMERA_COPY =
@@ -21,6 +22,7 @@ const PHOTOS_COPY =
 
 const IOS_PLIST = path.join(MOBILE, 'ios', 'App', 'App', 'Info.plist');
 const IOS_SCENE = path.join(MOBILE, 'ios', 'App', 'App', 'SceneDelegate.swift');
+const IOS_PBXPROJ = path.join(MOBILE, 'ios', 'App', 'App.xcodeproj', 'project.pbxproj');
 const ANDROID_MANIFEST = path.join(
   MOBILE,
   'android',
@@ -248,6 +250,25 @@ function patchInfoPlist(file) {
   return changed;
 }
 
+function patchPbxproj(file) {
+  if (!fs.existsSync(file)) return false;
+  let text = fs.readFileSync(file, 'utf8');
+  const before = text;
+  if (!text.includes('DEVELOPMENT_TEAM')) {
+    text = text.replace(
+      /CODE_SIGN_STYLE = Automatic;/g,
+      'CODE_SIGN_STYLE = Automatic;\n\t\t\t\tDEVELOPMENT_TEAM = ' + APPLE_TEAM + ';'
+    );
+  } else {
+    text = text.replace(
+      /DEVELOPMENT_TEAM = [A-Z0-9]+;/g,
+      'DEVELOPMENT_TEAM = ' + APPLE_TEAM + ';'
+    );
+  }
+  if (text !== before) fs.writeFileSync(file, text);
+  return text !== before;
+}
+
 function ensurePermission(xml, name) {
   const needle = 'android:name="' + name + '"';
   if (xml.includes(needle)) return xml;
@@ -367,6 +388,15 @@ function main() {
     }
   } else {
     console.log('patch-native: ios/ not present yet (run npm run cap:add)');
+  }
+
+  if (fs.existsSync(IOS_PBXPROJ)) {
+    if (patchPbxproj(IOS_PBXPROJ)) {
+      console.log('patch-native: set ios DEVELOPMENT_TEAM');
+      n++;
+    } else {
+      console.log('patch-native: ios DEVELOPMENT_TEAM already set');
+    }
   }
 
   if (fs.existsSync(IOS_SCENE)) {
