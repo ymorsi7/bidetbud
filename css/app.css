@@ -197,6 +197,7 @@ body.modal-open{overflow:hidden}
 .add-screen-body{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:16px 20px 24px}
 .add-screen-foot{flex-shrink:0;padding:12px 16px 16px;border-top:1px solid var(--line);background:#fff}
 .add-screen-foot .btn{width:100%;min-height:48px}
+.native-page-bar{display:none!important}
 .add-update-banner{margin:0 0 14px;padding:10px 12px;border-radius:12px;background:var(--brand-soft);color:var(--brand-deep);font-size:.8125rem;font-weight:600;line-height:1.4}
 .add-update-banner[hidden]{display:none!important}
 .add-dupes{margin:8px 0 4px;display:flex;flex-direction:column;gap:8px}

@@ -30,7 +30,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
-<link rel="stylesheet" href="css/app.css?v=20260916a">
+<link rel="stylesheet" href="css/app.css?v=20260925a">
 <link rel="preload" href="bidet-seed.json?v=20261010a" as="fetch" crossorigin>
 <script>
 window.__BIDET_SEED_P = (function(){
@@ -72,12 +72,12 @@ window.__BIDET_SEED_P = (function(){
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
 <link rel="preload" href="js/core.js?v=20260810f" as="script">
 <link rel="preload" href="js/search-seed.js?v=20261010a" as="script">
-<link rel="preload" href="js/app.js?v=20260925a" as="script">
+<link rel="preload" href="js/app.js?v=20260925b" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
 <script src="js/core.js?v=20260810f" defer></script>
 <script src="js/search-seed.js?v=20261010a" defer></script>
-<script src="js/app.js?v=20260925a" defer></script>
+<script src="js/app.js?v=20260925b" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -328,6 +328,11 @@ window.__BIDET_SEED_P = (function(){
 
 <div class="overlay overlay-sheet" id="detailOverlay" role="dialog" aria-modal="true">
   <div class="dialog detail-dialog" id="detailDialog">
+    <header class="add-screen-bar native-page-bar">
+      <button type="button" class="add-screen-cancel" id="detailBack">Close</button>
+      <h2 id="detailNativeTitle">Place</h2>
+      <span class="add-screen-bar-end" aria-hidden="true"></span>
+    </header>
     <button type="button" class="dialog-close" id="detailClose" aria-label="Close">×</button>
     <div id="detailContent"></div>
     <div class="detail-sticky-footer" id="detailStickyFooter" hidden></div>
@@ -356,8 +361,13 @@ window.__BIDET_SEED_P = (function(){
 
 <div class="overlay overlay-sheet" id="filterSheetOverlay" role="dialog" aria-modal="true" aria-labelledby="filterSheetTitle">
   <div class="dialog filter-sheet-dialog" id="filterSheetDialog">
+    <header class="add-screen-bar native-page-bar">
+      <button type="button" class="add-screen-cancel" id="filterSheetBack">Close</button>
+      <h2>Filters</h2>
+      <span class="add-screen-bar-end" aria-hidden="true"></span>
+    </header>
     <button type="button" class="dialog-close" id="filterSheetClose" aria-label="Close">×</button>
-    <h2 id="filterSheetTitle">Filters</h2>
+    <h2 id="filterSheetTitle" class="web-sheet-title">Filters</h2>
     <div class="filter-sheet-body" id="filterSheetBody"></div>
     <div class="dialog-actions filter-sheet-actions">
       <button type="button" class="btn btn-ghost" id="filterSheetClear">Clear all</button>
