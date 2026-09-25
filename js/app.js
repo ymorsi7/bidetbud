@@ -770,6 +770,11 @@
       document.getElementById('addOverlay')?.classList.contains('open') ||
       document.getElementById('thankYouOverlay')?.classList.contains('open')
     ));
+    document.body.classList.toggle('native-page-open', isNativeApp() && (
+      document.getElementById('detailOverlay')?.classList.contains('open') ||
+      document.getElementById('filterSheetOverlay')?.classList.contains('open') ||
+      document.getElementById('legendOverlay')?.classList.contains('open')
+    ));
     if(id === 'addOverlay' && open){
       setOverlayOpen('promoOverlay', false);
     }
@@ -1352,6 +1357,8 @@
       '<button type="button" class="btn btn-ghost js-report-no-bidet">Report no bidet here</button>'+
       '</div>';
 
+    const nativeTitle = document.getElementById('detailNativeTitle');
+    if(nativeTitle) nativeTitle.textContent = m.name;
     document.getElementById('detailContent').innerHTML =
       '<h2>'+escapeHtml(m.name)+'</h2>'+
       '<p class="sub">'+escapeHtml(typeLabel(m.type))+' · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
@@ -2147,6 +2154,7 @@
       setOverlayOpen('filterSheetOverlay', true);
     });
     document.getElementById('filterSheetClose')?.addEventListener('click', ()=> setOverlayOpen('filterSheetOverlay', false));
+    document.getElementById('filterSheetBack')?.addEventListener('click', ()=> setOverlayOpen('filterSheetOverlay', false));
     document.getElementById('filterSheetClear')?.addEventListener('click', ()=>{
       clearAllFilters();
       buildFilterSheet();
@@ -2224,6 +2232,7 @@
     });
     document.getElementById('addClose').addEventListener('click',()=>{ setOverlayOpen('addOverlay', false); resetAddForm(); });
     document.getElementById('detailClose').addEventListener('click',()=> setOverlayOpen('detailOverlay', false));
+    document.getElementById('detailBack')?.addEventListener('click',()=> setOverlayOpen('detailOverlay', false));
     document.getElementById('thankYouClose')?.addEventListener('click', ()=> setOverlayOpen('thankYouOverlay', false));
     document.getElementById('addAnotherSpot')?.addEventListener('click', ()=>{
       setOverlayOpen('thankYouOverlay', false);
