@@ -84,3 +84,53 @@ html.capacitor-native .dialog{
   animation:none!important;
   transform:none!important;
 }
+
+/* Website chrome that should not appear in the app. */
+html.capacitor-native .site-footer,
+html.capacitor-native #promoOverlay,
+html.capacitor-native .quick-chips,
+html.capacitor-native .filter-toggles,
+html.capacitor-native .sidebar-legend,
+html.capacitor-native .share-actions,
+html.capacitor-native #addBtn,
+html.capacitor-native .leaflet-control-zoom,
+html.capacitor-native .leaflet-control-attribution{
+  display:none!important;
+}
+
+html.capacitor-native .brand-text p{
+  display:none!important;
+}
+
+html.capacitor-native .topbar-inner{
+  padding:8px 12px 10px;
+}
+
+html.capacitor-native .sidebar-head{
+  padding:8px 14px 8px;
+}
+
+html.capacitor-native .filter-row .mobile-filter-btn{
+  flex:1;
+  justify-content:center;
+  min-height:42px;
+}
+
+html.capacitor-native .count-line{
+  margin-top:6px;
+  font-size:.8125rem;
+}
+
+html.capacitor-native .list-toolbar{
+  margin-top:6px;
+  padding-top:6px;
+}
+
+html.capacitor-native .mobile-tabs{
+  background:#fff;
+  border-top:1px solid var(--line);
+}
+
+html.capacitor-native .leaflet-bottom.leaflet-right{
+  display:none!important;
+}
