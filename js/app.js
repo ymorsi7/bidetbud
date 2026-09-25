@@ -748,6 +748,14 @@
 
   function getQuery(){ return document.getElementById('searchInput').value.trim().toLowerCase(); }
   function isMobile(){ return window.matchMedia('(max-width:820px)').matches; }
+  function isNativeApp(){
+    try {
+      return !!(document.documentElement.classList.contains('capacitor-native') ||
+        (window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform()));
+    } catch (e) {
+      return false;
+    }
+  }
   function isTypingTarget(el){
     return el && (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.tagName === 'SELECT' || el.isContentEditable);
   }
@@ -809,6 +817,7 @@
   }
 
   function maybeShowPromo(reason){
+    if(isNativeApp()) return;
     if(!shouldShowPromoPopup()) return;
     if(document.querySelector('.overlay.open')) return;
     setOverlayOpen('promoOverlay', true);
@@ -833,6 +842,12 @@
   }
 
   function showThankYou(){
+    if(isNativeApp()){
+      document.getElementById('thankYouContent').innerHTML =
+        '<p class="sub">Thanks — we review every submission before it goes live.</p>';
+      setOverlayOpen('thankYouOverlay', true);
+      return;
+    }
     const shareUrl = encodeURIComponent(SITE_URL);
     const shareText = encodeURIComponent('We use BidetBud to find masajid and restaurants with bidets. Add spots your community should know about:');
     document.getElementById('thankYouContent').innerHTML =
@@ -1245,6 +1260,10 @@
   function wireDetailButtons(root, m, shareLink){
     if(!root) return;
     root.querySelector('.js-copy-spot-link')?.addEventListener('click', ()=>{
+      if(navigator.share){
+        navigator.share({ title: m.name, url: shareLink, text: m.name }).catch(function(){});
+        return;
+      }
       navigator.clipboard?.writeText(shareLink).then(()=> alert('Link copied!')).catch(()=> prompt('Copy link:', shareLink));
     });
     root.querySelector('.js-copy-address')?.addEventListener('click', ()=>{
@@ -1290,21 +1309,31 @@
     const stickyFooter = document.getElementById('detailStickyFooter');
     if(stickyFooter){
       if(mobile){
-        stickyFooter.innerHTML =
-          '<div class="detail-footer-actions">'+
-          '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
-          mapsBtn+
-          '</div>'+
-          '<div class="detail-footer-links">'+
-          '<button type="button" class="detail-link-btn js-copy-spot-link">Share spot</button>'+
-          '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
-          '<button type="button" class="detail-link-btn js-copy-address">Copy address</button>'+
-          '</div>'+
-          '<div class="detail-footer-links">'+
-          '<button type="button" class="detail-link-btn js-suggest-update">Suggest an update</button>'+
-          '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
-          '<button type="button" class="detail-link-btn js-report-no-bidet">Report no bidet</button>'+
-          '</div>';
+        stickyFooter.innerHTML = isNativeApp()
+          ? ('<div class="detail-footer-actions">'+
+            '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
+            '</div>'+
+            '<div class="detail-footer-links">'+
+            '<button type="button" class="detail-link-btn js-copy-spot-link">Share</button>'+
+            '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
+            '<button type="button" class="detail-link-btn js-copy-address">Copy address</button>'+
+            '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
+            '<button type="button" class="detail-link-btn js-suggest-update">Suggest an update</button>'+
+            '</div>')
+          : ('<div class="detail-footer-actions">'+
+            '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
+            mapsBtn+
+            '</div>'+
+            '<div class="detail-footer-links">'+
+            '<button type="button" class="detail-link-btn js-copy-spot-link">Share spot</button>'+
+            '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
+            '<button type="button" class="detail-link-btn js-copy-address">Copy address</button>'+
+            '</div>'+
+            '<div class="detail-footer-links">'+
+            '<button type="button" class="detail-link-btn js-suggest-update">Suggest an update</button>'+
+            '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
+            '<button type="button" class="detail-link-btn js-report-no-bidet">Report no bidet</button>'+
+            '</div>');
         stickyFooter.hidden = false;
         wireDetailButtons(stickyFooter, m, shareLink);
       } else {
@@ -1335,7 +1364,7 @@
       '<div class="row">'+statusTag(m)+accessTag(m)+'</div>'+
       trustHtml+quote+source+
       (mobile ? '' : desktopActions)+
-      reportFormHtml(m);
+      (isNativeApp() ? '' : reportFormHtml(m));
     const content = document.getElementById('detailContent');
     wireDetailButtons(content, m, shareLink);
     wireReportForm(content, m);

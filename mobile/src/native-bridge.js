@@ -143,6 +143,8 @@
       }
     }
 
+    try { localStorage.setItem('bb_promo_seen', '1'); } catch (e) {}
+
     lockNativeViewport();
     refreshSeedFromLive();
   }
