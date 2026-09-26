@@ -1283,6 +1283,13 @@
       setOverlayOpen('detailOverlay', false);
       openAddFormPrefill(m, NO_BIDET(m.bidetStatus));
     });
+    root.querySelector('.js-open-report')?.addEventListener('click', ()=>{
+      const box = document.querySelector('#detailContent .report-box');
+      if(box){
+        box.open = true;
+        box.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
   }
 
   function openDetail(id, fromUrl){
@@ -1324,6 +1331,8 @@
             '<button type="button" class="detail-link-btn js-copy-address">Copy address</button>'+
             '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
             '<button type="button" class="detail-link-btn js-suggest-update">Suggest an update</button>'+
+            '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
+            '<button type="button" class="detail-link-btn js-open-report">Report</button>'+
             '</div>')
           : ('<div class="detail-footer-actions">'+
             '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
@@ -1371,7 +1380,7 @@
       '<div class="row">'+statusTag(m)+accessTag(m)+'</div>'+
       trustHtml+quote+source+
       (mobile ? '' : desktopActions)+
-      (isNativeApp() ? '' : reportFormHtml(m));
+      reportFormHtml(m);
     const content = document.getElementById('detailContent');
     wireDetailButtons(content, m, shareLink);
     wireReportForm(content, m);
