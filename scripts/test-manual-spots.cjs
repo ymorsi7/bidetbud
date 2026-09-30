@@ -32,6 +32,7 @@ const MANUAL_SPOTS = [
   { name: 'Islamic Center of San Diego', queries: ['icsd', 'islamic center san diego'], status: ['verified', 'none'] },
   { name: 'Champa Kitchen', queries: ['champa kitchen san jose'], status: ['verified'] },
   { name: 'Golden Shawarma', queries: ['golden shawarma richardson'], status: ['verified'] },
+  { name: 'Cloud Naan', queries: ['cloud naan', 'cloud naan richardson'], status: ['verified'] },
   { name: 'Islamic Center of Frisco', queries: ['islamic center frisco'], status: ['verified'] },
   { name: 'Yosaku', queries: ['yosaku portland'], status: ['warmed', 'internet', 'verified'] },
   { name: 'Ayat Bushwick', queries: ['ayat bushwick'], status: ['internet', 'verified'] },
