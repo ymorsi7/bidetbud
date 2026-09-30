@@ -51,6 +51,12 @@ const MANUAL = {
     latitude: '32.2345873',
     longitude: '-110.9576512',
   },
+  'Cloud Naan': {
+    address: '888 S Greenville Ave, Ste 224, Richardson, TX 75081',
+    city: 'Richardson, TX',
+    latitude: '32.9383437',
+    longitude: '-96.7371829',
+  },
   'King Fahad Mosque': {
     latitude: '34.011522',
     longitude: '-118.410197',
