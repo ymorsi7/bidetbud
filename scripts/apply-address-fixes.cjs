@@ -57,6 +57,12 @@ const MANUAL = {
     latitude: '32.9383437',
     longitude: '-96.7371829',
   },
+  'Royal Roastery': {
+    address: '1055 S Sherman St, Suite 100, Richardson, TX 75081',
+    city: 'Richardson, TX',
+    latitude: '32.9382045',
+    longitude: '-96.7405628',
+  },
   'King Fahad Mosque': {
     latitude: '34.011522',
     longitude: '-118.410197',
