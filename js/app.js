@@ -58,7 +58,7 @@
     'Egypt', 'Libya', 'Tunisia', 'Algeria', 'Morocco', 'Sudan',
     // South & Southeast Asia: sprayers / water cleansing are standard
     'India', 'Pakistan', 'Bangladesh', 'Nepal', 'Sri Lanka', 'Afghanistan',
-    'Malaysia', 'Indonesia', 'Thailand', 'Vietnam', 'Philippines', 'Cambodia',
+    'Malaysia', 'Indonesia', 'Thailand', 'Vietnam', 'Cambodia',
     'Brunei', 'Laos', 'Myanmar', 'Maldives', 'East Timor',
     'Argentina', 'Uruguay', 'Brazil'
   ];
@@ -81,17 +81,11 @@
   const FRIENDLY_SHADE_EXCLUDE_GEO = new Set(['Singapore']);
 
   function addCartoVoyagerTiles(targetMap, showAttribution, noWrap){
-    const cartoKey = (typeof window !== 'undefined' && window.BIDETBUD_CARTO_KEY) || '';
-    const url = cartoKey
-      ? 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png?key=' + encodeURIComponent(cartoKey)
-      : 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-    L.tileLayer(url, {
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
       maxZoom: 19,
-      subdomains: cartoKey ? 'abcd' : 'abc',
+      subdomains: 'abcd',
       noWrap: Boolean(noWrap),
-      attribution: showAttribution
-        ? (cartoKey ? '© OpenStreetMap · © CARTO' : '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
-        : undefined
+      attribution: showAttribution ? '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> · © CARTO' : undefined
     }).addTo(targetMap);
   }
 

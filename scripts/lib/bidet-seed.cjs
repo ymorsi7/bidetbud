@@ -39,7 +39,7 @@ function slimRow(r) {
   if (r.type) out.type = r.type;
   if (r.bidetType) out.bidetType = String(r.bidetType).slice(0, 80);
   if (r.sourceUrl) out.sourceUrl = r.sourceUrl;
-  if (r.sourceQuote) out.sourceQuote = String(r.sourceQuote).slice(0, 80);
+  if (r.sourceQuote) out.sourceQuote = String(r.sourceQuote).slice(0, 160);
   if (r.searchAliases) out.searchAliases = String(r.searchAliases).slice(0, 120);
   if (r.verifiedMethod) out.verifiedMethod = String(r.verifiedMethod).slice(0, 40);
   // Public is the default in normalizeSeed — omit to shrink the download.

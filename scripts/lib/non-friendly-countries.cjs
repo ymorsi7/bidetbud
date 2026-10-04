@@ -38,7 +38,6 @@ const BIDET_FRIENDLY_COUNTRIES = new Set([
   'Indonesia',
   'Thailand',
   'Vietnam',
-  'Philippines',
   'Cambodia',
   'Brunei',
   'Laos',
