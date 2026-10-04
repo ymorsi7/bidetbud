@@ -78,10 +78,14 @@ html.capacitor-native body.add-screen-open .add-screen-dialog{
 }
 html.capacitor-native .map-wrap,
 html.capacitor-native #map,
-html.capacitor-native .leaflet-container{
+html.capacitor-native .leaflet-container,
+html.capacitor-native .leaflet-pane,
+html.capacitor-native .leaflet-map-pane{
   touch-action:none;
   -webkit-user-select:none;
   user-select:none;
+  -webkit-transform:translate3d(0,0,0);
+  transform:translate3d(0,0,0);
 }
 html.capacitor-native .leaflet-marker-icon,
 html.capacitor-native .leaflet-interactive{
@@ -90,11 +94,18 @@ html.capacitor-native .leaflet-interactive{
 html.capacitor-native .load-toast{
   display:none!important;
 }
-html.capacitor-native .map-fab{
-  bottom:calc(52px + var(--safe-bottom) + 12px);
+html.capacitor-native .map-controls{
+  bottom:calc(56px + var(--safe-bottom) + 16px);
+  gap:10px;
 }
-html.capacitor-native .map-locate{
-  bottom:calc(52px + var(--safe-bottom) + 12px + 56px + 10px);
+html.capacitor-native body.add-screen-open .add-screen-bar{
+  padding-top:calc(8px + var(--safe-top));
+}
+html.capacitor-native body.add-screen-open .add-screen-bar h2{
+  font-size:1.0625rem;
+}
+html.capacitor-native body.add-screen-open #addIntro{
+  color:var(--muted);
 }
 html.capacitor-native .overlay,
 html.capacitor-native .dialog{

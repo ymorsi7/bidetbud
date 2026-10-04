@@ -105,6 +105,43 @@ try {
   await fab.waitFor({ state: 'visible' });
   const locate = page.locator('#locateFab');
   await locate.waitFor({ state: 'visible' });
+  const stack = await page.evaluate(() => {
+    const loc = document.getElementById('locateFab').getBoundingClientRect();
+    const plus = document.getElementById('addFab').getBoundingClientRect();
+    return {
+      gap: plus.top - loc.bottom,
+      rightDelta: Math.abs(loc.right - plus.right),
+    };
+  });
+  if (stack.gap < 6 || stack.gap > 16) {
+    throw new Error('locate/plus stack gap should be ~10px, got ' + stack.gap);
+  }
+  if (stack.rightDelta > 6) {
+    throw new Error('locate/plus should share the same right edge, delta=' + stack.rightDelta);
+  }
+
+  await fab.click();
+  await page.waitForFunction(
+    () => document.body.classList.contains('add-screen-open'),
+    { timeout: 4000 }
+  );
+  const addUi = await page.evaluate(() => {
+    const addr = document.getElementById('addAddress');
+    const controls = document.getElementById('mapControls');
+    const intro = document.getElementById('addIntro');
+    return {
+      addrVisible: !!(addr && addr.offsetParent && addr.getBoundingClientRect().height > 0),
+      controlsHidden: !controls || getComputedStyle(controls).display === 'none',
+      intro: (intro && intro.textContent || '').trim(),
+    };
+  });
+  if (!addUi.addrVisible) throw new Error('Suggest a spot should show the Where field without opening More');
+  if (!addUi.controlsHidden) throw new Error('map FABs should hide on the Suggest a spot screen');
+  await page.locator('#addClose').click();
+  await page.waitForFunction(
+    () => !document.body.classList.contains('add-screen-open'),
+    { timeout: 3000 }
+  );
 
   await listTab.click();
   await page.waitForFunction(
@@ -151,6 +188,7 @@ try {
     const name = document.getElementById('addName');
     const submit = document.getElementById('submitAdd');
     const more = document.getElementById('addMoreDetails');
+    const addr = document.getElementById('addAddress');
     const shell = document.querySelector('.shell');
     const titleBox = title.getBoundingClientRect();
     const closeBox = close.getBoundingClientRect();
@@ -165,6 +203,7 @@ try {
       closeVisible: closeBox.width > 0 && closeBox.top >= 0 && closeBox.right <= window.innerWidth,
       submitVisible: submitBox.top < window.innerHeight && submitBox.bottom > 0,
       moreLabel: (more?.querySelector('summary')?.textContent || '').trim(),
+      addrOnScreen: !!(addr && addr.getBoundingClientRect().height > 0 && addr.getBoundingClientRect().top < window.innerHeight),
       pageOverflowX: document.documentElement.scrollWidth > window.innerWidth + 1,
     };
   });
@@ -183,8 +222,11 @@ try {
   if (!addLayout.submitVisible) {
     throw new Error('Submit is not pinned on screen');
   }
-  if (!/More details/i.test(addLayout.moreLabel)) {
-    throw new Error('optional details are not collapsed behind More details');
+  if (!/Photo or note/i.test(addLayout.moreLabel)) {
+    throw new Error('optional photo/note should stay collapsed: ' + addLayout.moreLabel);
+  }
+  if (!addLayout.addrOnScreen) {
+    throw new Error('Where field should be visible on Suggest a spot');
   }
   if (addLayout.nameFont !== '16px') {
     throw new Error('add name field must be 16px to avoid iOS zoom, got ' + addLayout.nameFont);

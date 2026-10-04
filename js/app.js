@@ -851,7 +851,7 @@
   function showThankYou(){
     if(isNativeApp()){
       document.getElementById('thankYouContent').innerHTML =
-        '<p class="sub">Thanks — we review every submission before it goes live.</p>';
+        '<p class="thank-lead">Got it.</p><p class="sub">We review every submission before it goes on the map.</p>';
       setOverlayOpen('thankYouOverlay', true);
       return;
     }
@@ -1099,7 +1099,7 @@
     if(verified) badges.push(verified+' verified');
     if(warmed) badges.push(warmed+' heated');
     if(internet) badges.push(internet+' web');
-    if(badges.length) countHtml += '<div class="count-badges">'+badges.map(b=>'<span class="count-badge">'+b+'</span>').join('')+'</div>';
+    if(badges.length && !isNativeApp()) countHtml += '<div class="count-badges">'+badges.map(b=>'<span class="count-badge">'+b+'</span>').join('')+'</div>';
     document.getElementById('countLabel').innerHTML = countHtml;
     updateMobileTabBadge(filtered.length);
     if(!filtered.length){
@@ -1153,8 +1153,10 @@
         scrollToListCard(m.id);
         openDetail(m.id);
       });
-      const tip = stripEmDash(m.access==='limited' ? m.name + ' (limited access)' : m.name);
-      marker.bindTooltip(tip,{direction:'top',offset:[0,-12]});
+      if(!isNativeApp()){
+        const tip = stripEmDash(m.access==='limited' ? m.name + ' (limited access)' : m.name);
+        marker.bindTooltip(tip,{direction:'top',offset:[0,-12]});
+      }
       markerById.set(m.id, marker);
       return marker;
     });
@@ -1163,7 +1165,8 @@
       highlightMarker(highlightedMarkerId);
     }
     updateUserMarker();
-    const shouldFit = !initialBoundsDone && filtered.length && !getQuery() && !nearMe && !activeSpotId;
+    const shouldFit = !initialBoundsDone && filtered.length && !getQuery() && !nearMe && !activeSpotId && !isNativeApp();
+    if(isNativeApp() && !initialBoundsDone) initialBoundsDone = true;
     if(shouldFit){
       const bounds = L.latLngBounds(filtered.map(m=>[+m.latitude,+m.longitude]));
       if(bounds.isValid()){
@@ -1882,18 +1885,29 @@
   }
 
   function initMap(){
+    const native = isNativeApp();
+    const startLoc = window.__BB_LAST_LOC;
     map = L.map('map',{
-      zoomControl:true,
+      zoomControl:!native,
       minZoom:MAP_MIN_ZOOM,
       worldCopyJump:true,
       tap:false,
       bounceAtZoomLimits:false,
       inertia:true,
-      inertiaDeceleration:2500,
-      inertiaMaxSpeed:3000,
-      zoomSnap:isNativeApp() || isIOS() ? 0 : 1,
-      zoomDelta:isNativeApp() || isIOS() ? 0.5 : 1
-    }).setView([DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng], DEFAULT_MAP_ZOOM);
+      inertiaDeceleration:3000,
+      inertiaMaxSpeed:4000,
+      fadeAnimation:!native,
+      markerZoomAnimation:!native,
+      zoomAnimation:!native
+    }).setView(
+      startLoc && native ? [startLoc.lat, startLoc.lng] : [DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng],
+      startLoc && native ? 13 : DEFAULT_MAP_ZOOM
+    );
+    if(startLoc && native){
+      userLocation = { lat:startLoc.lat, lng:startLoc.lng };
+      autoCentered = true;
+      initialBoundsDone = true;
+    }
     if(pendingView){
       map.setView([pendingView.lat, pendingView.lng], pendingView.zoom, { animate: false });
       initialBoundsDone = true;
@@ -1902,15 +1916,17 @@
     map.createPane('countriesPane');
     map.getPane('countriesPane').style.zIndex = 350;
     addCartoVoyagerTiles(map, true, false);
-    // Defer the (network + parse + polygon render) country overlay so it never
-    // competes with first paint, tiles, or marker rendering.
-    const loadCountries = () => loadBidetFriendlyCountries();
-    if('requestIdleCallback' in window) requestIdleCallback(loadCountries, { timeout: 3000 });
-    else setTimeout(loadCountries, 1200);
+    if(!native){
+      const loadCountries = () => loadBidetFriendlyCountries();
+      if('requestIdleCallback' in window) requestIdleCallback(loadCountries, { timeout: 3000 });
+      else setTimeout(loadCountries, 1200);
+    }
     clusterGroup = L.markerClusterGroup({
-      maxClusterRadius:40,
-      chunkedLoading:false,
-      removeOutsideVisibleBounds:false,
+      maxClusterRadius: native ? 56 : 40,
+      chunkedLoading: native,
+      chunkInterval: 40,
+      chunkDelay: 20,
+      removeOutsideVisibleBounds: native,
       iconCreateFunction:c=>L.divIcon({
         html:'<div style="background:#047857;color:#fff;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;font-weight:700;border:2px solid #fff;box-shadow:0 4px 12px rgba(0,0,0,.18)">'+c.getChildCount()+'</div>',
         className:'custom-marker', iconSize:[36,36]
@@ -1928,10 +1944,10 @@
     });
     map.on('moveend', onUserMapViewChange);
     map.on('zoomend', onUserMapViewChange);
-    map.zoomControl.setPosition(isMobile() ? 'topright' : 'bottomright');
+    if(map.zoomControl) map.zoomControl.setPosition(isMobile() ? 'topright' : 'bottomright');
     const mobileMq = window.matchMedia('(max-width:820px)');
     mobileMq.addEventListener('change', e=>{
-      map.zoomControl.setPosition(e.matches ? 'topright' : 'bottomright');
+      if(map.zoomControl) map.zoomControl.setPosition(e.matches ? 'topright' : 'bottomright');
       setTimeout(()=>map.invalidateSize(), 100);
     });
     setTimeout(()=>{ if(map) map.invalidateSize(); }, 150);
@@ -1977,30 +1993,53 @@
       if(!silent) alert('Geolocation not supported.');
       return;
     }
-    navigator.geolocation.getCurrentPosition(pos=>{
-      userLocation = {lat:pos.coords.latitude,lng:pos.coords.longitude};
+    const apply = (pos)=>{
+      const lat = pos && pos.coords ? +pos.coords.latitude : NaN;
+      const lng = pos && pos.coords ? +pos.coords.longitude : NaN;
+      if(!isFinite(lat) || !isFinite(lng)) return false;
+      userLocation = { lat, lng };
+      window.__BB_LAST_LOC = userLocation;
       updateUserMarker();
       if(typeof onOk === 'function') onOk(userLocation);
+      return true;
+    };
+    navigator.geolocation.getCurrentPosition(pos=>{
+      if(!apply(pos) && !silent) alert('Could not get your location.');
     }, ()=>{
-      if(!silent) alert('Could not get your location.');
-    }, { enableHighAccuracy:true, timeout:12000, maximumAge:60000 });
+      navigator.geolocation.getCurrentPosition(pos=>{
+        if(!apply(pos) && !silent) alert('Could not get your location.');
+      }, ()=>{
+        if(!silent) alert('Could not get your location.');
+      }, { enableHighAccuracy:true, timeout:15000, maximumAge:0 });
+    }, { enableHighAccuracy:false, timeout:8000, maximumAge:120000 });
   }
 
   function flyMapToUser(){
     if(!map || !userLocation) return;
-    map.setView([userLocation.lat, userLocation.lng], Math.max(map.getZoom(), 13), { animate:true });
-    setTimeout(()=>{ if(map) map.invalidateSize(); }, 120);
+    map.setView([userLocation.lat, userLocation.lng], 13, { animate:false });
+    setTimeout(()=>{ if(map) map.invalidateSize(); }, 80);
   }
 
   function maybeAutoCenterOnUser(){
-    if(autoCentered || !isNativeApp() || !map) return;
+    if(autoCentered || !map) return;
+    if(!isNativeApp()) return;
     if(spotFromUrl) return;
     const params = new URLSearchParams(location.search);
     if(params.get('view') || params.get('near') === '1' || params.get('spot')) return;
-    autoCentered = true;
+    const cached = window.__BB_LAST_LOC;
+    if(cached && isFinite(cached.lat) && isFinite(cached.lng)){
+      autoCentered = true;
+      userLocation = { lat:cached.lat, lng:cached.lng };
+      updateUserMarker();
+      flyMapToUser();
+      return;
+    }
     requestUserLocation({
       silent:true,
-      onOk(){ flyMapToUser(); }
+      onOk(){
+        autoCentered = true;
+        flyMapToUser();
+      }
     });
   }
 
@@ -2423,6 +2462,17 @@
       window.trackEvent('bidetbud_view', { spots: String(allLocations.length) });
     }
   }
+
+  window.addEventListener('bidetbud-user-loc', e=>{
+    const loc = e.detail;
+    if(!loc || autoCentered || !isNativeApp() || !map) return;
+    if(spotFromUrl) return;
+    userLocation = { lat:+loc.lat, lng:+loc.lng };
+    if(!isFinite(userLocation.lat) || !isFinite(userLocation.lng)) return;
+    autoCentered = true;
+    updateUserMarker();
+    flyMapToUser();
+  });
 
   window.addEventListener('bidetbud-seed-update', e=>{
     const fresh = e.detail;

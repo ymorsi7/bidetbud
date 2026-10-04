@@ -30,7 +30,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
-<link rel="stylesheet" href="css/app.css?v=20261004a">
+<link rel="stylesheet" href="css/app.css?v=20261004b">
 <link rel="preload" href="bidet-seed.json?v=20261010a" as="fetch" crossorigin>
 <script>
 window.__BIDET_SEED_P = (function(){
@@ -72,12 +72,12 @@ window.__BIDET_SEED_P = (function(){
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
 <link rel="preload" href="js/core.js?v=20260810f" as="script">
 <link rel="preload" href="js/search-seed.js?v=20261010a" as="script">
-<link rel="preload" href="js/app.js?v=20261004a" as="script">
+<link rel="preload" href="js/app.js?v=20261004d" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
 <script src="js/core.js?v=20260810f" defer></script>
 <script src="js/search-seed.js?v=20261010a" defer></script>
-<script src="js/app.js?v=20261004a" defer></script>
+<script src="js/app.js?v=20261004d" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -156,9 +156,6 @@ window.__BIDET_SEED_P = (function(){
   <div class="app-main" id="appMain">
     <div class="map-wrap">
       <div id="map" role="application" aria-label="Map of bidet locations"></div>
-      <button type="button" class="map-locate" id="locateFab" aria-label="Center map on my location">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
-      </button>
     </div>
     <aside class="sidebar" aria-label="Location list">
       <div class="sidebar-head">
@@ -303,9 +300,14 @@ window.__BIDET_SEED_P = (function(){
     </div>
   </div>
 
-  <button type="button" class="map-fab" id="addFab" aria-label="Suggest a spot">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-  </button>
+  <div class="map-controls" id="mapControls">
+    <button type="button" class="map-locate" id="locateFab" aria-label="Center map on my location">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+    </button>
+    <button type="button" class="map-fab" id="addFab" aria-label="Suggest a spot">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+  </div>
 
   <nav class="mobile-tabs" role="tablist" aria-label="Map or list view">
     <button type="button" class="mobile-tab active" data-view="map" role="tab" aria-selected="true"><svg class="mobile-tab-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="mobile-tab-label">Map</span></button>
@@ -454,24 +456,24 @@ window.__BIDET_SEED_P = (function(){
       <span class="add-screen-bar-end" aria-hidden="true"></span>
     </header>
     <div class="add-screen-body form" id="emailPanel">
-      <p class="sub" id="addIntro">Name and whether it has a bidet is enough. We review every submission before it goes live.</p>
+      <p class="sub" id="addIntro">Name is enough. We review it before it goes on the map.</p>
       <p class="add-update-banner" id="addUpdateBanner" hidden></p>
-      <label for="addName">Name *</label>
-      <input id="addName" required placeholder="e.g. Masjid Al-Noor, Qahwah House" autocomplete="off" style="font-size:16px">
+      <label for="addName">Place name</label>
+      <input id="addName" required placeholder="Masjid, restaurant, hotel…" autocomplete="off">
       <div id="addDupes" class="add-dupes" hidden></div>
-      <p class="form-label" id="addHasBidetLabel">Bidet?</p>
+      <p class="form-label" id="addHasBidetLabel">Does it have a bidet?</p>
       <div class="segmented add-bidet-segmented" role="group" aria-labelledby="addHasBidetLabel">
-        <button type="button" class="active" data-value="verified" aria-pressed="true">Has bidet</button>
-        <button type="button" data-value="none" aria-pressed="false">No bidet</button>
+        <button type="button" class="active" data-value="verified" aria-pressed="true">Yes</button>
+        <button type="button" data-value="none" aria-pressed="false">No</button>
       </div>
       <input type="hidden" id="addHasBidet" value="verified">
       <input type="hidden" id="addUpdateOf" value="">
+      <label for="addAddress">Where <span class="label-optional">(optional)</span></label>
+      <input id="addAddress" placeholder="Address or city">
       <details class="add-more" id="addMoreDetails">
-        <summary>More details <span class="label-optional">(optional)</span></summary>
-        <label for="addAddress">Where?</label>
-        <input id="addAddress" placeholder="City, address, or neighborhood" style="font-size:16px">
+        <summary>Photo or note</summary>
         <label for="addNotes">Note</label>
-        <textarea id="addNotes" placeholder="Restroom tip, stall, hours…" style="font-size:16px"></textarea>
+        <textarea id="addNotes" placeholder="Which stall, hours, tip…"></textarea>
         <p class="form-label">Photo</p>
         <input type="file" id="addPhotoFile" accept="image/*" hidden>
         <button type="button" class="btn btn-ghost add-photo-btn" id="addPhotoBtn">

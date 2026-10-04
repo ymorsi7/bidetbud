@@ -185,6 +185,7 @@ body.modal-open{overflow:hidden}
 .dialog-close:hover{background:rgba(24,24,27,.1);color:var(--text)}
 .dialog h2{font-size:1.125rem;font-weight:600;padding-right:36px;letter-spacing:-.03em;line-height:1.25}
 .dialog .sub{color:var(--muted);font-size:.875rem;margin:6px 0 14px;line-height:1.5}
+.thank-lead{margin:8px 0 6px;font-size:1.375rem;font-weight:650;letter-spacing:-.03em}
 .dialog.wide{max-width:640px}
 #addOverlay.open,#thankYouOverlay.open{align-items:center;padding:24px}
 #addDialog.dialog.wide,#thankYouDialog.add-screen-dialog{max-width:560px;width:100%;max-height:min(92dvh,720px);overflow:hidden;padding:0;display:flex;flex-direction:column}
@@ -218,6 +219,7 @@ body.modal-open{overflow:hidden}
 .add-photo-preview[hidden]{display:none}
 .add-photo-preview img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
 .add-photo-remove{border:none;background:transparent;font:inherit;font-size:.8125rem;font-weight:600;color:#b91c1c;cursor:pointer}
+.map-controls{display:none}
 .map-fab{display:none}
 .map-locate{display:none}
 .label-optional{font-weight:500;color:var(--muted);font-size:.85em}
@@ -352,10 +354,16 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .actions .btn{min-height:44px;min-width:44px;padding:0 11px}
   .actions #nearMeBtn .btn-icon{display:inline;font-size:.875rem}
   .actions #addBtn{display:none}
-  .map-fab{display:inline-flex;align-items:center;justify-content:center;position:absolute;right:16px;bottom:calc(52px + var(--safe-bottom) + 12px);z-index:400;width:56px;height:56px;border:none;border-radius:999px;background:var(--text);color:#fff;box-shadow:0 8px 24px rgba(24,24,27,.28);cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .map-controls{display:flex;flex-direction:column;align-items:center;gap:10px;position:absolute;right:16px;bottom:calc(56px + var(--safe-bottom) + 16px);z-index:400;pointer-events:none}
+  .map-controls .map-fab,.map-controls .map-locate{pointer-events:auto;position:static;right:auto;bottom:auto}
+  .map-fab{display:inline-flex;align-items:center;justify-content:center;width:56px;height:56px;border:none;border-radius:999px;background:var(--text);color:#fff;box-shadow:0 8px 24px rgba(24,24,27,.28);cursor:pointer;-webkit-tap-highlight-color:transparent}
   .map-fab:active{transform:scale(.96)}
-  .map-locate{display:inline-flex;align-items:center;justify-content:center;position:absolute;right:18px;bottom:calc(52px + var(--safe-bottom) + 12px + 56px + 10px);z-index:400;width:44px;height:44px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#2563eb;box-shadow:0 4px 16px rgba(24,24,27,.14);cursor:pointer;-webkit-tap-highlight-color:transparent}
+  .map-locate{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border:1px solid var(--line);border-radius:999px;background:#fff;color:#2563eb;box-shadow:0 4px 16px rgba(24,24,27,.14);cursor:pointer;-webkit-tap-highlight-color:transparent}
   .map-locate:active{transform:scale(.96)}
+  .app-main.show-list ~ .map-controls .map-locate{display:none}
+  body.add-screen-open .map-controls,
+  body.native-page-open .map-controls,
+  body.modal-open .map-controls{display:none}
   .leaflet-bottom.leaflet-right{left:8px;right:auto}
   .app-main{flex-direction:column;max-width:none}
   .app-main:not(.show-list) .map-wrap{flex:1;min-height:0;margin:0;border-radius:0;border:none}
@@ -386,8 +394,20 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   body.add-screen-open #addOverlay.open,
   body.add-screen-open #thankYouOverlay.open{position:absolute;inset:0;align-items:stretch;padding:0;background:#fff;display:flex;flex-direction:column}
   body.add-screen-open .add-screen-dialog{max-height:none;height:100%;border-radius:0;box-shadow:none;padding:0;animation:none;display:flex;flex-direction:column;overflow:hidden;max-width:none}
-  body.add-screen-open .add-screen-body{padding:14px 16px 8px}
+  body.add-screen-open .add-screen-bar{padding:10px 8px 10px 4px}
+  body.add-screen-open .add-screen-body{padding:18px 20px 16px}
   body.add-screen-open .add-screen-foot{padding:12px 16px calc(12px + var(--safe-bottom))}
+  body.add-screen-open .form input,
+  body.add-screen-open .form textarea{min-height:48px;padding:13px 14px;border-radius:14px;font-size:16px;background:#f4f4f5;border-color:transparent}
+  body.add-screen-open .form input:focus,
+  body.add-screen-open .form textarea:focus{background:#fff;border-color:rgba(13,148,136,.35)}
+  body.add-screen-open .form label,
+  body.add-screen-open #addDialog .form-label{margin-top:18px;font-size:.75rem}
+  body.add-screen-open #addIntro{margin:0 0 18px;font-size:.9375rem}
+  body.add-screen-open .add-bidet-segmented{padding:4px;border-radius:14px}
+  body.add-screen-open .add-bidet-segmented button{min-height:48px;font-size:1rem;border-radius:11px}
+  body.add-screen-open .add-photo-btn{min-height:52px;border-radius:14px;border-style:dashed}
+  body.add-screen-open .add-screen-foot .btn{min-height:52px;border-radius:14px;font-size:1rem}
   body.add-screen-open .share-actions .btn{width:100%;min-height:44px}
   .overlay-sheet.open .legend-dialog{max-height:min(82dvh,560px);padding:20px 16px calc(16px + var(--safe-bottom))}
   .overlay-sheet.open .detail-dialog{display:flex;flex-direction:column;overflow:hidden;padding:12px 0 0;max-height:min(78dvh,640px)}

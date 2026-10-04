@@ -79,9 +79,9 @@
       var opts = options || {};
       var run = function () {
         return P.Geolocation.getCurrentPosition({
-          enableHighAccuracy: opts.enableHighAccuracy !== false,
-          timeout: typeof opts.timeout === 'number' ? opts.timeout : 15000,
-          maximumAge: typeof opts.maximumAge === 'number' ? opts.maximumAge : 0,
+          enableHighAccuracy: opts.enableHighAccuracy === true,
+          timeout: typeof opts.timeout === 'number' ? opts.timeout : 10000,
+          maximumAge: typeof opts.maximumAge === 'number' ? opts.maximumAge : 120000,
         });
       };
       var pending = P.Geolocation.requestPermissions
@@ -95,6 +95,28 @@
           if (typeof error === 'function') error(err);
         });
     };
+  }
+
+  function prefetchLocation(P) {
+    if (!P.Geolocation) return;
+    var run = function () {
+      return P.Geolocation.getCurrentPosition({
+        enableHighAccuracy: false,
+        timeout: 8000,
+        maximumAge: 120000,
+      });
+    };
+    var pending = P.Geolocation.requestPermissions
+      ? P.Geolocation.requestPermissions().then(run)
+      : run();
+    pending
+      .then(function (pos) {
+        if (!pos || !pos.coords) return;
+        var loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        window.__BB_LAST_LOC = loc;
+        window.dispatchEvent(new CustomEvent('bidetbud-user-loc', { detail: loc }));
+      })
+      .catch(function () {});
   }
 
   function bootNative() {
@@ -115,6 +137,7 @@
     }
 
     patchGeolocation(P);
+    prefetchLocation(P);
 
     if (P.Keyboard) {
       if (typeof P.Keyboard.setScroll === 'function') {
