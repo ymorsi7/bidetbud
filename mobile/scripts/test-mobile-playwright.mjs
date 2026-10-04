@@ -103,6 +103,8 @@ try {
 
   const fab = page.locator('#addFab');
   await fab.waitFor({ state: 'visible' });
+  const locate = page.locator('#locateFab');
+  await locate.waitFor({ state: 'visible' });
 
   await listTab.click();
   await page.waitForFunction(

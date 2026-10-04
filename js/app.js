@@ -38,6 +38,7 @@
   let sortMode = 'closest';
   let lastFitKey = null;
   let pendingView = null;
+  let autoCentered = false;
   let lastViewBounds = null;
   // Rows matching the filters globally, vs. the subset inside the current map view.
   let totalMatchCount = 0;
@@ -236,7 +237,7 @@
   function updateUserMarker(){
     if(userMarker && map){ map.removeLayer(userMarker); userMarker = null; }
     if(userRadiusCircle && map){ map.removeLayer(userRadiusCircle); userRadiusCircle = null; }
-    if(!map || !nearMe || !userLocation) return;
+    if(!map || !userLocation) return;
     const userIcon = L.divIcon({
       html: '<div class="user-loc-dot"></div>',
       className: 'user-loc-marker',
@@ -245,6 +246,7 @@
     });
     userMarker = L.marker([userLocation.lat, userLocation.lng], { icon: userIcon, zIndexOffset: 2000, interactive: false });
     userMarker.addTo(map);
+    if(!nearMe) return;
     const radiusM = radiusMi * 1609.34;
     userRadiusCircle = L.circle([userLocation.lat, userLocation.lng], {
       radius: radiusM,
@@ -1753,6 +1755,7 @@
   }
 
   function showLoadToast(){
+    if(isNativeApp()) return;
     const t = document.getElementById('loadToast');
     if(!t) return;
     t.textContent = allLocations.length + ' spots loaded';
@@ -1882,7 +1885,14 @@
     map = L.map('map',{
       zoomControl:true,
       minZoom:MAP_MIN_ZOOM,
-      worldCopyJump:true
+      worldCopyJump:true,
+      tap:false,
+      bounceAtZoomLimits:false,
+      inertia:true,
+      inertiaDeceleration:2500,
+      inertiaMaxSpeed:3000,
+      zoomSnap:isNativeApp() || isIOS() ? 0 : 1,
+      zoomDelta:isNativeApp() || isIOS() ? 0.5 : 1
     }).setView([DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng], DEFAULT_MAP_ZOOM);
     if(pendingView){
       map.setView([pendingView.lat, pendingView.lng], pendingView.zoom, { animate: false });
@@ -1960,22 +1970,56 @@
     document.getElementById('menuLegend')?.addEventListener('click', ()=>{ drop.hidden = true; btn.setAttribute('aria-expanded', 'false'); setOverlayOpen('legendOverlay', true); });
   }
 
-  function requestNearMe(){
-    if(!navigator.geolocation){ alert('Geolocation not supported.'); return; }
+  function requestUserLocation(opts){
+    const silent = !!(opts && opts.silent);
+    const onOk = opts && opts.onOk;
+    if(!navigator.geolocation){
+      if(!silent) alert('Geolocation not supported.');
+      return;
+    }
     navigator.geolocation.getCurrentPosition(pos=>{
       userLocation = {lat:pos.coords.latitude,lng:pos.coords.longitude};
-      if(!new URLSearchParams(location.search).get('radius')){
-        radiusMi = denseMetroRadius(userLocation.lat, userLocation.lng);
+      updateUserMarker();
+      if(typeof onOk === 'function') onOk(userLocation);
+    }, ()=>{
+      if(!silent) alert('Could not get your location.');
+    }, { enableHighAccuracy:true, timeout:12000, maximumAge:60000 });
+  }
+
+  function flyMapToUser(){
+    if(!map || !userLocation) return;
+    map.setView([userLocation.lat, userLocation.lng], Math.max(map.getZoom(), 13), { animate:true });
+    setTimeout(()=>{ if(map) map.invalidateSize(); }, 120);
+  }
+
+  function maybeAutoCenterOnUser(){
+    if(autoCentered || !isNativeApp() || !map) return;
+    if(spotFromUrl) return;
+    const params = new URLSearchParams(location.search);
+    if(params.get('view') || params.get('near') === '1' || params.get('spot')) return;
+    autoCentered = true;
+    requestUserLocation({
+      silent:true,
+      onOk(){ flyMapToUser(); }
+    });
+  }
+
+  function requestNearMe(){
+    requestUserLocation({
+      onOk(){
+        if(!new URLSearchParams(location.search).get('radius')){
+          radiusMi = denseMetroRadius(userLocation.lat, userLocation.lng);
+        }
+        applyDistanceUnits();
+        nearMe = true;
+        nearMeFitPending = true;
+        updateNearMeUi();
+        updateFilterUi();
+        if(isMobile()) setMobileView('map');
+        refresh();
+        maybeShowPromo('nearme');
       }
-      applyDistanceUnits();
-      nearMe = true;
-      nearMeFitPending = true;
-      updateNearMeUi();
-      updateFilterUi();
-      if(isMobile()) setMobileView('map');
-      refresh();
-      maybeShowPromo('nearme');
-    },()=>alert('Could not get your location.'));
+    });
   }
 
   function buildFilterSheet(){
@@ -2135,6 +2179,20 @@
         if(nearMe) nearMeFitPending = true;
         updateFilterUi();
         refresh();
+      });
+    });
+
+    document.getElementById('locateFab')?.addEventListener('click',()=>{
+      if(userLocation){
+        if(isMobile()) setMobileView('map');
+        flyMapToUser();
+        return;
+      }
+      requestUserLocation({
+        onOk(){
+          if(isMobile()) setMobileView('map');
+          flyMapToUser();
+        }
       });
     });
 
@@ -2358,6 +2416,7 @@
     applyDistanceUnits();
     refresh();
     showLoadToast();
+    maybeAutoCenterOnUser();
     maybeShowFirstRunHints();
     if(spotFromUrl) setTimeout(()=> openDetail(spotFromUrl, true), 400);
     if (typeof window.trackEvent === 'function') {

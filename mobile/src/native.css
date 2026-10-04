@@ -76,8 +76,25 @@ html.capacitor-native body.add-screen-open .add-screen-dialog{
   box-shadow:none;
   overflow:hidden;
 }
+html.capacitor-native .map-wrap,
+html.capacitor-native #map,
+html.capacitor-native .leaflet-container{
+  touch-action:none;
+  -webkit-user-select:none;
+  user-select:none;
+}
+html.capacitor-native .leaflet-marker-icon,
+html.capacitor-native .leaflet-interactive{
+  -webkit-tap-highlight-color:transparent;
+}
+html.capacitor-native .load-toast{
+  display:none!important;
+}
 html.capacitor-native .map-fab{
   bottom:calc(52px + var(--safe-bottom) + 12px);
+}
+html.capacitor-native .map-locate{
+  bottom:calc(52px + var(--safe-bottom) + 12px + 56px + 10px);
 }
 html.capacitor-native .overlay,
 html.capacitor-native .dialog{

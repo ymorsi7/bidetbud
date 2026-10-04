@@ -30,7 +30,7 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
-<link rel="stylesheet" href="css/app.css?v=20260925a">
+<link rel="stylesheet" href="css/app.css?v=20261004a">
 <link rel="preload" href="bidet-seed.json?v=20261010a" as="fetch" crossorigin>
 <script>
 window.__BIDET_SEED_P = (function(){
@@ -72,12 +72,12 @@ window.__BIDET_SEED_P = (function(){
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
 <link rel="preload" href="js/core.js?v=20260810f" as="script">
 <link rel="preload" href="js/search-seed.js?v=20261010a" as="script">
-<link rel="preload" href="js/app.js?v=20260925c" as="script">
+<link rel="preload" href="js/app.js?v=20261004a" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
 <script src="js/core.js?v=20260810f" defer></script>
 <script src="js/search-seed.js?v=20261010a" defer></script>
-<script src="js/app.js?v=20260925c" defer></script>
+<script src="js/app.js?v=20261004a" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -156,6 +156,9 @@ window.__BIDET_SEED_P = (function(){
   <div class="app-main" id="appMain">
     <div class="map-wrap">
       <div id="map" role="application" aria-label="Map of bidet locations"></div>
+      <button type="button" class="map-locate" id="locateFab" aria-label="Center map on my location">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+      </button>
     </div>
     <aside class="sidebar" aria-label="Location list">
       <div class="sidebar-head">
