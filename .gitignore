@@ -2,6 +2,7 @@
 Thumbs.db
 *.log
 js/carto-key.js
+.tmp-ocr/
 node_modules/
 mobile/node_modules/
 mobile/ios/
