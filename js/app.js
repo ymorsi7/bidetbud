@@ -272,6 +272,7 @@
     const zoom = opts?.zoom || Math.max(map.getZoom(), 15);
     map.setView([+m.latitude, +m.longitude], zoom, { animate: true });
     highlightMarker(m.id);
+    if(opts?.offset !== false) offsetMapForDetailSheet();
   }
 
   function scrollToListCard(id){
@@ -773,7 +774,6 @@
       document.getElementById('thankYouOverlay')?.classList.contains('open')
     ));
     document.body.classList.toggle('native-page-open', isNativeApp() && (
-      document.getElementById('detailOverlay')?.classList.contains('open') ||
       document.getElementById('filterSheetOverlay')?.classList.contains('open') ||
       document.getElementById('legendOverlay')?.classList.contains('open')
     ));
@@ -783,8 +783,194 @@
     if(id === 'detailOverlay' && !open){
       activeSpotId = null;
       setDocumentTitleForSpot(null);
+      resetDetailSheetChrome();
     }
     if(!open || id === 'detailOverlay') syncUrlFromState();
+  }
+
+  let detailSheetSnap = 'peek';
+
+  function resetDetailSheetChrome(){
+    const overlay = document.getElementById('detailOverlay');
+    const dialog = document.getElementById('detailDialog');
+    overlay?.classList.remove('detail-snap-peek', 'detail-snap-expanded');
+    if(dialog){
+      dialog.classList.remove('is-dragging');
+      dialog.style.height = '';
+      dialog.style.removeProperty('--detail-h');
+      dialog.style.removeProperty('--detail-drag');
+    }
+    detailSheetSnap = 'peek';
+  }
+
+  function offsetMapForDetailSheet(){
+    if(!map || !isMobile()) return;
+    const overlay = document.getElementById('detailOverlay');
+    if(!overlay?.classList.contains('open')) return;
+    const dialog = document.getElementById('detailDialog');
+    const h = dialog?.getBoundingClientRect().height || 0;
+    if(h < 40) return;
+    map.panBy([0, Math.round(h * 0.42)], { animate: false });
+  }
+
+  function applyDetailSheetSnap(snap){
+    const overlay = document.getElementById('detailOverlay');
+    const dialog = document.getElementById('detailDialog');
+    if(!overlay || !dialog) return;
+    if(!isMobile() || !overlay.classList.contains('open')){
+      resetDetailSheetChrome();
+      return;
+    }
+    detailSheetSnap = snap === 'expanded' ? 'expanded' : 'peek';
+    overlay.classList.toggle('detail-snap-peek', detailSheetSnap === 'peek');
+    overlay.classList.toggle('detail-snap-expanded', detailSheetSnap === 'expanded');
+    dialog.style.removeProperty('--detail-drag');
+    const vh = window.innerHeight;
+    const peekMax = Math.round(vh * 0.48);
+    const expandedH = Math.round(vh * 0.88);
+    if(detailSheetSnap === 'peek'){
+      dialog.style.height = 'auto';
+      const natural = Math.ceil(dialog.scrollHeight);
+      dialog.style.height = Math.min(Math.max(natural, 168), peekMax) + 'px';
+    } else {
+      dialog.style.height = expandedH + 'px';
+    }
+    const content = document.getElementById('detailContent');
+    if(content && detailSheetSnap === 'peek') content.scrollTop = 0;
+    setTimeout(()=> offsetMapForDetailSheet(), 340);
+  }
+
+  function initDetailSheet(){
+    const dialog = document.getElementById('detailDialog');
+    const overlay = document.getElementById('detailOverlay');
+    const handle = document.getElementById('detailSheetHandle');
+    const content = document.getElementById('detailContent');
+    if(!dialog || !overlay || !handle) return;
+
+    let dragging = false;
+    let pointerId = null;
+    let startY = 0;
+    let lastY = 0;
+    let lastT = 0;
+    let vel = 0;
+    let startH = 0;
+    let didDrag = false;
+
+    function sheetOn(){
+      return isMobile() && overlay.classList.contains('open');
+    }
+
+    function canDragFrom(target){
+      if(!target || target.closest('a,button,input,textarea,select,label,summary')) return false;
+      if(target.closest('#detailSheetHandle')) return true;
+      if(target.closest('#detailContent')){
+        if(detailSheetSnap === 'expanded' && content && content.scrollTop > 2) return false;
+        return true;
+      }
+      return target === dialog || target.closest('#detailStickyFooter');
+    }
+
+    function peekMaxH(){ return Math.round(window.innerHeight * 0.48); }
+    function expandedH(){ return Math.round(window.innerHeight * 0.88); }
+
+    function beginDrag(y, id){
+      dragging = true;
+      pointerId = id;
+      startY = y;
+      lastY = y;
+      lastT = performance.now();
+      vel = 0;
+      startH = dialog.getBoundingClientRect().height;
+      didDrag = false;
+      dialog.classList.add('is-dragging');
+    }
+
+    function moveDrag(y){
+      if(!dragging) return;
+      const now = performance.now();
+      const dy = y - startY;
+      if(Math.abs(dy) > 16) didDrag = true;
+      vel = (y - lastY) / Math.max(8, now - lastT);
+      lastY = y;
+      lastT = now;
+      if(dy >= 0){
+        dialog.style.height = startH + 'px';
+        dialog.style.setProperty('--detail-drag', dy + 'px');
+        return;
+      }
+      dialog.style.removeProperty('--detail-drag');
+      const next = Math.min(expandedH(), startH - dy);
+      dialog.style.height = Math.max(peekMaxH() * 0.7, next) + 'px';
+    }
+
+    function finishDrag(){
+      if(!dragging) return;
+      dragging = false;
+      dialog.classList.remove('is-dragging');
+      dialog.style.removeProperty('--detail-drag');
+      try{ if(typeof pointerId === 'number') dialog.releasePointerCapture(pointerId); }catch(e){}
+      pointerId = null;
+      const dy = lastY - startY;
+      const flick = vel;
+      if(detailSheetSnap === 'peek'){
+        if(dy > 72 || flick > 0.55) setOverlayOpen('detailOverlay', false);
+        else if(dy < -48 || flick < -0.45) applyDetailSheetSnap('expanded');
+        else applyDetailSheetSnap('peek');
+        return;
+      }
+      if(dy > 240 || (dy > 160 && flick > 1.2)) setOverlayOpen('detailOverlay', false);
+      else if(dy > 80 || flick > 0.5) applyDetailSheetSnap('peek');
+      else applyDetailSheetSnap('expanded');
+    }
+
+    dialog.addEventListener('pointerdown', e=>{
+      if(!sheetOn() || !canDragFrom(e.target)) return;
+      beginDrag(e.clientY, e.pointerId);
+      try{ dialog.setPointerCapture(e.pointerId); }catch(err){}
+    });
+    dialog.addEventListener('pointermove', e=>{
+      if(!dragging || e.pointerId !== pointerId) return;
+      moveDrag(e.clientY);
+    });
+    dialog.addEventListener('pointerup', e=>{
+      if(e.pointerId !== pointerId) return;
+      finishDrag();
+    });
+    dialog.addEventListener('pointercancel', e=>{
+      if(e.pointerId !== pointerId) return;
+      finishDrag();
+    });
+
+    function touchStart(e){
+      if(!sheetOn() || !canDragFrom(e.target) || !e.touches[0]) return;
+      beginDrag(e.touches[0].clientY, 'touch');
+    }
+    function touchMove(e){
+      if(!dragging || pointerId !== 'touch' || !e.touches[0]) return;
+      e.preventDefault();
+      moveDrag(e.touches[0].clientY);
+    }
+    function touchEnd(){
+      if(pointerId !== 'touch') return;
+      finishDrag();
+    }
+    [handle, dialog].forEach(el=>{
+      el.addEventListener('touchstart', touchStart, {passive:true});
+      el.addEventListener('touchmove', touchMove, {passive:false});
+      el.addEventListener('touchend', touchEnd);
+      el.addEventListener('touchcancel', touchEnd);
+    });
+
+    handle.addEventListener('click', e=>{
+      if(!sheetOn() || didDrag) return;
+      e.preventDefault();
+      applyDetailSheetSnap(detailSheetSnap === 'peek' ? 'expanded' : 'peek');
+    });
+    handle.addEventListener('keydown', e=>{
+      if(e.key !== 'Enter' && e.key !== ' ') return;
+      e.preventDefault();
+      applyDetailSheetSnap(detailSheetSnap === 'peek' ? 'expanded' : 'peek');
+    });
   }
 
   function focusAddName(){
@@ -1326,33 +1512,19 @@
     const stickyFooter = document.getElementById('detailStickyFooter');
     if(stickyFooter){
       if(mobile){
-        stickyFooter.innerHTML = isNativeApp()
-          ? ('<div class="detail-footer-actions">'+
-            '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
-            '</div>'+
-            '<div class="detail-footer-links">'+
-            '<button type="button" class="detail-link-btn js-copy-spot-link">Share</button>'+
-            '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
-            '<button type="button" class="detail-link-btn js-copy-address">Copy address</button>'+
-            '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
-            '<button type="button" class="detail-link-btn js-suggest-update">Suggest an update</button>'+
-            '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
-            '<button type="button" class="detail-link-btn js-open-report">Report</button>'+
-            '</div>')
-          : ('<div class="detail-footer-actions">'+
-            '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
-            mapsBtn+
-            '</div>'+
-            '<div class="detail-footer-links">'+
-            '<button type="button" class="detail-link-btn js-copy-spot-link">Share spot</button>'+
-            '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
-            '<button type="button" class="detail-link-btn js-copy-address">Copy address</button>'+
-            '</div>'+
-            '<div class="detail-footer-links">'+
-            '<button type="button" class="detail-link-btn js-suggest-update">Suggest an update</button>'+
-            '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
-            '<button type="button" class="detail-link-btn js-report-no-bidet">Report no bidet</button>'+
-            '</div>');
+        stickyFooter.innerHTML =
+          '<div class="detail-footer-actions">'+
+          '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
+          '</div>'+
+          '<div class="detail-footer-links">'+
+          '<button type="button" class="detail-link-btn js-copy-spot-link">Share</button>'+
+          '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
+          '<button type="button" class="detail-link-btn js-copy-address">Copy</button>'+
+          '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
+          '<button type="button" class="detail-link-btn js-suggest-update">Update</button>'+
+          '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
+          '<button type="button" class="detail-link-btn '+(isNativeApp() ? 'js-open-report' : 'js-report-no-bidet')+'">Report</button>'+
+          '</div>';
         stickyFooter.hidden = false;
         wireDetailButtons(stickyFooter, m, shareLink);
       } else {
@@ -1378,18 +1550,23 @@
       '<p class="sub">'+escapeHtml(typeLabel(m.type))+' · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
       distLine+
       '<p class="detail-bidet-callout">'+escapeHtml(bidetLeadLabel(m))+'</p>'+
-      '<p class="detail-trust">'+escapeHtml(verifyText)+'</p>'+
       (m.bidetStatus==='none' ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\'ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : '')+
       accessWarn(m)+
       '<p class="detail-address">'+escapeHtml(m.address)+'</p>'+
       '<div class="row">'+statusTag(m)+accessTag(m)+'</div>'+
+      '<div class="detail-sheet-more">'+
+      '<p class="detail-trust">'+escapeHtml(verifyText)+'</p>'+
       trustHtml+quote+source+
-      (mobile ? '' : desktopActions)+
-      reportFormHtml(m);
+      reportFormHtml(m)+
+      '</div>'+
+      (mobile ? '' : desktopActions);
     const content = document.getElementById('detailContent');
     wireDetailButtons(content, m, shareLink);
     wireReportForm(content, m);
+    const keepSnap = fromUrl ? detailSheetSnap : 'peek';
     setOverlayOpen('detailOverlay', true);
+    if(isMobile()) applyDetailSheetSnap(keepSnap);
+    else resetDetailSheetChrome();
     syncUrlFromState();
     if(typeof window.trackEvent === 'function' && !fromUrl){
       window.trackEvent('bidetbud_spot_open', { id: id });
@@ -2144,6 +2321,7 @@
     initLegendHelp();
     initMenu();
     initPullRefresh();
+    initDetailSheet();
     initPromoPopup();
 
     const searchInput = document.getElementById('searchInput');

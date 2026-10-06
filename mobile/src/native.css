@@ -107,8 +107,8 @@ html.capacitor-native body.add-screen-open .add-screen-bar h2{
 html.capacitor-native body.add-screen-open #addIntro{
   color:var(--muted);
 }
-html.capacitor-native .overlay,
-html.capacitor-native .dialog{
+html.capacitor-native .overlay:not(#detailOverlay),
+html.capacitor-native .dialog:not(.detail-dialog){
   animation:none!important;
   transform:none!important;
 }
@@ -163,24 +163,23 @@ html.capacitor-native .leaflet-bottom.leaflet-right{
   display:none!important;
 }
 
-/* Place / filters / legend are full screens, not website popups. */
+/* Filters / legend stay full screens. Place detail is a bottom sheet. */
 html.capacitor-native .native-page-bar{
   display:grid!important;
 }
+html.capacitor-native #detailOverlay .native-page-bar{
+  display:none!important;
+}
 html.capacitor-native .web-sheet-title,
-html.capacitor-native #detailClose,
 html.capacitor-native #filterSheetClose,
 html.capacitor-native #legendClose,
-html.capacitor-native #aboutOverlay,
-html.capacitor-native #detailContent > h2:first-child,
-html.capacitor-native .detail-dialog::before{
+html.capacitor-native #aboutOverlay{
   display:none!important;
 }
 
 html.capacitor-native body.native-page-open .shell{
   display:none!important;
 }
-html.capacitor-native body.native-page-open #detailOverlay.open,
 html.capacitor-native body.native-page-open #filterSheetOverlay.open,
 html.capacitor-native body.native-page-open #legendOverlay.open{
   position:absolute !important;
@@ -196,7 +195,6 @@ html.capacitor-native body.native-page-open #legendOverlay.open{
   justify-content:stretch;
   animation:none !important;
 }
-html.capacitor-native body.native-page-open .detail-dialog,
 html.capacitor-native body.native-page-open .filter-sheet-dialog,
 html.capacitor-native body.native-page-open .legend-dialog{
   width:100%;
@@ -211,16 +209,12 @@ html.capacitor-native body.native-page-open .legend-dialog{
   flex-direction:column;
   overflow:hidden;
 }
-html.capacitor-native body.native-page-open #detailContent,
 html.capacitor-native body.native-page-open .filter-sheet-body,
 html.capacitor-native body.native-page-open .legend-dialog{
   flex:1 1 auto;
   min-height:0;
   overflow:auto;
   -webkit-overflow-scrolling:touch;
-}
-html.capacitor-native body.native-page-open #detailContent{
-  padding:16px 20px 12px;
 }
 html.capacitor-native body.native-page-open .filter-sheet-body{
   padding:16px 20px;
@@ -230,6 +224,10 @@ html.capacitor-native body.native-page-open .filter-sheet-actions{
   flex-shrink:0;
   padding:12px 16px calc(12px + var(--safe-bottom));
 }
-html.capacitor-native body.native-page-open .detail-sticky-footer{
-  padding-bottom:calc(12px + var(--safe-bottom));
+html.capacitor-native #detailOverlay.open{
+  background:transparent !important;
+  pointer-events:none;
+}
+html.capacitor-native #detailDialog{
+  pointer-events:auto;
 }

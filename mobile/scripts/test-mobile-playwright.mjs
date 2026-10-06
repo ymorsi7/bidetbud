@@ -154,6 +154,50 @@ try {
 
   await page.locator('#locationList .card').first().waitFor({ timeout: 8000 });
   await page.locator('#locationList .card').first().click();
+  await page.locator('#detailOverlay.open').waitFor({ timeout: 5000 });
+  await page.waitForTimeout(400);
+  const sheet = await page.evaluate(() => {
+    const overlay = document.getElementById('detailOverlay');
+    const dialog = document.getElementById('detailDialog');
+    const handle = document.getElementById('detailSheetHandle');
+    const box = dialog.getBoundingClientRect();
+    return {
+      height: box.height,
+      top: box.top,
+      vh: window.innerHeight,
+      peek: overlay.classList.contains('detail-snap-peek'),
+      handleH: handle ? handle.getBoundingClientRect().height : 0,
+      handleOn: !!(handle && getComputedStyle(handle).display !== 'none'),
+      pageOpen: document.body.classList.contains('native-page-open'),
+    };
+  });
+  if (sheet.pageOpen) throw new Error('place detail should not be a full-screen native page');
+  if (!sheet.peek || !sheet.handleOn || sheet.handleH < 8) {
+    throw new Error('place detail should open as a peek sheet with a drag handle');
+  }
+  if (sheet.height > sheet.vh * 0.62 || sheet.top < sheet.vh * 0.35 || sheet.top > sheet.vh - 80) {
+    throw new Error('place card took too much of the screen: h=' + Math.round(sheet.height) + ' top=' + Math.round(sheet.top));
+  }
+
+  await page.locator('#detailSheetHandle').evaluate((el) => el.click());
+  await page.waitForFunction(
+    () => document.getElementById('detailOverlay')?.classList.contains('detail-snap-expanded'),
+    null,
+    { timeout: 2000 }
+  );
+  await page.waitForFunction(
+    (prev) => document.getElementById('detailDialog').getBoundingClientRect().height > prev + 40,
+    sheet.height,
+    { timeout: 2000 }
+  );
+
+  await page.locator('#detailSheetHandle').evaluate((el) => el.click());
+  await page.waitForFunction(
+    () => document.getElementById('detailOverlay')?.classList.contains('detail-snap-peek'),
+    null,
+    { timeout: 2000 }
+  );
+
   await page.locator('.js-suggest-update').first().waitFor({ timeout: 5000 });
   await page.locator('.js-suggest-update').first().click();
   await page.waitForFunction(
