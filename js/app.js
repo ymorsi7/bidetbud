@@ -24,6 +24,7 @@
     normalizeSearchText,
     searchScore,
     matchesSearch,
+    CITY_QUERY_ALIASES,
   } = typeof BidetBudSearch !== 'undefined' ? BidetBudSearch : {};
 
   let allLocations = [], userLocation = null, map, clusterGroup, countriesLayer;
@@ -39,13 +40,10 @@
   let lastFitKey = null;
   let pendingView = null;
   let autoCentered = false;
-  let lastViewBounds = null;
   // Rows matching the filters globally, vs. the subset inside the current map view.
   let totalMatchCount = 0;
   let nearMe = false, radiusMi = 50, nearMeFitPending = false;
   let suppressUrlWrite = false, initialBoundsDone = false, activeSpotId = null;
-  // First paint: world view + full list; after the user pans/zooms, list mirrors the map again.
-  let listViewportScoping = false;
   let autoFitUntil = 0;
 
   // Countries where bidets, washlets, or handheld sprayers are the norm, not spot-level exceptions.
@@ -388,10 +386,12 @@
       el.hidden = true;
       return;
     }
-    const local = nearMeFitPins(filtered).length;
-    el.textContent = filtered.length
-      ? ('Showing ' + filtered.length + ' within ' + formatRadiusLabel(radiusMi) + (local ? '. Map zoomed to nearest ' + local + '.' : '.'))
-      : ('Nothing within ' + formatRadiusLabel(radiusMi) + '. Try a wider radius or search a city.');
+    const local = rowsWithinRadius(filtered).length;
+    if(local){
+      el.textContent = 'Nearest first · ' + local + ' within ' + formatRadiusLabel(radiusMi) + '.';
+    } else {
+      el.textContent = 'Nothing within ' + formatRadiusLabel(radiusMi) + '. Showing the closest spots instead.';
+    }
     el.hidden = false;
   }
 
@@ -609,7 +609,6 @@
       if(sel) sel.value = sort;
     }
     pendingView = parseViewParam(p.get('view'));
-    listViewportScoping = Boolean(pendingView);
     updateFilterUi();
     updateNearMeUi();
     suppressUrlWrite = false;
@@ -1101,10 +1100,6 @@
       if(extraFilter==='limited' && m.access!=='limited') return false;
       if(!showLimitedAccess && m.access==='limited' && extraFilter!=='limited') return false;
       if(countryFilter && m.country !== countryFilter) return false;
-      if(nearMe && userLocation){
-        const dist = haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude});
-        if(dist>radiusMi) return false;
-      }
       if(alongRoute){
         const dist = distToSegmentMi(
           { lat: +m.latitude, lng: +m.longitude },
@@ -1204,26 +1199,9 @@
   function emptyStateHtml(){
     let msg = 'No places match your filters.';
     let actions = '';
-    // The filters do match somewhere, just not inside the current map view.
-    if(!nearMe && viewportScopingActive() && totalMatchCount > 0){
-      return '<div class="empty"><p class="empty-title">Nothing in this view</p>'+
-        '<p class="empty-sub">Pan or zoom the map, or jump out to see all '+totalMatchCount+' matching '+(totalMatchCount===1?'spot':'spots')+'.</p>'+
-        '<div class="empty-actions"><button type="button" class="btn btn-primary" id="emptyZoomOutBtn">Show all '+totalMatchCount+'</button>'+
-        '<button type="button" class="btn btn-ghost" id="emptyAddBtn">Add a spot</button></div>'+
-        '<div class="empty-chips">'+POPULAR_CITIES.map(c=>'<button type="button" class="chip city-chip" data-city="'+escapeHtml(c)+'">'+escapeHtml(c)+'</button>').join('')+'</div></div>';
-    }
     if(noBidetMode){
       msg = 'No spots recorded without a bidet here yet. Know one? Add it.';
       actions = '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a no-bidet spot</button>';
-    } else if(nearMe && !getQuery()){
-      msg = 'Nothing within ' + formatRadiusLabel(radiusMi) + '. Try a wider radius or search a city name.';
-      actions = '<div class="empty-actions">' +
-        (radiusMi < 100 ? '<button type="button" class="btn btn-ghost" id="emptyWidenBtn">Widen to ' + formatRadiusLabel(100) + '</button>' : '') +
-        '<button type="button" class="btn btn-ghost" id="emptyNoBidetBtn">Show no-bidet spots</button>' +
-        '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a spot</button></div>';
-    } else if(nearMe && placeFilter === 'mosque'){
-      msg = 'No masajid with bidets within ' + formatRadiusLabel(radiusMi) + '. Try a wider radius or search a nearby city.';
-      actions = '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a spot</button>';
     } else if(placeFilter === 'mosque'){
       msg = 'No masajid match yet. Try another city or add a wudu-friendly spot you know.';
       actions = '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a spot</button>';
@@ -1271,9 +1249,9 @@
     } else {
       countHtml = '<strong>'+filtered.length+'</strong> '+(filtered.length===1?'place':'places');
     }
-    if(nearMe) countHtml += ' within ' + formatRadiusLabel(radiusMi);
-    else if(viewportScopingActive() && totalMatchCount > filtered.length){
-      countHtml += ' in view <span class="count-of-total">of '+totalMatchCount+'</span>';
+    if(sortMode !== 'name') countHtml += ' nearest first';
+    if(filtered.length > LIST_CAP){
+      countHtml += ' <span class="count-of-total">showing '+LIST_CAP+' of '+filtered.length+'</span>';
     }
     const badges = [];
     if(masajid && placeFilter!=='mosque') badges.push(masajid+' masajid');
@@ -1296,7 +1274,8 @@
     }
     el.innerHTML = sortedLocations(filtered).slice(0, LIST_CAP).map(m=>{
       let dist='';
-      if(nearMe && userLocation) dist = formatDistance(haversineMiles(userLocation,{lat:+m.latitude,lng:+m.longitude}));
+      const anchor = distanceAnchor();
+      if(anchor && sortMode !== 'name') dist = formatDistance(haversineMiles(anchor,{lat:+m.latitude,lng:+m.longitude}));
       const limitedNote = m.bidetStatus==='none'
         ? '<p class="card-note card-note--none">We checked: no bidet or handheld sprayer here.</p>'
         : (m.access==='limited' ? '<p class="card-note">'+escapeHtml(m.accessNote)+'</p>' : '');
@@ -1305,7 +1284,7 @@
       const bidetLead = '<p class="card-bidet-lead">'+escapeHtml(bidetLeadLabel(m))+'</p>';
       const trust = '<p class="card-trust">'+escapeHtml(verificationPlainText(m))+'</p>';
       return '<article class="'+cardClass+'" data-id="'+m.id+'" tabindex="0" role="button" aria-label="'+escapeHtml(m.name)+'"><h3>'+highlight(m.name,q)+'</h3>'+bidetLead+'<div class="card-tags">'+statusTag(m)+accessTag(m)+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+limitedNote+trust+'<div class="card-meta"><span class="tag tag-type">'+typeIcon+'</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
-    }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing '+LIST_CAP+' of '+filtered.length+'. Zoom the map or search to narrow results.</p>' : '');
+    }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing the '+LIST_CAP+' closest. Search a city to narrow results.</p>' : '');
     el.querySelectorAll('.card').forEach((c, idx)=>{
       c.addEventListener('click',()=>{
         const m = allLocations.find(x => x.id === c.dataset.id);
@@ -1582,25 +1561,22 @@
     }, 120);
   });
 
-  // The list mirrors the map: only spots inside the current view are listed.
-  // Near-me has its own radius, so it opts out.
-  function viewportScopingActive(){
-    return Boolean(map) && !nearMe && !alongRoute && listViewportScoping;
-  }
-
   function markAutoFit(ms = 450){
     autoFitUntil = Date.now() + ms;
   }
 
+  function rowsWithinRadius(rows){
+    if(!nearMe || !userLocation) return rows;
+    return rows.filter(m => haversineMiles(userLocation, { lat: +m.latitude, lng: +m.longitude }) <= radiusMi);
+  }
+
   function onUserMapViewChange(){
     if(Date.now() < autoFitUntil) return;
-    if(!nearMe && !alongRoute) listViewportScoping = true;
     scheduleMapRefresh();
   }
 
   function fitMapToMatches(){
     if(!map || !lastFiltered.length) return;
-    listViewportScoping = false;
     const bounds = L.latLngBounds(lastFiltered.map(m=>[+m.latitude,+m.longitude]));
     if(bounds.isValid()){
       markAutoFit();
@@ -1609,36 +1585,36 @@
     }
   }
 
-  // On mobile the map is hidden behind the List tab, where it reports a zero
-  // size and nonsense bounds, so fall back to the last view we actually saw.
-  function currentViewBounds(){
-    if(!map) return null;
-    const size = map.getSize();
-    if(size.x > 0 && size.y > 0){
-      const b = map.getBounds();
-      if(b && b.isValid()) lastViewBounds = b;
-    }
-    return lastViewBounds;
+  // City queries often match a brand elsewhere (TOTO "Richardson Nice").
+  // Fit the top-scoring cluster, not the first 50 unsorted seed rows.
+  function searchFitRows(rows, q){
+    if(!rows.length) return [];
+    const scored = rows
+      .map(m => ({ m, score: searchScore(m, q) }))
+      .filter(x => x.score > 0)
+      .sort((a, b) => b.score - a.score);
+    if(!scored.length) return rows.slice(0, 25);
+    const best = scored[0].score;
+    const top = scored.filter(x => x.score >= best - 2).map(x => x.m);
+    if(top.length <= 2) return top;
+    const sample = top.slice(0, 40);
+    const lats = sample.map(m => +m.latitude).sort((a, b) => a - b);
+    const lngs = sample.map(m => +m.longitude).sort((a, b) => a - b);
+    const mid = { lat: lats[Math.floor(lats.length / 2)], lng: lngs[Math.floor(lngs.length / 2)] };
+    const nearby = sample.filter(m => haversineMiles(mid, { lat: +m.latitude, lng: +m.longitude }) < 80);
+    if(nearby.length >= Math.min(3, sample.length)) return nearby;
+    return sample.slice(0, 25);
   }
 
-  function rowsInView(rows){
-    if(!viewportScopingActive()) return rows;
-    const bounds = currentViewBounds();
-    if(!bounds) return rows;
-    return rows.filter(m => bounds.contains([+m.latitude, +m.longitude]));
-  }
-
-  // Jump the map to the matches when the query changes, so the view and the
-  // list agree instead of leaving results off-screen in a distant cluster.
   function fitToSearchResults(rows){
     if(!map || !rows.length || nearMe || activeSpotId) return false;
     const q = getQuery();
     const key = q + '|' + placeFilter + '|' + (extraFilter||'') + '|' + (countryFilter||'');
     if(!q || key === lastFitKey) return false;
     lastFitKey = key;
-    const bounds = L.latLngBounds(rows.slice(0, 50).map(m=>[+m.latitude,+m.longitude]));
+    const fitRows = searchFitRows(rows, q);
+    const bounds = L.latLngBounds(fitRows.map(m=>[+m.latitude,+m.longitude]));
     if(!bounds.isValid()) return false;
-    listViewportScoping = true;
     markAutoFit();
     map.fitBounds(bounds.pad(0.25), { maxZoom: 14, animate: false });
     return true;
@@ -1649,8 +1625,7 @@
     totalMatchCount = lastFiltered.length;
     if(!getQuery()) lastFitKey = null;
     fitToSearchResults(lastFiltered);
-    const inView = rowsInView(lastFiltered);
-    renderList(inView);
+    renderList(lastFiltered);
     renderMap(lastFiltered);
     if(nearMeFitPending && nearMe && userLocation){
       nearMeFitPending = false;
@@ -1679,7 +1654,7 @@
     mapMoveTimer = setTimeout(()=>{
       mapMoveTimer = null;
       if(!clusterGroup || !lastFiltered.length) return;
-      if(viewportScopingActive()) renderList(rowsInView(lastFiltered));
+      renderList(lastFiltered);
       syncUrlFromState();
     }, 180);
   }
@@ -1974,9 +1949,15 @@
       .filter(m => matchesSearch(m, q))
       .sort((a, b) => searchScore(b, q) - searchScore(a, q))
       .slice(0, 6);
+    const compactQ = nq.replace(/\s/g, '');
+    const aliases = (CITY_QUERY_ALIASES && (CITY_QUERY_ALIASES[nq] || CITY_QUERY_ALIASES[compactQ])) || [];
     const cityMatches = [...new Set(
       allLocations
-        .filter(m => normalizeSearchText(m.city).includes(nq))
+        .filter(m => {
+          const city = normalizeSearchText(m.city);
+          if(city === nq || city.startsWith(nq + ' ') || city.startsWith(nq + ',') || (' ' + city + ' ').indexOf(' ' + nq + ' ') !== -1) return true;
+          return aliases.some(a => city.indexOf(a) !== -1);
+        })
         .map(m => m.city.split(',')[0].trim())
     )].slice(0, 3);
     const items = [];
@@ -2061,6 +2042,125 @@
     }, {passive:true});
   }
 
+  function enableDoubleTapDragZoom(leafletMap){
+    // Google/Apple Maps: tap, then tap-and-drag vertically to zoom around
+    // that point. iOS WKWebView delays the second tap, so detect the
+    // completed first tap on touchend and steal the next touchstart.
+    if(leafletMap.doubleClickZoom) leafletMap.doubleClickZoom.disable();
+    const container = leafletMap.getContainer();
+    container.style.touchAction = 'none';
+    container.classList.add('leaflet-touch-drag', 'leaflet-touch-zoom');
+
+    const TAP_MS = 550;
+    const TAP_PX = 64;
+    const PX_PER_ZOOM = 80;
+    let lastUpAt = 0;
+    let lastUpPoint = null;
+    let dragging = false;
+    let moved = false;
+    let startY = 0;
+    let startZoom = 0;
+    let around = null;
+    let savedSnap = leafletMap.options.zoomSnap;
+
+    function eventPoint(e){
+      const t = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]) || e;
+      const rect = container.getBoundingClientRect();
+      return {
+        pt: L.point(t.clientX - rect.left, t.clientY - rect.top),
+        y: t.clientY,
+      };
+    }
+
+    function onMap(e){
+      const t = e.target;
+      return t === container || (t && container.contains(t));
+    }
+
+    function clampZoom(z){
+      return Math.max(leafletMap.getMinZoom(), Math.min(leafletMap.getMaxZoom(), z));
+    }
+
+    function steal(e){
+      if(e.cancelable) e.preventDefault();
+      e.stopPropagation();
+      if(typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
+    }
+
+    function beginDrag(e){
+      const { pt, y } = eventPoint(e);
+      dragging = true;
+      moved = false;
+      startY = y;
+      startZoom = leafletMap.getZoom();
+      around = pt;
+      savedSnap = leafletMap.options.zoomSnap;
+      leafletMap.options.zoomSnap = 0;
+      if(leafletMap.dragging) leafletMap.dragging.disable();
+      steal(e);
+      lastUpAt = 0;
+      lastUpPoint = null;
+    }
+
+    function endDrag(applyTapZoom){
+      if(!dragging) return;
+      dragging = false;
+      leafletMap.options.zoomSnap = savedSnap;
+      if(leafletMap.dragging) leafletMap.dragging.enable();
+      if(applyTapZoom && !moved && around){
+        leafletMap.setZoomAround(around, clampZoom(startZoom + 1), { animate: false });
+      } else if(moved && savedSnap){
+        const snapped = Math.round(leafletMap.getZoom() / savedSnap) * savedSnap;
+        leafletMap.setZoomAround(around, clampZoom(snapped), { animate: false });
+      }
+    }
+
+    function onStart(e){
+      if(e.touches && e.touches.length !== 1){
+        endDrag(false);
+        lastUpAt = 0;
+        lastUpPoint = null;
+        return;
+      }
+      if(!dragging && !onMap(e)) return;
+      const { pt } = eventPoint(e);
+      const now = Date.now();
+      if(lastUpPoint && now - lastUpAt < TAP_MS && pt.distanceTo(lastUpPoint) < TAP_PX){
+        beginDrag(e);
+        return;
+      }
+    }
+
+    function onMove(e){
+      if(!dragging) return;
+      if(e.touches && e.touches.length !== 1) return;
+      steal(e);
+      const { y } = eventPoint(e);
+      const dy = startY - y;
+      if(Math.abs(dy) > 6) moved = true;
+      leafletMap.setZoomAround(around, clampZoom(startZoom + dy / PX_PER_ZOOM), { animate: false });
+    }
+
+    function onEnd(e){
+      if(dragging){
+        steal(e);
+        endDrag(true);
+        return;
+      }
+      if(!onMap(e)) return;
+      if(e.touches && e.touches.length) return;
+      const { pt } = eventPoint(e);
+      lastUpAt = Date.now();
+      lastUpPoint = pt;
+    }
+
+    const opts = { passive: false, capture: true };
+    document.addEventListener('touchstart', onStart, opts);
+    document.addEventListener('touchmove', onMove, opts);
+    document.addEventListener('touchend', onEnd, opts);
+    document.addEventListener('touchcancel', function(){ endDrag(false); }, opts);
+  }
+
   function initMap(){
     const native = isNativeApp();
     const startLoc = window.__BB_LAST_LOC;
@@ -2121,6 +2221,8 @@
     });
     map.on('moveend', onUserMapViewChange);
     map.on('zoomend', onUserMapViewChange);
+    enableDoubleTapDragZoom(map);
+    window.__BB_MAP = map;
     if(map.zoomControl) map.zoomControl.setPosition(isMobile() ? 'topright' : 'bottomright');
     const mobileMq = window.matchMedia('(max-width:820px)');
     mobileMq.addEventListener('change', e=>{
@@ -2668,7 +2770,7 @@
     console.error(err);
     let cached = null;
     try{
-      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261010a') || 'null');
+      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261006b') || 'null');
     }catch(e){}
     const el = document.getElementById('countLabel');
     if(Array.isArray(cached) && cached.length){

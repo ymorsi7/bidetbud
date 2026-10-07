@@ -29,7 +29,7 @@
   }
 
   function seedVer() {
-    return window.__BIDET_SEED_VER || '20261010a';
+    return window.__BIDET_SEED_VER || '20261006b';
   }
 
   function refreshSeedFromLive() {
@@ -44,6 +44,8 @@
       })
       .then(function (fresh) {
         if (!Array.isArray(fresh) || !fresh.length) return;
+        var current = window.BIDETBUD_SEED;
+        if (Array.isArray(current) && fresh.length < current.length) return;
         var cached = null;
         try {
           cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');

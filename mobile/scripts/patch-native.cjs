@@ -12,6 +12,9 @@ const path = require('path');
 const MOBILE = path.resolve(__dirname, '..');
 const APP_ID = 'com.bidetbud.app';
 const APP_NAME = 'BidetBud';
+const APP_VERSION = '1.0.2';
+const IOS_BUILD = '2';
+const ANDROID_VERSION_CODE = '10';
 const APPLE_TEAM = '9U4YC847Z3';
 const LOCATION_COPY =
   'BidetBud uses your location only to find bidet spots near you.';
@@ -41,6 +44,7 @@ const ANDROID_STRINGS = path.join(
   'values',
   'strings.xml'
 );
+const ANDROID_GRADLE = path.join(MOBILE, 'android', 'app', 'build.gradle');
 
 const SCENE_DELEGATE_SWIFT = `import UIKit
 import Capacitor
@@ -79,7 +83,8 @@ class BridgeViewController: CAPBridgeViewController, UIScrollViewDelegate {
     }
 
     @objc private func lockWebViewZoom() {
-        guard let scrollView = webView?.scrollView else { return }
+        guard let webView = webView else { return }
+        let scrollView = webView.scrollView
         scrollView.delegate = self
         scrollView.isScrollEnabled = false
         scrollView.minimumZoomScale = 1.0
@@ -92,10 +97,32 @@ class BridgeViewController: CAPBridgeViewController, UIScrollViewDelegate {
         scrollView.showsVerticalScrollIndicator = false
         scrollView.pinchGestureRecognizer?.isEnabled = false
         scrollView.panGestureRecognizer.isEnabled = false
+        scrollView.delaysContentTouches = false
+        scrollView.canCancelContentTouches = false
         scrollView.contentInsetAdjustmentBehavior = .never
         scrollView.setZoomScale(1.0, animated: false)
         if scrollView.contentOffset != .zero {
             scrollView.contentOffset = .zero
+        }
+        disableWebKitPageGestures(webView)
+    }
+
+    // WKContentView installs a double-tap-to-zoom recognizer that swallows
+    // the second tap before JavaScript, which breaks map double-tap-drag.
+    private func disableWebKitPageGestures(_ root: UIView) {
+        var stack = [root]
+        while let view = stack.popLast() {
+            stack.append(contentsOf: view.subviews)
+            guard let recognizers = view.gestureRecognizers else { continue }
+            for recognizer in recognizers {
+                if let tap = recognizer as? UITapGestureRecognizer, tap.numberOfTapsRequired >= 2 {
+                    recognizer.isEnabled = false
+                    continue
+                }
+                if recognizer is UIPinchGestureRecognizer {
+                    recognizer.isEnabled = false
+                }
+            }
         }
     }
 
@@ -246,6 +273,14 @@ function patchInfoPlist(file) {
   xml = display.xml;
   changed = changed || display.changed;
 
+  const shortVer = setPlistString(xml, 'CFBundleShortVersionString', APP_VERSION);
+  xml = shortVer.xml;
+  changed = changed || shortVer.changed;
+
+  const buildVer = setPlistString(xml, 'CFBundleVersion', IOS_BUILD);
+  xml = buildVer.xml;
+  changed = changed || buildVer.changed;
+
   if (changed) fs.writeFileSync(file, xml);
   return changed;
 }
@@ -265,6 +300,8 @@ function patchPbxproj(file) {
       'DEVELOPMENT_TEAM = ' + APPLE_TEAM + ';'
     );
   }
+  text = text.replace(/MARKETING_VERSION = [^;]+;/g, 'MARKETING_VERSION = ' + APP_VERSION + ';');
+  text = text.replace(/CURRENT_PROJECT_VERSION = [^;]+;/g, 'CURRENT_PROJECT_VERSION = ' + IOS_BUILD + ';');
   if (text !== before) fs.writeFileSync(file, text);
   return text !== before;
 }
@@ -356,6 +393,15 @@ function setAndroidString(xml, name, value) {
   return { xml: next, changed: true };
 }
 
+function patchAndroidGradle(file) {
+  let text = fs.readFileSync(file, 'utf8');
+  const before = text;
+  text = text.replace(/versionCode\s+\d+/, 'versionCode ' + ANDROID_VERSION_CODE);
+  text = text.replace(/versionName\s+"[^"]+"/, 'versionName "' + APP_VERSION + '"');
+  if (text !== before) fs.writeFileSync(file, text);
+  return text !== before;
+}
+
 function patchAndroidStrings(file) {
   let xml = fs.readFileSync(file, 'utf8');
   let changed = false;
@@ -425,6 +471,15 @@ function main() {
       n++;
     } else {
       console.log('patch-native: android strings.xml already patched');
+    }
+  }
+
+  if (fs.existsSync(ANDROID_GRADLE)) {
+    if (patchAndroidGradle(ANDROID_GRADLE)) {
+      console.log('patch-native: set android ' + APP_VERSION + ' (' + ANDROID_VERSION_CODE + ')');
+      n++;
+    } else {
+      console.log('patch-native: android version already set');
     }
   }
 

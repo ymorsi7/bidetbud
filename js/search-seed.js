@@ -4,6 +4,19 @@
 (function (global) {
   const SEARCH_STOP = new Set(['the', 'a', 'an', 'and', 'or', 'of', 'at', 'in', 'on', 'for', 'to', '&']);
 
+  // Nicknames / metros used as search queries (NYC chip, "bay area", etc.).
+  const CITY_QUERY_ALIASES = {
+    nyc: ['new york', 'brooklyn', 'queens', 'bronx', 'manhattan', 'staten island', 'astoria', 'williamsburg', 'long island city', 'flushing', 'jackson heights', 'sunset park'],
+    'new york city': ['new york', 'nyc'],
+    'new york': ['nyc'],
+    'bay area': ['san francisco', 'oakland', 'berkeley', 'san jose', 'palo alto', 'mountain view', 'cupertino', 'fremont', 'san mateo', 'sunnyvale', 'santa clara', 'daly city', 'redwood city'],
+    sf: ['san francisco'],
+    'san fran': ['san francisco'],
+    la: ['los angeles'],
+    dfw: ['dallas', 'fort worth', 'richardson', 'plano', 'irving', 'frisco', 'arlington'],
+    chi: ['chicago'],
+  };
+
   function stableSeedId(row) {
     const s = (row.name || '') + '|' + row.latitude + '|' + row.longitude;
     let h = 0;
@@ -23,12 +36,27 @@
     return normalizeSearchText(name).split(' ').filter((w) => w && !SEARCH_STOP.has(w));
   }
 
+  function hasPhrase(hay, phrase) {
+    if (!hay || !phrase) return false;
+    if (hay === phrase) return true;
+    return (' ' + hay + ' ').indexOf(' ' + phrase + ' ') !== -1;
+  }
+
+  function fieldBlob(m) {
+    ensureSearchMeta(m);
+    return m._search;
+  }
+
   function buildSearchMeta(m) {
     const words = nameWords(m.name);
     const acronym = words.map((w) => w[0]).join('');
-    const hay = normalizeSearchText(
-      [m.name, m.city, m.address, m.country, m.bidetType, m.searchAliases].filter(Boolean).join(' ')
-    );
+    const name = normalizeSearchText(m.name);
+    const city = normalizeSearchText(m.city);
+    const address = normalizeSearchText(m.address);
+    const country = normalizeSearchText(m.country);
+    const hay = [name, city, address, country, normalizeSearchText(m.bidetType), normalizeSearchText(m.searchAliases)]
+      .filter(Boolean)
+      .join(' ');
     const aliases = new Set([acronym]);
     if (m.searchAliases) {
       String(m.searchAliases)
@@ -38,7 +66,7 @@
           if (t) aliases.add(t);
         });
     }
-    return { hay, words, acronym, aliases: [...aliases] };
+    return { hay, words, acronym, aliases: [...aliases], name, city, address, country };
   }
 
   function matchesInitials(words, compact) {
@@ -56,28 +84,44 @@
     if (!m._search) m._search = buildSearchMeta(m);
   }
 
+  function aliasHits(s, q) {
+    const aliases = CITY_QUERY_ALIASES[q];
+    if (!aliases) return false;
+    const blob = s.city + ' ' + s.address + ' ' + s.name;
+    return aliases.some((a) => hasPhrase(blob, a) || blob.indexOf(a) !== -1);
+  }
+
   function searchScore(m, rawQ) {
     const q = normalizeSearchText(rawQ);
     if (!q) return 0;
     ensureSearchMeta(m);
     const s = m._search;
     const compact = q.replace(/\s/g, '');
-    if (s.hay.includes(q)) {
-      if (s.hay.startsWith(q)) return 90;
-      if (normalizeSearchText(m.name).startsWith(q)) return 85;
-      return 70;
-    }
-    if (compact.length >= 2) {
+    const name = s.name;
+    const city = s.city;
+
+    if (name === q) return 100;
+    if (hasPhrase(name, q) && name.startsWith(q)) return 92;
+
+    if (city === q || hasPhrase(city, q) || city.startsWith(q + ' ') || city.startsWith(q + ',')) return 96;
+    if (aliasHits(s, q) || aliasHits(s, compact)) return 95;
+
+    if (hasPhrase(name, q)) return 88;
+    if (hasPhrase(s.address, q)) return 74;
+    if (s.country === q || hasPhrase(s.country, q)) return 52;
+
+    if (compact.length >= 2 && compact.length <= 6 && !q.includes(' ') && !CITY_QUERY_ALIASES[compact]) {
       if (s.acronym === compact) return 100;
       if (s.aliases.some((a) => a === compact)) return 98;
-      if (s.acronym.startsWith(compact)) return 88;
-      if (s.aliases.some((a) => a.startsWith(compact))) return 86;
-      if (matchesInitials(s.words, compact)) return 75;
+      if (compact.length <= 3 && s.acronym.startsWith(compact)) return 80;
+      if (compact.length <= 3 && s.aliases.some((a) => a.startsWith(compact))) return 78;
+      if (compact.length <= 4 && matchesInitials(s.words, compact)) return 75;
     }
+
     const tokens = q.split(' ').filter(Boolean);
     if (tokens.length > 1) {
       const hayWords = s.hay.split(' ');
-      if (tokens.every((t) => hayWords.some((w) => w.startsWith(t)))) return 65;
+      if (tokens.every((t) => hayWords.some((w) => w === t || w.startsWith(t)))) return 68;
     }
     return 0;
   }
@@ -121,5 +165,6 @@
     ensureSearchMeta,
     searchScore,
     matchesSearch,
+    CITY_QUERY_ALIASES,
   };
 })(typeof window !== 'undefined' ? window : globalThis);

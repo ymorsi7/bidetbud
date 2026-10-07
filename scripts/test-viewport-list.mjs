@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 /**
- * The sidebar list mirrors the map view, and a shared link restores that view.
+ * Shared links restore the map view. The list is nearest-first, not clipped to
+ * the current bounds (so an empty ocean view still has a list).
  * Run: node scripts/test-viewport-list.mjs
  */
 import { chromium, devices } from 'playwright';
@@ -54,28 +55,45 @@ try {
     throw new Error(`no cards rendered; count line reads "${cityOf(await page.locator('#countLabel').innerText())[0]}"`);
   });
   const firstCity = await page.locator('#locationList .card .loc').first().innerText();
-  if (!/San Diego|El Cajon|CA/.test(firstCity)) {
-    throw new Error(`list is not scoped to the map view, first card reads "${firstCity}"`);
+  if (!/San Diego|El Cajon|CA|Chula Vista/.test(firstCity)) {
+    throw new Error(`list is not nearest to the map center, first card reads "${firstCity}"`);
   }
-  console.log('  ✓ list is scoped to the map view');
+  console.log('  ✓ list is nearest-first for the map center');
 
-  const scoped = await page.locator('#countLabel').innerText();
-  if (!/in view of/.test(scoped)) {
-    throw new Error(`count line does not report the in-view subset: "${cityOf(scoped)[0]}"`);
+  const countLine = await page.locator('#countLabel').innerText();
+  if (/^0\s/.test(countLine.trim())) {
+    throw new Error(`count line is empty: "${cityOf(countLine)[0]}"`);
   }
-  console.log('  ✓ count line reports in-view vs total');
+  console.log('  ✓ count line is non-zero');
 
-  // Panning to an empty ocean offers a way back instead of a dead end.
+  // Panning to empty ocean still lists the closest spots (not 0 items).
   await page.goto(`${url}?view=-40,-130,6`, { waitUntil: 'networkidle' });
   await page.waitForTimeout(2000);
-  const zoomOut = page.locator('#emptyZoomOutBtn');
-  if (!(await zoomOut.count())) throw new Error('empty view is missing the "Show all" escape hatch');
-  await zoomOut.click();
-  await page.waitForTimeout(1500);
-  if (!(await page.locator('#locationList .card').count())) {
-    throw new Error('"Show all" did not bring results back');
+  const oceanCards = await page.locator('#locationList .card').count();
+  if (!oceanCards) throw new Error('empty map view cleared the list instead of showing nearest spots');
+  console.log('  ✓ empty map view still lists nearest spots');
+
+  // City search must fly to that city, not a brand-name collision overseas.
+  await page.goto(`${url}?q=Richardson`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(2500);
+  const richardsonLoc = await page.locator('#locationList .card .loc').first().innerText();
+  if (!/Richardson|Dallas|Plano|TX/i.test(richardsonLoc) || /Nice|France/i.test(richardsonLoc)) {
+    throw new Error(`Richardson search did not land in Texas, first card reads "${richardsonLoc}"`);
   }
-  console.log('  ✓ empty view offers a working "Show all" action');
+  const richardsonView = new URL(page.url()).searchParams.get('view') || '';
+  const [rLat, rLng] = richardsonView.split(',').map(Number);
+  if (!isFinite(rLat) || !isFinite(rLng) || rLat < 32 || rLat > 34 || rLng > -95 || rLng < -98) {
+    throw new Error(`Richardson search map is not over DFW, view=${richardsonView}`);
+  }
+  console.log('  ✓ Richardson search lands in Texas');
+
+  await page.goto(`${url}?q=NYC`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(2500);
+  const nycLoc = await page.locator('#locationList .card .loc').first().innerText();
+  if (!/New York|Brooklyn|Queens|Manhattan|NY/i.test(nycLoc)) {
+    throw new Error(`NYC search did not land in New York, first card reads "${nycLoc}"`);
+  }
+  console.log('  ✓ NYC search lands in New York');
 
   // Countries beyond the original ten hard-coded chips are filterable.
   await page.goto(url, { waitUntil: 'networkidle' });
@@ -108,9 +126,53 @@ try {
 
   const mobileCount = await mobile.locator('#countLabel').innerText();
   if (/^0\s/.test(mobileCount.trim())) {
-    throw new Error('mobile list view reports zero results (map bounds lost while hidden)');
+    throw new Error('mobile list view reports zero results');
   }
-  console.log('  ✓ mobile list view keeps the last map bounds');
+  console.log('  ✓ mobile list view still has results');
+
+  await mobile.click('.mobile-tab[data-view="map"]');
+  await mobile.waitForTimeout(400);
+  await mobile.waitForFunction(() => window.__BB_MAP, { timeout: 15000 });
+  const zoomed = await mobile.evaluate(() => {
+    const mapEl = document.getElementById('map');
+    const leafletMap = window.__BB_MAP;
+    if (!mapEl || !leafletMap) return { ok: false, reason: 'no map' };
+    const before = leafletMap.getZoom();
+    const r = mapEl.getBoundingClientRect();
+    const x = r.left + r.width / 2;
+    const y = r.top + r.height / 2;
+    const fire = (type, cy, down) => {
+      const t = new Touch({
+        identifier: 1,
+        target: mapEl,
+        clientX: x,
+        clientY: cy,
+        radiusX: 8,
+        radiusY: 8,
+        rotationAngle: 0,
+        force: 1,
+      });
+      const list = down ? [t] : [];
+      mapEl.dispatchEvent(new TouchEvent(type, {
+        bubbles: true,
+        cancelable: true,
+        composed: true,
+        touches: list,
+        targetTouches: list,
+        changedTouches: [t],
+      }));
+    };
+    fire('touchstart', y, true);
+    fire('touchend', y, false);
+    fire('touchstart', y, true);
+    fire('touchmove', y - 160, true);
+    fire('touchend', y - 160, false);
+    return { ok: leafletMap.getZoom() > before + 0.4, before, after: leafletMap.getZoom() };
+  });
+  if (!zoomed.ok) {
+    throw new Error(`double-tap-drag did not zoom (before=${zoomed.before}, after=${zoomed.after}, reason=${zoomed.reason || ''})`);
+  }
+  console.log('  ✓ double-tap-drag zooms the map');
 
   if (errors.length) throw new Error(`page errors: ${errors.join(' | ')}`);
   console.log('\nViewport list checks passed.');

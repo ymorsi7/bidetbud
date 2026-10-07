@@ -80,7 +80,8 @@ body.modal-open{overflow:hidden}
 /* Layout */
 .app-main{flex:1;min-height:0;display:flex;position:relative;z-index:1;max-width:1440px;width:100%;margin:0 auto}
 .map-wrap{flex:1;min-width:0;position:relative;z-index:1;background:#b6d4e8;border-radius:0}
-#map{position:absolute;inset:0;background:#b6d4e8}
+#map{position:absolute;inset:0;background:#b6d4e8;touch-action:none}
+.leaflet-container{touch-action:none}
 
 .legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;box-sizing:content-box;display:inline-block}
 .legend-dot.verified{background:var(--brand)}
