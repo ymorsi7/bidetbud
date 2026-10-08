@@ -39,6 +39,7 @@
   let sortMode = 'closest';
   let lastFitKey = null;
   let pendingView = null;
+  let zoomDragLock = false;
   let autoCentered = false;
   // Rows matching the filters globally, vs. the subset inside the current map view.
   let totalMatchCount = 0;
@@ -87,6 +88,9 @@
       maxZoom: 19,
       subdomains: cartoKey ? 'abcd' : 'abc',
       noWrap: Boolean(noWrap),
+      updateWhenZooming: false,
+      updateWhenIdle: true,
+      keepBuffer: 6,
       attribution: showAttribution
         ? (cartoKey ? '© OpenStreetMap · © CARTO' : '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>')
         : undefined
@@ -1571,6 +1575,7 @@
   }
 
   function onUserMapViewChange(){
+    if(zoomDragLock) return;
     if(Date.now() < autoFitUntil) return;
     scheduleMapRefresh();
   }
@@ -2044,8 +2049,8 @@
 
   function enableDoubleTapDragZoom(leafletMap){
     // Google/Apple Maps: tap, then tap-and-drag vertically to zoom around
-    // that point. iOS WKWebView delays the second tap, so detect the
-    // completed first tap on touchend and steal the next touchstart.
+    // that point. Preview uses Leaflet's CSS zoom anim (no tile reload);
+    // the real zoom is applied once on finger-up so the map does not flash.
     if(leafletMap.doubleClickZoom) leafletMap.doubleClickZoom.disable();
     const container = leafletMap.getContainer();
     container.style.touchAction = 'none';
@@ -2053,15 +2058,18 @@
 
     const TAP_MS = 550;
     const TAP_PX = 64;
-    const PX_PER_ZOOM = 80;
+    const PX_PER_ZOOM = 90;
     let lastUpAt = 0;
     let lastUpPoint = null;
     let dragging = false;
     let moved = false;
     let startY = 0;
     let startZoom = 0;
+    let pendingZoom = 0;
     let around = null;
+    let aroundLatLng = null;
     let savedSnap = leafletMap.options.zoomSnap;
+    let raf = 0;
 
     function eventPoint(e){
       const t = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]) || e;
@@ -2087,32 +2095,49 @@
       if(typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
     }
 
+    function previewZoom(z){
+      pendingZoom = z;
+      if(typeof leafletMap._animateZoom !== 'function' || !aroundLatLng) return;
+      leafletMap._animateZoom(aroundLatLng, z, true, true);
+    }
+
     function beginDrag(e){
       const { pt, y } = eventPoint(e);
       dragging = true;
       moved = false;
       startY = y;
       startZoom = leafletMap.getZoom();
+      pendingZoom = startZoom;
       around = pt;
+      aroundLatLng = leafletMap.containerPointToLatLng(pt);
       savedSnap = leafletMap.options.zoomSnap;
       leafletMap.options.zoomSnap = 0;
+      zoomDragLock = true;
       if(leafletMap.dragging) leafletMap.dragging.disable();
       steal(e);
       lastUpAt = 0;
       lastUpPoint = null;
     }
 
+    function finishPreview(){
+      if(leafletMap._mapPane) L.DomUtil.removeClass(leafletMap._mapPane, 'leaflet-zoom-anim');
+      leafletMap._animatingZoom = false;
+    }
+
     function endDrag(applyTapZoom){
       if(!dragging) return;
       dragging = false;
+      if(raf){ cancelAnimationFrame(raf); raf = 0; }
       leafletMap.options.zoomSnap = savedSnap;
-      if(leafletMap.dragging) leafletMap.dragging.enable();
-      if(applyTapZoom && !moved && around){
-        leafletMap.setZoomAround(around, clampZoom(startZoom + 1), { animate: false });
-      } else if(moved && savedSnap){
-        const snapped = Math.round(leafletMap.getZoom() / savedSnap) * savedSnap;
-        leafletMap.setZoomAround(around, clampZoom(snapped), { animate: false });
+      finishPreview();
+      let next = pendingZoom;
+      if(applyTapZoom && !moved && around) next = clampZoom(startZoom + 1);
+      else if(moved && savedSnap) next = clampZoom(Math.round(next / savedSnap) * savedSnap);
+      if(around && Number.isFinite(next) && Math.abs(next - leafletMap.getZoom()) > 0.01){
+        leafletMap.setZoomAround(around, next, { animate: false });
       }
+      if(leafletMap.dragging) leafletMap.dragging.enable();
+      zoomDragLock = false;
     }
 
     function onStart(e){
@@ -2138,7 +2163,9 @@
       const { y } = eventPoint(e);
       const dy = startY - y;
       if(Math.abs(dy) > 6) moved = true;
-      leafletMap.setZoomAround(around, clampZoom(startZoom + dy / PX_PER_ZOOM), { animate: false });
+      pendingZoom = clampZoom(startZoom + dy / PX_PER_ZOOM);
+      if(raf) cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(()=> previewZoom(pendingZoom));
     }
 
     function onEnd(e){
@@ -2173,9 +2200,9 @@
       inertia:true,
       inertiaDeceleration:3000,
       inertiaMaxSpeed:4000,
-      fadeAnimation:!native,
+      fadeAnimation:false,
       markerZoomAnimation:!native,
-      zoomAnimation:!native
+      zoomAnimation:true
     }).setView(
       startLoc && native ? [startLoc.lat, startLoc.lng] : [DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng],
       startLoc && native ? 13 : DEFAULT_MAP_ZOOM
@@ -2770,7 +2797,7 @@
     console.error(err);
     let cached = null;
     try{
-      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261006b') || 'null');
+      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261007a') || 'null');
     }catch(e){}
     const el = document.getElementById('countLabel');
     if(Array.isArray(cached) && cached.length){
