@@ -74,6 +74,9 @@
   function isBidetFriendlyCountry(country){
     return BIDET_FRIENDLY_COUNTRY_SET.has(String(country || '').trim().toLowerCase());
   }
+  function doesNotOperate(m){
+    return core.doesNotOperate ? core.doesNotOperate(m) : String(m && m.country || '').trim().toLowerCase() === 'israel';
+  }
   // Natural Earth 50m: johan/world.geo.json omits Singapore (SG falls inside Malaysia's polygon).
   const BIDET_COUNTRY_GEOJSON_URL = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson';
   // Never shade these as bidet-friendly even if a coarse polygon swallows them.
@@ -1102,7 +1105,7 @@
       if(extraFilter==='internet' && m.bidetStatus!=='internet') return false;
       if(extraFilter==='public' && m.access!=='public') return false;
       if(extraFilter==='limited' && m.access!=='limited') return false;
-      if(!showLimitedAccess && m.access==='limited' && extraFilter!=='limited') return false;
+      if(!showLimitedAccess && m.access==='limited' && extraFilter!=='limited' && !doesNotOperate(m)) return false;
       if(countryFilter && m.country !== countryFilter) return false;
       if(alongRoute){
         const dist = distToSegmentMi(
@@ -1122,6 +1125,7 @@
   }
 
   function statusTag(m){
+    if(doesNotOperate(m)) return '';
     if(m.bidetStatus==='none') return '<span class="tag tag-none">No bidet</span>';
     if(m.bidetStatus==='internet') return '<span class="tag tag-internet">Web</span>';
     if(m.bidetStatus==='warmed') return '<span class="tag tag-warmed">Heated</span>';
@@ -1129,18 +1133,30 @@
   }
 
   function accessTag(m){
+    if(doesNotOperate(m)) return '<span class="tag tag-unavailable">Unavailable</span>';
     if(m.access==='limited') return '<span class="tag tag-limited">Limited access</span>';
     return '';
   }
 
   function accessWarn(m){
+    if(doesNotOperate(m)){
+      return '<div class="access-warn access-warn--locked"><strong>BidetBud does not operate in this country</strong>This spot is locked and is not listed or verified here.</div>';
+    }
     if(m.access!=='limited') return '';
     return '<div class="access-warn"><strong>Limited access: not a public restroom</strong>'+escapeHtml(m.accessNote||'Hotel rooms, showrooms, and private clubs are not open to walk-in visitors.')+'</div>';
   }
 
   function typeLabel(t){ return t==='restaurant' ? 'Restaurant' : t==='hotel' ? 'Hotel' : t==='public' ? 'Public' : 'Masjid'; }
 
-  function createIcon(status, access){
+  function createIcon(m){
+    if(doesNotOperate(m)){
+      return L.divIcon({
+        html:'<div class="marker-locked" aria-label="Locked">🔒</div>',
+        className:'custom-marker custom-marker--locked', iconSize:[30,30], iconAnchor:[15,15], popupAnchor:[0,-15]
+      });
+    }
+    const status = m.bidetStatus;
+    const access = m.access;
     let color = '#059669', emoji = '✓';
     if(status==='warmed'){ color = '#d97706'; emoji = '🔥'; }
     else if(status==='internet'){ color = '#2563eb'; emoji = '🌐'; }
@@ -1193,6 +1209,7 @@
   }
 
   function cardStatusClass(m){
+    if(doesNotOperate(m)) return 'card-unavailable';
     if(m.bidetStatus==='none') return 'card--none';
     if(m.access==='limited') return 'card-limited';
     if(m.bidetStatus==='internet') return 'card--internet';
@@ -1237,11 +1254,11 @@
   function renderList(filtered){
     const q=getQuery(), el=document.getElementById('locationList');
     el.classList.remove('location-list-loading');
-    const verified = filtered.filter(m=>m.bidetStatus==='verified').length;
-    const warmed = filtered.filter(m=>m.bidetStatus==='warmed').length;
-    const internet = filtered.filter(m=>m.bidetStatus==='internet').length;
-    const limited = filtered.filter(m=>m.access==='limited').length;
-    const pub = filtered.length - limited;
+    const verified = filtered.filter(m=>m.bidetStatus==='verified' && !doesNotOperate(m)).length;
+    const warmed = filtered.filter(m=>m.bidetStatus==='warmed' && !doesNotOperate(m)).length;
+    const internet = filtered.filter(m=>m.bidetStatus==='internet' && !doesNotOperate(m)).length;
+    const limited = filtered.filter(m=>m.access==='limited' && !doesNotOperate(m)).length;
+    const pub = filtered.filter(m=>m.access!=='limited' && !doesNotOperate(m)).length;
     const masajid = filtered.filter(m=>m.type==='mosque').length;
     let countHtml;
     if(noBidetMode){
@@ -1280,13 +1297,16 @@
       let dist='';
       const anchor = distanceAnchor();
       if(anchor && sortMode !== 'name') dist = formatDistance(haversineMiles(anchor,{lat:+m.latitude,lng:+m.longitude}));
-      const limitedNote = m.bidetStatus==='none'
+      const locked = doesNotOperate(m);
+      const limitedNote = locked
+        ? '<p class="card-note card-note--locked">BidetBud does not operate in this country</p>'
+        : (m.bidetStatus==='none'
         ? '<p class="card-note card-note--none">We checked: no bidet or handheld sprayer here.</p>'
-        : (m.access==='limited' ? '<p class="card-note">'+escapeHtml(m.accessNote)+'</p>' : '');
+        : (m.access==='limited' ? '<p class="card-note">'+escapeHtml(m.accessNote)+'</p>' : ''));
       const cardClass = 'card '+cardStatusClass(m)+(activeSpotId===m.id?' active':'');
       const typeIcon = typeLabel(m.type);
-      const bidetLead = '<p class="card-bidet-lead">'+escapeHtml(bidetLeadLabel(m))+'</p>';
-      const trust = '<p class="card-trust">'+escapeHtml(verificationPlainText(m))+'</p>';
+      const bidetLead = locked ? '' : '<p class="card-bidet-lead">'+escapeHtml(bidetLeadLabel(m))+'</p>';
+      const trust = locked ? '' : '<p class="card-trust">'+escapeHtml(verificationPlainText(m))+'</p>';
       return '<article class="'+cardClass+'" data-id="'+m.id+'" tabindex="0" role="button" aria-label="'+escapeHtml(m.name)+'"><h3>'+highlight(m.name,q)+'</h3>'+bidetLead+'<div class="card-tags">'+statusTag(m)+accessTag(m)+'</div>'+(m.address?'<p class="addr">'+highlight(m.address,q)+'</p>':'')+(m.city?'<p class="loc">'+highlight(m.city,q)+(m.country?', '+highlight(m.country,q):'')+'</p>':'')+limitedNote+trust+'<div class="card-meta"><span class="tag tag-type">'+typeIcon+'</span>'+(dist?'<span class="dist card-foot">'+dist+'</span>':'')+'</div></article>';
     }).join('') + (filtered.length > LIST_CAP ? '<p class="sub list-cap-note">Showing the '+LIST_CAP+' closest. Search a city to narrow results.</p>' : '');
     el.querySelectorAll('.card').forEach((c, idx)=>{
@@ -1317,13 +1337,16 @@
     markerById.clear();
     const mapRows = markersForMap(filtered);
     const markers = mapRows.map(m=>{
-      const marker = L.marker([+m.latitude,+m.longitude],{icon:createIcon(m.bidetStatus,m.access)});
+      const marker = L.marker([+m.latitude,+m.longitude],{icon:createIcon(m)});
       marker.on('click',()=>{
         scrollToListCard(m.id);
         openDetail(m.id);
       });
       if(!isNativeApp()){
-        const tip = stripEmDash(m.access==='limited' ? m.name + ' (limited access)' : m.name);
+        const tip = stripEmDash(
+          doesNotOperate(m) ? m.name + ' (unavailable)' :
+          (m.access==='limited' ? m.name + ' (limited access)' : m.name)
+        );
         marker.bindTooltip(tip,{direction:'top',offset:[0,-12]});
       }
       markerById.set(m.id, marker);
@@ -1477,10 +1500,11 @@
     const distLine = (nearMe && userLocation)
       ? '<p class="sub">' + formatDistance(haversineMiles(userLocation, { lat: +m.latitude, lng: +m.longitude })) + ' away</p>'
       : '';
-    const source = m.sourceUrl ? '<p class="detail-source"><a href="'+escapeHtml(m.sourceUrl)+'" target="_blank" rel="noopener">View source ↗</a></p>' : '';
-    const quote = m.sourceQuote ? '<blockquote class="source-quote"><strong>Review excerpt</strong>'+escapeHtml(m.sourceQuote)+'</blockquote>' : '';
-    const verifyText = verificationPlainText(m);
-    const trustLine = trustSourceLine(m);
+    const locked = doesNotOperate(m);
+    const source = (!locked && m.sourceUrl) ? '<p class="detail-source"><a href="'+escapeHtml(m.sourceUrl)+'" target="_blank" rel="noopener">View source ↗</a></p>' : '';
+    const quote = (!locked && m.sourceQuote) ? '<blockquote class="source-quote"><strong>Review excerpt</strong>'+escapeHtml(m.sourceQuote)+'</blockquote>' : '';
+    const verifyText = locked ? '' : verificationPlainText(m);
+    const trustLine = locked ? '' : trustSourceLine(m);
     const trustHtml = (trustLine && trustLine !== verifyText)
       ? '<p class="detail-trust detail-trust--source">'+escapeHtml(trustLine)+'</p>'
       : '';
@@ -1495,7 +1519,9 @@
     const stickyFooter = document.getElementById('detailStickyFooter');
     if(stickyFooter){
       if(mobile){
-        stickyFooter.innerHTML =
+        stickyFooter.innerHTML = locked
+          ? ''
+          : (
           '<div class="detail-footer-actions">'+
           '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
           '</div>'+
@@ -1507,16 +1533,18 @@
           '<button type="button" class="detail-link-btn js-suggest-update">Update</button>'+
           '<span class="detail-footer-sep" aria-hidden="true">·</span>'+
           '<button type="button" class="detail-link-btn '+(isNativeApp() ? 'js-open-report' : 'js-report-no-bidet')+'">Report</button>'+
-          '</div>';
-        stickyFooter.hidden = false;
-        wireDetailButtons(stickyFooter, m, shareLink);
+          '</div>');
+        stickyFooter.hidden = locked || false;
+        if(!locked) wireDetailButtons(stickyFooter, m, shareLink);
       } else {
         stickyFooter.innerHTML = '';
         stickyFooter.hidden = true;
       }
     }
 
-    const desktopActions =
+    const desktopActions = locked
+      ? ''
+      : (
       '<div class="dialog-actions detail-actions detail-actions--desktop">'+
       '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
       mapsBtn+
@@ -1524,7 +1552,7 @@
       '<button type="button" class="btn btn-ghost js-copy-address">Copy address</button>'+
       '<button type="button" class="btn btn-ghost js-suggest-update">Suggest an update</button>'+
       '<button type="button" class="btn btn-ghost js-report-no-bidet">Report no bidet here</button>'+
-      '</div>';
+      '</div>');
 
     const nativeTitle = document.getElementById('detailNativeTitle');
     if(nativeTitle) nativeTitle.textContent = m.name;
@@ -1532,16 +1560,17 @@
       '<h2>'+escapeHtml(m.name)+'</h2>'+
       '<p class="sub">'+escapeHtml(typeLabel(m.type))+' · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
       distLine+
-      '<p class="detail-bidet-callout">'+escapeHtml(bidetLeadLabel(m))+'</p>'+
-      (m.bidetStatus==='none' ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\'ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : '')+
+      (locked ? '' : '<p class="detail-bidet-callout">'+escapeHtml(bidetLeadLabel(m))+'</p>')+
+      (m.bidetStatus==='none' && !locked ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\'ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : '')+
       accessWarn(m)+
-      '<p class="detail-address">'+escapeHtml(m.address)+'</p>'+
+      (locked ? '' : '<p class="detail-address">'+escapeHtml(m.address)+'</p>')+
       '<div class="row">'+statusTag(m)+accessTag(m)+'</div>'+
+      (locked ? '' : (
       '<div class="detail-sheet-more">'+
       '<p class="detail-trust">'+escapeHtml(verifyText)+'</p>'+
       trustHtml+quote+source+
       reportFormHtml(m)+
-      '</div>'+
+      '</div>'))+
       (mobile ? '' : desktopActions);
     const content = document.getElementById('detailContent');
     wireDetailButtons(content, m, shareLink);
@@ -1967,11 +1996,14 @@
     )].slice(0, 3);
     const items = [];
     placeMatches.forEach(m => {
-      const hint = m._search.acronym ? m._search.acronym.toUpperCase() : '';
+      const city = m.city ? m.city.split(',')[0].trim() : '';
+      const hint = doesNotOperate(m)
+        ? ('Unavailable' + (city ? ' · ' + city : ''))
+        : ((m._search && m._search.acronym ? m._search.acronym.toUpperCase() : '') + (city ? ' · ' + city : ''));
       items.push({
         fill: m.name,
         label: m.name,
-        hint: hint + (m.city ? ' · ' + m.city.split(',')[0].trim() : '')
+        hint
       });
     });
     cityMatches.forEach(c => {

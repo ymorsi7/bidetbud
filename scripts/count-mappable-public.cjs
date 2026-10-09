@@ -17,6 +17,7 @@ let limited = 0;
 for (const r of rows) {
   if (!HAS_BIDET.has(r.bidetStatus)) continue;
   if (isFriendlyCountry(r.country)) continue;
+  if (String(r.country || '').trim().toLowerCase() === 'israel') continue;
   total++;
   if (r.access === 'public') publicAccess++;
   else limited++;

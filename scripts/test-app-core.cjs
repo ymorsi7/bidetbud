@@ -17,6 +17,7 @@ const {
   nearMeMaxZoom,
   verificationPlainText,
   bidetLeadLabel,
+  doesNotOperate,
   boxesOverlap
 } = core;
 
@@ -129,11 +130,27 @@ describe('verificationPlainText', () => {
     assert.match(verificationPlainText({ bidetStatus: 'verified' }), /confirmed/i);
     assert.match(verificationPlainText({ bidetStatus: 'none' }), /no bidet/i);
   });
+  it('locks countries BidetBud does not operate in', () => {
+    assert.match(
+      verificationPlainText({ country: 'Israel', bidetStatus: 'internet' }),
+      /does not operate/i
+    );
+  });
+});
+
+describe('doesNotOperate', () => {
+  it('is true for Israel and false otherwise', () => {
+    assert.equal(doesNotOperate({ country: 'Israel' }), true);
+    assert.equal(doesNotOperate({ country: 'USA' }), false);
+  });
 });
 
 describe('bidetLeadLabel', () => {
   it('prefers bidet type when present', () => {
     assert.equal(bidetLeadLabel({ bidetStatus: 'verified', bidetType: 'Handheld sprayer' }), 'Handheld sprayer');
+  });
+  it('marks no-operate countries as unavailable', () => {
+    assert.equal(bidetLeadLabel({ country: 'Israel', bidetType: 'Bidet' }), 'Unavailable');
   });
 });
 

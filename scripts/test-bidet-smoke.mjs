@@ -71,8 +71,23 @@ try {
     timeout: 3000,
   });
 
+  await page.fill('#searchInput', 'Tel Aviv');
+  await page.waitForTimeout(500);
+  await page.locator('#locationList .card-unavailable').first().waitFor({ state: 'visible', timeout: 10000 });
+  const lockedNote = await page.locator('.card-note--locked').first().textContent();
+  if (!/does not operate in this country/i.test(lockedNote || '')) {
+    throw new Error('Tel Aviv card missing lock copy: ' + lockedNote);
+  }
+  await page.locator('#locationList .card-unavailable').first().click();
+  await page.locator('#detailOverlay.open .access-warn--locked').waitFor({ state: 'visible', timeout: 5000 });
+  const lockWarn = await page.locator('.access-warn--locked').textContent();
+  if (!/BidetBud does not operate in this country/i.test(lockWarn || '')) {
+    throw new Error('detail lock message unexpected: ' + lockWarn);
+  }
+
   if (errors.length) throw new Error('console errors: ' + errors.join('; '));
   console.log('  ✓ load, search ICSD, open detail');
+  console.log('  ✓ Tel Aviv spots are locked');
   console.log('\nBidet smoke checks passed.');
 } finally {
   await browser.close();

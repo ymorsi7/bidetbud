@@ -166,7 +166,14 @@
       .join(', ');
   }
 
+  const NO_OPERATE_COUNTRIES = new Set(['israel']);
+
+  function doesNotOperate(m){
+    return NO_OPERATE_COUNTRIES.has(String(m && m.country || '').trim().toLowerCase());
+  }
+
   function verificationPlainText(m){
+    if(doesNotOperate(m)) return 'BidetBud does not operate in this country.';
     if(m.bidetStatus === 'none') return 'Reported: no bidet or handheld sprayer here.';
     if(m.bidetStatus === 'verified') return 'Someone confirmed this in person.';
     if(m.bidetStatus === 'warmed') return 'Manufacturer install (heated seat / washlet).';
@@ -175,6 +182,7 @@
   }
 
   function bidetLeadLabel(m){
+    if(doesNotOperate(m)) return 'Unavailable';
     if(m.bidetStatus === 'none') return 'No bidet reported';
     const bt = formatBidetType(m.bidetType);
     if(bt) return bt;
@@ -217,6 +225,8 @@
     nearMeFitPins,
     nearMeMaxZoom,
     formatBidetType,
+    NO_OPERATE_COUNTRIES,
+    doesNotOperate,
     verificationPlainText,
     bidetLeadLabel,
     boxesOverlap,
