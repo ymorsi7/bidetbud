@@ -6,8 +6,8 @@
  * @toiletswithbidetsg only documents toilets confirmed to have bidets (user photos
  * + location DMs). This is NOT a generic toilet or mosque directory.
  *
- * Source: https://www.bidetbud.com/data/bidets.geolocation.json
- *         (synced from the public Google Sheet behind @toiletswithbidetsg)
+ * Source: @toiletswithbidetsg Google My Map + sheet (cached as
+ *         data/singapore-bidets.geolocation.json).
  */
 const fs = require('fs');
 const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
@@ -20,7 +20,8 @@ const dataPath = path.join(
 
 const { isFoodVenue, isHotelVenue, loadSingaporePublicOverrides } = require('./lib/infer-type.cjs');
 const INSTAGRAM_URL = 'https://www.instagram.com/toiletswithbidetsg/';
-const SOURCE_URL = 'https://www.bidetbud.com/data/bidets.geolocation.json';
+const SOURCE_URL =
+  'https://www.google.com/maps/d/viewer?mid=1QEJocnDLq-vO8XRTOfRa50sFfJ3tLns0';
 const MOSQUE = /\b(mosque|masjid)\b/i;
 
 function formatRegion(region) {
