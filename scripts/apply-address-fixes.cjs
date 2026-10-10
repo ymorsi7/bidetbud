@@ -63,6 +63,12 @@ const MANUAL = {
     latitude: '32.9382045',
     longitude: '-96.7405628',
   },
+  'MAS Dallas': {
+    address: '1515 Blake Dr, Richardson, TX 75081',
+    city: 'Richardson, TX',
+    latitude: '32.9640411',
+    longitude: '-96.6963724',
+  },
   'King Fahad Mosque': {
     latitude: '34.011522',
     longitude: '-118.410197',
