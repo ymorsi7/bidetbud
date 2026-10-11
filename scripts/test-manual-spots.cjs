@@ -36,7 +36,7 @@ const MANUAL_SPOTS = [
   { name: 'Royal Roastery', queries: ['royal roastery', 'royal roastery richardson'], status: ['verified'] },
   { name: 'Islamic Center of Frisco', queries: ['islamic center frisco'], status: ['verified'] },
   { name: 'MAS Dallas', queries: ['mas dallas', 'mas dfw', 'muslim american society dallas'], status: ['verified'] },
-  { name: 'Islamic Center of Coppell (ICC)', queries: ['icc', 'icc dallas', 'icc coppell', 'islamic center of coppell'], status: ['verified'] },
+  { name: 'Islamic Association of Collin County (Plano Mosque)', queries: ['iacc', 'plano mosque', 'plano masjid', 'islamic association of collin county'], status: ['verified'] },
   { name: 'Yosaku', queries: ['yosaku portland'], status: ['warmed', 'internet', 'verified'] },
   { name: 'Ayat Bushwick', queries: ['ayat bushwick'], status: ['internet', 'verified'] },
   { name: 'Miyabi 45th', queries: ['miyabi seattle'], status: ['warmed', 'internet', 'verified'] },
@@ -58,5 +58,8 @@ for (const spot of MANUAL_SPOTS) {
   }
   console.log('  ✓', spot.name);
 }
+
+const icc = full.find((r) => /coppell|\bicc dallas\b/i.test([r.name, r.searchAliases].filter(Boolean).join(' ')));
+assert.equal(icc, undefined, 'ICC Dallas / Coppell should not be on the map');
 
 console.log('\nAll manual spot checks passed.');

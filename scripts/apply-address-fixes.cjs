@@ -69,11 +69,11 @@ const MANUAL = {
     latitude: '32.9640411',
     longitude: '-96.6963724',
   },
-  'Islamic Center of Coppell (ICC)': {
-    address: '612 E Sandy Lake Rd, Suite 100, Coppell, TX 75019',
-    city: 'Coppell, TX',
-    latitude: '32.9699413',
-    longitude: '-96.9760123',
+  'Islamic Association of Collin County (Plano Mosque)': {
+    address: '6401 Independence Pkwy, Plano, TX 75023',
+    city: 'Plano, TX',
+    latitude: '33.0595730',
+    longitude: '-96.7506650',
   },
   'King Fahad Mosque': {
     latitude: '34.011522',
