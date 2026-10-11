@@ -49,6 +49,14 @@ if (!fs.existsSync(dataPath)) {
 const existing = readSeed();
 const source = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
+// In-person confirmations survive a re-import of the finder feed.
+const verifiedByKey = new Map();
+for (const row of existing) {
+  if (String(row.sourceUrl || '') !== SOURCE_URL) continue;
+  if (row.bidetStatus !== 'verified') continue;
+  verifiedByKey.set(dedupeKey(row), row);
+}
+
 // Drop prior rows from this exact source URL to avoid stale duplicates.
 const without = existing.filter((r) => String(r.sourceUrl || '') !== SOURCE_URL);
 
@@ -65,6 +73,11 @@ for (const item of source) {
   }
   const row = toSeedRow(item);
   const key = dedupeKey(row);
+  const verified = verifiedByKey.get(key);
+  if (verified) {
+    row.bidetStatus = 'verified';
+    row.verifiedMethod = verified.verifiedMethod || 'in person';
+  }
   if (seen.has(key)) continue;
   seen.add(key);
   merged.push(row);

@@ -75,6 +75,12 @@ const MANUAL = {
     latitude: '33.0595730',
     longitude: '-96.7506650',
   },
+  'Bright Horizon Academy': {
+    address: '7202 Princess View Dr, San Diego, CA 92120',
+    city: 'San Diego, CA',
+    latitude: '32.8020189',
+    longitude: '-117.0791329',
+  },
   'King Fahad Mosque': {
     latitude: '34.011522',
     longitude: '-118.410197',
