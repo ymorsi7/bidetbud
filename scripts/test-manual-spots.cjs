@@ -36,6 +36,7 @@ const MANUAL_SPOTS = [
   { name: 'Royal Roastery', queries: ['royal roastery', 'royal roastery richardson'], status: ['verified'] },
   { name: 'Islamic Center of Frisco', queries: ['islamic center frisco'], status: ['verified'] },
   { name: 'MAS Dallas', queries: ['mas dallas', 'mas dfw', 'muslim american society dallas'], status: ['verified'] },
+  { name: 'Islamic Center of Coppell (ICC)', queries: ['icc', 'icc dallas', 'icc coppell', 'islamic center of coppell'], status: ['verified'] },
   { name: 'Yosaku', queries: ['yosaku portland'], status: ['warmed', 'internet', 'verified'] },
   { name: 'Ayat Bushwick', queries: ['ayat bushwick'], status: ['internet', 'verified'] },
   { name: 'Miyabi 45th', queries: ['miyabi seattle'], status: ['warmed', 'internet', 'verified'] },
