@@ -81,6 +81,18 @@ const MANUAL = {
     latitude: '32.8020189',
     longitude: '-117.0791329',
   },
+  'Delah Coffee (San Francisco)': {
+    address: '370 4th St, San Francisco, CA 94107',
+    city: 'San Francisco, CA',
+    latitude: '37.7809853',
+    longitude: '-122.4002625',
+  },
+  'La Vaca Birria': {
+    address: '2962 24th St, San Francisco, CA 94110',
+    city: 'San Francisco, CA',
+    latitude: '37.7527720',
+    longitude: '-122.4114050',
+  },
   'King Fahad Mosque': {
     latitude: '34.011522',
     longitude: '-118.410197',

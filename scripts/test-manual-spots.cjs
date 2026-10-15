@@ -39,6 +39,8 @@ const MANUAL_SPOTS = [
   { name: 'Islamic Association of Collin County (Plano Mosque)', queries: ['iacc', 'plano mosque', 'plano masjid', 'islamic association of collin county'], status: ['verified'] },
   { name: 'Sapp Bros Travel Center (Toquerville / St. George)', queries: ['sapp bros toquerville', 'sapp bros st george'], status: ['verified'] },
   { name: 'Bright Horizon Academy', queries: ['bright horizon academy', 'bright horizon san diego'], status: ['verified'] },
+  { name: 'Delah Coffee (San Francisco)', queries: ['delah coffee san francisco', 'delah 4th'], status: ['none'] },
+  { name: 'La Vaca Birria', queries: ['la vaca birria', 'la vaca san francisco'], status: ['none'] },
   { name: 'Fritzsche Haustechnik GmbH', queries: ['fritzsche haustechnik'], status: ['verified'] },
   { name: 'Yosaku', queries: ['yosaku portland'], status: ['warmed', 'internet', 'verified'] },
   { name: 'Ayat Bushwick', queries: ['ayat bushwick'], status: ['internet', 'verified'] },

@@ -24,7 +24,9 @@
     normalizeSearchText,
     searchScore,
     matchesSearch,
-    CITY_QUERY_ALIASES,
+    matchesNameSearch,
+    cityMatchesQuery,
+    searchFitRows,
   } = typeof BidetBudSearch !== 'undefined' ? BidetBudSearch : {};
 
   let allLocations = [], userLocation = null, map, clusterGroup, countriesLayer;
@@ -292,23 +294,9 @@
   function updateNoBidetUi(){
     const banner = document.getElementById('noBidetBanner');
     if(banner) banner.hidden = !noBidetMode;
-    const q = getQuery();
     const hint = document.getElementById('noBidetSearchHint');
-    if(!hint) return;
-    if(noBidetMode || !q){
-      hint.hidden = true;
-      return;
-    }
-    const hiddenNone = allLocations.filter(m =>
-      NO_BIDET(m.bidetStatus) && matchesSearch(m, q) && !noBidetMode
-    );
-    if(hiddenNone.length){
-      hint.innerHTML = 'We have a no-bidet record for <strong>' + escapeHtml(hiddenNone[0].name) + '</strong>. Turn on <button type="button" class="inline-link" id="hintEnableNoBidet">No bidet</button> to see it.';
-      hint.hidden = false;
-      document.getElementById('hintEnableNoBidet')?.addEventListener('click', () => setNoBidetMode(true));
-    } else {
-      hint.hidden = true;
-    }
+    // Name search already includes matching no-bidet pins; don't imply they are hidden.
+    if(hint) hint.hidden = true;
   }
 
   function activeFilterItems(){
@@ -1091,8 +1079,10 @@
       if(noBidetMode){
         if(!isNone) return false;
       } else if(!HAS_BIDET(m.bidetStatus)){
-        // No-bidet spots stay off the default map, but show up when searched by name.
-        if(!(isNone && q)) return false;
+        // No-bidet spots stay off the default map, but show up when searched by name
+        // (not for city-only queries like "sf").
+        const named = q && (typeof matchesNameSearch === 'function' ? matchesNameSearch(m, q) : matchesSearch(m, q));
+        if(!(isNone && named)) return false;
       }
       if(!noBidetMode){
         if(placeFilter==='mosque' && m.type!=='mosque') return false;
@@ -1620,24 +1610,10 @@
   }
 
   // City queries often match a brand elsewhere (TOTO "Richardson Nice").
-  // Fit the top-scoring cluster, not the first 50 unsorted seed rows.
-  function searchFitRows(rows, q){
-    if(!rows.length) return [];
-    const scored = rows
-      .map(m => ({ m, score: searchScore(m, q) }))
-      .filter(x => x.score > 0)
-      .sort((a, b) => b.score - a.score);
-    if(!scored.length) return rows.slice(0, 25);
-    const best = scored[0].score;
-    const top = scored.filter(x => x.score >= best - 2).map(x => x.m);
-    if(top.length <= 2) return top;
-    const sample = top.slice(0, 40);
-    const lats = sample.map(m => +m.latitude).sort((a, b) => a - b);
-    const lngs = sample.map(m => +m.longitude).sort((a, b) => a - b);
-    const mid = { lat: lats[Math.floor(lats.length / 2)], lng: lngs[Math.floor(lngs.length / 2)] };
-    const nearby = sample.filter(m => haversineMiles(mid, { lat: +m.latitude, lng: +m.longitude }) < 80);
-    if(nearby.length >= Math.min(3, sample.length)) return nearby;
-    return sample.slice(0, 25);
+  // Fit the top-scoring cluster; chain queries prefer the branch near the map/user.
+  function fitSearchRows(rows, q){
+    if(typeof searchFitRows === 'function') return searchFitRows(rows, q, distanceAnchor());
+    return rows.slice(0, 25);
   }
 
   function fitToSearchResults(rows){
@@ -1646,7 +1622,7 @@
     const key = q + '|' + placeFilter + '|' + (extraFilter||'') + '|' + (countryFilter||'');
     if(!q || key === lastFitKey) return false;
     lastFitKey = key;
-    const fitRows = searchFitRows(rows, q);
+    const fitRows = fitSearchRows(rows, q);
     const bounds = L.latLngBounds(fitRows.map(m=>[+m.latitude,+m.longitude]));
     if(!bounds.isValid()) return false;
     markAutoFit();
@@ -1983,15 +1959,11 @@
       .filter(m => matchesSearch(m, q))
       .sort((a, b) => searchScore(b, q) - searchScore(a, q))
       .slice(0, 6);
-    const compactQ = nq.replace(/\s/g, '');
-    const aliases = (CITY_QUERY_ALIASES && (CITY_QUERY_ALIASES[nq] || CITY_QUERY_ALIASES[compactQ])) || [];
     const cityMatches = [...new Set(
       allLocations
-        .filter(m => {
-          const city = normalizeSearchText(m.city);
-          if(city === nq || city.startsWith(nq + ' ') || city.startsWith(nq + ',') || (' ' + city + ' ').indexOf(' ' + nq + ' ') !== -1) return true;
-          return aliases.some(a => city.indexOf(a) !== -1);
-        })
+        .filter(m => m.city && (typeof cityMatchesQuery === 'function'
+          ? cityMatchesQuery(m.city, q)
+          : (normalizeSearchText(m.city) === nq)))
         .map(m => m.city.split(',')[0].trim())
     )].slice(0, 3);
     const items = [];
@@ -2829,7 +2801,7 @@
     console.error(err);
     let cached = null;
     try{
-      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261011a') || 'null');
+      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261014a') || 'null');
     }catch(e){}
     const el = document.getElementById('countLabel');
     if(Array.isArray(cached) && cached.length){
