@@ -89,6 +89,11 @@
     (CITY_QUERY_ALIASES[key] || []).forEach((v) => PLACE_PHRASES.push(v));
   });
   PLACE_PHRASES.sort((a, b) => b.length - a.length);
+  const PLACE_PHRASE_SET = new Set(PLACE_PHRASES);
+
+  function isPlaceOnlyQuery(q) {
+    return Boolean(metroCities(q) || PLACE_PHRASE_SET.has(q));
+  }
 
   function stableSeedId(row) {
     const s = (row.name || '') + '|' + row.latitude + '|' + row.longitude;
@@ -288,8 +293,11 @@
     if (!sig.length) return empty;
     ensureSearchMeta(m);
     const s = m._search;
-    const name = nameScore(s, q);
     const place = placeScore(s, q);
+    if (isPlaceOnlyQuery(q)) {
+      return { name: 0, place, combined: 0, best: place, q };
+    }
+    const name = nameScore(s, q);
     let combined = 0;
     const splits = possibleSplits(q);
     for (let i = 0; i < splits.length; i++) {

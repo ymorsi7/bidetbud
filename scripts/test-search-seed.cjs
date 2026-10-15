@@ -223,6 +223,7 @@ describe('city search scoring', () => {
   it('ranks Richardson TX spots above French Richardson showrooms', () => {
     assert.ok(searchScore(richardsonCafe, 'richardson') > searchScore(richardsonShowroom, 'richardson'));
     assert.ok(matchesSearch(richardsonCafe, 'richardson'));
+    assert.equal(searchScore(richardsonShowroom, 'richardson'), 0);
   });
 
   it('matches NYC to New York city pins', () => {
@@ -449,10 +450,9 @@ describe('real seed integration', () => {
   });
 
   it('richardson prefers Texas cafes over French Richardson showrooms', () => {
-    const hits = ranked('richardson', 8);
-    assert.ok(hits[0].s > searchScore(hits.find((h) => /Nice/i.test(h.m.name) || /France/i.test(h.m.country))?.m || richardsonShowroom, 'richardson') || hits.every((h) => /TX|Texas|Richardson/i.test(h.m.city + h.m.address)));
+    const hits = ranked('richardson', 40);
     assert.ok(hits.some((h) => /TX/i.test(h.m.city)));
-    assert.ok(hits[0].s >= (hits.find((h) => h.m.name === 'Richardson Nice')?.s || 0));
+    assert.ok(!hits.some((h) => /France/i.test(h.m.country) || /Nice/i.test(h.m.city)));
   });
 
   it('nyc does not rank Tokyo', () => {
