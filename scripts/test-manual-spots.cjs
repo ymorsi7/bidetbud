@@ -34,6 +34,8 @@ const MANUAL_SPOTS = [
   { name: 'Golden Shawarma', queries: ['golden shawarma richardson'], status: ['verified'] },
   { name: 'Cloud Naan', queries: ['cloud naan', 'cloud naan richardson'], status: ['verified'] },
   { name: 'Royal Roastery', queries: ['royal roastery', 'royal roastery richardson'], status: ['verified'] },
+  { name: 'Mutabak Karak', queries: ['mutabak karak', 'mutabak karak richardson', 'mutabak'], status: ['verified'] },
+  { name: "Hamburgotti's", queries: ['hamburgottis', 'hamburgotti', 'hamburgottis richardson'], status: ['none'] },
   { name: 'Islamic Center of Frisco', queries: ['islamic center frisco'], status: ['verified'] },
   { name: 'MAS Dallas', queries: ['mas dallas', 'mas dfw', 'muslim american society dallas'], status: ['verified'] },
   { name: 'Islamic Association of Collin County (Plano Mosque)', queries: ['iacc', 'plano mosque', 'plano masjid', 'islamic association of collin county'], status: ['verified'] },

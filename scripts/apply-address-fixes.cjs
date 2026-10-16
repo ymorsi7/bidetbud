@@ -63,6 +63,18 @@ const MANUAL = {
     latitude: '32.9382045',
     longitude: '-96.7405628',
   },
+  'Mutabak Karak': {
+    address: '1057 S Sherman St, Suite 110, Richardson, TX 75081',
+    city: 'Richardson, TX',
+    latitude: '32.9375624',
+    longitude: '-96.7406378',
+  },
+  "Hamburgotti's": {
+    address: '1057 S Sherman St, Suite 120, Richardson, TX 75081',
+    city: 'Richardson, TX',
+    latitude: '32.9376434',
+    longitude: '-96.7406860',
+  },
   'MAS Dallas': {
     address: '1515 Blake Dr, Richardson, TX 75081',
     city: 'Richardson, TX',
