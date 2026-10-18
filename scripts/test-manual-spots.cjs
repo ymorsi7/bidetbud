@@ -36,6 +36,8 @@ const MANUAL_SPOTS = [
   { name: 'Royal Roastery', queries: ['royal roastery', 'royal roastery richardson'], status: ['verified'] },
   { name: 'Mutabak Karak', queries: ['mutabak karak', 'mutabak karak richardson', 'mutabak'], status: ['verified'] },
   { name: "Hamburgotti's", queries: ['hamburgottis', 'hamburgotti', 'hamburgottis richardson'], status: ['none'] },
+  { name: 'Chocolate Drip', queries: ['chocolate drip', 'chocolate drip richardson', 'chocolate drip cafe'], status: ['verified'] },
+  { name: 'OG Chicken & Gyro', queries: ['og chicken', 'og chicken and gyro', 'og chicken richardson'], status: ['none'] },
   { name: 'Islamic Center of Frisco', queries: ['islamic center frisco'], status: ['verified'] },
   { name: 'MAS Dallas', queries: ['mas dallas', 'mas dfw', 'muslim american society dallas'], status: ['verified'] },
   { name: 'Islamic Association of Collin County (Plano Mosque)', queries: ['iacc', 'plano mosque', 'plano masjid', 'islamic association of collin county'], status: ['verified'] },

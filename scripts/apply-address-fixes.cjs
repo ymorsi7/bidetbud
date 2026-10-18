@@ -75,6 +75,18 @@ const MANUAL = {
     latitude: '32.9376434',
     longitude: '-96.7406860',
   },
+  'Chocolate Drip': {
+    address: '1057 S Sherman St, Suite 160, Richardson, TX 75081',
+    city: 'Richardson, TX',
+    latitude: '32.9374800',
+    longitude: '-96.7405200',
+  },
+  'OG Chicken & Gyro': {
+    address: '300 Terrace Dr, Suite 312, Richardson, TX 75081',
+    city: 'Richardson, TX',
+    latitude: '32.9517573',
+    longitude: '-96.7277168',
+  },
   'MAS Dallas': {
     address: '1515 Blake Dr, Richardson, TX 75081',
     city: 'Richardson, TX',
