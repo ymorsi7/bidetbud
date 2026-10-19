@@ -87,6 +87,12 @@ const MANUAL = {
     latitude: '32.9517573',
     longitude: '-96.7277168',
   },
+  'Kafi BBQ': {
+    address: '8140 N MacArthur Blvd, Suite 100, Irving, TX 75063',
+    city: 'Irving, TX',
+    latitude: '32.9202394',
+    longitude: '-96.9570501',
+  },
   'MAS Dallas': {
     address: '1515 Blake Dr, Richardson, TX 75081',
     city: 'Richardson, TX',
