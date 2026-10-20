@@ -29,7 +29,7 @@
   }
 
   function seedVer() {
-    return window.__BIDET_SEED_VER || '20261018b';
+    return window.__BIDET_SEED_VER || '20261019a';
   }
 
   function refreshSeedFromLive() {

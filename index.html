@@ -31,11 +31,11 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
-<link rel="stylesheet" href="css/app.css?v=20261009e">
-<link rel="preload" href="bidet-seed.json?v=20261018b" as="fetch" crossorigin>
+<link rel="stylesheet" href="css/app.css?v=20261019b">
+<link rel="preload" href="bidet-seed.json?v=20261019a" as="fetch" crossorigin>
 <script>
 window.__BIDET_SEED_P = (function(){
-  var SEED_VER = '20261018b';
+  var SEED_VER = '20261019a';
   var url = 'bidet-seed.json?v=' + SEED_VER;
   var cacheKey = 'bb_seed_cache_' + SEED_VER;
   function seedFingerprint(data){
@@ -73,13 +73,13 @@ window.__BIDET_SEED_P = (function(){
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
 <link rel="preload" href="js/core.js?v=20261009e" as="script">
 <link rel="preload" href="js/search-seed.js?v=20261014b" as="script">
-<link rel="preload" href="js/app.js?v=20261014b" as="script">
+<link rel="preload" href="js/app.js?v=20261019b" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
 <script src="js/core.js?v=20261009e" defer></script>
 <script src="js/search-seed.js?v=20261014b" defer></script>
 <script src="js/carto-key.js" defer></script>
-<script src="js/app.js?v=20261014b" defer></script>
+<script src="js/app.js?v=20261019b" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -128,19 +128,17 @@ window.__BIDET_SEED_P = (function(){
         <div class="search-ac" id="searchAc" hidden role="listbox" aria-label="Search suggestions"></div>
       </div>
       <div class="actions">
-        <!-- <div class="menu-wrap">
-          <button type="button" class="btn btn-ghost btn-icon-only" id="menuBtn" aria-label="Menu" aria-haspopup="true"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+        <div class="menu-wrap">
+          <button type="button" class="btn btn-ghost btn-icon-only" id="menuBtn" aria-label="Menu" aria-haspopup="true" aria-expanded="false"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
           <div class="menu-drop" id="menuDrop" hidden role="menu">
             <button type="button" role="menuitem" id="menuCopyView">Copy link to this view</button>
             <button type="button" role="menuitem" id="menuAbout">About</button>
             <button type="button" role="menuitem" id="menuLegend">Map legend</button>
-            <a class="menu-drop-link" role="menuitem" href="shop/">Shop bidets</a>
-            <a class="menu-drop-link" role="menuitem" href="halal/">HalalBud map</a>
+            <a class="menu-drop-link" role="menuitem" href="https://bidetbud.com/privacy">Privacy</a>
             <a class="menu-drop-link" role="menuitem" href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a class="menu-drop-link" role="menuitem" href="https://youtu.be/sQQ-bVxjqWc?si=QYB2L2aDgYlc6JRc" target="_blank" rel="noopener noreferrer">Demo video</a>
             <a class="menu-drop-link" role="menuitem" href="https://instagram.com/bidetbud" target="_blank" rel="noopener noreferrer">Instagram</a>
           </div>
-        </div> -->
+        </div>
         <button type="button" class="btn btn-ghost" id="nearMeBtn" aria-label="Find places near me">
           <svg class="btn-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/></svg>
           <span class="btn-label">Near me</span>
@@ -158,16 +156,22 @@ window.__BIDET_SEED_P = (function(){
   <div class="app-main" id="appMain">
     <div class="map-wrap">
       <div id="map" role="application" aria-label="Map of bidet locations"></div>
+      <div class="search-peek" id="searchPeek" hidden>
+        <div class="search-peek-head">
+          <span id="searchPeekCount">Places</span>
+          <button type="button" class="search-peek-all" id="searchPeekAll">See all</button>
+        </div>
+        <div class="search-peek-list" id="searchPeekList"></div>
+      </div>
     </div>
     <aside class="sidebar" aria-label="Location list">
       <div class="sidebar-head">
         <div class="quick-chips" id="quickChips" aria-label="Quick searches">
           <button type="button" class="chip quick-chip" data-quick="near-masjid">Masajid near me</button>
           <button type="button" class="chip quick-chip" data-quick="near-restaurant">Restaurants near me</button>
-          <button type="button" class="chip quick-chip" data-quick="no-bidet">No bidet spots</button>
         </div>
         <div class="filter-banner filter-banner--none" id="noBidetBanner" hidden>
-          Showing places <em>without</em> a bidet. Turn off <strong>No bidet</strong> to see verified spots.
+          Including places recorded <em>without</em> a bidet, alongside spots that have one.
         </div>
         <div class="filter-banner filter-banner--hint" id="noBidetSearchHint" hidden></div>
         <div class="filter-row">
@@ -183,18 +187,17 @@ window.__BIDET_SEED_P = (function(){
             Filters
           </button>
           <div class="filter-toggles">
-            <button type="button" class="filter-toggle limited-access-toggle" id="limitedAccessToggle" aria-pressed="false" aria-label="Include guests-only spots" title="Include hotels and restrooms that aren't open to the general public">
+            <button type="button" class="filter-toggle limited-access-toggle" id="limitedAccessToggle" aria-pressed="false" aria-label="Include hotels and guests-only spots" title="Include hotels and restrooms that aren't open to the general public">
               <svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-              <span>Guests only</span>
-            </button>
-            <button type="button" class="filter-toggle no-bidet-toggle" id="noBidetToggle" aria-pressed="false" aria-label="Show spots without a bidet" title="Show places we've recorded that do NOT have a bidet">
-              <svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="4.9" y1="4.9" x2="19.1" y2="19.1"/></svg>
-              <span>No bidet</span>
+              <span>Include hotels</span>
             </button>
           </div>
           <details class="more-filters">
             <summary>More filters</summary>
             <div class="more-panel" id="typeChips">
+              <button type="button" class="filter-toggle no-bidet-toggle" id="noBidetToggle" aria-pressed="false" aria-label="Also show spots without a bidet" title="Also show places we've recorded that do NOT have a bidet">
+                <span>No-bidet too</span>
+              </button>
               <button type="button" class="chip" data-type="verified">User verified</button>
               <button type="button" class="chip" data-type="warmed">Heated / TOTO</button>
               <button type="button" class="chip" data-type="internet">From internet</button>
@@ -318,16 +321,8 @@ window.__BIDET_SEED_P = (function(){
 
   <footer class="site-footer">
     <nav class="site-footer-nav" aria-label="Site links">
-      <a href="#" id="footerAbout">About</a>
       <a href="https://bidetbud.com/privacy">Privacy</a>
-      <a href="#" id="footerCopyLink">Copy link</a>
       <span class="site-footer-live" id="copyLinkStatus" aria-live="polite" hidden></span>
-      <!-- <a href="shop/">Shop bidets</a> -->
-      <!-- <a href="halal/">HalalBud</a> -->
-      <a href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <a href="https://youtu.be/sQQ-bVxjqWc?si=QYB2L2aDgYlc6JRc" target="_blank" rel="noopener noreferrer">Demo</a>
-      <a href="https://instagram.com/bidetbud" target="_blank" rel="noopener noreferrer">Instagram</a>
-      <a href="https://ymorsi7.github.io/Ayatica/" target="_blank" rel="noopener noreferrer">Ayatica</a>
     </nav>
     <p class="site-footer-copy">© <span id="footerYear"></span> BidetBud</p>
   </footer>
@@ -429,7 +424,7 @@ window.__BIDET_SEED_P = (function(){
         <span class="legend-dot friendly-country" aria-hidden="true"></span>
         <div>
           <strong>Bidet-friendly country</strong>
-          <span>Green map shading: bidets are common; pins are specific spots</span>
+          <span>Green shading means bidets are common there. Pins are only places with evidence.</span>
         </div>
       </li>
     </ul>

@@ -78,14 +78,10 @@ html.capacitor-native body.add-screen-open .add-screen-dialog{
 }
 html.capacitor-native .map-wrap,
 html.capacitor-native #map,
-html.capacitor-native .leaflet-container,
-html.capacitor-native .leaflet-pane,
-html.capacitor-native .leaflet-map-pane{
+html.capacitor-native .leaflet-container{
   touch-action:none;
   -webkit-user-select:none;
   user-select:none;
-  -webkit-transform:translate3d(0,0,0);
-  transform:translate3d(0,0,0);
 }
 html.capacitor-native .leaflet-marker-icon,
 html.capacitor-native .leaflet-interactive{
@@ -116,6 +112,7 @@ html.capacitor-native .dialog:not(.detail-dialog){
 /* Website chrome that should not appear in the app. */
 html.capacitor-native .site-footer,
 html.capacitor-native #promoOverlay,
+html.capacitor-native .menu-wrap,
 html.capacitor-native .quick-chips,
 html.capacitor-native .filter-toggles,
 html.capacitor-native .sidebar-legend,

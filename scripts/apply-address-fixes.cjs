@@ -93,6 +93,18 @@ const MANUAL = {
     latitude: '32.9202394',
     longitude: '-96.9570501',
   },
+  'Local Good Coffee': {
+    address: '201 Legacy Dr, Plano, TX 75023',
+    city: 'Plano, TX',
+    latitude: '33.0678608',
+    longitude: '-96.6938981',
+  },
+  "Mike's Chicken (Plano)": {
+    address: '3345 E President George Bush Hwy, Plano, TX 75074',
+    city: 'Plano, TX',
+    latitude: '32.9984676',
+    longitude: '-96.6704183',
+  },
   'MAS Dallas': {
     address: '1515 Blake Dr, Richardson, TX 75081',
     city: 'Richardson, TX',

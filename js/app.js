@@ -303,7 +303,7 @@
     const items = [];
     if(nearMe) items.push({ key: 'near', label: 'Near me' });
     if(nearMe) items.push({ key: 'radius', label: 'Within ' + formatRadiusLabel(radiusMi) });
-    if(noBidetMode) items.push({ key: 'nobidet', label: 'No bidet' });
+    if(noBidetMode) items.push({ key: 'nobidet', label: 'No-bidet too' });
     if(placeFilter === 'mosque') items.push({ key: 'place', label: 'Masajid' });
     if(placeFilter === 'restaurant') items.push({ key: 'place', label: 'Restaurants' });
     if(placeFilter === 'hotel') items.push({ key: 'place', label: 'Hotels' });
@@ -314,7 +314,7 @@
     if(extraFilter === 'public') items.push({ key: 'extra', label: 'Public access' });
     if(extraFilter === 'limited') items.push({ key: 'extra', label: 'Guests only' });
     if(countryFilter) items.push({ key: 'country', label: countryFilter });
-    if(showLimitedAccess && extraFilter !== 'limited') items.push({ key: 'limitedtoggle', label: 'Guests only on' });
+    if(showLimitedAccess && extraFilter !== 'limited' && placeFilter !== 'hotel') items.push({ key: 'limitedtoggle', label: 'Hotels included' });
     if(alongRoute) items.push({ key: 'route', label: 'Along route' });
     const q = getQuery();
     if(q) items.push({ key: 'q', label: '"' + q + '"' });
@@ -471,8 +471,8 @@
       if(localStorage.getItem('bb_hint_nobidet') !== '1' && !noBidetMode){
         const btn = document.getElementById('noBidetToggle');
         if(btn){
-          btn.title = 'Report places without bidets too (first tip)';
-          setTimeout(() => { btn.title = 'Show places we\'ve recorded that do NOT have a bidet'; }, 8000);
+          btn.title = 'Also show places without a bidet (first tip)';
+          setTimeout(() => { btn.title = 'Also show places we\'ve recorded that do NOT have a bidet'; }, 8000);
         }
         localStorage.setItem('bb_hint_nobidet', '1');
       }
@@ -587,6 +587,7 @@
     if(p.get('filter')) extraFilter = p.get('filter');
     if(p.get('nobidet') === '1') noBidetMode = true;
     if(p.get('limited') === '1') showLimitedAccess = true;
+    if(placeFilter === 'hotel') showLimitedAccess = true;
     const spotId = p.get('spot') || '';
     if(spotId){
       const spot = allLocations.find(x => x.id === spotId);
@@ -621,7 +622,10 @@
 
   function setShowLimitedAccess(on){
     showLimitedAccess = Boolean(on);
-    if(!showLimitedAccess && extraFilter === 'limited') extraFilter = null;
+    if(!showLimitedAccess){
+      if(extraFilter === 'limited') extraFilter = null;
+      if(placeFilter === 'hotel') placeFilter = 'all';
+    }
     initialBoundsDone = false;
     updateFilterUi();
     refresh();
@@ -630,27 +634,13 @@
 
   function setNoBidetMode(on){
     noBidetMode = Boolean(on);
-    // Status filters (verified/heated/web) don't apply to no-bidet records.
-    if(noBidetMode){
-      if(extraFilter==='verified' || extraFilter==='warmed' || extraFilter==='internet'){
-        extraFilter = null;
-      }
-      // Masajid/Restaurants filter would hide cafe reports like Pleasanton Qamaria.
-      placeFilter = 'all';
-      if(nearMe){
-        nearMe = false;
-        updateNearMeUi();
-      }
-      const si = document.getElementById('searchInput');
-      if(si && si.value.trim()){
-        si.value = '';
-        hideSearchAc();
-      }
-    }
-    initialBoundsDone = false;
     updateFilterUi();
     refresh();
     if(typeof window.trackEvent === 'function') window.trackEvent('bidetbud_no_bidet_toggle', { on: noBidetMode });
+  }
+
+  function allowLimitedAccess(){
+    return showLimitedAccess || extraFilter === 'limited' || placeFilter === 'hotel';
   }
 
   function updateFilterUi(){
@@ -1057,7 +1047,8 @@
       t.setAttribute('aria-selected', on ? 'true' : 'false');
     });
     document.getElementById('appMain').classList.toggle('show-list', view === 'list');
-    if(map) setTimeout(()=>map.invalidateSize(), 120);
+    renderSearchPeek(lastFiltered);
+    if(map) setTimeout(()=>safeInvalidateSize(), 120);
   }
 
   function updateMobileTabBadge(count){
@@ -1076,26 +1067,24 @@
     return allLocations.filter(m=>{
       if(!validCoord(m)) return false;
       const isNone = NO_BIDET(m.bidetStatus);
-      if(noBidetMode){
-        if(!isNone) return false;
-      } else if(!HAS_BIDET(m.bidetStatus)){
-        // No-bidet spots stay off the default map, but show up when searched by name
-        // (not for city-only queries like "sf").
+      if(isNone){
         const named = q && (typeof matchesNameSearch === 'function' ? matchesNameSearch(m, q) : matchesSearch(m, q));
-        if(!(isNone && named)) return false;
+        if(!noBidetMode && !named) return false;
+      } else if(!HAS_BIDET(m.bidetStatus)){
+        return false;
       }
-      if(!noBidetMode){
-        if(placeFilter==='mosque' && m.type!=='mosque') return false;
-        if(placeFilter==='restaurant' && m.type!=='restaurant') return false;
-        if(placeFilter==='hotel' && m.type!=='hotel') return false;
-        if(placeFilter==='public' && m.type!=='public') return false;
+      if(placeFilter==='mosque' && m.type!=='mosque') return false;
+      if(placeFilter==='restaurant' && m.type!=='restaurant') return false;
+      if(placeFilter==='hotel' && m.type!=='hotel') return false;
+      if(placeFilter==='public' && m.type!=='public') return false;
+      if(!isNone){
+        if(extraFilter==='warmed' && m.bidetStatus!=='warmed') return false;
+        if(extraFilter==='verified' && m.bidetStatus!=='verified') return false;
+        if(extraFilter==='internet' && m.bidetStatus!=='internet') return false;
       }
-      if(extraFilter==='warmed' && m.bidetStatus!=='warmed') return false;
-      if(extraFilter==='verified' && m.bidetStatus!=='verified') return false;
-      if(extraFilter==='internet' && m.bidetStatus!=='internet') return false;
       if(extraFilter==='public' && m.access!=='public') return false;
       if(extraFilter==='limited' && m.access!=='limited') return false;
-      if(!showLimitedAccess && m.access==='limited' && extraFilter!=='limited' && !doesNotOperate(m)) return false;
+      if(!allowLimitedAccess() && m.access==='limited' && !doesNotOperate(m)) return false;
       if(countryFilter && m.country !== countryFilter) return false;
       if(alongRoute){
         const dist = distToSegmentMi(
@@ -1210,10 +1199,7 @@
   function emptyStateHtml(){
     let msg = 'No places match your filters.';
     let actions = '';
-    if(noBidetMode){
-      msg = 'No spots recorded without a bidet here yet. Know one? Add it.';
-      actions = '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a no-bidet spot</button>';
-    } else if(placeFilter === 'mosque'){
+    if(placeFilter === 'mosque'){
       msg = 'No masajid match yet. Try another city or add a wudu-friendly spot you know.';
       actions = '<button type="button" class="btn btn-primary" id="emptyAddBtn">Add a spot</button>';
     } else {
@@ -1252,7 +1238,9 @@
     const masajid = filtered.filter(m=>m.type==='mosque').length;
     let countHtml;
     if(noBidetMode){
-      countHtml = '<strong>'+filtered.length+'</strong> '+(filtered.length===1?'spot':'spots')+' recorded <em>without</em> a bidet';
+      const noneN = filtered.filter(m => NO_BIDET(m.bidetStatus)).length;
+      countHtml = '<strong>'+filtered.length+'</strong> '+(filtered.length===1?'place':'places');
+      if(noneN) countHtml += ' <span class="count-of-total">including '+noneN+' without a bidet</span>';
     } else if(placeFilter==='restaurant'){
       countHtml = '<strong>'+filtered.length+'</strong> '+(filtered.length===1?'restaurant':'restaurants')+' with bidets';
     } else if(placeFilter==='mosque'){
@@ -1281,6 +1269,7 @@
       el.innerHTML = emptyStateHtml();
       wireEmptyStateActions();
       updateNearMeHint(filtered);
+      renderSearchPeek(filtered);
       return;
     }
     el.innerHTML = sortedLocations(filtered).slice(0, LIST_CAP).map(m=>{
@@ -1313,6 +1302,50 @@
       });
     });
     updateNearMeHint(filtered);
+    renderSearchPeek(filtered);
+  }
+
+  const SEARCH_PEEK_CAP = 5;
+
+  function hideSearchPeek(){
+    const box = document.getElementById('searchPeek');
+    if(box) box.hidden = true;
+    document.body.classList.remove('search-peek-open');
+  }
+
+  function renderSearchPeek(filtered){
+    const box = document.getElementById('searchPeek');
+    if(!box) return;
+    const q = getQuery();
+    const onMap = !document.getElementById('appMain')?.classList.contains('show-list');
+    const show = isMobile() && onMap && q.length >= 2;
+    if(!show){
+      hideSearchPeek();
+      return;
+    }
+    const rows = sortedLocations(filtered || []).slice(0, SEARCH_PEEK_CAP);
+    const countEl = document.getElementById('searchPeekCount');
+    const listEl = document.getElementById('searchPeekList');
+    const n = (filtered || []).length;
+    if(countEl) countEl.textContent = n ? (n + (n === 1 ? ' place' : ' places')) : 'No matches';
+    if(listEl){
+      listEl.innerHTML = rows.map(m =>
+        '<button type="button" class="search-peek-item'+(NO_BIDET(m.bidetStatus)?' search-peek-item--none':'')+'" data-id="'+m.id+'">'+
+        '<strong>'+highlight(m.name, q)+'</strong>'+
+        '<span>'+escapeHtml([m.city, m.country].filter(Boolean).join(', '))+'</span>'+
+        '</button>'
+      ).join('');
+      listEl.querySelectorAll('.search-peek-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          hideSearchAc();
+          const m = allLocations.find(x => x.id === btn.dataset.id);
+          if(m) focusSpotOnMap(m);
+          openDetail(btn.dataset.id);
+        });
+      });
+    }
+    box.hidden = false;
+    document.body.classList.add('search-peek-open');
   }
 
   function markersForMap(filtered){
@@ -1643,7 +1676,7 @@
       fitNearMeView(pins);
       if(map){
         setTimeout(()=>{
-          map.invalidateSize();
+          safeInvalidateSize();
           fitNearMeView(pins);
         }, 0);
       }
@@ -1651,7 +1684,6 @@
     updateFilterUi();
     updateUserMarker();
     syncUrlFromState();
-    if(map && !(nearMe && userLocation)) setTimeout(()=>map.invalidateSize(), 0);
   }
 
   function scheduleRefresh(){
@@ -1919,14 +1951,7 @@
       .catch(err => console.warn('Bidet-friendly country layer:', err));
   }
 
-  function showLoadToast(){
-    if(isNativeApp()) return;
-    const t = document.getElementById('loadToast');
-    if(!t) return;
-    t.textContent = allLocations.length + ' spots loaded';
-    t.classList.add('show');
-    setTimeout(()=> t.classList.remove('show'), 2800);
-  }
+  function showLoadToast(){}
 
   function hideSearchAc(){ document.getElementById('searchAc')?.setAttribute('hidden',''); }
 
@@ -1997,7 +2022,6 @@
       document.getElementById('searchInput').value = btn.dataset.value;
       hideSearchAc();
       saveRecentSearch(btn.dataset.value);
-      if(isMobile()) setMobileView('list');
       refresh();
       maybeShowPromo('search');
     }));
@@ -2051,11 +2075,18 @@
     }, {passive:true});
   }
 
+  function safeInvalidateSize(){
+    if(!map || zoomDragLock) return;
+    map.invalidateSize({ animate: false, pan: false });
+  }
+
   function enableDoubleTapDragZoom(leafletMap){
     // Google/Apple Maps: tap, then tap-and-drag vertically to zoom around
-    // that point. Preview uses Leaflet's CSS zoom anim (no tile reload);
-    // the real zoom is applied once on finger-up so the map does not flash.
+    // that point. On iOS, Leaflet's CSS zoom-anim preview snaps back before
+    // the real zoom and the map jumps; apply zoom directly instead.
     if(leafletMap.doubleClickZoom) leafletMap.doubleClickZoom.disable();
+    const iosLike = isIOS() || isNativeApp();
+    if(iosLike && leafletMap.touchZoom) leafletMap.touchZoom.disable();
     const container = leafletMap.getContainer();
     container.style.touchAction = 'none';
     container.classList.add('leaflet-touch-drag', 'leaflet-touch-zoom');
@@ -2071,17 +2102,18 @@
     let startZoom = 0;
     let pendingZoom = 0;
     let around = null;
-    let aroundLatLng = null;
     let savedSnap = leafletMap.options.zoomSnap;
     let raf = 0;
+    let pinch = null;
+
+    function touchPoint(touch){
+      const rect = container.getBoundingClientRect();
+      return L.point(touch.clientX - rect.left, touch.clientY - rect.top);
+    }
 
     function eventPoint(e){
       const t = (e.touches && e.touches[0]) || (e.changedTouches && e.changedTouches[0]) || e;
-      const rect = container.getBoundingClientRect();
-      return {
-        pt: L.point(t.clientX - rect.left, t.clientY - rect.top),
-        y: t.clientY,
-      };
+      return { pt: touchPoint(t), y: t.clientY };
     }
 
     function onMap(e){
@@ -2099,10 +2131,11 @@
       if(typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
     }
 
-    function previewZoom(z){
+    function applyZoom(z){
       pendingZoom = z;
-      if(typeof leafletMap._animateZoom !== 'function' || !aroundLatLng) return;
-      leafletMap._animateZoom(aroundLatLng, z, true, true);
+      if(!around || !Number.isFinite(z)) return;
+      if(Math.abs(z - leafletMap.getZoom()) < 0.01) return;
+      leafletMap.setZoomAround(around, z, { animate: false });
     }
 
     function beginDrag(e){
@@ -2113,7 +2146,6 @@
       startZoom = leafletMap.getZoom();
       pendingZoom = startZoom;
       around = pt;
-      aroundLatLng = leafletMap.containerPointToLatLng(pt);
       savedSnap = leafletMap.options.zoomSnap;
       leafletMap.options.zoomSnap = 0;
       zoomDragLock = true;
@@ -2123,9 +2155,39 @@
       lastUpPoint = null;
     }
 
-    function finishPreview(){
-      if(leafletMap._mapPane) L.DomUtil.removeClass(leafletMap._mapPane, 'leaflet-zoom-anim');
-      leafletMap._animatingZoom = false;
+    function endPinch(){
+      if(!pinch) return;
+      if(raf){ cancelAnimationFrame(raf); raf = 0; }
+      leafletMap.options.zoomSnap = savedSnap;
+      let next = pendingZoom;
+      if(savedSnap) next = clampZoom(Math.round(next / savedSnap) * savedSnap);
+      around = pinch.around;
+      applyZoom(next);
+      pinch = null;
+      if(leafletMap.dragging) leafletMap.dragging.enable();
+      zoomDragLock = false;
+    }
+
+    function beginPinch(e){
+      const a = e.touches[0], b = e.touches[1];
+      const pa = touchPoint(a), pb = touchPoint(b);
+      const dist = pa.distanceTo(pb);
+      if(dist < 8) return;
+      endDrag(false);
+      pinch = {
+        dist,
+        around: L.point((pa.x + pb.x) / 2, (pa.y + pb.y) / 2),
+        startZoom: leafletMap.getZoom(),
+      };
+      around = pinch.around;
+      pendingZoom = pinch.startZoom;
+      savedSnap = leafletMap.options.zoomSnap;
+      leafletMap.options.zoomSnap = 0;
+      zoomDragLock = true;
+      if(leafletMap.dragging) leafletMap.dragging.disable();
+      steal(e);
+      lastUpAt = 0;
+      lastUpPoint = null;
     }
 
     function endDrag(applyTapZoom){
@@ -2133,34 +2195,56 @@
       dragging = false;
       if(raf){ cancelAnimationFrame(raf); raf = 0; }
       leafletMap.options.zoomSnap = savedSnap;
-      finishPreview();
       let next = pendingZoom;
       if(applyTapZoom && !moved && around) next = clampZoom(startZoom + 1);
       else if(moved && savedSnap) next = clampZoom(Math.round(next / savedSnap) * savedSnap);
-      if(around && Number.isFinite(next) && Math.abs(next - leafletMap.getZoom()) > 0.01){
-        leafletMap.setZoomAround(around, next, { animate: false });
-      }
+      applyZoom(next);
       if(leafletMap.dragging) leafletMap.dragging.enable();
       zoomDragLock = false;
     }
 
     function onStart(e){
+      if(!onMap(e) && !dragging && !pinch) return;
+      if(e.touches && e.touches.length >= 2){
+        if(iosLike) beginPinch(e);
+        else {
+          endDrag(false);
+          lastUpAt = 0;
+          lastUpPoint = null;
+        }
+        return;
+      }
+      if(pinch){
+        endPinch();
+        return;
+      }
       if(e.touches && e.touches.length !== 1){
         endDrag(false);
         lastUpAt = 0;
         lastUpPoint = null;
         return;
       }
-      if(!dragging && !onMap(e)) return;
       const { pt } = eventPoint(e);
       const now = Date.now();
       if(lastUpPoint && now - lastUpAt < TAP_MS && pt.distanceTo(lastUpPoint) < TAP_PX){
         beginDrag(e);
-        return;
       }
     }
 
     function onMove(e){
+      if(pinch){
+        if(!e.touches || e.touches.length < 2) return;
+        steal(e);
+        const pa = touchPoint(e.touches[0]), pb = touchPoint(e.touches[1]);
+        const dist = pa.distanceTo(pb);
+        const scale = dist / pinch.dist;
+        const z = clampZoom(leafletMap.getScaleZoom(scale, pinch.startZoom));
+        pendingZoom = z;
+        around = pinch.around;
+        if(raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(()=> applyZoom(pendingZoom));
+        return;
+      }
       if(!dragging) return;
       if(e.touches && e.touches.length !== 1) return;
       steal(e);
@@ -2169,10 +2253,15 @@
       if(Math.abs(dy) > 6) moved = true;
       pendingZoom = clampZoom(startZoom + dy / PX_PER_ZOOM);
       if(raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(()=> previewZoom(pendingZoom));
+      raf = requestAnimationFrame(()=> applyZoom(pendingZoom));
     }
 
     function onEnd(e){
+      if(pinch){
+        steal(e);
+        endPinch();
+        return;
+      }
       if(dragging){
         steal(e);
         endDrag(true);
@@ -2185,28 +2274,39 @@
       lastUpPoint = pt;
     }
 
+    function onCancel(){
+      if(pinch) endPinch();
+      else endDrag(false);
+    }
+
     const opts = { passive: false, capture: true };
-    document.addEventListener('touchstart', onStart, opts);
-    document.addEventListener('touchmove', onMove, opts);
-    document.addEventListener('touchend', onEnd, opts);
-    document.addEventListener('touchcancel', function(){ endDrag(false); }, opts);
+    container.addEventListener('touchstart', onStart, opts);
+    container.addEventListener('touchmove', onMove, opts);
+    container.addEventListener('touchend', onEnd, opts);
+    container.addEventListener('touchcancel', onCancel, opts);
+    if(iosLike){
+      container.addEventListener('gesturestart', steal, opts);
+      container.addEventListener('gesturechange', steal, opts);
+      container.addEventListener('gestureend', steal, opts);
+    }
   }
 
   function initMap(){
     const native = isNativeApp();
     const startLoc = window.__BB_LAST_LOC;
+    const iosLike = isIOS() || native;
     map = L.map('map',{
       zoomControl:!native,
       minZoom:MAP_MIN_ZOOM,
       worldCopyJump:true,
       tap:false,
       bounceAtZoomLimits:false,
-      inertia:true,
+      inertia:!iosLike,
       inertiaDeceleration:3000,
-      inertiaMaxSpeed:4000,
+      inertiaMaxSpeed:iosLike ? 0 : 4000,
       fadeAnimation:false,
-      markerZoomAnimation:!native,
-      zoomAnimation:true
+      markerZoomAnimation:false,
+      zoomAnimation:!iosLike
     }).setView(
       startLoc && native ? [startLoc.lat, startLoc.lng] : [DEFAULT_MAP_CENTER.lat, DEFAULT_MAP_CENTER.lng],
       startLoc && native ? 13 : DEFAULT_MAP_ZOOM
@@ -2258,13 +2358,20 @@
     const mobileMq = window.matchMedia('(max-width:820px)');
     mobileMq.addEventListener('change', e=>{
       if(map.zoomControl) map.zoomControl.setPosition(e.matches ? 'topright' : 'bottomright');
-      setTimeout(()=>map.invalidateSize(), 100);
+      setTimeout(()=>safeInvalidateSize(), 100);
     });
-    setTimeout(()=>{ if(map) map.invalidateSize(); }, 150);
+    setTimeout(()=>safeInvalidateSize(), 150);
+    let vvTimer = 0;
     if(window.visualViewport){
-      window.visualViewport.addEventListener('resize',()=>{ if(map) map.invalidateSize(); });
+      window.visualViewport.addEventListener('resize',()=>{
+        clearTimeout(vvTimer);
+        vvTimer = setTimeout(()=>safeInvalidateSize(), 250);
+      });
     }
-    window.addEventListener('resize',()=>{ if(map) map.invalidateSize(); });
+    window.addEventListener('resize',()=>{
+      clearTimeout(vvTimer);
+      vvTimer = setTimeout(()=>safeInvalidateSize(), 250);
+    });
   }
 
   function initLegendHelp(){
@@ -2327,21 +2434,21 @@
   function flyMapToUser(){
     if(!map || !userLocation) return;
     map.setView([userLocation.lat, userLocation.lng], 13, { animate:false });
-    setTimeout(()=>{ if(map) map.invalidateSize(); }, 80);
+    setTimeout(()=>safeInvalidateSize(), 80);
   }
 
   function maybeAutoCenterOnUser(){
     if(autoCentered || !map) return;
-    if(!isNativeApp()) return;
     if(spotFromUrl) return;
     const params = new URLSearchParams(location.search);
-    if(params.get('view') || params.get('near') === '1' || params.get('spot')) return;
+    if(params.get('view') || params.get('near') === '1' || params.get('spot') || params.get('q')) return;
     const cached = window.__BB_LAST_LOC;
     if(cached && isFinite(cached.lat) && isFinite(cached.lng)){
       autoCentered = true;
       userLocation = { lat:cached.lat, lng:cached.lng };
       updateUserMarker();
       flyMapToUser();
+      refresh();
       return;
     }
     requestUserLocation({
@@ -2349,6 +2456,7 @@
       onOk(){
         autoCentered = true;
         flyMapToUser();
+        refresh();
       }
     });
   }
@@ -2383,8 +2491,8 @@
         '</button>').join('')+'</div></div>'+
       '<div class="filter-sheet-section"><span class="filter-sheet-label">Toggles</span>'+
       '<div class="filter-toggles">'+
-      '<button type="button" class="filter-toggle'+(showLimitedAccess?' active':'')+'" data-sheet="limited">Guests only</button>'+
-      '<button type="button" class="filter-toggle'+(noBidetMode?' active':'')+'" data-sheet="nobidet">No bidet</button>'+
+      '<button type="button" class="filter-toggle'+(showLimitedAccess?' active':'')+'" data-sheet="limited">Include hotels</button>'+
+      '<button type="button" class="filter-toggle'+(noBidetMode?' active':'')+'" data-sheet="nobidet">No-bidet too</button>'+
       '</div></div>'+
       '<div class="filter-sheet-section"><span class="filter-sheet-label">More</span>'+
       '<div class="more-panel" id="sheetTypeChips">'+
@@ -2402,6 +2510,7 @@
     if(pf) placeFilter = pf.dataset.type;
     showLimitedAccess = Boolean(document.querySelector('[data-sheet="limited"].active'));
     noBidetMode = Boolean(document.querySelector('[data-sheet="nobidet"].active'));
+    if(placeFilter === 'hotel') showLimitedAccess = true;
     extraFilter = null;
     countryFilter = null;
     document.querySelectorAll('#sheetTypeChips .chip.active').forEach(btn=>{
@@ -2460,7 +2569,6 @@
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', ()=>{
       renderSearchAc();
-      if(isMobile() && searchInput.value.trim().length >= 2) setMobileView('list');
       scheduleRefresh();
     });
     searchInput.addEventListener('focus', renderSearchAc);
@@ -2479,7 +2587,6 @@
     document.querySelectorAll('.quick-chip').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const q = btn.dataset.quick;
-        if(q === 'no-bidet'){ setNoBidetMode(true); return; }
         placeFilter = q === 'near-masjid' ? 'mosque' : 'restaurant';
         updateFilterUi();
         requestNearMe();
@@ -2489,6 +2596,7 @@
     document.querySelectorAll('#placeFilter button').forEach(btn=>{
       btn.addEventListener('click',()=>{
         placeFilter = btn.dataset.type;
+        if(placeFilter === 'hotel') showLimitedAccess = true;
         updateFilterUi();
         refresh();
       });
@@ -2517,8 +2625,6 @@
       } else {
         extraFilter = t;
         if(t === 'limited') showLimitedAccess = true;
-        // Bidet-status chips are meaningless while viewing no-bidet spots.
-        if(t==='verified' || t==='warmed' || t==='internet') noBidetMode = false;
       }
       updateFilterUi();
       refresh();
@@ -2588,6 +2694,9 @@
       const seg = e.target.closest('#sheetPlaceFilter button');
       if(seg){
         document.querySelectorAll('#sheetPlaceFilter button').forEach(b=>b.classList.toggle('active', b===seg));
+        if(seg.dataset.type === 'hotel'){
+          document.querySelector('[data-sheet="limited"]')?.classList.add('active');
+        }
         return;
       }
       const toggle = e.target.closest('[data-sheet]');
@@ -2612,6 +2721,7 @@
       tab.addEventListener('click',()=> setMobileView(tab.dataset.view));
     });
     document.getElementById('aboutClose').addEventListener('click',()=> setOverlayOpen('aboutOverlay', false));
+    document.getElementById('searchPeekAll')?.addEventListener('click', ()=> setMobileView('list'));
     document.getElementById('footerAbout')?.addEventListener('click', e=>{ e.preventDefault(); setOverlayOpen('aboutOverlay', true); });
     document.getElementById('footerCopyLink')?.addEventListener('click', e=>{ e.preventDefault(); copyViewLink(); });
     const footerYear = document.getElementById('footerYear');
@@ -2801,7 +2911,7 @@
     console.error(err);
     let cached = null;
     try{
-      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261018b') || 'null');
+      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261019a') || 'null');
     }catch(e){}
     const el = document.getElementById('countLabel');
     if(Array.isArray(cached) && cached.length){
