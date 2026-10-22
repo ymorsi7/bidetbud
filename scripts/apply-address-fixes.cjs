@@ -117,6 +117,12 @@ const MANUAL = {
     latitude: '32.9751681',
     longitude: '-96.6982889',
   },
+  'Zamzam Kabab (Plano)': {
+    address: '2400 K Ave, Suite B, Plano, TX 75074',
+    city: 'Plano, TX',
+    latitude: '33.0296300',
+    longitude: '-96.6983170',
+  },
   'MAS Dallas': {
     address: '1515 Blake Dr, Richardson, TX 75081',
     city: 'Richardson, TX',
