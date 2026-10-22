@@ -41,6 +41,8 @@ const MANUAL_SPOTS = [
   { name: 'Kafi BBQ', queries: ['kafi bbq', 'kafi', 'kafi bbq irving'], status: ['none'] },
   { name: 'Local Good Coffee', queries: ['local good coffee', 'local good', 'local good coffee plano'], status: ['none'] },
   { name: "Mike's Chicken (Plano)", queries: ['mikes chicken', "mike's chicken plano", 'mikes chicken plano'], status: ['none'] },
+  { name: 'Dessert Lab (Richardson)', queries: ['dessert lab', 'dessert lab richardson', 'dessert lab polk'], status: ['none'] },
+  { name: 'Tarboosh Gyro Grill', queries: ['tarboosh', 'tarboosh gyro', 'tarboosh richardson', 'tarboosh gyro grill'], status: ['none'] },
   { name: 'Islamic Center of Frisco', queries: ['islamic center frisco'], status: ['verified'] },
   { name: 'MAS Dallas', queries: ['mas dallas', 'mas dfw', 'muslim american society dallas'], status: ['verified'] },
   { name: 'Islamic Association of Collin County (Plano Mosque)', queries: ['iacc', 'plano mosque', 'plano masjid', 'islamic association of collin county'], status: ['verified'] },

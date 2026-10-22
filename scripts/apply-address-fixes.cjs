@@ -105,6 +105,18 @@ const MANUAL = {
     latitude: '32.9984676',
     longitude: '-96.6704183',
   },
+  'Dessert Lab (Richardson)': {
+    address: '329 E Polk St, Suite 100, Richardson, TX 75081',
+    city: 'Richardson, TX',
+    latitude: '32.9474498',
+    longitude: '-96.7294851',
+  },
+  'Tarboosh Gyro Grill': {
+    address: '1403 E Campbell Rd, Suite 101C, Richardson, TX 75081',
+    city: 'Richardson, TX',
+    latitude: '32.9751681',
+    longitude: '-96.6982889',
+  },
   'MAS Dallas': {
     address: '1515 Blake Dr, Richardson, TX 75081',
     city: 'Richardson, TX',
