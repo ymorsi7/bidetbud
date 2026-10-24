@@ -123,6 +123,12 @@ const MANUAL = {
     latitude: '33.0296300',
     longitude: '-96.6983170',
   },
+  "Ricky's Hot Chicken (Richardson)": {
+    address: '100 S Central Expy, Suite 18, Richardson, TX 75080',
+    city: 'Richardson, TX',
+    latitude: '32.9490655',
+    longitude: '-96.7383057',
+  },
   'MAS Dallas': {
     address: '1515 Blake Dr, Richardson, TX 75081',
     city: 'Richardson, TX',
