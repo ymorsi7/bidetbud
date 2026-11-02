@@ -84,6 +84,7 @@ body.modal-open{overflow:hidden}
 .map-wrap{flex:1;min-width:0;position:relative;z-index:1;background:#b6d4e8;border-radius:0}
 #map{position:absolute;inset:0;background:#b6d4e8;touch-action:none}
 .leaflet-container{touch-action:none}
+.leaflet-map-pane{transform-origin:0 0}
 .leaflet-zoom-anim .leaflet-zoom-animated{will-change:transform}
 
 .legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;box-sizing:content-box;display:inline-block}

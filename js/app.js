@@ -42,6 +42,7 @@
   let lastFitKey = null;
   let pendingView = null;
   let zoomDragLock = false;
+  let zoomQuietUntil = 0;
   let autoCentered = false;
   // Rows matching the filters globally, vs. the subset inside the current map view.
   let totalMatchCount = 0;
@@ -277,7 +278,7 @@
   function focusSpotOnMap(m, opts){
     if(!map || !m) return;
     const zoom = opts?.zoom || Math.max(map.getZoom(), 15);
-    map.setView([+m.latitude, +m.longitude], zoom, { animate: true });
+    map.setView([+m.latitude, +m.longitude], zoom, { animate: !(isIOS() || isNativeApp()) });
     highlightMarker(m.id);
     if(opts?.offset !== false) offsetMapForDetailSheet();
   }
@@ -1637,7 +1638,7 @@
     const bounds = L.latLngBounds(lastFiltered.map(m=>[+m.latitude,+m.longitude]));
     if(bounds.isValid()){
       markAutoFit();
-      map.fitBounds(bounds.pad(0.1), { maxZoom: 4, animate: true });
+      map.fitBounds(bounds.pad(0.1), { maxZoom: 4, animate: !(isIOS() || isNativeApp()) });
       refresh();
     }
   }
@@ -2076,14 +2077,14 @@
   }
 
   function safeInvalidateSize(){
-    if(!map || zoomDragLock) return;
+    if(!map || zoomDragLock || Date.now() < zoomQuietUntil) return;
     map.invalidateSize({ animate: false, pan: false });
   }
 
   function enableDoubleTapDragZoom(leafletMap){
     // Google/Apple Maps: tap, then tap-and-drag vertically to zoom around
-    // that point. On iOS, Leaflet's CSS zoom-anim preview snaps back before
-    // the real zoom and the map jumps; apply zoom directly instead.
+    // that point. On iOS, changing Leaflet zoom every frame reloads tiles and
+    // the map jumps; preview with a CSS scale, then commit once on finger-up.
     if(leafletMap.doubleClickZoom) leafletMap.doubleClickZoom.disable();
     const iosLike = isIOS() || isNativeApp();
     if(iosLike && leafletMap.touchZoom) leafletMap.touchZoom.disable();
@@ -2105,6 +2106,7 @@
     let savedSnap = leafletMap.options.zoomSnap;
     let raf = 0;
     let pinch = null;
+    let previewPos = null;
 
     function touchPoint(touch){
       const rect = container.getBoundingClientRect();
@@ -2131,11 +2133,57 @@
       if(typeof e.stopImmediatePropagation === 'function') e.stopImmediatePropagation();
     }
 
-    function applyZoom(z){
-      pendingZoom = z;
+    function mapPane(){
+      return leafletMap._mapPane;
+    }
+
+    function startPreview(){
+      const el = mapPane();
+      if(!el) return;
+      previewPos = leafletMap._getMapPanePos().clone();
+      el.style.transformOrigin = '0 0';
+      el.style.willChange = 'transform';
+    }
+
+    function previewZoom(fromZoom, toZoom, origin){
+      if(!previewPos || !origin || !Number.isFinite(toZoom)) return;
+      const el = mapPane();
+      if(!el) return;
+      const scale = leafletMap.getZoomScale(toZoom, fromZoom);
+      const nx = origin.x - (origin.x - previewPos.x) * scale;
+      const ny = origin.y - (origin.y - previewPos.y) * scale;
+      el.style.transform = 'translate3d(' + nx + 'px,' + ny + 'px,0) scale(' + scale + ')';
+    }
+
+    function stopPreview(){
+      const el = mapPane();
+      if(el){
+        el.style.willChange = '';
+        el.style.transformOrigin = '';
+        if(previewPos) L.DomUtil.setPosition(el, previewPos);
+      }
+      previewPos = null;
+    }
+
+    function commitZoom(z){
+      if(raf){ cancelAnimationFrame(raf); raf = 0; }
+      stopPreview();
+      z = clampZoom(z);
       if(!around || !Number.isFinite(z)) return;
       if(Math.abs(z - leafletMap.getZoom()) < 0.01) return;
       leafletMap.setZoomAround(around, z, { animate: false });
+      zoomQuietUntil = Date.now() + 500;
+    }
+
+    function schedulePreview(){
+      if(raf) cancelAnimationFrame(raf);
+      const from = pinch ? pinch.startZoom : startZoom;
+      const origin = around;
+      const z = pendingZoom;
+      raf = requestAnimationFrame(()=>{
+        raf = 0;
+        previewZoom(from, z, origin);
+      });
     }
 
     function beginDrag(e){
@@ -2150,6 +2198,7 @@
       leafletMap.options.zoomSnap = 0;
       zoomDragLock = true;
       if(leafletMap.dragging) leafletMap.dragging.disable();
+      startPreview();
       steal(e);
       lastUpAt = 0;
       lastUpPoint = null;
@@ -2157,13 +2206,12 @@
 
     function endPinch(){
       if(!pinch) return;
-      if(raf){ cancelAnimationFrame(raf); raf = 0; }
       leafletMap.options.zoomSnap = savedSnap;
       let next = pendingZoom;
       if(savedSnap) next = clampZoom(Math.round(next / savedSnap) * savedSnap);
       around = pinch.around;
-      applyZoom(next);
       pinch = null;
+      commitZoom(next);
       if(leafletMap.dragging) leafletMap.dragging.enable();
       zoomDragLock = false;
     }
@@ -2185,6 +2233,7 @@
       leafletMap.options.zoomSnap = 0;
       zoomDragLock = true;
       if(leafletMap.dragging) leafletMap.dragging.disable();
+      startPreview();
       steal(e);
       lastUpAt = 0;
       lastUpPoint = null;
@@ -2193,12 +2242,11 @@
     function endDrag(applyTapZoom){
       if(!dragging) return;
       dragging = false;
-      if(raf){ cancelAnimationFrame(raf); raf = 0; }
       leafletMap.options.zoomSnap = savedSnap;
       let next = pendingZoom;
       if(applyTapZoom && !moved && around) next = clampZoom(startZoom + 1);
       else if(moved && savedSnap) next = clampZoom(Math.round(next / savedSnap) * savedSnap);
-      applyZoom(next);
+      commitZoom(next);
       if(leafletMap.dragging) leafletMap.dragging.enable();
       zoomDragLock = false;
     }
@@ -2238,11 +2286,9 @@
         const pa = touchPoint(e.touches[0]), pb = touchPoint(e.touches[1]);
         const dist = pa.distanceTo(pb);
         const scale = dist / pinch.dist;
-        const z = clampZoom(leafletMap.getScaleZoom(scale, pinch.startZoom));
-        pendingZoom = z;
+        pendingZoom = clampZoom(leafletMap.getScaleZoom(scale, pinch.startZoom));
         around = pinch.around;
-        if(raf) cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(()=> applyZoom(pendingZoom));
+        schedulePreview();
         return;
       }
       if(!dragging) return;
@@ -2252,8 +2298,7 @@
       const dy = startY - y;
       if(Math.abs(dy) > 6) moved = true;
       pendingZoom = clampZoom(startZoom + dy / PX_PER_ZOOM);
-      if(raf) cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(()=> applyZoom(pendingZoom));
+      schedulePreview();
     }
 
     function onEnd(e){
@@ -2344,10 +2389,11 @@
     clusterGroup.on('clusterclick', e=>{
       const cluster = e.layer;
       const childCount = cluster.getChildCount();
+      const anim = !iosLike;
       if(childCount <= 12){
-        map.fitBounds(cluster.getBounds().pad(0.15), { maxZoom: 16, animate: true });
+        map.fitBounds(cluster.getBounds().pad(0.15), { maxZoom: 16, animate: anim });
       } else {
-        map.fitBounds(cluster.getBounds().pad(0.08), { maxZoom: 14, animate: true });
+        map.fitBounds(cluster.getBounds().pad(0.08), { maxZoom: 14, animate: anim });
       }
     });
     map.on('moveend', onUserMapViewChange);
@@ -2362,7 +2408,9 @@
     });
     setTimeout(()=>safeInvalidateSize(), 150);
     let vvTimer = 0;
-    if(window.visualViewport){
+    // iOS visualViewport fires during pinch and URL-bar hide; resizing the
+    // map then is what makes the tiles jump after a zoom.
+    if(window.visualViewport && !iosLike){
       window.visualViewport.addEventListener('resize',()=>{
         clearTimeout(vvTimer);
         vvTimer = setTimeout(()=>safeInvalidateSize(), 250);
