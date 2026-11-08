@@ -129,6 +129,12 @@ const MANUAL = {
     latitude: '32.9490655',
     longitude: '-96.7383057',
   },
+  'Simply Noodles & Dim Sum Bryant Park': {
+    address: '110 W 40th St Store 4, New York, NY 10018',
+    city: 'New York, NY',
+    latitude: '40.7536526',
+    longitude: '-73.9860102',
+  },
   'MAS Dallas': {
     address: '1515 Blake Dr, Richardson, TX 75081',
     city: 'Richardson, TX',

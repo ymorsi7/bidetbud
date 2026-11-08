@@ -45,6 +45,7 @@ const MANUAL_SPOTS = [
   { name: 'Tarboosh Gyro Grill', queries: ['tarboosh', 'tarboosh gyro', 'tarboosh richardson', 'tarboosh gyro grill'], status: ['none'] },
   { name: 'Zamzam Kabab (Plano)', queries: ['zamzam kabab', 'zamzam plano', 'zam zam kabab plano', 'zamzam kebab'], status: ['none'] },
   { name: "Ricky's Hot Chicken (Richardson)", queries: ['rickys hot chicken', "ricky's hot chicken richardson", 'ricky hot chicken richardson'], status: ['none'] },
+  { name: 'Simply Noodles & Dim Sum Bryant Park', queries: ['simply noodles', 'simply noodles bryant park', 'simply dim sum'], status: ['none'] },
   { name: 'Islamic Center of Frisco', queries: ['islamic center frisco'], status: ['verified'] },
   { name: 'MAS Dallas', queries: ['mas dallas', 'mas dfw', 'muslim american society dallas'], status: ['verified'] },
   { name: 'Islamic Association of Collin County (Plano Mosque)', queries: ['iacc', 'plano mosque', 'plano masjid', 'islamic association of collin county'], status: ['verified'] },
