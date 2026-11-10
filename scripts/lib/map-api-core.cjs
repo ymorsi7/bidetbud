@@ -139,10 +139,10 @@ function searchRows(rows, q, { country = '', limit = 40 } = {}) {
   return out;
 }
 
-function handleSession({ secret, ver, headers }) {
+function sessionCookie(secret, headers) {
   const token = makeSessionToken(secret);
   const isLocal = /localhost|127\.0\.0\.1/i.test(headers.host || '');
-  const cookie = [
+  return [
     `bb_s=${encodeURIComponent(token)}`,
     'Path=/',
     'HttpOnly',
@@ -150,7 +150,29 @@ function handleSession({ secret, ver, headers }) {
     `Max-Age=${60 * 60 * 12}`,
     !isLocal ? 'Secure' : '',
   ].filter(Boolean).join('; ');
-  return json(200, { ok: true, ver }, { 'set-cookie': cookie });
+}
+
+function handleSession({ secret, ver, headers }) {
+  return json(200, { ok: true, ver }, { 'set-cookie': sessionCookie(secret, headers) });
+}
+
+/** One-shot boot: session cookie + full public pin set (no evidence fields). */
+function handleBootstrap({ secret, ver, rows, headers, ip }) {
+  rateLimit(`bootstrap:${ip || clientIp(headers)}`, { limit: 30, windowMs: 60 * 60 * 1000 });
+  const site = String(headers['sec-fetch-site'] || headers['Sec-Fetch-Site'] || '').toLowerCase();
+  // First paint from the site itself (no cookie yet). Block bare curl dumps.
+  if (site === 'same-origin' || site === 'same-site') {
+    /* ok */
+  } else {
+    assertBrowserRequest(headers, { sessionOk: false });
+  }
+  return json(200, {
+    ok: true,
+    ver,
+    total: rows.length,
+    countries: countryCounts(rows),
+    spots: rows,
+  }, { 'set-cookie': sessionCookie(secret, headers) });
 }
 
 function requireAuthed(event, secret) {
@@ -227,10 +249,12 @@ module.exports = {
   clientIp,
   rateLimit,
   handleSession,
+  handleBootstrap,
   requireAuthed,
   handleMeta,
   handleSpots,
   handleSearch,
   handleSpot,
   searchRows,
+  assertBrowserRequest,
 };

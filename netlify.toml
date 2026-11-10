@@ -17,6 +17,11 @@
   status = 200
 
 [[redirects]]
+  from = "/api/bootstrap"
+  to = "/.netlify/functions/bootstrap"
+  status = 200
+
+[[redirects]]
   from = "/api/meta"
   to = "/.netlify/functions/meta"
   status = 200

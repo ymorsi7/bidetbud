@@ -1730,31 +1730,10 @@
     clearTimeout(mapMoveTimer);
     mapMoveTimer = setTimeout(()=>{
       mapMoveTimer = null;
-      syncViewportSpots().then(()=>{
-        if(!clusterGroup) return;
-        refresh();
-      }).catch(()=>{
-        if(lastFiltered.length) renderList(lastFiltered);
-        syncUrlFromState();
-      });
-    }, 220);
-  }
-
-  let viewportFetchSeq = 0;
-  async function syncViewportSpots(){
-    const api = window.BidetBudMapApi;
-    if(!api || !map) return;
-    const seq = ++viewportFetchSeq;
-    const q = getQuery();
-    if(q.length >= 2){
-      await api.search(q, { country: countryFilter || '', limit: 50 });
-    } else if(countryFilter && map.getZoom() <= 5){
-      await api.search('', { country: countryFilter, limit: 60 });
-    } else {
-      await api.loadSpotsForBounds(map.getBounds(), map.getZoom());
-    }
-    if(seq !== viewportFetchSeq) return;
-    initData();
+      if(!clusterGroup || !lastFiltered.length) return;
+      renderList(lastFiltered);
+      syncUrlFromState();
+    }, 180);
   }
 
   function resetAddForm(){
@@ -2686,12 +2665,7 @@
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', ()=>{
       renderSearchAc();
-      clearTimeout(refreshTimer);
-      refreshTimer = setTimeout(async ()=>{
-        refreshTimer = null;
-        try{ await syncViewportSpots(); }catch(e){}
-        refresh();
-      }, 280);
+      scheduleRefresh();
     });
     searchInput.addEventListener('focus', renderSearchAc);
     searchInput.addEventListener('blur', ()=> setTimeout(hideSearchAc, 180));
@@ -3023,16 +2997,21 @@
 
   async function bootMapData(){
     const api = window.BidetBudMapApi;
-    if(!api) throw new Error('Map API missing');
-    await api.ensureSession();
-    await api.loadMeta();
-    if(map) await syncViewportSpots();
-    else await api.search('usa', { limit: 30 }).catch(()=>{});
+    if(!api || !api.bootstrap) throw new Error('Map API missing');
+    // Paint immediately from local cache if present, then refresh from /api/bootstrap.
+    if(api.preloadCache) api.preloadCache();
+    if(api.size) bootFromCache();
+    await api.bootstrap();
     bootFromCache();
   }
 
   bootMapData().catch(err => {
     console.error(err);
+    const api = window.BidetBudMapApi;
+    if(api && api.size){
+      bootFromCache();
+      return;
+    }
     const el = document.getElementById('countLabel');
     if(el) el.innerHTML = 'Could not load spots. <button type="button" class="inline-link" id="retryLoadBtn">Retry</button>';
     document.getElementById('retryLoadBtn')?.addEventListener('click', ()=> location.reload());

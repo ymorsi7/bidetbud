@@ -1,5 +1,6 @@
 /**
- * Viewport/search map data client. No full-seed download.
+ * Map data client. Loads the full public pin set once via /api/bootstrap
+ * (session cookie + rate limit). No public bidet-seed.json dump.
  */
 (function (global) {
   const state = {
@@ -8,6 +9,7 @@
     byId: new Map(),
     countries: [],
     total: 0,
+    bootstrapped: false,
   };
 
   function apiUrl(path, params) {
@@ -28,34 +30,8 @@
       headers: { Accept: 'application/json' },
       cache: 'no-store',
     });
-    if (res.status === 401) {
-      state.sessionReady = null;
-      await ensureSession();
-      const retry = await fetch(apiUrl(path, params), {
-        credentials: 'same-origin',
-        headers: { Accept: 'application/json' },
-        cache: 'no-store',
-      });
-      if (!retry.ok) throw new Error('Map API ' + retry.status);
-      return retry.json();
-    }
     if (!res.ok) throw new Error('Map API ' + res.status);
     return res.json();
-  }
-
-  function ensureSession() {
-    if (state.sessionReady) return state.sessionReady;
-    state.sessionReady = getJson('/api/session')
-      .then((data) => {
-        state.ver = data.ver || '';
-        global.__BIDET_SEED_VER = state.ver;
-        return data;
-      })
-      .catch((err) => {
-        state.sessionReady = null;
-        throw err;
-      });
-    return state.sessionReady;
   }
 
   function mergeSpots(spots) {
@@ -74,40 +50,78 @@
     return Array.from(state.byId.values());
   }
 
-  async function loadMeta() {
-    await ensureSession();
-    const data = await getJson('/api/meta');
+  function cacheKey(ver) {
+    return 'bb_map_public_' + (ver || '0');
+  }
+
+  function readLocalCache() {
+    try {
+      const ver = localStorage.getItem('bb_map_public_ver') || '';
+      if (!ver) return null;
+      const raw = localStorage.getItem(cacheKey(ver));
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (!data || !Array.isArray(data.spots) || !data.spots.length) return null;
+      return data;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function writeLocalCache(data) {
+    try {
+      localStorage.setItem('bb_map_public_ver', data.ver || '');
+      localStorage.setItem(cacheKey(data.ver), JSON.stringify({
+        ver: data.ver,
+        total: data.total,
+        countries: data.countries || [],
+        spots: data.spots,
+      }));
+    } catch (e) { /* quota — ignore */ }
+  }
+
+  function applyBootstrap(data) {
+    state.byId.clear();
+    mergeSpots(data.spots || []);
     state.countries = data.countries || [];
-    state.total = data.total || 0;
-    state.ver = data.ver || state.ver;
+    state.total = data.total || state.byId.size;
+    state.ver = data.ver || '';
+    state.bootstrapped = true;
+    state.sessionReady = Promise.resolve({ ok: true, ver: state.ver });
+    global.__BIDET_SEED_VER = state.ver;
     return data;
   }
 
-  async function loadSpotsForBounds(bounds, zoom) {
-    if (!bounds) return [];
-    await ensureSession();
-    const west = bounds.getWest();
-    const south = bounds.getSouth();
-    const east = bounds.getEast();
-    const north = bounds.getNorth();
-    const data = await getJson('/api/spots', {
-      west: west.toFixed(5),
-      south: south.toFixed(5),
-      east: east.toFixed(5),
-      north: north.toFixed(5),
-      z: Math.round(zoom || 10),
-    });
-    return mergeSpots(data.spots || []);
+  function preloadCache() {
+    const cached = readLocalCache();
+    if (cached) applyBootstrap(cached);
+    return state.bootstrapped;
   }
 
-  async function search(q, opts) {
-    await ensureSession();
-    const data = await getJson('/api/search', {
-      q: q || '',
-      country: (opts && opts.country) || '',
-      limit: (opts && opts.limit) || 40,
-    });
-    return mergeSpots(data.spots || []);
+  async function bootstrap() {
+    preloadCache();
+    const data = await getJson('/api/bootstrap');
+    if (!data || !Array.isArray(data.spots) || !data.spots.length) {
+      throw new Error('Empty map bootstrap');
+    }
+    applyBootstrap(data);
+    writeLocalCache(data);
+    return data;
+  }
+
+  function ensureSession() {
+    if (state.sessionReady) return state.sessionReady;
+    state.sessionReady = getJson('/api/session')
+      .then((data) => {
+        state.ver = data.ver || state.ver;
+        global.__BIDET_SEED_VER = state.ver;
+        return data;
+      })
+      .catch((err) => {
+        state.sessionReady = null;
+        throw err;
+      });
+    return state.sessionReady;
   }
 
   async function loadSpot(id) {
@@ -120,10 +134,9 @@
   }
 
   global.BidetBudMapApi = {
+    bootstrap,
+    preloadCache,
     ensureSession,
-    loadMeta,
-    loadSpotsForBounds,
-    search,
     loadSpot,
     mergeSpots,
     allCached,
@@ -131,5 +144,6 @@
     get countries() { return state.countries; },
     get total() { return state.total; },
     get size() { return state.byId.size; },
+    get bootstrapped() { return state.bootstrapped; },
   };
 })(typeof window !== 'undefined' ? window : globalThis);

@@ -76,6 +76,15 @@ async function handleApi(req, res, url) {
     if (url.pathname === '/api/session') {
       return send(res, api.handleSession({ secret, ver: metaVer(), headers: event.headers }));
     }
+    if (url.pathname === '/api/bootstrap') {
+      return send(res, api.handleBootstrap({
+        secret,
+        ver: metaVer(),
+        rows: rows(),
+        headers: event.headers,
+        ip: api.clientIp(event.headers),
+      }));
+    }
     const { ip } = api.requireAuthed(event, secret);
     if (url.pathname === '/api/meta') {
       api.rateLimit(`meta:${ip}`, { limit: 30, windowMs: 600000 });
