@@ -43,6 +43,7 @@
   let pendingView = null;
   let zoomDragLock = false;
   let zoomQuietUntil = 0;
+  let invalidateTimer = 0;
   let autoCentered = false;
   // Rows matching the filters globally, vs. the subset inside the current map view.
   let totalMatchCount = 0;
@@ -622,11 +623,11 @@
   }
 
   function setShowLimitedAccess(on){
-    showLimitedAccess = Boolean(on);
-    if(!showLimitedAccess){
-      if(extraFilter === 'limited') extraFilter = null;
-      if(placeFilter === 'hotel') placeFilter = 'all';
-    }
+    const next = core.nextShowLimitedAccess
+      ? core.nextShowLimitedAccess(on, { placeFilter, extraFilter })
+      : { showLimitedAccess: Boolean(on), extraFilter: (!on && extraFilter === 'limited') ? null : extraFilter };
+    showLimitedAccess = next.showLimitedAccess;
+    extraFilter = next.extraFilter;
     initialBoundsDone = false;
     updateFilterUi();
     refresh();
@@ -641,6 +642,9 @@
   }
 
   function allowLimitedAccess(){
+    if(core.allowLimitedAccessState){
+      return core.allowLimitedAccessState({ showLimitedAccess, extraFilter, placeFilter });
+    }
     return showLimitedAccess || extraFilter === 'limited' || placeFilter === 'hotel';
   }
 
@@ -1078,7 +1082,11 @@
       if(placeFilter==='restaurant' && m.type!=='restaurant') return false;
       if(placeFilter==='hotel' && m.type!=='hotel') return false;
       if(placeFilter==='public' && m.type!=='public') return false;
-      if(!isNone){
+      // Status chips apply to every row (including none) so "User verified" +
+      // "No-bidet too" does not keep unverified none pins visible.
+      if(core.passesBidetStatusFilter){
+        if(!core.passesBidetStatusFilter(m.bidetStatus, extraFilter)) return false;
+      } else {
         if(extraFilter==='warmed' && m.bidetStatus!=='warmed') return false;
         if(extraFilter==='verified' && m.bidetStatus!=='verified') return false;
         if(extraFilter==='internet' && m.bidetStatus!=='internet') return false;
@@ -1351,8 +1359,12 @@
 
   function markersForMap(filtered){
     if(!filtered.length) return [];
-    if(filtered.length > MAP_MARKER_CAP) return filtered.slice(0, MAP_MARKER_CAP);
-    return filtered;
+    // Rank before capping so nearby / top search hits stay on the map when the
+    // global set exceeds MAP_MARKER_CAP (seed-order slice used to drop them).
+    const rank = (rows) => sortedLocations(rows);
+    if(core.pickMapMarkers) return core.pickMapMarkers(filtered, MAP_MARKER_CAP, rank);
+    if(filtered.length <= MAP_MARKER_CAP) return filtered;
+    return rank(filtered).slice(0, MAP_MARKER_CAP);
   }
 
   function renderMap(filtered){
@@ -2081,6 +2093,15 @@
     map.invalidateSize({ animate: false, pan: false });
   }
 
+  function queueInvalidateSize(delay = 250){
+    clearTimeout(invalidateTimer);
+    const wait = Math.max(delay, Math.max(0, zoomQuietUntil - Date.now()) + 40);
+    invalidateTimer = setTimeout(()=>{
+      invalidateTimer = 0;
+      safeInvalidateSize();
+    }, wait);
+  }
+
   function enableDoubleTapDragZoom(leafletMap){
     // Google/Apple Maps: tap, then tap-and-drag vertically to zoom around
     // that point. On iOS, changing Leaflet zoom every frame reloads tiles and
@@ -2173,6 +2194,18 @@
       if(Math.abs(z - leafletMap.getZoom()) < 0.01) return;
       leafletMap.setZoomAround(around, z, { animate: false });
       zoomQuietUntil = Date.now() + 500;
+      queueInvalidateSize(520);
+    }
+
+    function cancelGesture(){
+      if(raf){ cancelAnimationFrame(raf); raf = 0; }
+      stopPreview();
+      leafletMap.options.zoomSnap = savedSnap;
+      dragging = false;
+      pinch = null;
+      around = null;
+      if(leafletMap.dragging) leafletMap.dragging.enable();
+      zoomDragLock = false;
     }
 
     function schedulePreview(){
@@ -2320,8 +2353,7 @@
     }
 
     function onCancel(){
-      if(pinch) endPinch();
-      else endDrag(false);
+      if(pinch || dragging) cancelGesture();
     }
 
     const opts = { passive: false, capture: true };
@@ -2407,19 +2439,13 @@
       setTimeout(()=>safeInvalidateSize(), 100);
     });
     setTimeout(()=>safeInvalidateSize(), 150);
-    let vvTimer = 0;
-    // iOS visualViewport fires during pinch and URL-bar hide; resizing the
-    // map then is what makes the tiles jump after a zoom.
-    if(window.visualViewport && !iosLike){
-      window.visualViewport.addEventListener('resize',()=>{
-        clearTimeout(vvTimer);
-        vvTimer = setTimeout(()=>safeInvalidateSize(), 250);
-      });
+    // visualViewport fires during pinch and URL-bar hide. safeInvalidateSize
+    // no-ops while zoomDragLock/quiet is active; queueInvalidateSize retries
+    // after the quiet window so rotate/chrome changes still resize the map.
+    if(window.visualViewport){
+      window.visualViewport.addEventListener('resize',()=> queueInvalidateSize(250));
     }
-    window.addEventListener('resize',()=>{
-      clearTimeout(vvTimer);
-      vvTimer = setTimeout(()=>safeInvalidateSize(), 250);
-    });
+    window.addEventListener('resize',()=> queueInvalidateSize(250));
   }
 
   function initLegendHelp(){
@@ -2544,8 +2570,8 @@
       '</div></div>'+
       '<div class="filter-sheet-section"><span class="filter-sheet-label">More</span>'+
       '<div class="more-panel" id="sheetTypeChips">'+
-      ['verified','warmed','internet','public','limited','USA','UK','Canada','Mexico','Colombia','Australia','New Zealand','China','Singapore','Germany','France','Russia'].map(t =>
-        '<button type="button" class="chip'+((COUNTRY_FILTERS.includes(t)?countryFilter===t:extraFilter===t)?' active':'')+'" data-type="'+t+'">'+t+'</button>'
+      ['verified','warmed','internet','public','limited'].concat(COUNTRY_FILTERS).map(t =>
+        '<button type="button" class="chip'+((COUNTRY_FILTERS.includes(t)?countryFilter===t:extraFilter===t)?' active':'')+'" data-type="'+escapeHtml(t)+'">'+escapeHtml(t)+'</button>'
       ).join('')+'</div></div>'+
       '<div class="filter-sheet-section"><span class="filter-sheet-label">Along route</span>'+
       '<input id="routeFrom" placeholder="From (city or address)">'+

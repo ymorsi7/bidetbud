@@ -18,7 +18,11 @@ const {
   verificationPlainText,
   bidetLeadLabel,
   doesNotOperate,
-  boxesOverlap
+  boxesOverlap,
+  pickMapMarkers,
+  allowLimitedAccessState,
+  passesBidetStatusFilter,
+  nextShowLimitedAccess
 } = core;
 
 const { geoCountryName, shouldShadeBidetFriendly } = core;
@@ -177,5 +181,48 @@ describe('shouldShadeBidetFriendly', () => {
 
   it('reads Natural Earth ADMIN property', () => {
     assert.equal(geoCountryName({ properties: { ADMIN: 'Singapore' } }), 'Singapore');
+  });
+});
+
+describe('pickMapMarkers', () => {
+  it('returns all rows under the cap', () => {
+    const rows = [{ id: 1 }, { id: 2 }];
+    assert.deepEqual(pickMapMarkers(rows, 6000), rows);
+  });
+
+  it('ranks before slicing so nearby pins are kept', () => {
+    const rows = Array.from({ length: 5 }, (_, i) => ({ id: i, name: 'seed-' + i }));
+    const ranked = pickMapMarkers(rows, 2, (list) => [...list].reverse());
+    assert.deepEqual(ranked.map((r) => r.id), [4, 3]);
+  });
+});
+
+describe('passesBidetStatusFilter', () => {
+  it('excludes none rows when a status chip is active', () => {
+    assert.equal(passesBidetStatusFilter('none', 'verified'), false);
+    assert.equal(passesBidetStatusFilter('verified', 'verified'), true);
+    assert.equal(passesBidetStatusFilter('none', null), true);
+  });
+});
+
+describe('allowLimitedAccessState / nextShowLimitedAccess', () => {
+  it('treats Hotels type as limited access', () => {
+    assert.equal(allowLimitedAccessState({
+      showLimitedAccess: false,
+      extraFilter: null,
+      placeFilter: 'hotel'
+    }), true);
+  });
+
+  it('keeps limited access on when clearing the toggle under Hotels', () => {
+    const next = nextShowLimitedAccess(false, { placeFilter: 'hotel', extraFilter: null });
+    assert.equal(next.showLimitedAccess, true);
+    assert.equal(next.extraFilter, null);
+  });
+
+  it('clears limited extraFilter when turning the toggle off', () => {
+    const next = nextShowLimitedAccess(false, { placeFilter: 'all', extraFilter: 'limited' });
+    assert.equal(next.showLimitedAccess, false);
+    assert.equal(next.extraFilter, null);
   });
 });

@@ -211,6 +211,41 @@
     return friendlyGeoNames.has(name);
   }
 
+  /** Cap map markers without dropping nearby pins (rank before slice). */
+  function pickMapMarkers(rows, cap, rank){
+    if(!rows || !rows.length) return [];
+    if(!cap || rows.length <= cap) return rows;
+    const ordered = typeof rank === 'function' ? rank(rows) : rows.slice();
+    return ordered.slice(0, cap);
+  }
+
+  function allowLimitedAccessState({ showLimitedAccess, extraFilter, placeFilter }){
+    return Boolean(showLimitedAccess || extraFilter === 'limited' || placeFilter === 'hotel');
+  }
+
+  /** Status chips (verified/warmed/internet) apply to every row, including none. */
+  function passesBidetStatusFilter(bidetStatus, extraFilter){
+    if(extraFilter === 'warmed' || extraFilter === 'verified' || extraFilter === 'internet'){
+      return bidetStatus === extraFilter;
+    }
+    return true;
+  }
+
+  /**
+   * Hotels need guests-only rows. Turning the limited toggle off while Hotels
+   * is selected keeps limited access on instead of clearing the type filter.
+   */
+  function nextShowLimitedAccess(on, { placeFilter, extraFilter }){
+    if(!on && placeFilter === 'hotel'){
+      return { showLimitedAccess: true, extraFilter: extraFilter || null };
+    }
+    const showLimitedAccess = Boolean(on);
+    return {
+      showLimitedAccess,
+      extraFilter: (!showLimitedAccess && extraFilter === 'limited') ? null : (extraFilter || null)
+    };
+  }
+
   return {
     DENSE_METROS,
     haversineMiles,
@@ -232,6 +267,10 @@
     boxesOverlap,
     geoCountryName,
     shouldShadeBidetFriendly,
-    FRIENDLY_SHADE_EXCLUDE_GEO
+    FRIENDLY_SHADE_EXCLUDE_GEO,
+    pickMapMarkers,
+    allowLimitedAccessState,
+    passesBidetStatusFilter,
+    nextShowLimitedAccess
   };
 });

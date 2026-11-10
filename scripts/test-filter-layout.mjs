@@ -43,13 +43,13 @@ function overlaps(a, b) {
 async function checkViewport(page, label, mobile) {
   const issues = [];
   if (mobile) {
+    // #noBidetToggle lives under More filters / the filter sheet — only check
+    // controls that sit on the primary mobile chrome for overlap.
     const filterBtn = await page.locator('#mobileFilterBtn').boundingBox();
     const guests = await page.locator('#limitedAccessToggle').boundingBox();
-    const noBidet = await page.locator('#noBidetToggle').boundingBox();
     const boxes = [
       ['filters-btn', filterBtn],
-      ['guests-only', guests],
-      ['no-bidet', noBidet],
+      ['include-hotels', guests],
     ].filter(([, b]) => b);
     for (let i = 0; i < boxes.length; i++) {
       for (let j = i + 1; j < boxes.length; j++) {
@@ -58,15 +58,18 @@ async function checkViewport(page, label, mobile) {
         }
       }
     }
+    await page.locator('#mobileFilterBtn').click();
+    await page.waitForTimeout(200);
+    const sheetNoBidet = await page.locator('[data-sheet="nobidet"]').count();
+    if (!sheetNoBidet) issues.push('filter sheet missing No-bidet too toggle');
+    await page.keyboard.press('Escape');
   } else {
     const segmented = await page.locator('#placeFilter').boundingBox();
     const guests = await page.locator('#limitedAccessToggle').boundingBox();
-    const noBidet = await page.locator('#noBidetToggle').boundingBox();
     const more = await page.locator('.more-filters summary').boundingBox();
     const boxes = [
       ['segmented', segmented],
-      ['guests-only', guests],
-      ['no-bidet', noBidet],
+      ['include-hotels', guests],
       ['more-filters', more],
     ].filter(([, b]) => b);
 
@@ -78,12 +81,19 @@ async function checkViewport(page, label, mobile) {
       }
     }
 
-    if (guests && noBidet && guests.right > noBidet.left + 2) {
-      issues.push('guests-only and no-bidet toggles overlap horizontally');
-    }
-
     if (segmented && guests && segmented.bottom > guests.top + 2) {
       issues.push('segmented bleeds into toggle row');
+    }
+
+    // Open More filters so #noBidetToggle is measurable, then confirm it does
+    // not collide with the primary Include hotels toggle row.
+    await page.locator('.more-filters summary').click();
+    await page.waitForTimeout(150);
+    const noBidet = await page.locator('#noBidetToggle').boundingBox();
+    if (!noBidet) {
+      issues.push('no-bidet toggle missing inside More filters');
+    } else if (guests && overlaps(guests, noBidet)) {
+      issues.push('include-hotels overlaps no-bidet inside More filters');
     }
   }
 

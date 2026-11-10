@@ -146,7 +146,7 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 | Search | `searchScore`, `matchesSearch`, acronym/`searchAliases` support |
 | Filters | `placeFilter` (all/mosque/restaurant), `extraFilter`, `countryFilter` |
 | URL state | `syncUrlFromState`, `applyUrlState` — params: `q`, `type`, `filter`, `country`, `near`, `radius`, `spot`, `sort`, `view` |
-| Viewport scoping | `rowsInView`, `currentViewBounds`, `viewportScopingActive`, `fitToSearchResults`, `fitMapToMatches` |
+| List/map fit | `sortedLocations`, `markersForMap` / `pickMapMarkers`, `fitToSearchResults`, `fitMapToMatches`, `scheduleMapRefresh` |
 | Map | Leaflet map, `createIcon`, cluster group |
 | Types UI | `typeLabel` — maps `mosque` / `restaurant` / `hotel` / `public` |
 | Friendly countries | `BIDET_FRIENDLY_COUNTRIES` + GeoJSON overlay (bidets common nationally) |
@@ -162,18 +162,22 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 
 ## List/map coupling
 
-The sidebar list shows only spots inside the current map view (`rowsInView`),
-so panning or zooming re-renders it. Consequences to keep in mind:
+The sidebar list is **global nearest-first** (not viewport-clipped): it shows up
+to `LIST_CAP` matches ranked by search score then distance to the map/user
+anchor. Panning still re-renders the list via `scheduleMapRefresh` so distances
+stay current. Consequences to keep in mind:
 
-- `currentViewBounds` caches the last bounds seen while the map had a non-zero
-  size. On mobile the map is `display:none` behind the List tab and reports
-  garbage bounds; without the cache the list reads "0 places".
-- Near-me and along-route opt out (`viewportScopingActive`) since they already
-  scope by distance.
+- When the filtered set exceeds `MAP_MARKER_CAP`, `markersForMap` ranks with the
+  same nearest-first order before slicing — never truncate in raw seed order or
+  nearby pins disappear from the map while still showing in the list.
+- Near-me fits the map to a local cluster (`nearMeFitPins`) and reports how many
+  pins fall inside the radius; the list itself stays nearest-first globally.
 - Typing a query flies the map to the matches (`fitToSearchResults`), so the
   view and the list stay in agreement.
-- A shared link has to carry the view, hence the `view=lat,lng,zoom` param.
+- A shared link should carry the view, hence the `view=lat,lng,zoom` param.
   When it's present, `initMap` honours it and skips the initial auto-fit.
+- Mobile filter sheet country chips must be built from `COUNTRY_FILTERS` (same
+  source as desktop `#typeChips`), not a hardcoded list.
 
 Covered by `scripts/test-viewport-list.mjs` (part of `npm run test:e2e`).
 

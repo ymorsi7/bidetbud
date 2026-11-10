@@ -103,6 +103,38 @@ try {
   }
   console.log('  ✓ country chips are built from the seed');
 
+  // Additive no-bidet mode + status chip must not keep none rows under Verified.
+  await page.goto(`${url}?nobidet=1&filter=verified`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(2000);
+  const noneUnderVerified = await page.evaluate(() => {
+    const cards = [...document.querySelectorAll('#locationList .card')];
+    return cards.some((c) => c.querySelector('.tag-none'));
+  });
+  if (noneUnderVerified) {
+    throw new Error('?nobidet=1&filter=verified still shows No bidet cards');
+  }
+  const nobidetParam = new URL(page.url()).searchParams.get('nobidet');
+  if (nobidetParam !== '1') throw new Error('?nobidet=1 was not preserved in the URL');
+  console.log('  ✓ ?nobidet=1 with verified excludes none rows');
+
+  // Nearest list cards must be representable on the map (marker cap ranks first).
+  await page.goto(`${url}?view=32.95,-96.73,12`, { waitUntil: 'networkidle' });
+  await page.waitForTimeout(2500);
+  const firstCard = page.locator('#locationList .card').first();
+  await firstCard.waitFor({ timeout: 15000 });
+  await firstCard.click();
+  await page.waitForTimeout(500);
+  const detailVisible = await page.evaluate(() => {
+    const ov = document.getElementById('detailOverlay');
+    return !!(ov && ov.classList.contains('open'));
+  });
+  if (!detailVisible) {
+    throw new Error('clicking the nearest list card did not open detail');
+  }
+  console.log('  ✓ nearest list card opens detail');
+  await page.keyboard.press('Escape');
+  await page.waitForTimeout(300);
+
   // Escape closes dialogs; a missing optional element must not break the handler.
   await page.click('#addBtn');
   await page.waitForTimeout(300);
@@ -123,6 +155,19 @@ try {
     if (!label) throw new Error(`#${id} renders without a visible label on mobile`);
   }
   console.log('  ✓ mobile filter toggles keep their labels');
+
+  // Mobile filter sheet countries come from COUNTRY_FILTERS (same as desktop).
+  await mobile.click('#mobileFilterBtn');
+  await mobile.waitForTimeout(400);
+  if (!(await mobile.locator('#sheetTypeChips .chip[data-type="Austria"]').count())) {
+    throw new Error('mobile filter sheet missing Austria chip from COUNTRY_FILTERS');
+  }
+  if (!(await mobile.locator('#sheetTypeChips .chip[data-type="Spain"]').count())) {
+    throw new Error('mobile filter sheet missing Spain chip from COUNTRY_FILTERS');
+  }
+  console.log('  ✓ mobile filter sheet countries match seed chips');
+  await mobile.click('#filterSheetClose');
+  await mobile.waitForTimeout(200);
 
   const mobileCount = await mobile.locator('#countLabel').innerText();
   if (/^0\s/.test(mobileCount.trim())) {
