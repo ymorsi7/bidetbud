@@ -1,90 +1,46 @@
 # BidetBud
 
-A free map of places with bidets :  masajid, restaurants, hotels, and public restrooms.
+A free map of places with bidets: masajid, restaurants, hotels, and public restrooms.
 
 **Live:** [bidetbud.com](https://bidetbud.com/)
 
-Started as a US / UK / Canada / Singapore map. Coverage has grown a lot since (Europe, Russia, China, parts of Africa, and more), but every pin still needs real evidence that a bidet, washlet, or handheld sprayer is there. No guessing.
+Every pin needs real evidence that a bidet, washlet, or handheld sprayer is there. No guessing.
 
-If this has saved you a stop, star the repo so other people can find it.
+## What’s open source
 
-## What’s here
+The map UI, Netlify functions, and import scripts. **Location research data is not in this repo.**
 
-- Static site. No build step, no backend, no accounts.
-- Map: Leaflet + MarkerCluster
-- Data: `bidet-seed.json` (async client load) and `data/bidet-restaurants.json` (full rows for scripts)
-- Submissions: in-page form → Web3Forms (email)
-- Analytics: GoatCounter
+- Browser never downloads a full seed dump
+- Pins load through session-gated, rate-limited `/api/spots` (viewport) and `/api/search`
+- Evidence fields (`sourceUrl`, `sourceQuote`, …) are stripped from the API payload
+- Plaintext seed + `data/` stay on the maintainer machine (gitignored)
 
-Statuses on the map:
-
-| Status | Meaning |
-|--------|---------|
-| Verified | Someone confirmed it in person |
-| Heated | Manufacturer install (TOTO WASHLET, Geberit AquaClean, etc.) |
-| Web | Cited online source :  not yet personally checked |
-
-## Run locally
+## Run locally (maintainer)
 
 ```bash
-python3 -m http.server 8080
-# open http://localhost:8080
+cp .env.example .env   # or rely on npm run seal to create MAP_SEED_KEY
+npm run seal           # encrypts public pins → netlify/functions/_data/map-seed.enc
+npm run dev            # http://127.0.0.1:8080  (static + API)
 ```
 
-Don’t open `index.html` as a `file://` URL :  some assets and GeoJSON need HTTP.
+Set the same `MAP_SEED_KEY` in Netlify → Environment variables before deploy.
+
+## Run locally (contributors without private data)
+
+`bidet-seed.sample.json` is a tiny demo set. Without `MAP_SEED_KEY` + sealed payload, the API won’t serve production pins.
 
 ## Layout
 
 ```
-index.html                    BidetBud map
-js/app.js                     Map UI
-bidet-seed.json               Slim bidet seed (async fetch)
-data/bidet-restaurants.json   Full bidet rows for scripts
-scripts/                      Bidet import / geocode / crawl helpers
-css/  images/  vendor/         Shared static assets
-
-halal/                        HalalBud map (see halal/README.md)
-shop/                         Affiliate shop page
+index.html                 Map shell
+js/app.js                  UI
+js/map-api.js              Session + viewport/search client
+netlify/functions/         /api/session|spots|search|spot|meta
+scripts/seal-map-seed.cjs  Build encrypted API payload
+bidet-seed.sample.json     Tiny public sample
+data/                      Private (gitignored)
 ```
-
-## Add a spot
-
-Prefer a personal check. For web-sourced entries, include `sourceUrl` and a short `sourceQuote`.
-
-Example:
-
-```js
-{
-  "name": "Example Masjid",
-  "address": "123 Main St, City, ST 12345",
-  "latitude": "37.0000000",
-  "longitude": "-122.0000000",
-  "city": "City, ST",
-  "country": "USA",
-  "type": "mosque",
-  "bidetStatus": "verified",
-  "access": "public",
-  "bidetType": "Handheld sprayer"
-}
-```
-
-`type` is one of: `mosque`, `restaurant`, `hotel`, `public`.  
-`bidetStatus` must be `verified`, `warmed`, or `internet` to show on the map.
-
-After bulk edits, regenerate the client seed through the helpers in `scripts/` (see `scripts/lib/bidet-seed.cjs`). Don’t bulk-import mosques or restaurants just because “they probably have one.”
-
-## Contributing
-
-PRs welcome for:
-
-- New verified or well-sourced locations
-- Coordinate / address fixes
-- UI polish
-
-Please keep diffs focused. Only add places with explicit bidet evidence.
-
-See [CHANGELOG.md](CHANGELOG.md) for what changed and when.
 
 ## License
 
-MIT :  see [LICENSE](LICENSE).
+MIT — see [LICENSE](LICENSE). Research datasets remain private.

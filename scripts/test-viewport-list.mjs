@@ -1,39 +1,12 @@
 #!/usr/bin/env node
-/**
- * Shared links restore the map view. The list is nearest-first, not clipped to
- * the current bounds (so an empty ocean view still has a list).
- * Run: node scripts/test-viewport-list.mjs
- */
 import { chromium, devices } from 'playwright';
-import { createServer } from 'http';
-import { readFileSync } from 'fs';
-import { join, extname } from 'path';
-
-const ROOT = join(import.meta.dirname, '..');
-const MIME = { '.html': 'text/html', '.css': 'text/css', '.js': 'text/javascript', '.png': 'image/png', '.ico': 'image/x-icon', '.json': 'application/json' };
-
-function startServer(port = 8767) {
-  return new Promise((resolve) => {
-    const server = createServer((req, res) => {
-      const path = req.url.split('?')[0];
-      const file = join(ROOT, path === '/' ? '/index.html' : path);
-      try {
-        const body = readFileSync(file);
-        res.writeHead(200, { 'Content-Type': MIME[extname(file)] || 'application/octet-stream' });
-        res.end(body);
-      } catch {
-        res.writeHead(404).end('not found');
-      }
-    });
-    server.listen(port, () => resolve({ server, url: `http://127.0.0.1:${port}/` }));
-  });
-}
+import { start as startServer } from './lib/e2e-server.mjs';
 
 function cityOf(text) {
-  return text.split('\n').map((s) => s.trim()).filter(Boolean);
+  return String(text || '').split('\n').map((s) => s.trim()).filter(Boolean);
 }
 
-const { server, url } = await startServer();
+const { server, url } = await startServer(8767);
 let browser;
 try {
   browser = await chromium.launch();

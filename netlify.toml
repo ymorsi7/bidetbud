@@ -1,0 +1,49 @@
+[build]
+  publish = "."
+  command = "node -e \"require('fs').accessSync('netlify/functions/_data/map-seed.enc')\""
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["netlify/functions/_data/*", "scripts/lib/*.cjs"]
+
+[[redirects]]
+  from = "/api/session"
+  to = "/.netlify/functions/session"
+  status = 200
+
+[[redirects]]
+  from = "/api/meta"
+  to = "/.netlify/functions/meta"
+  status = 200
+
+[[redirects]]
+  from = "/api/spots"
+  to = "/.netlify/functions/spots"
+  status = 200
+
+[[redirects]]
+  from = "/api/search"
+  to = "/.netlify/functions/search"
+  status = 200
+
+[[redirects]]
+  from = "/api/spot"
+  to = "/.netlify/functions/spot"
+  status = 200
+
+# Old public dumps — gone.
+[[redirects]]
+  from = "/bidet-seed.json"
+  to = "/.netlify/functions/gone"
+  status = 200
+
+[[redirects]]
+  from = "/bidet-seed.js"
+  to = "/.netlify/functions/gone"
+  status = 200
+
+[[redirects]]
+  from = "/data/*"
+  to = "/.netlify/functions/gone"
+  status = 200

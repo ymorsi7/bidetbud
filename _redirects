@@ -3,3 +3,8 @@
 /halal-seed.js    /halal/seed.js    301
 /shop.html       /shop/            301
 /privacy.html    /privacy/         301
+
+# Public seed dumps removed — map data is session + viewport API only.
+/bidet-seed.json  /.netlify/functions/gone  200
+/bidet-seed.js    /.netlify/functions/gone  200
+/data/*           /.netlify/functions/gone  200

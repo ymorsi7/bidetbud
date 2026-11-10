@@ -9,7 +9,7 @@ Guide for AI agents and contributors working in this repository.
 - **Live:** [bidetbud.com](https://bidetbud.com/)
 - **Stack:** Single HTML page + CSS. No build step, no backend, no framework.
 - **Map:** Leaflet + MarkerCluster (bundled inline in `index.html`)
-- **Data:** `bidet-seed.json` fetched async at boot (`data/bidet-restaurants.json` is the full source of truth)
+- **Data:** Private. Plaintext seed + `data/` are gitignored. Production serves encrypted `netlify/functions/_data/map-seed.enc` via rate-limited `/api/*` (viewport + search). Run `npm run seal` after seed edits.
 - **Submissions:** In-page form via Web3Forms (`WEB3FORMS_ACCESS_KEY` in `js/app.js`; public client key)
 - **Analytics:** GoatCounter (`bidetbud.goatcounter.com`)
 
@@ -55,17 +55,16 @@ scripts/
 
 ## Architecture constraints
 
-**Keep it static.** Do not add:
+**Keep the UI static.** Do not add React/Vue/SSR at the repo root (Capacitor stays under `mobile/`). No service workers / PWA.
 
-- Node/npm build pipelines, React/Vue, or SSR **at the repo root** (Capacitor tooling stays under `mobile/` only)
-- Service workers, PWA manifests, or install prompts (removed intentionally)
-- Backend APIs or server-side geocoding at runtime
+**Map data is not a public static JSON file.** Pins come from Netlify functions (`/api/session`, `/api/spots`, `/api/search`, `/api/spot`, `/api/meta`) with session cookies + rate limits. Never reintroduce `/bidet-seed.json` as a public dump.
 
 **Do use:**
 
-- Vanilla JS in `js/app.js` (loaded deferred after Leaflet)
+- Vanilla JS in `js/app.js` + `js/map-api.js`
 - Styles in `css/app.css` — avoid large new inline style blocks
-- Node scripts in `scripts/` for one-off data maintenance only
+- Node scripts in `scripts/` for data maintenance; `npm run seal` after imports
+- `npm run dev` for local static + API
 
 ---
 

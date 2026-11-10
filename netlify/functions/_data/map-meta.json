@@ -1,0 +1,163 @@
+{
+  "ver": "20261110a",
+  "total": 8053,
+  "countries": [
+    {
+      "name": "Germany",
+      "n": 1391
+    },
+    {
+      "name": "USA",
+      "n": 1025
+    },
+    {
+      "name": "Spain",
+      "n": 723
+    },
+    {
+      "name": "Singapore",
+      "n": 625
+    },
+    {
+      "name": "Philippines",
+      "n": 455
+    },
+    {
+      "name": "France",
+      "n": 408
+    },
+    {
+      "name": "UK",
+      "n": 397
+    },
+    {
+      "name": "Portugal",
+      "n": 303
+    },
+    {
+      "name": "China",
+      "n": 236
+    },
+    {
+      "name": "Austria",
+      "n": 231
+    },
+    {
+      "name": "Russia",
+      "n": 186
+    },
+    {
+      "name": "Switzerland",
+      "n": 184
+    },
+    {
+      "name": "Canada",
+      "n": 173
+    },
+    {
+      "name": "Croatia",
+      "n": 156
+    },
+    {
+      "name": "Mexico",
+      "n": 119
+    },
+    {
+      "name": "Netherlands",
+      "n": 113
+    },
+    {
+      "name": "South Africa",
+      "n": 106
+    },
+    {
+      "name": "Colombia",
+      "n": 88
+    },
+    {
+      "name": "Belgium",
+      "n": 87
+    },
+    {
+      "name": "Czech Republic",
+      "n": 78
+    },
+    {
+      "name": "Australia",
+      "n": 75
+    },
+    {
+      "name": "Finland",
+      "n": 75
+    },
+    {
+      "name": "Slovenia",
+      "n": 75
+    },
+    {
+      "name": "Peru",
+      "n": 74
+    },
+    {
+      "name": "Poland",
+      "n": 73
+    },
+    {
+      "name": "Bulgaria",
+      "n": 70
+    },
+    {
+      "name": "Romania",
+      "n": 70
+    },
+    {
+      "name": "Kenya",
+      "n": 63
+    },
+    {
+      "name": "New Zealand",
+      "n": 60
+    },
+    {
+      "name": "Slovakia",
+      "n": 53
+    },
+    {
+      "name": "Serbia",
+      "n": 49
+    },
+    {
+      "name": "Chile",
+      "n": 42
+    },
+    {
+      "name": "Nigeria",
+      "n": 35
+    },
+    {
+      "name": "Norway",
+      "n": 31
+    },
+    {
+      "name": "Hong Kong",
+      "n": 29
+    },
+    {
+      "name": "Denmark",
+      "n": 22
+    },
+    {
+      "name": "Ireland",
+      "n": 18
+    },
+    {
+      "name": "Hungary",
+      "n": 13
+    },
+    {
+      "name": "Sweden",
+      "n": 10
+    }
+  ],
+  "sealedAt": "2026-11-10T16:12:12.822Z"
+}

@@ -1,6 +1,9 @@
 .DS_Store
 Thumbs.db
 *.log
+.env
+.env.*
+!.env.example
 js/carto-key.js
 .tmp-ocr/
 node_modules/
@@ -8,3 +11,15 @@ mobile/node_modules/
 mobile/ios/
 mobile/android/
 mobile/www/
+
+# Private research + plaintext map dumps (never publish)
+bidet-seed.json
+bidet-seed.js
+data/**
+!data/README.md
+private/
+.netlify/
+
+# Local seal workspace
+*.pem
+MAP_SEED_KEY.txt

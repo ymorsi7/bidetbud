@@ -504,7 +504,9 @@
   }
 
   function initData(){
-    allLocations = (window.BIDETBUD_SEED||[])
+    const api = window.BidetBudMapApi;
+    const raw = api && api.allCached ? api.allCached() : (window.BIDETBUD_SEED || []);
+    allLocations = raw
       .map(normalizeSeed)
       .filter(l => HAS_BIDET(l.bidetStatus) || NO_BIDET(l.bidetStatus))
       .filter(l => !isBidetFriendlyCountry(l.country));
@@ -513,16 +515,21 @@
   }
 
   function buildCountryFilters(){
-    const counts = new Map();
-    for(const m of allLocations){
-      const c = String(m.country || '').trim();
-      if(c) counts.set(c, (counts.get(c) || 0) + 1);
+    const api = window.BidetBudMapApi;
+    if(api && api.countries && api.countries.length){
+      COUNTRY_FILTERS = api.countries.map(c => c.name);
+    } else {
+      const counts = new Map();
+      for(const m of allLocations){
+        const c = String(m.country || '').trim();
+        if(c) counts.set(c, (counts.get(c) || 0) + 1);
+      }
+      const ranked = [...counts.entries()]
+        .filter(([, n]) => n >= COUNTRY_CHIP_MIN)
+        .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+        .map(([c]) => c);
+      if(ranked.length) COUNTRY_FILTERS = ranked;
     }
-    const ranked = [...counts.entries()]
-      .filter(([, n]) => n >= COUNTRY_CHIP_MIN)
-      .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
-      .map(([c]) => c);
-    if(ranked.length) COUNTRY_FILTERS = ranked;
     // A country deep-linked via ?country= stays selectable even below the threshold.
     if(countryFilter && !COUNTRY_FILTERS.includes(countryFilter)) COUNTRY_FILTERS.push(countryFilter);
   }
@@ -1526,7 +1533,22 @@
   }
 
   function openDetail(id, fromUrl){
-    const m=allLocations.find(x=>x.id===id);
+    const local = allLocations.find(x=>x.id===id);
+    if(local){
+      renderDetail(local, id, fromUrl);
+      return;
+    }
+    const api = window.BidetBudMapApi;
+    if(!api || !api.loadSpot) return;
+    api.loadSpot(id).then(spot=>{
+      if(!spot) return;
+      initData();
+      const m = allLocations.find(x=>x.id===id) || normalizeSeed(spot);
+      renderDetail(m, id, fromUrl);
+    }).catch(()=>{});
+  }
+
+  function renderDetail(m, id, fromUrl){
     if(!m) return;
     activeSpotId = id;
     focusSpotOnMap(m);
@@ -1708,10 +1730,31 @@
     clearTimeout(mapMoveTimer);
     mapMoveTimer = setTimeout(()=>{
       mapMoveTimer = null;
-      if(!clusterGroup || !lastFiltered.length) return;
-      renderList(lastFiltered);
-      syncUrlFromState();
-    }, 180);
+      syncViewportSpots().then(()=>{
+        if(!clusterGroup) return;
+        refresh();
+      }).catch(()=>{
+        if(lastFiltered.length) renderList(lastFiltered);
+        syncUrlFromState();
+      });
+    }, 220);
+  }
+
+  let viewportFetchSeq = 0;
+  async function syncViewportSpots(){
+    const api = window.BidetBudMapApi;
+    if(!api || !map) return;
+    const seq = ++viewportFetchSeq;
+    const q = getQuery();
+    if(q.length >= 2){
+      await api.search(q, { country: countryFilter || '', limit: 50 });
+    } else if(countryFilter && map.getZoom() <= 5){
+      await api.search('', { country: countryFilter, limit: 60 });
+    } else {
+      await api.loadSpotsForBounds(map.getBounds(), map.getZoom());
+    }
+    if(seq !== viewportFetchSeq) return;
+    initData();
   }
 
   function resetAddForm(){
@@ -2643,7 +2686,12 @@
     const searchInput = document.getElementById('searchInput');
     searchInput.addEventListener('input', ()=>{
       renderSearchAc();
-      scheduleRefresh();
+      clearTimeout(refreshTimer);
+      refreshTimer = setTimeout(async ()=>{
+        refreshTimer = null;
+        try{ await syncViewportSpots(); }catch(e){}
+        refresh();
+      }, 280);
     });
     searchInput.addEventListener('focus', renderSearchAc);
     searchInput.addEventListener('blur', ()=> setTimeout(hideSearchAc, 180));
@@ -2944,15 +2992,19 @@
   wire();
   try{ if(typeof L!=='undefined') initMap(); }catch(e){ console.error(e); }
 
-  function bootWithSeed(seed){
-    window.BIDETBUD_SEED = seed || [];
+  function bootFromCache(){
     initData();
     applyDistanceUnits();
     refresh();
     showLoadToast();
     maybeAutoCenterOnUser();
     maybeShowFirstRunHints();
-    if(spotFromUrl) setTimeout(()=> openDetail(spotFromUrl, true), 400);
+    if(spotFromUrl){
+      const api = window.BidetBudMapApi;
+      const open = ()=> setTimeout(()=> openDetail(spotFromUrl, true), 400);
+      if(api && api.loadSpot) api.loadSpot(spotFromUrl).then(()=>{ initData(); open(); }).catch(open);
+      else open();
+    }
     if (typeof window.trackEvent === 'function') {
       window.trackEvent('bidetbud_view', { spots: String(allLocations.length) });
     }
@@ -2969,32 +3021,21 @@
     flyMapToUser();
   });
 
-  window.addEventListener('bidetbud-seed-update', e=>{
-    const fresh = e.detail;
-    if(!Array.isArray(fresh) || !fresh.length) return;
-    const prev = window.BIDETBUD_SEED || [];
-    if(fresh.length === prev.length && fresh[fresh.length - 1]?.name === prev[prev.length - 1]?.name) return;
-    bootWithSeed(fresh);
-  });
+  async function bootMapData(){
+    const api = window.BidetBudMapApi;
+    if(!api) throw new Error('Map API missing');
+    await api.ensureSession();
+    await api.loadMeta();
+    if(map) await syncViewportSpots();
+    else await api.search('usa', { limit: 30 }).catch(()=>{});
+    bootFromCache();
+  }
 
-  const seedPromise = window.__BIDET_SEED_P
-    || fetch('bidet-seed.json', { credentials: 'same-origin' })
-        .then(r => { if(!r.ok) throw new Error('Could not load map data'); return r.json(); });
-
-  seedPromise.then(bootWithSeed).catch(err => {
+  bootMapData().catch(err => {
     console.error(err);
-    let cached = null;
-    try{
-      cached = JSON.parse(localStorage.getItem('bb_seed_cache_20261108a') || 'null');
-    }catch(e){}
     const el = document.getElementById('countLabel');
-    if(Array.isArray(cached) && cached.length){
-      if(el) el.textContent = 'Showing cached spots (offline). Refresh when online.';
-      bootWithSeed(cached);
-      return;
-    }
     if(el) el.innerHTML = 'Could not load spots. <button type="button" class="inline-link" id="retryLoadBtn">Retry</button>';
     document.getElementById('retryLoadBtn')?.addEventListener('click', ()=> location.reload());
-    bootWithSeed([]);
+    bootFromCache();
   });
 })();

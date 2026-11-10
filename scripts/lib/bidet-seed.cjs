@@ -181,9 +181,31 @@ function writeSeed(rows) {
   const slim = rows.map(slimRow);
   const json = JSON.stringify(slim);
   fs.writeFileSync(SEED_JSON, json + '\n');
-  // Keep legacy .js for any old bookmarks/scripts; browser boot uses .json.
+  // Keep legacy .js for local scripts; the website never serves these files.
   fs.writeFileSync(SEED_JS, 'window.BIDETBUD_SEED=' + json + ';\n');
   ensureHtmlUsesExternalSeed();
+  // Refresh the encrypted API payload when a key is configured.
+  try {
+    const { loadDotEnv, seal } = require('./map-seed-crypto.cjs');
+    const { buildPublicSeed, countryCounts, ENC_REL, META_REL } = require('./public-map-seed.cjs');
+    loadDotEnv();
+    const key = process.env.MAP_SEED_KEY;
+    if (key) {
+      const pub = buildPublicSeed(rows);
+      const encPath = path.join(ROOT, ENC_REL);
+      fs.mkdirSync(path.dirname(encPath), { recursive: true });
+      fs.writeFileSync(encPath, seal(pub, key));
+      const ver = new Date().toISOString().slice(0, 10).replace(/-/g, '') + 'a';
+      fs.writeFileSync(path.join(ROOT, META_REL), JSON.stringify({
+        ver,
+        total: pub.length,
+        countries: countryCounts(pub),
+        sealedAt: new Date().toISOString(),
+      }) + '\n');
+    }
+  } catch (e) {
+    // Seal is best-effort during imports; run `npm run seal` explicitly if needed.
+  }
 }
 
 module.exports = {

@@ -1,40 +1,6 @@
 #!/usr/bin/env node
-/**
- * Quick layout smoke test: filter controls must not overlap at common viewports.
- * Run: node scripts/test-filter-layout.mjs
- * Requires: npx playwright install chromium (one-time)
- */
 import { chromium } from 'playwright';
-import { createServer } from 'http';
-import { readFileSync } from 'fs';
-import { join, extname } from 'path';
-
-const ROOT = join(import.meta.dirname, '..');
-const MIME = {
-  '.html': 'text/html',
-  '.css': 'text/css',
-  '.js': 'text/javascript',
-  '.json': 'application/json',
-  '.png': 'image/png',
-  '.ico': 'image/x-icon',
-};
-
-function startServer(port = 8765) {
-  return new Promise((resolve) => {
-    const server = createServer((req, res) => {
-      const path = req.url === '/' ? '/index.html' : req.url.split('?')[0];
-      const file = join(ROOT, path);
-      try {
-        const body = readFileSync(file);
-        res.writeHead(200, { 'Content-Type': MIME[extname(file)] || 'application/octet-stream' });
-        res.end(body);
-      } catch {
-        res.writeHead(404).end('not found');
-      }
-    });
-    server.listen(port, () => resolve({ server, url: `http://127.0.0.1:${port}/` }));
-  });
-}
+import { start as startServer } from './lib/e2e-server.mjs';
 
 function overlaps(a, b) {
   return a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
@@ -108,7 +74,7 @@ const viewports = [
   { name: 'sidebar-desktop', width: 1280, height: 800, mobile: false },
 ];
 
-const { server, url } = await startServer();
+const { server, url } = await startServer(8765);
 let browser;
 try {
   browser = await chromium.launch();

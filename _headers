@@ -2,15 +2,6 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
 
-/bidet-seed.json
-  Access-Control-Allow-Origin: *
-  Access-Control-Allow-Methods: GET, HEAD, OPTIONS
-  Access-Control-Allow-Headers: *
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
-/bidet-seed.js
-  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
-
 /vendor/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -22,3 +13,7 @@
 
 /images/*
   Cache-Control: public, max-age=604800, stale-while-revalidate=2592000
+
+/api/*
+  Cache-Control: no-store
+  Access-Control-Allow-Credentials: true
