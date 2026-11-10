@@ -5,7 +5,11 @@
 [functions]
   directory = "netlify/functions"
   node_bundler = "esbuild"
-  included_files = ["netlify/functions/_data/*", "scripts/lib/*.cjs"]
+  # Keep sealed payload next to the functions bundle (esbuild rewrites __dirname).
+  included_files = [
+    "netlify/functions/_data/**",
+    "scripts/lib/**"
+  ]
 
 [[redirects]]
   from = "/api/session"
