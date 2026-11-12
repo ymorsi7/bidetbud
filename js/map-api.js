@@ -12,8 +12,31 @@
     bootstrapped: false,
   };
 
+  const LIVE_ORIGIN = 'https://bidetbud.com';
+
+  function isNativeShell() {
+    // Only the real Capacitor runtime — not the CSS class sync-web adds for layout
+    // (Playwright serves www with that class but still needs same-origin /api stubs).
+    try {
+      return !!(
+        global.Capacitor &&
+        typeof global.Capacitor.isNativePlatform === 'function' &&
+        global.Capacitor.isNativePlatform()
+      );
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function apiOrigin() {
+    // Capacitor WebView origin is capacitor://localhost / https://localhost —
+    // talk to production for map pins (CapacitorHttp bypasses CORS).
+    if (isNativeShell()) return LIVE_ORIGIN;
+    return location.origin;
+  }
+
   function apiUrl(path, params) {
-    const u = new URL(path, location.origin);
+    const u = new URL(path, apiOrigin());
     if (params) {
       Object.keys(params).forEach((k) => {
         if (params[k] !== undefined && params[k] !== null && params[k] !== '') {
@@ -21,12 +44,14 @@
         }
       });
     }
+    if (isNativeShell()) return u.href;
     return u.pathname + u.search;
   }
 
   async function getJson(path, params) {
+    const cross = isNativeShell();
     const res = await fetch(apiUrl(path, params), {
-      credentials: 'same-origin',
+      credentials: cross ? 'include' : 'same-origin',
       headers: { Accept: 'application/json' },
       cache: 'no-store',
     });

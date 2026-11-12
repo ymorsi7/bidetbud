@@ -74,6 +74,8 @@ function allowedOrigin(origin, host) {
     const u = new URL(origin);
     if (u.hostname === 'localhost' || u.hostname === '127.0.0.1') return true;
     if (u.hostname === 'bidetbud.com' || u.hostname.endsWith('.bidetbud.com')) return true;
+    // Capacitor iOS (capacitor://localhost) / Android (https://localhost).
+    if (u.protocol === 'capacitor:' && u.hostname === 'localhost') return true;
     if (host && u.host === host) return true;
     return false;
   } catch {
@@ -139,21 +141,48 @@ function searchRows(rows, q, { country = '', limit = 40 } = {}) {
   return out;
 }
 
+function isCapacitorOrigin(headers) {
+  const origin = headers.origin || headers.Origin || '';
+  try {
+    const u = new URL(origin);
+    return u.protocol === 'capacitor:' ||
+      ((u.hostname === 'localhost' || u.hostname === '127.0.0.1') &&
+        u.protocol === 'https:');
+  } catch {
+    return false;
+  }
+}
+
 function sessionCookie(secret, headers) {
   const token = makeSessionToken(secret);
   const isLocal = /localhost|127\.0\.0\.1/i.test(headers.host || '');
+  const crossNative = isCapacitorOrigin(headers);
   return [
     `bb_s=${encodeURIComponent(token)}`,
     'Path=/',
     'HttpOnly',
-    'SameSite=Lax',
+    // Native WebView is cross-site to bidetbud.com; Lax would drop the cookie.
+    crossNative ? 'SameSite=None' : 'SameSite=Lax',
     `Max-Age=${60 * 60 * 12}`,
-    !isLocal ? 'Secure' : '',
+    (!isLocal || crossNative) ? 'Secure' : '',
   ].filter(Boolean).join('; ');
 }
 
+function corsHeaders(headers) {
+  const origin = headers.origin || headers.Origin || '';
+  if (!origin || !allowedOrigin(origin, headers.host || headers.Host || '')) return {};
+  return {
+    'access-control-allow-origin': origin,
+    'access-control-allow-credentials': 'true',
+    'vary': 'Origin',
+  };
+}
+
 function handleSession({ secret, ver, headers }) {
-  return json(200, { ok: true, ver }, { 'set-cookie': sessionCookie(secret, headers) });
+  return json(200, { ok: true, ver }, {
+    'set-cookie': sessionCookie(secret, headers),
+    ...corsHeaders(headers),
+  });
 }
 
 /** One-shot boot: session cookie + full public pin set (no evidence fields). */
@@ -172,7 +201,10 @@ function handleBootstrap({ secret, ver, rows, headers, ip }) {
     total: rows.length,
     countries: countryCounts(rows),
     spots: rows,
-  }, { 'set-cookie': sessionCookie(secret, headers) });
+  }, {
+    'set-cookie': sessionCookie(secret, headers),
+    ...corsHeaders(headers),
+  });
 }
 
 function requireAuthed(event, secret) {
@@ -248,6 +280,8 @@ module.exports = {
   parseCookies,
   clientIp,
   rateLimit,
+  allowedOrigin,
+  corsHeaders,
   handleSession,
   handleBootstrap,
   requireAuthed,

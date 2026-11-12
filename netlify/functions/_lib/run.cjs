@@ -11,23 +11,39 @@ function secret() {
   return s;
 }
 
+function withCors(event, result) {
+  const headers = event.headers || {};
+  const cors = api.corsHeaders(headers);
+  if (!Object.keys(cors).length) return result;
+  return {
+    ...result,
+    headers: { ...(result.headers || {}), ...cors },
+  };
+}
+
 function wrap(fn) {
   return async (event) => {
     try {
       if (event.httpMethod === 'OPTIONS') {
+        const origin = (event.headers && (event.headers.origin || event.headers.Origin)) || '';
+        const allow = origin && api.allowedOrigin(origin, (event.headers && (event.headers.host || event.headers.Host)) || '');
         return {
           statusCode: 204,
           headers: {
-            'access-control-allow-credentials': 'true',
+            ...(allow ? {
+              'access-control-allow-origin': origin,
+              'access-control-allow-credentials': 'true',
+              'vary': 'Origin',
+            } : {}),
             'access-control-allow-headers': 'content-type',
             'access-control-allow-methods': 'GET,OPTIONS',
           },
           body: '',
         };
       }
-      return await fn(event);
+      return withCors(event, await fn(event));
     } catch (e) {
-      return api.json(e.status || 500, { error: e.message || 'error' });
+      return withCors(event, api.json(e.status || 500, { error: e.message || 'error' }));
     }
   };
 }

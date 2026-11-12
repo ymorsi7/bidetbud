@@ -5,13 +5,23 @@
  */
 import { chromium } from 'playwright';
 import { createServer } from 'node:http';
+import { createRequire } from 'node:module';
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, extname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
+const require = createRequire(import.meta.url);
 const MOBILE = dirname(fileURLToPath(new URL('../package.json', import.meta.url)));
+const ROOT = join(MOBILE, '..');
 const WWW = join(MOBILE, 'www');
 const PORT = 8772;
+
+const { buildPublicSeed, countryCounts } = require(join(ROOT, 'scripts/lib/public-map-seed.cjs'));
+const SAMPLE = join(ROOT, 'bidet-seed.sample.json');
+const FIXTURE_SPOTS = buildPublicSeed(
+  JSON.parse(readFileSync(SAMPLE, 'utf8'))
+).filter((r) => r.bidetStatus !== 'none');
+const FIXTURE_VER = 'mobile-playwright';
 
 const MIME = {
   '.html': 'text/html',
@@ -31,11 +41,39 @@ if (!existsSync(join(WWW, 'index.html'))) {
   process.exit(1);
 }
 
+function sendJson(res, status, body) {
+  res.writeHead(status, {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-store',
+  });
+  res.end(JSON.stringify(body));
+}
+
 function startServer() {
   return new Promise((resolve, reject) => {
     const server = createServer((req, res) => {
-      const pathname = req.url === '/' ? '/index.html' : req.url.split('?')[0];
-      const file = join(WWW, pathname);
+      const pathname = (req.url || '/').split('?')[0];
+      // Local fixture — CI has no sealed seed; www never ships bidet-seed.json.
+      if (pathname === '/api/session') {
+        return sendJson(res, 200, { ok: true, ver: FIXTURE_VER });
+      }
+      if (pathname === '/api/bootstrap') {
+        return sendJson(res, 200, {
+          ok: true,
+          ver: FIXTURE_VER,
+          total: FIXTURE_SPOTS.length,
+          countries: countryCounts(FIXTURE_SPOTS),
+          spots: FIXTURE_SPOTS,
+        });
+      }
+      if (pathname === '/api/spot') {
+        const id = new URL(req.url || '/', 'http://127.0.0.1').searchParams.get('id') || '';
+        const spot = FIXTURE_SPOTS.find((r) => r.id === id);
+        if (!spot) return sendJson(res, 404, { error: 'not found' });
+        return sendJson(res, 200, { spot });
+      }
+      const filePath = pathname === '/' ? '/index.html' : pathname;
+      const file = join(WWW, filePath);
       try {
         const body = readFileSync(file);
         res.writeHead(200, { 'Content-Type': MIME[extname(file)] || 'application/octet-stream' });

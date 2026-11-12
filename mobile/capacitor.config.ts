@@ -4,15 +4,15 @@ const config: CapacitorConfig = {
   appId: 'com.bidetbud.app',
   appName: 'BidetBud',
   webDir: 'www',
-  // Bundled www is the source of truth. Do not point the WebView at
-  // https://bidetbud.com — that would skip the offline seed copy.
+  // Bundled www is the shell. Pins load from https://bidetbud.com/api/*
+  // (no public seed dump in the app bundle).
   server: {
     androidScheme: 'https',
     iosScheme: 'capacitor',
   },
   plugins: {
-    // Native HTTP so the optional live seed refresh can reach
-    // https://bidetbud.com/bidet-seed.json without WebView CORS issues.
+    // Native HTTP so /api/bootstrap from capacitor://localhost can reach
+    // https://bidetbud.com without WebView CORS issues.
     CapacitorHttp: {
       enabled: true,
     },

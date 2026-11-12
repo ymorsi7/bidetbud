@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
  * Copy the BidetBud static map from the repo root into mobile/www/
- * so Capacitor can serve it offline. Does not duplicate seed maintenance —
- * the same bidet-seed.json the website ships is copied as-is.
+ * so Capacitor can serve it. Map pins load from https://bidetbud.com/api/*
+ * (no public bidet-seed.json dump in the repo or the app bundle).
  *
- * Never copies shop/, halal/, data/, or scripts/. bidet-seed.js is optional.
+ * Never copies shop/, halal/, data/, or scripts/.
  */
 'use strict';
 
@@ -76,11 +76,6 @@ function rewriteIndex(html) {
   // Root-absolute home would leave the WebView.
   html = html.replace(/href="\/"/g, 'href="./"');
 
-  html = html.replace(
-    /var SEED_VER = ('[^']+'|"[^"]+");/,
-    'var SEED_VER = $1;\n  window.__BIDET_SEED_VER = SEED_VER;'
-  );
-
   if (!html.includes('css/native.css')) {
     html = html.replace(
       /<link rel="stylesheet" href="css\/app\.css[^"]*">/,
@@ -122,12 +117,12 @@ function main() {
   if (!fs.existsSync(path.join(ROOT, 'index.html'))) {
     throw new Error('Repo root index.html not found (run from bidetbeacon).');
   }
-  const seedSrc = path.join(ROOT, 'bidet-seed.json');
-  if (!fs.existsSync(seedSrc)) {
-    throw new Error('Missing root bidet-seed.json — the app does not keep its own seed.');
-  }
   for (const src of [BRIDGE_SRC, DEEP_LINK_SRC, NATIVE_CSS_SRC]) {
     if (!fs.existsSync(src)) throw new Error('Missing ' + src);
+  }
+  const mapApi = path.join(ROOT, 'js', 'map-api.js');
+  if (!fs.existsSync(mapApi)) {
+    throw new Error('Missing js/map-api.js — mobile map loads pins via /api/bootstrap.');
   }
 
   fs.rmSync(WWW, { recursive: true, force: true });
@@ -145,26 +140,17 @@ function main() {
   // Map icons/logo only — shop product photos are not needed in the app bundle.
   copyDir(path.join(ROOT, 'images'), path.join(WWW, 'images'), ['shop']);
 
-  copyFile(seedSrc, path.join(WWW, 'bidet-seed.json'));
-  const seedJs = path.join(ROOT, 'bidet-seed.js');
-  if (fs.existsSync(seedJs)) {
-    copyFile(seedJs, path.join(WWW, 'bidet-seed.js'));
-  }
-
   copyFile(BRIDGE_SRC, path.join(WWW, 'js', 'native-bridge.js'));
   copyFile(DEEP_LINK_SRC, path.join(WWW, 'js', 'deep-link.js'));
   copyFile(NATIVE_CSS_SRC, path.join(WWW, 'css', 'native.css'));
 
   assertNoSiblingApps();
 
-  const seed = JSON.parse(fs.readFileSync(path.join(WWW, 'bidet-seed.json'), 'utf8'));
-  if (!Array.isArray(seed) || !seed.length) {
-    throw new Error('Copied bidet-seed.json is empty or not an array.');
+  if (fs.existsSync(path.join(WWW, 'bidet-seed.json'))) {
+    throw new Error('www must not ship bidet-seed.json (map data is API-only).');
   }
 
-  console.log(
-    'sync-web: copied map + ' + seed.length + ' seed rows → ' + path.relative(ROOT, WWW)
-  );
+  console.log('sync-web: copied map shell → ' + path.relative(ROOT, WWW) + ' (pins via /api)');
 }
 
 try {
