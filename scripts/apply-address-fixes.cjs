@@ -29,6 +29,18 @@ const MANUAL = {
     latitude: '33.8056321',
     longitude: '-117.9593752',
   },
+  'Masjid Al Huda (Huda Community Center)': {
+    address: '4175 Bonillo Dr, San Diego, CA 92115',
+    city: 'San Diego, CA',
+    latitude: '32.7537340',
+    longitude: '-117.0594490',
+  },
+  'Islamic Center of Northridge (Granada Hills)': {
+    address: '11439 Encino Ave, Granada Hills, CA 91344',
+    city: 'Granada Hills, CA',
+    latitude: '34.2785380',
+    longitude: '-118.5164070',
+  },
   'Cairo Restaurant and Cafe': {
     address: '10832 W Katella Ave, Anaheim, CA 92804',
     city: 'Anaheim, CA',
