@@ -234,6 +234,18 @@ const MANUAL = {
     latitude: '36.6776547',
     longitude: '-121.6564408',
   },
+  'Qishr Coffee House': {
+    address: '90 Skyport Dr #140, San Jose, CA 95110',
+    city: 'San Jose, CA',
+    latitude: '37.3655085',
+    longitude: '-121.9158920',
+  },
+  'Urth Caffé (Orange)': {
+    address: '100 W Chapman Ave, Orange, CA 92866',
+    city: 'Orange, CA',
+    latitude: '33.7877451',
+    longitude: '-117.8537523',
+  },
 };
 
 function haversine(lat1, lon1, lat2, lon2) {

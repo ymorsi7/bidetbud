@@ -58,6 +58,8 @@ const MANUAL_SPOTS = [
   { name: 'Bright Horizon Academy', queries: ['bright horizon academy', 'bright horizon san diego'], status: ['verified'] },
   { name: 'Delah Coffee (San Francisco)', queries: ['delah coffee san francisco', 'delah 4th'], status: ['none'] },
   { name: 'La Vaca Birria', queries: ['la vaca birria', 'la vaca san francisco'], status: ['none'] },
+  { name: 'Qishr Coffee House', queries: ['qishr', 'qishr coffee', 'qishr san jose'], status: ['verified'] },
+  { name: 'Urth Caffé (Orange)', queries: ['urth cafe orange', 'urth caffe orange', 'urth orange'], status: ['none'] },
   { name: 'Fritzsche Haustechnik GmbH', queries: ['fritzsche haustechnik'], status: ['verified'] },
   { name: 'Yosaku', queries: ['yosaku portland'], status: ['warmed', 'internet', 'verified'] },
   { name: 'Ayat Bushwick', queries: ['ayat bushwick'], status: ['internet', 'verified'] },
