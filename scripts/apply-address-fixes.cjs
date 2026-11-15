@@ -246,6 +246,18 @@ const MANUAL = {
     latitude: '33.7877451',
     longitude: '-117.8537523',
   },
+  'Jazwah': {
+    address: '9150 S Harlem Ave, Bridgeview, IL 60455',
+    city: 'Bridgeview, IL',
+    latitude: '41.7249100',
+    longitude: '-87.7995070',
+  },
+  'Al Manakeesh (Bridgeview)': {
+    address: '8401 S Harlem Ave, Bridgeview, IL 60455',
+    city: 'Bridgeview, IL',
+    latitude: '41.7387348',
+    longitude: '-87.7988888',
+  },
 };
 
 function haversine(lat1, lon1, lat2, lon2) {
