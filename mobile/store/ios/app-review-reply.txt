@@ -1,0 +1,34 @@
+BidetBud — App Review notes
+Build: 1.0.1 (7)  |  Bundle: com.bidetbud.app  |  Apple ID: 6815273990
+
+1) How to review (no login)
+There is no account registration, login, or account deletion.
+There is no paid content and no In-App Purchases.
+
+- Install and open. The map loads from bundled data; if online it may refresh from https://bidetbud.com/bidet-seed.json
+- Search a city or place name, or tap Near me and allow location (used only to find nearby pins).
+- Switch Map / List. Tap a pin or a list card. A short card slides up from the bottom with the name, bidet status, address, and Directions. Drag the handle up for source/details, or drag down / tap × to close.
+- Filters: type (masajid, restaurants, hotels, public), country, guests-only, no-bidet.
+- Suggest a spot: + button. Name + whether it has a bidet is enough. Optional photo uses the system photo picker (one image). We review before publish.
+- Report: on a place card, Report → choose a reason → Send report.
+No demo account. No sample files.
+
+2) User-generated content
+Anyone can suggest a spot or an update. Submissions are emailed to us via Web3Forms and are reviewed by a human before anything is published on the map. Users can report a wrong pin from the place card. There are no user profiles, so there is no “block user” control; the remedy is reporting the listing.
+
+3) Purpose and audience
+BidetBud is a free map of restrooms that have a bidet, handheld sprayer (shattaf), or washlet. Target audience: travelers and anyone who wants a washlet-style restroom, including people who use masajid, restaurants, hotels, and public facilities.
+
+4) External services (core)
+- OpenStreetMap / Carto tile servers — map tiles
+- https://bidetbud.com/bidet-seed.json — public listing data (also bundled offline)
+- Web3Forms (api.web3forms.com) — email for suggest-a-spot and reports (no user accounts)
+- Device location via iOS (Near me only)
+- GoatCounter — anonymous page-view counts (no ads, no tracking SDK)
+No authentication provider, no payments, no AI API.
+
+5) Regions
+The app binary is the same in every region. Content is a worldwide map. Features do not change by storefront. Location permission is optional.
+
+6) Regulated / third-party material
+Not a regulated industry. Map tiles: OpenStreetMap / CARTO. Listings are compiled by BidetBud from user verification and cited public web/manufacturer sources.
