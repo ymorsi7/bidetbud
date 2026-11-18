@@ -1,7 +1,9 @@
 // swift-tools-version: 5.9
 import PackageDescription
 
-// DO NOT MODIFY THIS FILE - managed by Capacitor CLI commands
+// Capacitor plugins are vendored under ../CapPackages so Xcode Cloud can
+// resolve SPM without mobile/node_modules. ci_post_clone re-applies this
+// after `cap sync` (which rewrites path deps to node_modules).
 let package = Package(
     name: "CapApp-SPM",
     platforms: [.iOS(.v15)],
@@ -12,12 +14,12 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/ionic-team/capacitor-swift-pm.git", exact: "8.5.2"),
-        .package(name: "CapacitorApp", path: "../../../node_modules/@capacitor/app"),
-        .package(name: "CapacitorCamera", path: "../../../node_modules/@capacitor/camera"),
-        .package(name: "CapacitorGeolocation", path: "../../../node_modules/@capacitor/geolocation"),
-        .package(name: "CapacitorKeyboard", path: "../../../node_modules/@capacitor/keyboard"),
-        .package(name: "CapacitorSplashScreen", path: "../../../node_modules/@capacitor/splash-screen"),
-        .package(name: "CapacitorStatusBar", path: "../../../node_modules/@capacitor/status-bar")
+        .package(name: "CapacitorApp", path: "../CapPackages/app"),
+        .package(name: "CapacitorCamera", path: "../CapPackages/camera"),
+        .package(name: "CapacitorGeolocation", path: "../CapPackages/geolocation"),
+        .package(name: "CapacitorKeyboard", path: "../CapPackages/keyboard"),
+        .package(name: "CapacitorSplashScreen", path: "../CapPackages/splash-screen"),
+        .package(name: "CapacitorStatusBar", path: "../CapPackages/status-bar")
     ],
     targets: [
         .target(

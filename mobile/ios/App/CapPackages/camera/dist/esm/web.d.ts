@@ -1,0 +1,33 @@
+import { WebPlugin } from '@capacitor/core';
+import type { CameraPlugin, GalleryImageOptions, GalleryPhotos, ImageOptions, PermissionStatus, Photo, RecordVideoOptions, EditPhotoOptions, PlayVideoOptions, EditURIPhotoOptions, EditPhotoResult, MediaResult, MediaResults, ChooseFromGalleryOptions, TakePhotoOptions } from './definitions';
+export declare class CameraWeb extends WebPlugin implements CameraPlugin {
+    takePhoto(options: TakePhotoOptions): Promise<MediaResult>;
+    recordVideo(_options: RecordVideoOptions): Promise<MediaResult>;
+    playVideo(_options: PlayVideoOptions): Promise<void>;
+    chooseFromGallery(options: ChooseFromGalleryOptions): Promise<MediaResults>;
+    editPhoto(_options: EditPhotoOptions): Promise<EditPhotoResult>;
+    editURIPhoto(_options: EditURIPhotoOptions): Promise<MediaResult>;
+    getPhoto(options: ImageOptions): Promise<Photo>;
+    pickImages(_options: GalleryImageOptions): Promise<GalleryPhotos>;
+    private cameraExperience;
+    private fileInputExperience;
+    private multipleFileInputExperience;
+    private _getCameraPhoto;
+    private takePhotoCameraExperience;
+    private takePhotoCameraInputExperience;
+    private galleryInputExperience;
+    private _getFileFormat;
+    private _buildPhotoMediaResult;
+    private _validateFileInput;
+    private _setupPWACameraModal;
+    private _createFileInput;
+    private _getImageResolution;
+    private _getBase64FromFile;
+    private _getVideoMetadata;
+    checkPermissions(): Promise<PermissionStatus>;
+    requestPermissions(): Promise<PermissionStatus>;
+    pickLimitedLibraryPhotos(): Promise<GalleryPhotos>;
+    getLimitedLibraryPhotos(): Promise<GalleryPhotos>;
+}
+declare const Camera: CameraWeb;
+export { Camera };

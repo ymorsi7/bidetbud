@@ -1,67 +1,33 @@
 #!/bin/bash
-# Xcode Cloud: install Capacitor deps so CapApp-SPM path packages resolve.
-# CapApp-SPM/Package.swift points at mobile/node_modules/@capacitor/* —
-# those paths must exist before xcodebuild resolves packages.
+# Xcode Cloud: keep web assets fresh. Capacitor SPM plugins are vendored in
+# mobile/ios/App/CapPackages (no node_modules required for xcodebuild).
 set -euo pipefail
 
 echo "=== BidetBud Xcode Cloud post-clone ==="
 ROOT="${CI_PRIMARY_REPOSITORY_PATH:-$(cd "$(dirname "$0")/.." && pwd)}"
 cd "$ROOT"
 echo "ROOT=$ROOT"
-pwd
-ls -la
-
-export HOMEBREW_NO_AUTO_UPDATE=1
-export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
-export HOMEBREW_NO_ANALYTICS=1
-
-ensure_node() {
-  if command -v node >/dev/null 2>&1; then
-    major="$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0)"
-    if [ "$major" -ge 20 ]; then
-      echo "Using existing Node $(node -v)"
-      return 0
-    fi
-  fi
-  echo "Installing Node via Homebrew…"
-  if command -v brew >/dev/null 2>&1; then
-    brew install node@22 || brew upgrade node@22 || brew install node
-    if [ -d "$(brew --prefix node@22 2>/dev/null)/bin" ]; then
-      export PATH="$(brew --prefix node@22)/bin:$PATH"
-    fi
-    if [ -d "$(brew --prefix node 2>/dev/null)/bin" ]; then
-      export PATH="$(brew --prefix node)/bin:$PATH"
-    fi
-  else
-    echo "ERROR: brew not found and Node missing"
-    exit 1
-  fi
-}
-
-ensure_node
-command -v node
-command -v npm
-node -v
-npm -v
 
 test -f mobile/ios/App/App.xcodeproj/project.pbxproj
-test -f mobile/package-lock.json
+test -d mobile/ios/App/CapPackages/app
+test -f mobile/ios/App/CapApp-SPM/Package.swift
 
-cd mobile
-echo "=== npm ci ==="
-npm ci --no-audit --no-fund
-echo "=== sync web + cap ==="
-npm run sync:web
-npx cap sync ios
-node scripts/patch-native.cjs
+# Prefer CapPackages paths even if a prior cap sync rewrote Package.swift
+if grep -q 'node_modules/@capacitor' mobile/ios/App/CapApp-SPM/Package.swift; then
+  echo "Rewriting Package.swift away from node_modules…"
+  # Node may be unavailable — do a sed fallback
+  if command -v node >/dev/null 2>&1; then
+    (cd mobile && node scripts/fix-cap-spm-paths.cjs) || true
+  fi
+  sed -i '' \
+    -e 's|path: "../../../node_modules/@capacitor/app"|path: "../CapPackages/app"|g' \
+    -e 's|path: "../../../node_modules/@capacitor/camera"|path: "../CapPackages/camera"|g' \
+    -e 's|path: "../../../node_modules/@capacitor/geolocation"|path: "../CapPackages/geolocation"|g' \
+    -e 's|path: "../../../node_modules/@capacitor/keyboard"|path: "../CapPackages/keyboard"|g' \
+    -e 's|path: "../../../node_modules/@capacitor/splash-screen"|path: "../CapPackages/splash-screen"|g' \
+    -e 's|path: "../../../node_modules/@capacitor/status-bar"|path: "../CapPackages/status-bar"|g' \
+    mobile/ios/App/CapApp-SPM/Package.swift || true
+fi
 
-echo "=== verify Capacitor SPM paths ==="
-for pkg in app camera geolocation keyboard splash-screen status-bar; do
-  test -d "node_modules/@capacitor/$pkg" || {
-    echo "MISSING node_modules/@capacitor/$pkg"
-    exit 1
-  }
-  echo "ok @capacitor/$pkg"
-done
-
-echo "iOS project ready: mobile/ios/App/App.xcodeproj"
+grep -q 'CapPackages/app' mobile/ios/App/CapApp-SPM/Package.swift
+echo "CapPackages SPM paths OK — ready for archive"

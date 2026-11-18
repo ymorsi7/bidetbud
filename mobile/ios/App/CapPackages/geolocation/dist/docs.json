@@ -1,0 +1,408 @@
+{
+  "api": {
+    "name": "GeolocationPlugin",
+    "slug": "geolocationplugin",
+    "docs": "",
+    "tags": [],
+    "methods": [
+      {
+        "name": "getCurrentPosition",
+        "signature": "(options?: PositionOptions | undefined) => Promise<Position>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "PositionOptions | undefined"
+          }
+        ],
+        "returns": "Promise<Position>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Get the current GPS location of the device",
+        "complexTypes": [
+          "Position",
+          "PositionOptions"
+        ],
+        "slug": "getcurrentposition"
+      },
+      {
+        "name": "watchPosition",
+        "signature": "(options: PositionOptions, callback: WatchPositionCallback) => Promise<CallbackID>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "PositionOptions"
+          },
+          {
+            "name": "callback",
+            "docs": "",
+            "type": "WatchPositionCallback"
+          }
+        ],
+        "returns": "Promise<string>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Set up a watch for location changes. Note that watching for location changes\ncan consume a large amount of energy. Be smart about listening only when you need to.",
+        "complexTypes": [
+          "PositionOptions",
+          "WatchPositionCallback",
+          "CallbackID"
+        ],
+        "slug": "watchposition"
+      },
+      {
+        "name": "clearWatch",
+        "signature": "(options: ClearWatchOptions) => Promise<void>",
+        "parameters": [
+          {
+            "name": "options",
+            "docs": "",
+            "type": "ClearWatchOptions"
+          }
+        ],
+        "returns": "Promise<void>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Clear a given watch",
+        "complexTypes": [
+          "ClearWatchOptions"
+        ],
+        "slug": "clearwatch"
+      },
+      {
+        "name": "checkPermissions",
+        "signature": "() => Promise<PermissionStatus>",
+        "parameters": [],
+        "returns": "Promise<PermissionStatus>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Check location permissions.  Will throw if system location services are disabled.",
+        "complexTypes": [
+          "PermissionStatus"
+        ],
+        "slug": "checkpermissions"
+      },
+      {
+        "name": "requestPermissions",
+        "signature": "(permissions?: GeolocationPluginPermissions | undefined) => Promise<PermissionStatus>",
+        "parameters": [
+          {
+            "name": "permissions",
+            "docs": "",
+            "type": "GeolocationPluginPermissions | undefined"
+          }
+        ],
+        "returns": "Promise<PermissionStatus>",
+        "tags": [
+          {
+            "name": "since",
+            "text": "1.0.0"
+          }
+        ],
+        "docs": "Request location permissions.  Will throw if system location services are disabled.\n\nNot available on web.",
+        "complexTypes": [
+          "PermissionStatus",
+          "GeolocationPluginPermissions"
+        ],
+        "slug": "requestpermissions"
+      }
+    ],
+    "properties": []
+  },
+  "interfaces": [
+    {
+      "name": "Position",
+      "slug": "position",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "timestamp",
+          "tags": [
+            {
+              "text": "1.0.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Creation timestamp for coords",
+          "complexTypes": [],
+          "type": "number"
+        },
+        {
+          "name": "coords",
+          "tags": [
+            {
+              "text": "1.0.0",
+              "name": "since"
+            }
+          ],
+          "docs": "The GPS coordinates along with the accuracy of the data",
+          "complexTypes": [],
+          "type": "{ latitude: number; longitude: number; accuracy: number; altitudeAccuracy: number | null | undefined; altitude: number | null; speed: number | null; heading: number | null; magneticHeading: number | null | undefined; trueHeading: number | null | undefined; headingAccuracy: number | null | undefined; course: number | null | undefined; }"
+        }
+      ]
+    },
+    {
+      "name": "PositionOptions",
+      "slug": "positionoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "enableHighAccuracy",
+          "tags": [
+            {
+              "text": "false",
+              "name": "default"
+            },
+            {
+              "text": "1.0.0",
+              "name": "since"
+            }
+          ],
+          "docs": "High accuracy mode (such as GPS, if available)\n\nOn Android 12+ devices it will be ignored if users didn't grant\nACCESS_FINE_LOCATION permissions (can be checked with location alias).",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        },
+        {
+          "name": "timeout",
+          "tags": [
+            {
+              "text": "10000",
+              "name": "default"
+            },
+            {
+              "text": "1.0.0",
+              "name": "since"
+            }
+          ],
+          "docs": "The maximum wait time in milliseconds for location updates.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "maximumAge",
+          "tags": [
+            {
+              "text": "0",
+              "name": "default"
+            },
+            {
+              "text": "1.0.0",
+              "name": "since"
+            }
+          ],
+          "docs": "The maximum age in milliseconds of a possible cached position that is acceptable to return",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "minimumUpdateInterval",
+          "tags": [
+            {
+              "text": "5000",
+              "name": "default"
+            },
+            {
+              "text": "6.1.0",
+              "name": "since"
+            }
+          ],
+          "docs": "The minimum update interval for `watchPosition`. Not to be confused with `interval`.\n\nIf location updates are available faster than this interval then an update\nwill only occur if the minimum update interval has expired since the last location update.\n\nThis parameter is only available for Android. It has no effect on iOS or Web platforms.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "interval",
+          "tags": [
+            {
+              "text": "`timeout`",
+              "name": "default"
+            },
+            {
+              "text": "8.0.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Desired interval in milliseconds to receive location updates in `watchPosition`.\n\nFor very low values of `interval` (a couple seconds or less),\nthe platform may not guarantee timely location updates - they may take longer than specified.\nThe platform may also be able to provide location updates faster than `interval`.\nYou may use `minimumUpdateInterval` to control that behavior.\n\nFor backwards compatibility with version 7.1.x, if no value is passed,\nthe default value of this parameter is that of `timeout`.\n\nThis parameter is only available for Android. It has no effect on iOS or Web platforms.",
+          "complexTypes": [],
+          "type": "number | undefined"
+        },
+        {
+          "name": "enableLocationFallback",
+          "tags": [
+            {
+              "text": "true",
+              "name": "default"
+            },
+            {
+              "text": "8.0.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Whether to fall back to the Android framework's `LocationManager` in case Google Play Service's location settings checks fail.\nThis can happen for multiple reasons - e.g. device has no Play Services or device has no network connection (Airplane Mode)\nIf set to `false`, failures are propagated to the caller.\nNote that `LocationManager` may not be as effective as Google Play Services implementation.\nIf the device's in airplane mode, only the GPS provider is used, which may take longer to return a location, depending on GPS signal.\nThis means that to receive location in such circumstances, you may need to provide a higher timeout.\n\nThis parameter is only available for Android. It has no effect on iOS or Web platforms.",
+          "complexTypes": [],
+          "type": "boolean | undefined"
+        }
+      ]
+    },
+    {
+      "name": "ClearWatchOptions",
+      "slug": "clearwatchoptions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "id",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "CallbackID"
+          ],
+          "type": "CallbackID"
+        }
+      ]
+    },
+    {
+      "name": "PermissionStatus",
+      "slug": "permissionstatus",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "location",
+          "tags": [
+            {
+              "text": "1.0.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Permission state for location alias.\n\nOn Android it requests/checks both ACCESS_COARSE_LOCATION and\nACCESS_FINE_LOCATION permissions.\n\nOn iOS and web it requests/checks location permission.",
+          "complexTypes": [
+            "PermissionState"
+          ],
+          "type": "PermissionState"
+        },
+        {
+          "name": "coarseLocation",
+          "tags": [
+            {
+              "text": "1.2.0",
+              "name": "since"
+            }
+          ],
+          "docs": "Permission state for coarseLocation alias.\n\nOn Android it requests/checks ACCESS_COARSE_LOCATION.\n\nOn Android 12+, users can choose between Approximate location (ACCESS_COARSE_LOCATION) or\nPrecise location (ACCESS_FINE_LOCATION), so this alias can be used if the app doesn't\nneed high accuracy.\n\nOn iOS and web it will have the same value as location alias.",
+          "complexTypes": [
+            "PermissionState"
+          ],
+          "type": "PermissionState"
+        }
+      ]
+    },
+    {
+      "name": "GeolocationPluginPermissions",
+      "slug": "geolocationpluginpermissions",
+      "docs": "",
+      "tags": [],
+      "methods": [],
+      "properties": [
+        {
+          "name": "permissions",
+          "tags": [],
+          "docs": "",
+          "complexTypes": [
+            "GeolocationPermissionType"
+          ],
+          "type": "GeolocationPermissionType[]"
+        }
+      ]
+    }
+  ],
+  "enums": [],
+  "typeAliases": [
+    {
+      "name": "WatchPositionCallback",
+      "slug": "watchpositioncallback",
+      "docs": "",
+      "types": [
+        {
+          "text": "(position: Position | null, err?: any): void",
+          "complexTypes": [
+            "Position"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "CallbackID",
+      "slug": "callbackid",
+      "docs": "",
+      "types": [
+        {
+          "text": "string",
+          "complexTypes": []
+        }
+      ]
+    },
+    {
+      "name": "PermissionState",
+      "slug": "permissionstate",
+      "docs": "",
+      "types": [
+        {
+          "text": "'prompt'",
+          "complexTypes": []
+        },
+        {
+          "text": "'prompt-with-rationale'",
+          "complexTypes": []
+        },
+        {
+          "text": "'granted'",
+          "complexTypes": []
+        },
+        {
+          "text": "'denied'",
+          "complexTypes": []
+        }
+      ]
+    },
+    {
+      "name": "GeolocationPermissionType",
+      "slug": "geolocationpermissiontype",
+      "docs": "",
+      "types": [
+        {
+          "text": "'location'",
+          "complexTypes": []
+        },
+        {
+          "text": "'coarseLocation'",
+          "complexTypes": []
+        }
+      ]
+    }
+  ],
+  "pluginConfigs": []
+}
