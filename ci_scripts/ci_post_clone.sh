@@ -1,5 +1,7 @@
 #!/bin/sh
-# Xcode Cloud: ios/ is gitignored — generate it after clone, before xcodebuild.
+# Xcode Cloud: refresh Capacitor web assets into the committed iOS project.
+# The xcodeproj must already exist in git — Apple skips scripts if the
+# configured project path is missing after clone.
 set -euo pipefail
 
 echo "=== BidetBud Xcode Cloud post-clone ==="
@@ -28,18 +30,12 @@ fi
 node -v
 npm -v
 
+test -f mobile/ios/App/App.xcodeproj/project.pbxproj
+
 cd mobile
 npm ci
 npm run sync:web
-
-if [ ! -f ios/App/App.xcodeproj/project.pbxproj ]; then
-  echo "Adding Capacitor iOS platform…"
-  npx cap add ios
-fi
-
 npx cap sync ios
 node scripts/patch-native.cjs
 
-test -f ios/App/App.xcodeproj/project.pbxproj
 echo "iOS project ready: mobile/ios/App/App.xcodeproj"
-ls -la ios/App/App.xcodeproj

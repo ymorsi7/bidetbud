@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html class="capacitor-native" lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<base href="./">
+<title>BidetBud</title>
+<meta name="description" content="Find masajid, restaurants, hotels, and public restrooms with bidets. Community verified and web-sourced listings worldwide.">
+<meta name="theme-color" content="#18181b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="BidetBud: Find bidets at masajid &amp; establishments">
+<meta property="og:description" content="Community map of masajid, restaurants, hotels, and public restrooms with bidets worldwide.">
+<meta property="og:url" content="https://bidetbud.com/">
+<meta property="og:image" content="https://bidetbud.com/images/bidetbud-favicon-192.png">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="BidetBud">
+<meta name="twitter:description" content="Find masajid and restaurants with bidets near you.">
+<meta name="twitter:image" content="https://bidetbud.com/images/bidetbud-favicon-192.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"BidetBud","url":"https://bidetbud.com/","description":"Community map of masajid, restaurants, hotels, and public restrooms with bidets."}
+</script>
+<link rel="icon" href="images/bidetbud-favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="images/bidetbud-favicon-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="images/bidetbud-favicon-192.png">
+<link rel="apple-touch-icon" href="images/bidetbud-favicon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://a.basemaps.cartocdn.com" crossorigin>
+<link rel="dns-prefetch" href="https://b.basemaps.cartocdn.com">
+<link rel="dns-prefetch" href="https://c.basemaps.cartocdn.com">
+<link rel="dns-prefetch" href="https://d.basemaps.cartocdn.com">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
+<link rel="stylesheet" href="css/github-star.css">
+<link rel="stylesheet" href="css/app.css?v=20261118b">
+<link rel="stylesheet" href="css/native.css">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="preload" href="vendor/leaflet.js" as="script">
+<link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
+<link rel="preload" href="js/core.js?v=20261109a" as="script">
+<link rel="preload" href="js/search-seed.js?v=20261014b" as="script">
+<link rel="preload" href="js/map-api.js?v=20261110b" as="script">
+<link rel="preload" href="js/app.js?v=20261118b" as="script">
+<script src="vendor/leaflet.js" defer></script>
+<script src="vendor/leaflet.markercluster.js" defer></script>
+<script src="js/core.js?v=20261109a" defer></script>
+<script src="js/search-seed.js?v=20261014b" defer></script>
+<script src="js/map-api.js?v=20261110b" defer></script>
+<script src="js/carto-key.js" defer></script>
+<script src="js/deep-link.js" defer></script>
+<script src="js/native-bridge.js" defer></script>
+<script src="js/app.js?v=20261118b" defer></script>
+<script>
+(function () {
+  var queue = [];
+  function send(payload) {
+    if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+      window.goatcounter.count(payload);
+      return true;
+    }
+    return false;
+  }
+  function flush() {
+    while (queue.length && send(queue[0])) queue.shift();
+  }
+  window.trackEvent = function (name, props) {
+    var title = name;
+    if (props && typeof props === 'object') {
+      title = Object.keys(props).map(function (k) { return k + '=' + props[k]; }).join(', ') || name;
+    }
+    var payload = { path: name, title: title, event: true };
+    if (!send(payload)) queue.push(payload);
+  };
+  document.addEventListener('DOMContentLoaded', flush);
+  window.addEventListener('load', flush);
+  setTimeout(flush, 2500);
+})();
+</script>
+<script data-goatcounter="https://bidetbud.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.js"></script>
+
+
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="./">
+        <div class="logo"><img src="images/bidetbud-logo.png" alt="BidetBud logo" width="38" height="38" decoding="async"></div>
+        <div class="brand-text">
+          <h1>BidetBud</h1>
+          <p>Find bidets at masajid &amp; establishments</p>
+        </div>
+      </a>
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
+        <input type="search" id="searchInput" placeholder="Search city, name, or address…" autocomplete="off" enterkeyhint="search" aria-label="Search locations" aria-autocomplete="list" aria-controls="searchAc">
+        <button type="button" class="search-clear" id="searchClear" hidden aria-label="Clear search" aria-hidden="true">×</button>
+        <div class="search-ac" id="searchAc" hidden role="listbox" aria-label="Search suggestions"></div>
+      </div>
+      <div class="actions">
+        <div class="menu-wrap">
+          <button type="button" class="btn btn-ghost btn-icon-only" id="menuBtn" aria-label="Menu" aria-haspopup="true" aria-expanded="false"><svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg></button>
+          <div class="menu-drop" id="menuDrop" hidden role="menu">
+            <button type="button" role="menuitem" id="menuCopyView">Copy link to this view</button>
+            <button type="button" role="menuitem" id="menuAbout">About</button>
+            <button type="button" role="menuitem" id="menuLegend">Map legend</button>
+            <a class="menu-drop-link" role="menuitem" href="https://bidetbud.com/privacy">Privacy</a>
+            <a class="menu-drop-link" role="menuitem" href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="menu-drop-link" role="menuitem" href="https://instagram.com/bidetbud" target="_blank" rel="noopener noreferrer">Instagram</a>
+          </div>
+        </div>
+        <button type="button" class="btn btn-ghost" id="nearMeBtn" aria-label="Find places near me">
+          <svg class="btn-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="2.5" fill="currentColor" stroke="none"/><line x1="12" y1="1" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="23"/><line x1="1" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="23" y2="12"/></svg>
+          <span class="btn-label">Near me</span>
+        </button>
+        <button type="button" class="btn btn-primary" id="addBtn">
+          <span class="btn-label-full">Add spot</span>
+          <span class="btn-label-short">Add</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="load-toast" id="loadToast" aria-live="polite">Loading…</div>
+
+  <div class="app-main" id="appMain">
+    <div class="map-wrap">
+      <div id="map" role="application" aria-label="Map of bidet locations"></div>
+      <div class="search-peek" id="searchPeek" hidden>
+        <div class="search-peek-head">
+          <span id="searchPeekCount">Places</span>
+          <button type="button" class="search-peek-all" id="searchPeekAll">See all</button>
+        </div>
+        <div class="search-peek-list" id="searchPeekList"></div>
+      </div>
+    </div>
+    <aside class="sidebar" aria-label="Location list">
+      <div class="sidebar-head">
+        <div class="quick-chips" id="quickChips" aria-label="Quick searches">
+          <button type="button" class="chip quick-chip" data-quick="near-masjid">Masajid near me</button>
+          <button type="button" class="chip quick-chip" data-quick="near-restaurant">Restaurants near me</button>
+        </div>
+        <div class="filter-banner filter-banner--none" id="noBidetBanner" hidden>
+          Including places recorded <em>without</em> a bidet, alongside spots that have one.
+        </div>
+        <div class="filter-banner filter-banner--hint" id="noBidetSearchHint" hidden></div>
+        <div class="filter-row">
+          <div class="segmented" id="placeFilter" role="group" aria-label="Place type">
+            <button type="button" class="active" data-type="all">All</button>
+            <button type="button" data-type="mosque">Masajid</button>
+            <button type="button" data-type="restaurant">Restaurants</button>
+            <button type="button" data-type="hotel">Hotels</button>
+            <button type="button" data-type="public">Public</button>
+          </div>
+          <button type="button" class="btn btn-ghost mobile-filter-btn" id="mobileFilterBtn" aria-label="All filters">
+            <svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+            Filters
+          </button>
+          <div class="filter-toggles">
+            <button type="button" class="filter-toggle limited-access-toggle" id="limitedAccessToggle" aria-pressed="false" aria-label="Include hotels and guests-only spots" title="Include hotels and restrooms that aren't open to the general public">
+              <svg class="ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span>Include hotels</span>
+            </button>
+          </div>
+          <details class="more-filters">
+            <summary>More filters</summary>
+            <div class="more-panel" id="typeChips">
+              <button type="button" class="filter-toggle no-bidet-toggle" id="noBidetToggle" aria-pressed="false" aria-label="Also show spots without a bidet" title="Also show places we've recorded that do NOT have a bidet">
+                <span>No-bidet too</span>
+              </button>
+              <button type="button" class="chip" data-type="verified">User verified</button>
+              <button type="button" class="chip" data-type="warmed">Heated / TOTO</button>
+              <button type="button" class="chip" data-type="internet">From internet</button>
+              <button type="button" class="chip" data-type="public">Public access</button>
+              <button type="button" class="chip" data-type="limited">Guests only</button>
+              <span class="chip-divider" aria-hidden="true">Country</span>
+              <button type="button" class="chip" data-type="USA">USA</button>
+              <button type="button" class="chip" data-type="UK">UK</button>
+              <button type="button" class="chip" data-type="Canada">Canada</button>
+              <button type="button" class="chip" data-type="Singapore">Singapore</button>
+              <button type="button" class="chip" data-type="Germany">Germany</button>
+              <button type="button" class="chip" data-type="Australia">Australia</button>
+              <button type="button" class="chip" data-type="Mexico">Mexico</button>
+              <button type="button" class="chip" data-type="France">France</button>
+              <button type="button" class="chip" data-type="Russia">Russia</button>
+              <button type="button" class="chip" data-type="China">China</button>
+            </div>
+          </details>
+        </div>
+        <div class="radius-row" id="radiusRow" hidden>
+          <span class="radius-label">Radius:</span>
+          <button type="button" class="chip" data-radius="5">5 mi</button>
+          <button type="button" class="chip" data-radius="10">10 mi</button>
+          <button type="button" class="chip" data-radius="25">25 mi</button>
+          <button type="button" class="chip active" data-radius="50">50 mi</button>
+          <button type="button" class="chip" data-radius="100">100 mi</button>
+        </div>
+        <p class="near-me-hint" id="nearMeHint" hidden></p>
+        <div class="active-filters" id="activeFilters" hidden aria-label="Active filters"></div>
+        <p class="count-line" id="countLabel">Loading…</p>
+        <div class="list-toolbar">
+        <div class="sidebar-legend">
+          <button type="button" class="sidebar-legend-btn" id="legendHelpBtn" aria-label="Open map legend">
+            <span class="sidebar-legend-dots" aria-hidden="true">
+              <span class="legend-dot verified"></span>
+              <span class="legend-dot warmed"></span>
+              <span class="legend-dot internet"></span>
+              <span class="legend-dot limited"></span>
+              <span class="legend-dot none" id="legendNone" hidden></span>
+            </span>
+            <span class="sidebar-legend-label">Pin colors</span>
+          </button>
+        </div>
+          <select class="sort-select" id="sortSelect" aria-label="Sort results">
+            <option value="closest">Closest first</option>
+            <option value="verified">Verified first</option>
+            <option value="name">A–Z</option>
+          </select>
+        </div>
+      </div>
+      <div id="locationList" class="location-list-loading">
+        <div class="skeleton-card" aria-hidden="true"></div>
+        <div class="skeleton-card" aria-hidden="true"></div>
+        <div class="skeleton-card" aria-hidden="true"></div>
+      </div>
+    </aside>
+  </div>
+
+  <div class="overlay" id="aboutOverlay" role="dialog" aria-modal="true" aria-labelledby="aboutTitle">
+    <div class="dialog about-dialog" id="aboutDialog">
+      <button type="button" class="dialog-close" id="aboutClose" aria-label="Close">×</button>
+      <div class="about-head">
+        <img class="about-logo" src="images/bidetbud-logo.png" alt="" width="52" height="52" decoding="async">
+        <div class="about-head-text">
+          <h2 id="aboutTitle">About BidetBud</h2>
+          <p class="about-tagline">A community map for bidet-friendly spots</p>
+        </div>
+      </div>
+      <div class="about-body">
+        <p>I have a habit of getting annoyed at minor inconveniences and then trying to build a solution for them.</p>
+        <p>As someone who travels regularly between the US and the Middle East, I noticed one thing the West evidently still hasn't figured out: bidets.</p>
+        <p>In the Middle East, bidets are something you just don't have to think about, a convenience we don't realize we're spoiled with until we return to the West.</p>
+        <p>This has been ruffling my feathers for years, so I built BidetBud: a free map where you can find masajid, restaurants, hotels, and public spots that actually have bidets or washlets. It started in the US, Canada, and the UK and has grown from there.</p>
+        <p>There are hundreds of pins on the map already, but its usefulness grows with every spot the community adds. If you know one, add it: name only is enough.</p>
+        <div class="about-legend">
+          <span class="about-legend-title">Pin colors</span>
+          <ul class="about-legend-list">
+            <li><span class="legend-dot verified"></span> User verified</li>
+            <li><span class="legend-dot internet"></span> Web source</li>
+            <li><span class="legend-dot warmed"></span> Heated / TOTO</li>
+            <li><span class="legend-dot limited"></span> Limited access</li>
+            <li><span class="legend-dot none"></span> No bidet</li>
+          </ul>
+        </div>
+      </div>
+      <p class="about-signoff">Sadaqah jariyah of hygiene.</p>
+    </div>
+  </div>
+
+  <div class="overlay" id="promoOverlay" role="dialog" aria-modal="true" aria-labelledby="promoTitle">
+    <div class="dialog promo-dialog" id="promoDialog">
+      <button type="button" class="dialog-close" id="promoClose" aria-label="Close">×</button>
+      <img class="promo-logo" src="images/bidetbud-logo.png" alt="" width="72" height="72" decoding="async">
+      <h2 id="promoTitle">Help others find clean wudu spaces</h2>
+      <p class="promo-lead">BidetBud is community-built. Know a place with a bidet, or without? Tap <strong>+</strong> on the map, or <strong>Add spot</strong> in the header.</p>
+      <ol class="promo-steps">
+        <li>Open <strong>Suggest a spot</strong></li>
+        <li>Enter the place name and whether it has a bidet</li>
+        <li>Submit. We review before it goes live</li>
+      </ol>
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-primary" id="promoGotItBtn">Got it</button>
+        <button type="button" class="promo-skip" id="promoLaterBtn">Remind me later</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="map-controls" id="mapControls">
+    <button type="button" class="map-locate" id="locateFab" aria-label="Center map on my location">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>
+    </button>
+    <button type="button" class="map-fab" id="addFab" aria-label="Suggest a spot">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    </button>
+  </div>
+
+  <nav class="mobile-tabs" role="tablist" aria-label="Map or list view">
+    <button type="button" class="mobile-tab active" data-view="map" role="tab" aria-selected="true"><svg class="mobile-tab-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg><span class="mobile-tab-label">Map</span></button>
+    <button type="button" class="mobile-tab" data-view="list" role="tab" aria-selected="false"><svg class="mobile-tab-icon ui-icon" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg><span class="mobile-tab-label">List</span><span class="mobile-tab-badge" id="listTabBadge" hidden></span></button>
+  </nav>
+
+  <footer class="site-footer">
+    <nav class="site-footer-nav" aria-label="Site links">
+      <a href="https://bidetbud.com/privacy">Privacy</a>
+      <span class="site-footer-live" id="copyLinkStatus" aria-live="polite" hidden></span>
+    </nav>
+    <p class="site-footer-copy">© <span id="footerYear"></span> BidetBud</p>
+  </footer>
+</div>
+
+<div class="overlay overlay-sheet" id="detailOverlay" role="dialog" aria-modal="true">
+  <div class="dialog detail-dialog" id="detailDialog">
+    <div class="detail-sheet-handle" id="detailSheetHandle" role="button" tabindex="0" aria-label="Drag place card"></div>
+    <header class="add-screen-bar native-page-bar">
+      <button type="button" class="add-screen-cancel" id="detailBack">Close</button>
+      <h2 id="detailNativeTitle">Place</h2>
+      <span class="add-screen-bar-end" aria-hidden="true"></span>
+    </header>
+    <button type="button" class="dialog-close" id="detailClose" aria-label="Close">×</button>
+    <div id="detailContent"></div>
+    <div class="detail-sticky-footer" id="detailStickyFooter" hidden></div>
+  </div>
+</div>
+
+<!--
+<div class="overlay" id="notifyOverlay" role="dialog" aria-modal="true" aria-labelledby="notifyTitle">
+  <div class="dialog" id="notifyDialog">
+    <button type="button" class="dialog-close" id="notifyClose" aria-label="Close">×</button>
+    <h2 id="notifyTitle">Notify me for a city</h2>
+    <p class="sub">We will email you when new verified spots are added (manual for now).</p>
+    <div class="form">
+      <label for="notifyEmail">Your email</label>
+      <input id="notifyEmail" type="email" placeholder="you@example.com" autocomplete="email">
+      <label for="notifyCity">City or region</label>
+      <input id="notifyCity" placeholder="e.g. Houston, Sunset Park">
+      <div class="dialog-actions">
+        <button type="button" class="btn btn-primary" id="notifySubmit">Subscribe</button>
+      </div>
+      <p class="report-status" id="notifyStatus" role="status" hidden></p>
+    </div>
+  </div>
+</div>
+-->
+
+<div class="overlay overlay-sheet" id="filterSheetOverlay" role="dialog" aria-modal="true" aria-labelledby="filterSheetTitle">
+  <div class="dialog filter-sheet-dialog" id="filterSheetDialog">
+    <header class="add-screen-bar native-page-bar">
+      <button type="button" class="add-screen-cancel" id="filterSheetBack">Close</button>
+      <h2>Filters</h2>
+      <span class="add-screen-bar-end" aria-hidden="true"></span>
+    </header>
+    <button type="button" class="dialog-close" id="filterSheetClose" aria-label="Close">×</button>
+    <h2 id="filterSheetTitle" class="web-sheet-title">Filters</h2>
+    <div class="filter-sheet-body" id="filterSheetBody"></div>
+    <div class="dialog-actions filter-sheet-actions">
+      <button type="button" class="btn btn-ghost" id="filterSheetClear">Clear all</button>
+      <button type="button" class="btn btn-primary" id="filterSheetApply">Apply</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay overlay-sheet" id="legendOverlay" role="dialog" aria-modal="true" aria-labelledby="legendTitle">
+  <div class="dialog legend-dialog" id="legendDialog">
+    <button type="button" class="dialog-close" id="legendClose" aria-label="Close">×</button>
+    <h2 id="legendTitle">Pin colors</h2>
+    <p class="sub legend-sub">What the dots on the map mean</p>
+    <ul class="legend-grid">
+      <li class="legend-card">
+        <span class="legend-dot verified" aria-hidden="true"></span>
+        <div>
+          <strong>Verified</strong>
+          <span>Someone confirmed this in person</span>
+        </div>
+      </li>
+      <li class="legend-card">
+        <span class="legend-dot warmed" aria-hidden="true"></span>
+        <div>
+          <strong>Heated / TOTO</strong>
+          <span>Heated seat or WASHLET install</span>
+        </div>
+      </li>
+      <li class="legend-card">
+        <span class="legend-dot internet" aria-hidden="true"></span>
+        <div>
+          <strong>Web source</strong>
+          <span>Found online, not yet verified in person</span>
+        </div>
+      </li>
+      <li class="legend-card">
+        <span class="legend-dot limited" aria-hidden="true"></span>
+        <div>
+          <strong>Limited access</strong>
+          <span>Hotel guests or restricted entry</span>
+        </div>
+      </li>
+      <li class="legend-card legend-card--none" id="legendPopupNone" hidden>
+        <span class="legend-dot none" aria-hidden="true"></span>
+        <div>
+          <strong>No bidet</strong>
+          <span>Reported spot without a bidet or sprayer</span>
+        </div>
+      </li>
+      <li class="legend-card legend-card--shade">
+        <span class="legend-dot friendly-country" aria-hidden="true"></span>
+        <div>
+          <strong>Bidet-friendly country</strong>
+          <span>Green shading means bidets are common there. Pins are only places with evidence.</span>
+        </div>
+      </li>
+    </ul>
+    <p class="legend-foot">List cards use the same colors as map pins.</p>
+  </div>
+</div>
+
+<div class="overlay add-screen" id="thankYouOverlay" role="dialog" aria-modal="true" aria-labelledby="thankYouTitle">
+  <div class="dialog add-screen-dialog" id="thankYouDialog">
+    <header class="add-screen-bar">
+      <span class="add-screen-bar-end" aria-hidden="true"></span>
+      <h2 id="thankYouTitle">You're all set</h2>
+      <button type="button" class="add-screen-cancel add-screen-done" id="thankYouClose">Done</button>
+    </header>
+    <div class="add-screen-body" id="thankYouContent"></div>
+    <div class="add-screen-foot">
+      <button type="button" class="btn btn-primary" id="addAnotherSpot">Add another spot</button>
+    </div>
+  </div>
+</div>
+
+<div class="overlay add-screen" id="addOverlay" role="dialog" aria-modal="true" aria-labelledby="addTitle">
+  <div class="dialog wide add-screen-dialog" id="addDialog">
+    <header class="add-screen-bar">
+      <button type="button" class="add-screen-cancel" id="addClose">Cancel</button>
+      <h2 id="addTitle">Suggest a spot</h2>
+      <span class="add-screen-bar-end" aria-hidden="true"></span>
+    </header>
+    <div class="add-screen-body form" id="emailPanel">
+      <p class="sub" id="addIntro">Name is enough. We review it before it goes on the map.</p>
+      <p class="add-update-banner" id="addUpdateBanner" hidden></p>
+      <label for="addName">Place name</label>
+      <input id="addName" required placeholder="Masjid, restaurant, hotel…" autocomplete="off">
+      <div id="addDupes" class="add-dupes" hidden></div>
+      <p class="form-label" id="addHasBidetLabel">Does it have a bidet?</p>
+      <div class="segmented add-bidet-segmented" role="group" aria-labelledby="addHasBidetLabel">
+        <button type="button" class="active" data-value="verified" aria-pressed="true">Yes</button>
+        <button type="button" data-value="none" aria-pressed="false">No</button>
+      </div>
+      <input type="hidden" id="addHasBidet" value="verified">
+      <input type="hidden" id="addUpdateOf" value="">
+      <label for="addAddress">Where <span class="label-optional">(optional)</span></label>
+      <input id="addAddress" placeholder="Address or city">
+      <details class="add-more" id="addMoreDetails">
+        <summary>Photo or note</summary>
+        <label for="addNotes">Note</label>
+        <textarea id="addNotes" placeholder="Which stall, hours, tip…"></textarea>
+        <p class="form-label">Photo</p>
+        <input type="file" id="addPhotoFile" accept="image/*" hidden>
+        <button type="button" class="btn btn-ghost add-photo-btn" id="addPhotoBtn">
+          <svg class="ui-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          <span class="add-photo-label">Add a photo</span>
+        </button>
+        <div class="add-photo-preview" id="addPhotoPreview" hidden>
+          <img id="addPhotoThumb" alt="Selected photo">
+          <button type="button" class="add-photo-remove" id="addPhotoRemove">Remove</button>
+        </div>
+      </details>
+      <input type="text" id="addHoney" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+      <p class="form-error" id="addFormError" role="alert" hidden></p>
+    </div>
+    <div class="add-screen-foot">
+      <button type="button" class="btn btn-primary" id="submitAdd">Submit</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// Israel entries disabled: not recognized as a country
+// See data/israel-bidets-disabled.json (6 entries)
+</script>
+
+</body>
+</html>

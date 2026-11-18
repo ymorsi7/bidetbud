@@ -1,5 +1,7 @@
 node_modules/
-ios/
+# ios/ is tracked for Xcode Cloud; keep local junk out of git.
+ios/DerivedData/
+ios/**/xcuserdata/
 android/
 www/
 assets/logo.png

@@ -162,11 +162,11 @@ On a Mac with `xcode-select` → `Xcode.app`:
 
 ### iOS (TestFlight)
 
-**Xcode Cloud (preferred):** `ios/` is gitignored, so the repo-root script
-`ci_scripts/ci_post_clone.sh` runs `npm ci` + `cap add/sync ios` on Apple’s
-builders. Workflow project path: `mobile/ios/App/App.xcodeproj`. A push to
-`main` that touches the app should start a build; when it succeeds, TestFlight
-gets a new build automatically.
+**Xcode Cloud (preferred):** `mobile/ios/App` is committed (Apple requires the
+`.xcodeproj` to exist in git). `ci_scripts/ci_post_clone.sh` refreshes
+`www` → `App/public` via `cap sync` on each build. Workflow project path:
+`mobile/ios/App/App.xcodeproj`. A push to `main` starts a build; when it
+succeeds, TestFlight gets a new build automatically.
 
 **Local archive:**
 

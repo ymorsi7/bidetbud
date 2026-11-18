@@ -8,7 +8,10 @@ js/carto-key.js
 .tmp-ocr/
 node_modules/
 mobile/node_modules/
-mobile/ios/
+# Track mobile/ios for Xcode Cloud (project must exist in git).
+# Cap sync still refreshes www → App/public in ci_post_clone.
+mobile/ios/DerivedData/
+mobile/ios/**/xcuserdata/
 mobile/android/
 mobile/www/
 
