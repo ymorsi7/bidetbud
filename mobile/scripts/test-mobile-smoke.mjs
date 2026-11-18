@@ -88,6 +88,8 @@ ok(bridge.includes('https://bidetbud.com'), 'native-bridge knows the live origin
 ok(bridge.includes('/api/session'), 'native-bridge warms a production API session');
 ok(bridge.includes('lockNativeViewport'), 'native-bridge pins the WebView so iOS cannot pan/zoom the page');
 ok(bridge.includes('setScroll'), 'native-bridge disables iOS keyboard WebView scroll');
+ok(bridge.includes('keyboardWillShow'), 'native-bridge tracks keyboard height for search suggestions');
+ok(html.includes('id="searchClear"'), 'search clear control is present');
 
 if (failed) {
   console.error('\n' + failed + ' check(s) failed');

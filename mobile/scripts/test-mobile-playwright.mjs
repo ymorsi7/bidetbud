@@ -339,6 +339,31 @@ try {
     { timeout: 3000 }
   );
 
+  await mapTab.click();
+  const search = page.locator('#searchInput');
+  await search.click();
+  await search.fill('masjid');
+  await page.waitForFunction(
+    () => {
+      const box = document.getElementById('searchAc');
+      return box && !box.hasAttribute('hidden') && box.querySelectorAll('.search-ac-item').length > 0;
+    },
+    { timeout: 5000 }
+  );
+  const firstAc = page.locator('#searchAc .search-ac-item').first();
+  await firstAc.dispatchEvent('pointerdown');
+  await page.waitForFunction(
+    () => document.getElementById('searchAc')?.hasAttribute('hidden'),
+    { timeout: 3000 }
+  );
+  const clearVisible = await page.locator('#searchClear').evaluate((el) => !el.hidden);
+  if (!clearVisible) throw new Error('search clear should show when query is set');
+  await page.locator('#searchClear').click();
+  await page.waitForFunction(
+    () => !(document.getElementById('searchInput')?.value || '').trim(),
+    { timeout: 2000 }
+  );
+
   if (pageErrors.length) {
     throw new Error('pageerror on load: ' + pageErrors.join('; '));
   }
@@ -346,6 +371,7 @@ try {
   console.log('  ✓ seed loaded (' + countText.trim().slice(0, 80) + ')');
   console.log('  ✓ Map / List tabs visible and switchable at 390×844');
   console.log('  ✓ Suggest a spot is a full-screen page with Cancel, Submit, and duplicate matches');
+  console.log('  ✓ search suggestions pick + clear work');
   console.log('  ✓ no pageerror');
   console.log('\nmobile Playwright checks passed.');
 } finally {

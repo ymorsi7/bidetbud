@@ -16,7 +16,14 @@
 
   const HAS_BIDET = s => s === 'verified' || s === 'warmed' || s === 'internet';
   const NO_BIDET = s => s === 'none';
-  const isIOS = () => /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const isIOS = () => {
+    try {
+      if (window.Capacitor && typeof window.Capacitor.getPlatform === 'function' &&
+          window.Capacitor.getPlatform() === 'ios') return true;
+    } catch (e) {}
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  };
 
   const {
     stableSeedId,
@@ -240,7 +247,32 @@
 
   function mapsDirectionsUrl(m){
     const q = encodeURIComponent([m.name, m.address, m.city].filter(Boolean).join(', '));
+    // iPhone / Capacitor iOS: Apple Maps is the system maps app.
+    if(isIOS()) return 'https://maps.apple.com/?daddr=' + q;
     return 'https://www.google.com/maps/dir/?api=1&destination=' + q;
+  }
+
+  function openExternalUrl(url){
+    if(!url) return;
+    try {
+      const App = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
+      if(isNativeApp() && App && typeof App.openUrl === 'function'){
+        App.openUrl({ url: url }).catch(function(){ window.location.href = url; });
+        return;
+      }
+    } catch (e) {}
+    window.open(url, '_blank', 'noopener');
+  }
+
+  function wireMapsLinks(root){
+    if(!root) return;
+    root.querySelectorAll('a[href*="maps.apple.com"], a[href*="google.com/maps"]').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        if(!isNativeApp() && !isIOS()) return;
+        e.preventDefault();
+        openExternalUrl(a.href);
+      });
+    });
   }
 
   function updateUserMarker(){
@@ -1060,7 +1092,11 @@
     });
     document.getElementById('appMain').classList.toggle('show-list', view === 'list');
     renderSearchPeek(lastFiltered);
-    if(map) setTimeout(()=>safeInvalidateSize(), 120);
+    // Leaflet needs a fresh size after the map pane is shown again.
+    if(map && view === 'map'){
+      setTimeout(()=>safeInvalidateSize(), 40);
+      setTimeout(()=>safeInvalidateSize(), 220);
+    }
   }
 
   function updateMobileTabBadge(count){
@@ -1530,6 +1566,7 @@
         box.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     });
+    wireMapsLinks(root);
   }
 
   function openDetail(id, fromUrl){
@@ -1581,7 +1618,7 @@
           ? ''
           : (
           '<div class="detail-footer-actions">'+
-          '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
+          '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">'+(isIOS() ? 'Apple Maps' : 'Directions')+'</a>'+
           '</div>'+
           '<div class="detail-footer-links">'+
           '<button type="button" class="detail-link-btn js-copy-spot-link">Share</button>'+
@@ -1604,8 +1641,8 @@
       ? ''
       : (
       '<div class="dialog-actions detail-actions detail-actions--desktop">'+
-      '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">Directions</a>'+
-      mapsBtn+
+      '<a class="btn btn-primary" href="'+directionsUrl+'" target="_blank" rel="noopener">'+(isIOS() ? 'Apple Maps' : 'Directions')+'</a>'+
+      (isIOS() ? '' : mapsBtn)+
       '<button type="button" class="btn btn-ghost js-copy-spot-link">Share spot</button>'+
       '<button type="button" class="btn btn-ghost js-copy-address">Copy address</button>'+
       '<button type="button" class="btn btn-ghost js-suggest-update">Suggest an update</button>'+
@@ -1632,6 +1669,7 @@
       (mobile ? '' : desktopActions);
     const content = document.getElementById('detailContent');
     wireDetailButtons(content, m, shareLink);
+    wireDetailButtons(document.getElementById('detailStickyFooter'), m, shareLink);
     wireReportForm(content, m);
     const keepSnap = fromUrl ? detailSheetSnap : 'peek';
     setOverlayOpen('detailOverlay', true);
@@ -1990,10 +2028,46 @@
 
   function hideSearchAc(){ document.getElementById('searchAc')?.setAttribute('hidden',''); }
 
+  let searchAcPicking = false;
+
+  function updateSearchClearBtn(){
+    const btn = document.getElementById('searchClear');
+    const input = document.getElementById('searchInput');
+    if(!btn || !input) return;
+    const on = !!input.value.trim();
+    btn.hidden = !on;
+    btn.setAttribute('aria-hidden', on ? 'false' : 'true');
+  }
+
+  function applySearchAcChoice(btn){
+    if(!btn) return;
+    const value = btn.dataset.value || '';
+    const id = btn.dataset.id || '';
+    const input = document.getElementById('searchInput');
+    if(input) input.value = value;
+    searchAcPicking = true;
+    hideSearchAc();
+    updateSearchClearBtn();
+    if(value) saveRecentSearch(value);
+    lastFitKey = null;
+    if(id){
+      refresh();
+      if(isMobile()) setMobileView('map');
+      openDetail(id);
+    } else {
+      refresh();
+      // City / free-text: list is the readable result surface on phones.
+      if(isMobile() && value) setMobileView('list');
+    }
+    maybeShowPromo('search');
+    setTimeout(()=>{ searchAcPicking = false; }, 320);
+  }
+
   function renderSearchAc(){
     const q = getQuery();
     const box = document.getElementById('searchAc');
     searchAcIndex = -1;
+    updateSearchClearBtn();
     if(!box) return;
     if(!q){
       const recent = getRecentSearches();
@@ -2014,6 +2088,11 @@
       return;
     }
     if(q.length < 2){ hideSearchAc(); return; }
+    if(!allLocations.length){
+      box.innerHTML = '<div class="search-ac-section">Still loading places…</div>';
+      box.removeAttribute('hidden');
+      return;
+    }
     const nq = normalizeSearchText(q);
     const placeMatches = allLocations
       .filter(m => matchesSearch(m, q))
@@ -2035,15 +2114,16 @@
       items.push({
         fill: m.name,
         label: m.name,
-        hint
+        hint,
+        id: m.id
       });
     });
     cityMatches.forEach(c => {
-      if(!items.some(i => i.fill === c)) items.push({ fill: c, label: c, hint: 'City' });
+      if(!items.some(i => i.fill === c && !i.id)) items.push({ fill: c, label: c, hint: 'City' });
     });
     if(!items.length){ hideSearchAc(); return; }
     box.innerHTML = items.slice(0, 8).map(it =>
-      '<button type="button" class="search-ac-item" data-value="'+escapeHtml(it.fill)+'">'+
+      '<button type="button" class="search-ac-item" data-value="'+escapeHtml(it.fill)+'"'+(it.id ? ' data-id="'+escapeHtml(it.id)+'"' : '')+'>'+
       '<span class="search-ac-label">'+highlight(it.label, q)+'</span>'+
       (it.hint ? '<span class="search-ac-hint">'+escapeHtml(it.hint)+'</span>' : '')+
       '</button>'
@@ -2053,13 +2133,15 @@
   }
 
   function wireSearchAcItems(box){
-    box.querySelectorAll('.search-ac-item').forEach(btn=>btn.addEventListener('click', ()=>{
-      document.getElementById('searchInput').value = btn.dataset.value;
-      hideSearchAc();
-      saveRecentSearch(btn.dataset.value);
-      refresh();
-      maybeShowPromo('search');
-    }));
+    // pointerdown beats iOS blur-before-click, which used to swallow taps.
+    box.querySelectorAll('.search-ac-item').forEach(btn=>{
+      btn.addEventListener('pointerdown', (e)=>{
+        if(e.button != null && e.button !== 0) return;
+        e.preventDefault();
+        e.stopPropagation();
+        applySearchAcChoice(btn);
+      });
+    });
   }
 
   function moveSearchAc(delta){
@@ -2078,7 +2160,7 @@
     const items = box.querySelectorAll('.search-ac-item');
     const btn = items[searchAcIndex];
     if(btn){
-      btn.click();
+      applySearchAcChoice(btn);
       return true;
     }
     return false;
@@ -2130,7 +2212,9 @@
     // the map jumps; preview with a CSS scale, then commit once on finger-up.
     if(leafletMap.doubleClickZoom) leafletMap.doubleClickZoom.disable();
     const iosLike = isIOS() || isNativeApp();
-    if(iosLike && leafletMap.touchZoom) leafletMap.touchZoom.disable();
+    // Keep Leaflet pinch disabled — custom CSS-scale preview avoids tile thrash
+    // on iOS WKWebView. Pan still uses Leaflet dragging.
+    if(leafletMap.touchZoom) leafletMap.touchZoom.disable();
     const container = leafletMap.getContainer();
     container.style.touchAction = 'none';
     container.classList.add('leaflet-touch-drag', 'leaflet-touch-zoom');
@@ -2400,9 +2484,10 @@
       worldCopyJump:true,
       tap:false,
       bounceAtZoomLimits:false,
-      inertia:!iosLike,
-      inertiaDeceleration:3000,
-      inertiaMaxSpeed:iosLike ? 0 : 4000,
+      // Light inertia on iOS — zero made the map feel stuck/dead.
+      inertia:true,
+      inertiaDeceleration:iosLike ? 2500 : 3000,
+      inertiaMaxSpeed:iosLike ? 1800 : 4000,
       fadeAnimation:false,
       markerZoomAnimation:false,
       zoomAnimation:!iosLike
@@ -2668,17 +2753,38 @@
       scheduleRefresh();
     });
     searchInput.addEventListener('focus', renderSearchAc);
-    searchInput.addEventListener('blur', ()=> setTimeout(hideSearchAc, 180));
+    searchInput.addEventListener('blur', ()=> setTimeout(()=>{
+      if(searchAcPicking) return;
+      hideSearchAc();
+    }, 220));
     searchInput.addEventListener('keydown', e=>{
       if(e.key === 'ArrowDown'){ e.preventDefault(); moveSearchAc(1); return; }
       if(e.key === 'ArrowUp'){ e.preventDefault(); moveSearchAc(-1); return; }
       if(e.key === 'Enter'){
         if(selectSearchAcIndex()) return;
         hideSearchAc();
-        saveRecentSearch(searchInput.value.trim());
+        const q = searchInput.value.trim();
+        if(q) saveRecentSearch(q);
+        lastFitKey = null;
+        refresh();
+        if(isMobile() && q) setMobileView('list');
         maybeShowPromo('search');
       }
+      if(e.key === 'Escape'){
+        hideSearchAc();
+        searchInput.blur();
+      }
     });
+    document.getElementById('searchClear')?.addEventListener('click', (e)=>{
+      e.preventDefault();
+      searchInput.value = '';
+      hideSearchAc();
+      updateSearchClearBtn();
+      lastFitKey = null;
+      refresh();
+      searchInput.focus();
+    });
+    updateSearchClearBtn();
 
     document.querySelectorAll('.quick-chip').forEach(btn=>{
       btn.addEventListener('click', ()=>{

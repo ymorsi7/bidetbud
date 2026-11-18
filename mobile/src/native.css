@@ -21,6 +21,29 @@ html.capacitor-native .topbar{
   -webkit-backdrop-filter:none;
   backdrop-filter:none;
   padding-top:0;
+  z-index:3000;
+}
+
+/* Keep suggestions above the map / keyboard; iOS blur used to eat taps. */
+html.capacitor-native .search{
+  z-index:3100;
+}
+html.capacitor-native .search-ac{
+  z-index:3200;
+  max-height:min(42vh, 280px);
+}
+html.capacitor-native.keyboard-open .search-ac:not([hidden]){
+  position:fixed;
+  left:12px;
+  right:12px;
+  top:calc(var(--vv-top, 0px) + 58px);
+  max-height:calc(var(--vv-height, 100vh) - 72px - var(--kb-height, 0px));
+  box-shadow:0 12px 32px rgba(24,24,27,.2);
+}
+html.capacitor-native .search-clear{
+  width:32px;
+  height:32px;
+  font-size:1.35rem;
 }
 
 html.capacitor-native .app-main{

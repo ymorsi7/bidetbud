@@ -31,21 +31,21 @@
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"></noscript>
 <link rel="stylesheet" href="css/github-star.css">
-<link rel="stylesheet" href="css/app.css?v=20261101a">
+<link rel="stylesheet" href="css/app.css?v=20261118b">
 <link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="preload" href="vendor/leaflet.js" as="script">
 <link rel="preload" href="vendor/leaflet.markercluster.js" as="script">
 <link rel="preload" href="js/core.js?v=20261109a" as="script">
 <link rel="preload" href="js/search-seed.js?v=20261014b" as="script">
 <link rel="preload" href="js/map-api.js?v=20261110b" as="script">
-<link rel="preload" href="js/app.js?v=20261110b" as="script">
+<link rel="preload" href="js/app.js?v=20261118b" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
 <script src="js/core.js?v=20261109a" defer></script>
 <script src="js/search-seed.js?v=20261014b" defer></script>
 <script src="js/map-api.js?v=20261110b" defer></script>
 <script src="js/carto-key.js" defer></script>
-<script src="js/app.js?v=20261110b" defer></script>
+<script src="js/app.js?v=20261118b" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -90,7 +90,8 @@
       </a>
       <div class="search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3-3"/></svg>
-        <input type="search" id="searchInput" placeholder="Search city, name, or address…" autocomplete="off" aria-label="Search locations" aria-autocomplete="list" aria-controls="searchAc">
+        <input type="search" id="searchInput" placeholder="Search city, name, or address…" autocomplete="off" enterkeyhint="search" aria-label="Search locations" aria-autocomplete="list" aria-controls="searchAc">
+        <button type="button" class="search-clear" id="searchClear" hidden aria-label="Clear search" aria-hidden="true">×</button>
         <div class="search-ac" id="searchAc" hidden role="listbox" aria-label="Search suggestions"></div>
       </div>
       <div class="actions">

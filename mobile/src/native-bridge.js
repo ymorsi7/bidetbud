@@ -119,6 +119,19 @@
       if (typeof P.Keyboard.setResizeMode === 'function') {
         P.Keyboard.setResizeMode({ mode: 'none' }).catch(function () {});
       }
+      if (typeof P.Keyboard.addListener === 'function') {
+        P.Keyboard.addListener('keyboardWillShow', function (info) {
+          document.documentElement.classList.add('keyboard-open');
+          var h = (info && info.keyboardHeight) || 0;
+          document.documentElement.style.setProperty('--kb-height', Math.round(h) + 'px');
+          pinViewport();
+        });
+        P.Keyboard.addListener('keyboardWillHide', function () {
+          document.documentElement.classList.remove('keyboard-open');
+          document.documentElement.style.setProperty('--kb-height', '0px');
+          pinViewport();
+        });
+      }
     }
 
     if (P.App) {
@@ -142,29 +155,34 @@
     refreshSeedFromLive();
   }
 
+  function pinViewport() {
+    var root = document.documentElement;
+    window.scrollTo(0, 0);
+    root.scrollLeft = 0;
+    root.scrollTop = 0;
+    if (document.body) {
+      document.body.scrollLeft = 0;
+      document.body.scrollTop = 0;
+    }
+    root.style.zoom = '';
+    var vv = window.visualViewport;
+    if (vv) {
+      root.style.setProperty('--vv-top', Math.round(vv.offsetTop) + 'px');
+      root.style.setProperty('--vv-left', Math.round(vv.offsetLeft) + 'px');
+      root.style.setProperty('--vv-width', Math.round(vv.width) + 'px');
+      root.style.setProperty('--vv-height', Math.round(vv.height) + 'px');
+    } else {
+      root.style.setProperty('--vv-top', '0px');
+      root.style.setProperty('--vv-left', '0px');
+      root.style.setProperty('--vv-width', window.innerWidth + 'px');
+      root.style.setProperty('--vv-height', window.innerHeight + 'px');
+    }
+  }
+
   function lockNativeViewport() {
     var root = document.documentElement;
     function pin() {
-      window.scrollTo(0, 0);
-      root.scrollLeft = 0;
-      root.scrollTop = 0;
-      if (document.body) {
-        document.body.scrollLeft = 0;
-        document.body.scrollTop = 0;
-      }
-      root.style.zoom = '';
-      var vv = window.visualViewport;
-      if (vv) {
-        root.style.setProperty('--vv-top', Math.round(vv.offsetTop) + 'px');
-        root.style.setProperty('--vv-left', Math.round(vv.offsetLeft) + 'px');
-        root.style.setProperty('--vv-width', Math.round(vv.width) + 'px');
-        root.style.setProperty('--vv-height', Math.round(vv.height) + 'px');
-      } else {
-        root.style.setProperty('--vv-top', '0px');
-        root.style.setProperty('--vv-left', '0px');
-        root.style.setProperty('--vv-width', window.innerWidth + 'px');
-        root.style.setProperty('--vv-height', window.innerHeight + 'px');
-      }
+      pinViewport();
     }
     function hardenInputs() {
       var nodes = document.querySelectorAll('input, select, textarea');

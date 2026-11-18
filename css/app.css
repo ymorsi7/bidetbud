@@ -45,11 +45,14 @@ body.modal-open{overflow:hidden}
 .brand-text p{font-size:.72rem;color:var(--muted);font-weight:500;margin-top:2px;letter-spacing:-.01em}
 
 .search{flex:1;min-width:180px;max-width:440px;position:relative;z-index:2;overflow:visible}
-.search input{width:100%;border:1px solid transparent;background:rgba(255,255,255,.9);border-radius:var(--radius-sm);padding:10px 14px 10px 38px;font:inherit;font-size:.875rem;color:var(--text);transition:border-color .2s,box-shadow .2s,background .2s}
+.search input{width:100%;border:1px solid transparent;background:rgba(255,255,255,.9);border-radius:var(--radius-sm);padding:10px 36px 10px 38px;font:inherit;font-size:.875rem;color:var(--text);transition:border-color .2s,box-shadow .2s,background .2s}
 .search input::placeholder{color:#a1a1aa}
 .search input:focus{outline:none;border-color:rgba(13,148,136,.35);background:#fff;box-shadow:0 0 0 4px var(--brand-soft)}
 .search svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:#a1a1aa;width:16px;height:16px;pointer-events:none}
-.search-ac{position:absolute;left:0;right:0;top:calc(100% + 8px);background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);z-index:1200;max-height:240px;overflow:auto;padding:4px}
+.search-clear{position:absolute;right:8px;top:50%;transform:translateY(-50%);width:28px;height:28px;border:none;border-radius:999px;background:transparent;color:#71717a;font:inherit;font-size:1.25rem;line-height:1;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;-webkit-tap-highlight-color:transparent}
+.search-clear[hidden]{display:none!important}
+.search-clear:hover,.search-clear:focus-visible{background:rgba(24,24,27,.06);outline:none}
+.search-ac{position:absolute;left:0;right:0;top:calc(100% + 8px);background:#fff;border:1px solid var(--line);border-radius:var(--radius-sm);box-shadow:var(--shadow-lg);z-index:1200;max-height:240px;overflow:auto;padding:4px;-webkit-overflow-scrolling:touch}
 .search-ac-item{display:flex;flex-direction:column;align-items:flex-start;gap:2px;width:100%;text-align:left;border:none;background:transparent;padding:10px 12px;font:inherit;font-size:.875rem;cursor:pointer;color:var(--text);border-radius:8px}
 .search-ac-hint{font-size:.6875rem;color:var(--muted);font-weight:500}
 .search-ac-item:hover,.search-ac-item:focus{background:var(--brand-soft);outline:none}
