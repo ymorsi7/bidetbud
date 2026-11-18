@@ -215,7 +215,7 @@ function osmToRow(el) {
   const city = tags['addr:city'] || tags['addr:suburb'] || tags['addr:town'] || '';
   const customers = tags.access === 'customers';
   return {
-    name: tags.name || tags.operator || `Public toilets${city ? ` — ${city}` : ''}`,
+    name: tags.name || tags.operator || `Public toilets${city ? ` - ${city}` : ''}`,
     address: [street, tags['addr:postcode'], city].filter(Boolean).join(', '),
     latitude: String(lat),
     longitude: String(lon),
@@ -225,7 +225,7 @@ function osmToRow(el) {
     bidetStatus: 'internet',
     bidetType,
     sourceUrl: `https://www.openstreetmap.org/${el.type}/${el.id}`,
-    sourceQuote: `OpenStreetMap tag ${tag} — ${bidetType.toLowerCase()} available in this toilet`,
+    sourceQuote: `OpenStreetMap tag ${tag} - ${bidetType.toLowerCase()} available in this toilet`,
     verifiedMethod: 'community-sighting',
     access: customers ? 'limited' : 'public',
     ...(customers ? { accessNote: 'Customers only' } : {}),

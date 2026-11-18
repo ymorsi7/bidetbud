@@ -54,7 +54,7 @@ async function main() {
         sourceQuote: shortQuote(h.description, h.name),
         verifiedMethod: 'manufacturer-reference',
         access: 'limited',
-        accessNote: 'Hotel guests — available in select room categories',
+        accessNote: 'Hotel guests - available in select room categories',
         latitude: '',
         longitude: '',
       });

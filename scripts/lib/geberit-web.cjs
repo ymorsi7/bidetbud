@@ -173,7 +173,7 @@ function locatorRowToSeed(r) {
     sourceQuote: `Listed in Geberit's official AquaClean Hotel Locator (${modelText} installed).`,
     verifiedMethod: 'manufacturer-reference',
     access: 'limited',
-    accessNote: 'Hotel guests — AquaClean shower toilet in select room categories',
+    accessNote: 'Hotel guests - AquaClean shower toilet in select room categories',
     website: r.website || '',
   };
 }

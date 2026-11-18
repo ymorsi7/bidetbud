@@ -290,7 +290,7 @@ async function main() {
       type === 'hotel'
         ? { access: 'limited', accessNote: 'Hotel guests only' }
         : type === 'public' && /机场/.test(cnName)
-          ? { access: 'public', accessNote: 'Airport terminal — ticketed passengers' }
+          ? { access: 'public', accessNote: 'Airport terminal - ticketed passengers' }
           : { access: 'limited', accessNote: 'Verify public access before visiting' };
 
     rows.push({

@@ -176,7 +176,7 @@ async function main() {
         'Changing Places by Closomat map, "Changing Places with a Closomat Toilet" layer: wash-and-dry toilet installed',
       verifiedMethod: 'manufacturer-reference',
       access: 'public',
-      accessNote: 'Changing Places facility — check venue opening hours and access method (RADAR key / keycode)',
+      accessNote: 'Changing Places facility - check venue opening hours and access method (RADAR key / keycode)',
     });
   }
 

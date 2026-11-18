@@ -37,7 +37,7 @@ function toSeedRow(row) {
     sourceQuote: row.sourceQuote,
     verifiedMethod: 'manufacturer-reference',
     access: 'public',
-    accessNote: 'TOTO showroom / dealer — WASHLET on display to try during opening hours',
+    accessNote: 'TOTO showroom / dealer - WASHLET on display to try during opening hours',
   };
 }
 

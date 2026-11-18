@@ -289,7 +289,7 @@ function toRow(parsed, city, sourceLabel) {
     sourceQuote: parsed.sourceQuote.startsWith(sourceLabel) ? parsed.sourceQuote : `${sourceLabel}: ${parsed.sourceQuote}`,
     verifiedMethod: parsed.verifiedMethod || (isMfr ? 'manufacturer-reference' : 'web-source'),
     access: 'limited',
-    accessNote: 'Hotel guests and patrons — verify before visiting',
+    accessNote: 'Hotel guests and patrons - verify before visiting',
   };
 }
 
@@ -315,7 +315,7 @@ function seedFromTotoJson(state, rows) {
         sourceQuote: r.sourceQuote,
         verifiedMethod: r.verifiedMethod || 'manufacturer-reference',
         access: r.access || 'limited',
-        accessNote: r.accessNote || 'Hotel guests and patrons — verify before visiting',
+        accessNote: r.accessNote || 'Hotel guests and patrons - verify before visiting',
       });
       state.processedUrls[r.sourceUrl] = Date.now();
       added++;

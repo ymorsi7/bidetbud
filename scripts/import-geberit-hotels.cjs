@@ -75,13 +75,13 @@ function loadRows(p) {
   }
 }
 
-let existing = JSON.parse(match[1]);
+let existing = readSeed();
 
 // Purge any rows previously imported from the Hotel Locator feed so this script
 // is idempotent (re-running replaces them with the latest, corrected data).
-const LOCATOR_MARK = "AquaClean Hotel Locator";
+const LOCATOR_MARK = 'AquaClean Hotel Locator';
 const beforePurge = existing.length;
-existing = existing.filter((r) => !String(r.sourceQuote || "").includes(LOCATOR_MARK));
+existing = existing.filter((r) => !String(r.sourceQuote || '').includes(LOCATOR_MARK));
 const purged = beforePurge - existing.length;
 
 const incoming = [

@@ -4,7 +4,7 @@
  *
  * Known issues from TOTO Europe bulk import:
  * - MAISON ALBAR LE PONT NEUF geocoded to Saint-Jean-du-Bruel (Aveyron) instead of Paris
- * - Maison Albar – Imperator Hotel geocoded to Paris instead of Nîmes (duplicate of correct Nîmes row)
+ * - Maison Albar - Imperator Hotel geocoded to Paris instead of Nîmes (duplicate of correct Nîmes row)
  */
 const fs = require('fs');
 const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');
@@ -18,8 +18,8 @@ const MANUAL = {
     longitude: '2.341667',
     city: 'Paris',
   },
-  'Maison Albar – Imperator': {
-    name: 'Maison Albar – Imperator',
+  'Maison Albar - Imperator': {
+    name: 'Maison Albar - Imperator',
     address: '3 Quai de la Fontaine, 30000 Nîmes',
     latitude: '43.838889',
     longitude: '4.360556',
@@ -37,8 +37,8 @@ function shouldRemove(row) {
   if (/^MAISON ALBAR LE PONT NEUF$/i.test(n)) return true;
   if (/^Louvre, Paris$/i.test(n)) return true;
   if (/^HOTEL BARRI.+LE FOUQUET/i.test(n)) return true;
-  if (/^Hôtel Plaza Athénée – Paris, France$/i.test(n)) return true;
-  if (/^The Restaurant Blanc – Paris 16è$/i.test(n)) return true;
+  if (/^Hôtel Plaza Athénée [-–] Paris, France$/i.test(n)) return true;
+  if (/^The Restaurant Blanc [-–] Paris 16è$/i.test(n)) return true;
   if (/^Les Neiges Hotel Courchevel$/i.test(n)) return true;
   if (/Maison Albar.*Imperator Hotel/i.test(n) && lat > 48.5 && lat < 49 && lon > 2 && lon < 3) {
     return true;

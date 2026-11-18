@@ -180,7 +180,7 @@ async function main() {
       sourceQuote: item.quote,
       verifiedMethod: 'manufacturer-reference',
       access: 'public',
-      accessNote: 'Changing Places / hygiene room — check venue opening hours and access method',
+      accessNote: 'Changing Places / hygiene room - check venue opening hours and access method',
     });
   }
 

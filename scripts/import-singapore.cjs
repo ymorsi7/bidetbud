@@ -67,7 +67,7 @@ function buildName(location, sgType) {
 
 function buildSourceQuote(remarks) {
   const base =
-    'Community bidet report — @toiletswithbidetsg (user-submitted sighting with photo/location)';
+    'Community bidet report - @toiletswithbidetsg (user-submitted sighting with photo/location)';
   if (!remarks?.trim()) {
     return `${base}. Listed on community bidet map.`;
   }

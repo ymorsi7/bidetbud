@@ -216,9 +216,9 @@ const MANUAL = {
     latitude: '48.858889',
     longitude: '2.341667',
   },
-  'Maison Albar – Imperator': {
-    address: '3 Quai de la Fontaine, 30000 Nîmes',
-    city: 'Nîmes',
+  'Maison Albar - Imperator': {
+    address: '3 Quai de la Fontaine, 30000 Nimes',
+    city: 'Nimes',
     latitude: '43.838889',
     longitude: '4.360556',
   },

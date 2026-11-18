@@ -70,7 +70,7 @@ const MANUAL = {
     city: 'Gaydon',
     country: 'UK',
     type: 'public',
-    accessNote: 'Brand experience centre — verify visitor access',
+    accessNote: 'Brand experience centre - verify visitor access',
   },
   'les-neiges-courchevel': {
     name: 'Les Neiges Hotel Courchevel',
@@ -109,7 +109,7 @@ const MANUAL = {
     city: 'London',
     country: 'UK',
     type: 'public',
-    accessNote: 'Showhouse / event space — verify access',
+    accessNote: 'Showhouse / event space - verify access',
   },
   'country-hotel-knippschild-sauerland': {
     name: 'Country Hotel Knippschild',

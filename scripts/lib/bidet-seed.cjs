@@ -174,8 +174,26 @@ window.__BIDET_SEED_P = fetch('bidet-seed.json', { credentials: 'same-origin' })
   fs.writeFileSync(HTML, html);
 }
 
+const UNICODE_DASH = /[\u2014\u2013\u2012\u2015\u2212]/g; // em/en/figure/horizontal/minus
+const TEXT_FIELDS = [
+  'name', 'address', 'city', 'country', 'bidetType',
+  'sourceQuote', 'accessNote', 'searchAliases', 'verifiedMethod',
+];
+
+function scrubRowDashes(row) {
+  if (!row || typeof row !== 'object') return row;
+  for (const k of TEXT_FIELDS) {
+    if (row[k] == null) continue;
+    const s = String(row[k]);
+    if (UNICODE_DASH.test(s)) row[k] = s.replace(UNICODE_DASH, '-');
+    UNICODE_DASH.lastIndex = 0;
+  }
+  return row;
+}
+
 function writeSeed(rows) {
   if (!Array.isArray(rows)) throw new Error('writeSeed expects an array');
+  for (const row of rows) scrubRowDashes(row);
   fs.mkdirSync(path.dirname(FULL_JSON), { recursive: true });
   fs.writeFileSync(FULL_JSON, JSON.stringify(rows));
   const slim = rows.map(slimRow);

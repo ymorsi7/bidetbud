@@ -60,26 +60,20 @@ if (!fs.existsSync(verifiedPath)) {
 const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
 
-const withoutGermany = existing.filter((row) => row.country !== 'Germany');
-const seen = new Set(withoutGermany.map(dedupeKey));
-let added = 0;
-
+// Net-new only — never strip other Germany rows (TOTO try / Geberit / Booking).
+const { mergeIntoSeed } = require('./lib/seed-merge.cjs');
+const batch = [];
 for (const item of verified) {
   if (!item.sourceUrl || !item.sourceQuote) {
     console.warn('Skipping (no source evidence):', item.name);
     continue;
   }
-  const row = toSeedRow(item);
-  const key = dedupeKey(row);
-  if (seen.has(key)) continue;
-  seen.add(key);
-  withoutGermany.push(row);
-  added++;
+  batch.push(toSeedRow(item));
 }
-
-writeSeed(withoutGermany);
+const { merged, added, skipped } = mergeIntoSeed(existing, batch);
+writeSeed(merged);
 
 console.log(
-  `Germany import: ${added} locations (${verified.length} in source). Removed ${existing.filter((r) => r.country === 'Germany').length} prior Germany row(s).`
+  `Germany verified: +${added} new (${skipped} skipped, ${verified.length} in source).`
 );
-console.log(`Total seed entries: ${withoutGermany.length}`);
+console.log(`Total seed entries: ${merged.length}`);

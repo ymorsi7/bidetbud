@@ -201,7 +201,7 @@ function toRow(parsed, city, sourceLabel, cnName) {
     sourceQuote: `${sourceLabel}: ${parsed.sourceQuote}`,
     verifiedMethod: 'web-source',
     access: 'limited',
-    accessNote: 'Hotel guests only — verify before visiting',
+    accessNote: 'Hotel guests only - verify before visiting',
     ...(cnName && cnName !== parsed.name ? { searchAliases: [cnName] } : {}),
   };
 }

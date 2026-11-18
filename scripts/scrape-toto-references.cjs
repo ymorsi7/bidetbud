@@ -194,7 +194,7 @@ function mapType(category, name) {
 function mapAccess(type, category) {
   const c = category.toLowerCase();
   if (/health|hospital|klinikum|pharma|cancer|office|living|architect/i.test(c)) {
-    return { access: 'limited', accessNote: 'Not a general public restroom — verify access before visiting' };
+    return { access: 'limited', accessNote: 'Not a general public restroom - verify access before visiting' };
   }
   if (type === 'hotel') {
     return { access: 'limited', accessNote: 'Hotel guests and patrons' };
@@ -203,7 +203,7 @@ function mapAccess(type, category) {
     return { access: 'public', accessNote: 'Restaurant patrons' };
   }
   if (/shop|boutique|salon|showroom|centre|museum|louvre|oper|opera|lounge|club|viparis|weberhaus/i.test(c)) {
-    return { access: 'public', accessNote: 'Public venue — hours and access may vary' };
+    return { access: 'public', accessNote: 'Public venue - hours and access may vary' };
   }
   return { access: 'limited', accessNote: 'Verify public access before visiting' };
 }

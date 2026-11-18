@@ -58,29 +58,18 @@ if (!fs.existsSync(verifiedPath)) {
 
 const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
-const preserved = existing.filter(
-  (row) =>
-    row.country !== 'France' ||
-    String(row.sourceUrl || '').includes('try-washlettm') ||
-    String(row.sourceQuote || '').includes('AquaClean Hotel Locator')
-);
-const seen = new Set(preserved.map(dedupeKey));
-let added = 0;
-
+// Net-new only — never strip other France rows (Booking / TOTO / Geberit / crawls).
+const { mergeIntoSeed } = require('./lib/seed-merge.cjs');
+const batch = [];
 for (const item of verified) {
   if (!item.sourceUrl || !item.sourceQuote) {
     console.warn('Skipping (no source evidence):', item.name);
     continue;
   }
-  const row = toSeedRow(item);
-  const key = dedupeKey(row);
-  if (seen.has(key)) continue;
-  seen.add(key);
-  preserved.push(row);
-  added++;
+  batch.push(toSeedRow(item));
 }
+const { merged, added, skipped } = mergeIntoSeed(existing, batch);
+writeSeed(merged);
 
-writeSeed(preserved);
-
-console.log(`Replaced France seed rows with ${added} verified France locations (${verified.length} in source).`);
-console.log(`Total seed entries: ${preserved.length}`);
+console.log(`France verified: +${added} new (${skipped} skipped, ${verified.length} in source).`);
+console.log(`Total seed entries: ${merged.length}`);

@@ -157,7 +157,7 @@ function toRow(el, geo) {
   const city = tags['addr:city'] || tags['addr:suburb'] || geo.city || '';
 
   return {
-    name: tags.name || tags.operator || `Public toilets${city ? ` — ${city}` : ''}`,
+    name: tags.name || tags.operator || `Public toilets${city ? ` - ${city}` : ''}`,
     address: [street, tags['addr:postcode'], city].filter(Boolean).join(', '),
     latitude: String(lat),
     longitude: String(lon),
@@ -167,7 +167,7 @@ function toRow(el, geo) {
     bidetStatus: 'internet',
     bidetType,
     sourceUrl: `https://www.openstreetmap.org/${el.type}/${el.id}`,
-    sourceQuote: `OpenStreetMap tag ${tag} — ${bidetType.toLowerCase()} available in this toilet`,
+    sourceQuote: `OpenStreetMap tag ${tag} - ${bidetType.toLowerCase()} available in this toilet`,
     verifiedMethod: 'community-sighting',
     access: tags.access === 'private' || tags.access === 'customers' ? 'limited' : 'public',
     ...(tags.access === 'customers' ? { accessNote: 'Customers only' } : {}),

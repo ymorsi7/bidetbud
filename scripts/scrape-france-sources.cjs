@@ -74,7 +74,7 @@ const FRENCH_WEB_SOURCES = [
       'French hotel booking page: most rooms equipped with Japanese TOTO toilets (toilettes japonaises TOTO)',
     verifiedMethod: 'web-source',
     access: 'limited',
-    accessNote: 'Hotel guests only — confirm room category when booking',
+    accessNote: 'Hotel guests only - confirm room category when booking',
   },
   {
     name: 'Hotel Plaza Elysées',
@@ -122,7 +122,7 @@ const FRENCH_WEB_SOURCES = [
       'French specialist site: Le Trône is Paris\'s first washlet showroom where visitors can try Japanese toilets',
     verifiedMethod: 'web-source',
     access: 'public',
-    accessNote: 'Showroom — call ahead for visit hours',
+    accessNote: 'Showroom - call ahead for visit hours',
     searchAliases: ['Le Trone', 'Trone Paris'],
   },
 ];
@@ -313,7 +313,7 @@ const TOTO_FINDER_FRANCE = [
     type: 'public',
     bidetType: 'TOTO WASHLET (showroom)',
     access: 'public',
-    accessNote: 'Bathroom showroom — WASHLET test location',
+    accessNote: 'Bathroom showroom - WASHLET test location',
   },
   {
     name: 'Carré d\'Azur Marseille',
@@ -324,7 +324,7 @@ const TOTO_FINDER_FRANCE = [
     type: 'public',
     bidetType: 'TOTO WASHLET (showroom)',
     access: 'public',
-    accessNote: 'Bathroom showroom — WASHLET test location',
+    accessNote: 'Bathroom showroom - WASHLET test location',
   },
   {
     name: 'DVA Bath Concept Lyon',
@@ -335,7 +335,7 @@ const TOTO_FINDER_FRANCE = [
     type: 'public',
     bidetType: 'TOTO WASHLET (showroom)',
     access: 'public',
-    accessNote: 'Bathroom showroom — WASHLET test location',
+    accessNote: 'Bathroom showroom - WASHLET test location',
   },
 ];
 
@@ -354,11 +354,11 @@ const FOUQUET_MANUAL = {
     'TOTO France case study: signature suites equipped with NEOREST WASHLET EW 2.0',
   verifiedMethod: 'manufacturer-reference',
   access: 'limited',
-  accessNote: 'Hotel guests only — signature suites',
+  accessNote: 'Hotel guests only - signature suites',
 };
 
 const IMPERATOR_MANUAL = {
-  name: 'Maison Albar – Imperator',
+  name: 'Maison Albar - Imperator',
   address: '3 Quai de la Fontaine, 30000 Nîmes',
   latitude: '43.838889',
   longitude: '4.360556',
@@ -394,7 +394,7 @@ function normalizeTotoEurope(row) {
   const quote = `${row.sourceQuote || ''} ${row.bidetType || ''}`;
   if (!HAS_WASHLET.test(quote)) return null;
   return {
-    name: row.name.replace(/\s*[–—].*Paris.*$/i, '').trim(),
+    name: row.name.replace(/\s*[--].*Paris.*$/i, '').trim(),
     address: row.address,
     latitude: row.latitude,
     longitude: row.longitude,

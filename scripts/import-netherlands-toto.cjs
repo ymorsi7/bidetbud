@@ -117,7 +117,7 @@ function toSeedRow(row, coord) {
     accessNote:
       row.type === 'hotel'
         ? 'Hotel guests and patrons'
-        : 'Showroom — try a WASHLET on display (verify access)',
+        : 'Showroom - try a WASHLET on display (verify access)',
   };
 }
 

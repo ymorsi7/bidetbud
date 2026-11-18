@@ -96,7 +96,7 @@ const GEBERIT_FRANCE_HOTELS = [
       'Interview du directeur : chambres premium équipées de WC lavants Geberit AquaClean',
     verifiedMethod: 'web-source',
     access: 'limited',
-    accessNote: 'Chambres premium — vérifier la catégorie à la réservation',
+    accessNote: 'Chambres premium - vérifier la catégorie à la réservation',
     searchAliases: ['Hotel Le Mosaique Narbonne'],
   },
   {
@@ -113,7 +113,7 @@ const GEBERIT_FRANCE_HOTELS = [
       'Témoignage Geberit Alba : WC lavants choisis pour marquer l\'esprit des clients (Fairway Golf d\'Arras)',
     verifiedMethod: 'web-source',
     access: 'limited',
-    accessNote: 'Certaines suites — voir catégorie Prestige sur le site hôtel',
+    accessNote: 'Certaines suites - voir catégorie Prestige sur le site hôtel',
     searchAliases: ['Le Fairway Arras', 'Fairway Golf Arras'],
   },
 ];

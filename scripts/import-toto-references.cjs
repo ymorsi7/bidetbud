@@ -44,12 +44,14 @@ if (!fs.existsSync(dataPath)) {
 const existing = readSeed();
 const toto = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
-// Drop prior TOTO manufacturer-reference rows to avoid stale duplicates on re-import
-const withoutToto = existing.filter(
-  (r) =>
-    r.verifiedMethod !== 'manufacturer-reference' ||
-    !String(r.sourceUrl || '').includes('eu.toto.com')
-);
+// Drop prior TOTO *case-study* rows only — never the Try WASHLET finder feed
+// (same eu.toto.com host, different path).
+const withoutToto = existing.filter((r) => {
+  const url = String(r.sourceUrl || '');
+  if (!url.includes('eu.toto.com')) return true;
+  if (url.includes('try-washlet')) return true;
+  return r.verifiedMethod !== 'manufacturer-reference';
+});
 
 const seen = new Set(withoutToto.map(dedupeKey));
 const seenUrl = new Set(
