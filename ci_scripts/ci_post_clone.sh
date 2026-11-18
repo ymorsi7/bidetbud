@@ -3,14 +3,24 @@
 set -euo pipefail
 
 echo "=== BidetBud Xcode Cloud post-clone ==="
-cd "$CI_PRIMARY_REPOSITORY_PATH"
+ROOT="${CI_PRIMARY_REPOSITORY_PATH:-$(pwd)}"
+cd "$ROOT"
 
-if ! command -v node >/dev/null 2>&1; then
-  echo "Installing Node via Homebrew…"
-  brew install node@22
-  export PATH="$(brew --prefix node@22)/bin:$PATH"
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
+
+need_node=1
+if command -v node >/dev/null 2>&1; then
+  major="$(node -p "process.versions.node.split('.')[0]" 2>/dev/null || echo 0)"
+  if [ "$major" -ge 22 ]; then
+    need_node=0
+  fi
 fi
-# Prefer node@22 if brew installed it as keg-only
+
+if [ "$need_node" -eq 1 ]; then
+  echo "Installing Node 22 via Homebrew…"
+  brew install node@22 || brew upgrade node@22 || brew install node
+fi
 if [ -d "$(brew --prefix node@22 2>/dev/null)/bin" ]; then
   export PATH="$(brew --prefix node@22)/bin:$PATH"
 fi
@@ -32,3 +42,4 @@ node scripts/patch-native.cjs
 
 test -f ios/App/App.xcodeproj/project.pbxproj
 echo "iOS project ready: mobile/ios/App/App.xcodeproj"
+ls -la ios/App/App.xcodeproj
