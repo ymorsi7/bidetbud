@@ -1,0 +1,46 @@
+{
+	"appId": "com.bidetbud.app",
+	"appName": "BidetBud",
+	"webDir": "www",
+	"server": {
+		"androidScheme": "https",
+		"iosScheme": "capacitor"
+	},
+	"plugins": {
+		"CapacitorHttp": {
+			"enabled": true
+		},
+		"SplashScreen": {
+			"launchShowDuration": 400,
+			"launchAutoHide": true,
+			"backgroundColor": "#18181b",
+			"showSpinner": false,
+			"splashFullScreen": true,
+			"splashImmersive": true
+		},
+		"StatusBar": {
+			"style": "LIGHT",
+			"backgroundColor": "#f4f4f5",
+			"overlaysWebView": false
+		},
+		"Keyboard": {
+			"resize": "none"
+		}
+	},
+	"ios": {
+		"contentInset": "never",
+		"preferredContentMode": "mobile"
+	},
+	"android": {
+		"allowMixedContent": false,
+		"backgroundColor": "#f4f4f5"
+	},
+	"packageClassList": [
+		"AppPlugin",
+		"CAPCameraPlugin",
+		"GeolocationPlugin",
+		"KeyboardPlugin",
+		"SplashScreenPlugin",
+		"StatusBarPlugin"
+	]
+}

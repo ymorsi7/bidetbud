@@ -532,7 +532,7 @@ supersedes them (more venues, exact coordinates). Curated French hotels remain i
 
 Capacitor wraps the **same** static map. `sync:web` copies root assets into `mobile/www/`; the app does **not** maintain a second seed. When online, the WebView may refresh from `https://bidetbud.com/bidet-seed.json?v=<SEED_VER>` (same `SEED_VER` / `bb_seed_cache_*` keys as `index.html`).
 
-**Tracked:** `mobile/package.json`, `capacitor.config.ts`, `src/`, `scripts/`, README, `mobile/ios/App` (needed for Xcode Cloud). **Gitignored:** `mobile/android`, `mobile/www`, `mobile/node_modules`, `mobile/ios/DerivedData` - Netlify still publishes the repo root only. Fresh clone: `npm run cap:sync` (do not edit `www/` by hand).
+**Tracked:** `mobile/package.json`, `capacitor.config.ts`, `src/`, `scripts/`, README, `mobile/ios/App` (needed for Xcode Cloud), including `App/App/capacitor.config.json` and `App/App/config.xml` (Xcode Resources - do not gitignore them). **Gitignored:** `mobile/android`, `mobile/www`, `mobile/node_modules`, `mobile/ios/DerivedData` - Netlify still publishes the repo root only. Fresh clone: `npm run cap:sync` (do not edit `www/` by hand).
 
 ```bash
 cd mobile

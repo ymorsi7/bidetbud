@@ -6,11 +6,15 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 
 ## 2026-11-21
 
+**Mobile / Xcode Cloud**
+
+- Fixed Archive failure: `capacitor.config.json` and `config.xml` were gitignored under `mobile/ios/` so Cloud had no Resources to copy. Track them, regenerate in `ci_post_clone` if missing, bump to 1.0.3 (15)
+
 **Map / seed quality**
 
-- **Permanently closed** venues: seed field `closed: true`. Hidden from the default map/list; still findable by name search with a Closed badge, grey marker, and detail banner. Report form already had “Permanently closed” - apply this flag when those reports check out.
+- **Permanently closed** venues: seed field `closed: true`. Hidden from the default map/list; still findable by name search with a Closed badge, grey marker, and detail banner. Report form already had "Permanently closed" - apply this flag when those reports check out.
 - Marked **Zauo** (152 W 24th St, NYC) permanently closed
-- Corrected **Five Guys** (56 W 14th St, NYC): in-person check → `bidetStatus: "none"` (Atly “bidet toilets” claim was wrong)
+- Corrected **Five Guys** (56 W 14th St, NYC): in-person check -> `bidetStatus: "none"` (Atly "bidet toilets" claim was wrong)
 - `isClosed` in `js/core.js`; `closed` passed through `normalizeSeed`, slim seed, and sealed public rows
 - **AGENTS.md**: changelog is required on every noticeable change; **no em dashes** (U+2014) or en dashes (U+2013) anywhere in the repo (use ASCII `-`)
 

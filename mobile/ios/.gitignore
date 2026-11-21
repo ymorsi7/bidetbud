@@ -7,9 +7,10 @@ xcuserdata
 # Cordova plugins for Capacitor
 capacitor-cordova-ios-plugins
 
-# Generated Config files
-App/App/capacitor.config.json
-App/App/config.xml
+# Capacitor copies these into App/App on `cap sync`. They MUST stay tracked
+# for Xcode Cloud - the Xcode project embeds them as Resources and archive
+# fails with "couldn't be opened because there is no such file" if missing.
+# Do not gitignore App/App/capacitor.config.json or App/App/config.xml.
 
 # Local Carto key (example file is committed)
 App/App/public/js/carto-key.js
