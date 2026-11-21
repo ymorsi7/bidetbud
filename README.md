@@ -43,4 +43,4 @@ data/                      Private (gitignored)
 
 ## License
 
-MIT — see [LICENSE](LICENSE). Research datasets remain private.
+MIT - see [LICENSE](LICENSE). Research datasets remain private.

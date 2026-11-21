@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Long-running global bidet crawler — non-friendly countries only.
+ * Long-running global bidet crawler - non-friendly countries only.
  *
  * Cycles: Atly sitemap discovery → list pages → location deep scan → Reddit intl.
  * Checkpointed; safe to stop/resume.
@@ -468,11 +468,11 @@ async function main() {
   let rows = loadOut();
 
   if (LIST_BURST > 0) {
-    console.log(`List burst — up to ${LIST_BURST} Atly list pages (bathroom guides)`);
+    console.log(`List burst - up to ${LIST_BURST} Atly list pages (bathroom guides)`);
     const start = Number(state.listBurstIndex) || 0;
     const lists = PROBE_URLS.slice(start, start + LIST_BURST);
     state.listBurstIndex = start + lists.length;
-    console.log(`List slice ${start}–${state.listBurstIndex} of ${PROBE_URLS.length} bathroom probe URLs`);
+    console.log(`List slice ${start}-${state.listBurstIndex} of ${PROBE_URLS.length} bathroom probe URLs`);
     let found = 0;
     for (const listUrl of lists) {
       if (!FRESH_LISTS && state.processedLists[listUrl]) continue;
@@ -497,7 +497,7 @@ async function main() {
   }
 
   if (SLUG_BURST > 0) {
-    console.log(`Slug burst — up to ${SLUG_BURST} Atly location pages`);
+    console.log(`Slug burst - up to ${SLUG_BURST} Atly location pages`);
     let scanned = 0;
     while (scanned < SLUG_BURST && state.slugQueue.length) {
       const batch = Math.min(40, SLUG_BURST - scanned);
@@ -515,7 +515,7 @@ async function main() {
   const endTime = Date.now() + HOURS * 3600 * 1000;
   let cycle = 0;
 
-  console.log(`Global crawler starting — ${HOURS}h, non-friendly countries only`);
+  console.log(`Global crawler starting - ${HOURS}h, non-friendly countries only`);
   console.log(`Output: ${OUT}`);
   console.log(`Existing rows: ${rows.length}, list queue: ${state.listQueue.length}, slug queue: ${state.slugQueue.length}`);
 

@@ -3,8 +3,8 @@
  * Append verified Iceland + Greenland bidet locations into BIDETBUD_SEED.
  *
  * Sources (merged, in order):
- *   1. data/iceland-greenland-verified-bidets.json — hand-curated, cited rows
- *   2. data/nordic-web-crawl-bidets.json           — output of crawl-nordic-web.cjs (optional)
+ *   1. data/iceland-greenland-verified-bidets.json - hand-curated, cited rows
+ *   2. data/nordic-web-crawl-bidets.json           - output of crawl-nordic-web.cjs (optional)
  *
  * Iceland/Greenland are NOT bidet-friendly, so every row must carry explicit
  * source evidence (sourceUrl + sourceQuote). Only net-new rows are added; existing

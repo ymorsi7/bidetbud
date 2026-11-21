@@ -25,14 +25,14 @@ const config: CapacitorConfig = {
       splashImmersive: true,
     },
     StatusBar: {
-      // Light chrome (dark icons). Do not overlay the WebView — otherwise
+      // Light chrome (dark icons). Do not overlay the WebView - otherwise
       // iOS pans focused inputs under the Dynamic Island.
       style: 'LIGHT',
       backgroundColor: '#f4f4f5',
       overlaysWebView: false,
     },
     Keyboard: {
-      // Do not resize/pan the WebView when a field is focused — that is what
+      // Do not resize/pan the WebView when a field is focused - that is what
       // zoomed the Suggest a spot sheet off-screen on iOS.
       resize: 'none',
     },

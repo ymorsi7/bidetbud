@@ -3,7 +3,7 @@
  * Aggregate verified France bidet locations from French / FR-market sources.
  *
  * Sources:
- * - TOTO Europe case studies (eu.toto.com/fr) — WASHLET only
+ * - TOTO Europe case studies (eu.toto.com/fr) - WASHLET only
  * - TOTO WASHLET Finder France (public test locations)
  * - Geberit AquaClean hotel press (geberit.fr, French trade press)
  * - French hotel/restaurant sites with explicit bidet/washlet/WC lavant mentions
@@ -22,7 +22,7 @@ const TOTO_FINDER_CACHE = path.join(__dirname, '../data/toto-france-finder.json'
 
 const SKIP_TOTO_NAMES = /^(Louvre|Viparis)\b/i;
 const SKIP_TOTO_EXACT = new Set([
-  'Maison Albar – Imperator Hotel', // bad geocode in toto-europe; use manual Nîmes row
+  'Maison Albar - Imperator Hotel', // bad geocode in toto-europe; use manual Nîmes row
 ]);
 const HAS_WASHLET = /washlet|wc lavant|toilette japonaise|neorest|aquaclean|bidet/i;
 
@@ -103,7 +103,7 @@ const FRENCH_WEB_SOURCES = [
     bidetType: 'Japanese washlet (ウォッシュレット)',
     sourceUrl: 'https://www.arukikata.co.jp/tokuhain/236314/',
     sourceQuote:
-      'Japanese travel guide notes rare Japanese washlet in restaurant restroom — "パリではかなり珍しい日本のウォッシュレット"',
+      'Japanese travel guide notes rare Japanese washlet in restaurant restroom - "パリではかなり珍しい日本のウォッシュレット"',
     verifiedMethod: 'web-source',
     access: 'public',
     accessNote: 'Restaurant patrons',
@@ -127,7 +127,7 @@ const FRENCH_WEB_SOURCES = [
   },
 ];
 
-/** TOTO WASHLET Finder — France public test locations (parsed from eu.toto.com/fr/service/tester-le-washlettm) */
+/** TOTO WASHLET Finder - France public test locations (parsed from eu.toto.com/fr/service/tester-le-washlettm) */
 const TOTO_FINDER_FRANCE = [
   {
     name: 'The Peninsula Paris',

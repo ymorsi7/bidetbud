@@ -113,7 +113,7 @@ function extractTitle(html) {
   const m = html.match(/<title[^>]*>([^<]+)/i);
   if (!m) return '';
   return decodeHtml(m[1])
-    .replace(/\s*[-|–|]\s*.*$/, '')
+    .replace(/\s*[-|-|]\s*.*$/, '')
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, 100);
@@ -372,7 +372,7 @@ function parseTotoFranceFinderHtml(html) {
       access: /hotel|hôtel/i.test(name) ? 'limited' : 'public',
       accessNote: /hotel|hôtel/i.test(name)
         ? 'Hotel guests and patrons'
-        : 'TOTO WASHLET test location — showroom or distributor',
+        : 'TOTO WASHLET test location - showroom or distributor',
     });
   }
   return rows;

@@ -95,7 +95,7 @@ async function exportPhoneShots(browser, url, size) {
     await waitReady(page);
   } catch (err) {
     const hint = await page.evaluate(() => (document.getElementById('countLabel') || {}).textContent || '(no countLabel)');
-    throw new Error('seed did not finish: ' + hint + ' pageerror=' + pageErrors.join('; ') + ' — ' + err.message);
+    throw new Error('seed did not finish: ' + hint + ' pageerror=' + pageErrors.join('; ') + ' - ' + err.message);
   }
 
   const shot = async (name) => {

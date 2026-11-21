@@ -246,7 +246,7 @@ async function main() {
     const accessInfo = mapAccess(type, parsed.category);
 
     const geoQuery = GEO_QUERY[slug] || (loc.city
-      ? `${parsed.name.replace(/[–—].*$/, '').trim()}, ${loc.city}, ${loc.country}`
+      ? `${parsed.name.replace(/[- - ].*$/, '').trim()}, ${loc.city}, ${loc.country}`
       : parsed.name);
     const geo = await geocode(geoQuery, cache);
     if (!geo) {

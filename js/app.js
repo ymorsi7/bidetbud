@@ -88,6 +88,9 @@
   function doesNotOperate(m){
     return core.doesNotOperate ? core.doesNotOperate(m) : String(m && m.country || '').trim().toLowerCase() === 'israel';
   }
+  function isClosed(m){
+    return core.isClosed ? core.isClosed(m) : !!(m && m.closed);
+  }
   // Natural Earth 50m: johan/world.geo.json omits Singapore (SG falls inside Malaysia's polygon).
   const BIDET_COUNTRY_GEOJSON_URL = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson';
   // Never shade these as bidet-friendly even if a coarse polygon swallows them.
@@ -1072,7 +1075,7 @@
     const shareUrl = encodeURIComponent(SITE_URL);
     const shareText = encodeURIComponent('We use BidetBud to find masajid and restaurants with bidets. Add spots your community should know about:');
     document.getElementById('thankYouContent').innerHTML =
-      '<p class="sub">Thanks — we review every submission before it goes live. Share BidetBud with a group that would use it.</p>'+
+      '<p class="sub">Thanks - we review every submission before it goes live. Share BidetBud with a group that would use it.</p>'+
       '<div class="dialog-actions share-actions">'+
       '<a class="btn btn-ghost" href="https://wa.me/?text='+shareText+'%20'+shareUrl+'" target="_blank" rel="noopener">WhatsApp</a>'+
       '<a class="btn btn-ghost" href="https://t.me/share/url?url='+shareUrl+'&text='+shareText+'" target="_blank" rel="noopener">Telegram</a>'+
@@ -1114,6 +1117,12 @@
     const q = getQuery();
     return allLocations.filter(m=>{
       if(!validCoord(m)) return false;
+      // Permanently closed: hide unless the visitor searches the name
+      // (so "Zauo" still explains why it vanished).
+      if(isClosed(m)){
+        const named = q && (typeof matchesNameSearch === 'function' ? matchesNameSearch(m, q) : matchesSearch(m, q));
+        if(!named) return false;
+      }
       const isNone = NO_BIDET(m.bidetStatus);
       if(isNone){
         const named = q && (typeof matchesNameSearch === 'function' ? matchesNameSearch(m, q) : matchesSearch(m, q));
@@ -1157,6 +1166,7 @@
 
   function statusTag(m){
     if(doesNotOperate(m)) return '';
+    if(isClosed(m)) return '<span class="tag tag-closed">Closed</span>';
     if(m.bidetStatus==='none') return '<span class="tag tag-none">No bidet</span>';
     if(m.bidetStatus==='internet') return '<span class="tag tag-internet">Web</span>';
     if(m.bidetStatus==='warmed') return '<span class="tag tag-warmed">Heated</span>';
@@ -1173,6 +1183,9 @@
     if(doesNotOperate(m)){
       return '<div class="access-warn access-warn--locked"><strong>BidetBud does not operate in this country</strong>This spot is locked and is not listed or verified here.</div>';
     }
+    if(isClosed(m)){
+      return '<div class="access-warn access-warn--closed"><strong>Permanently closed</strong>This spot is no longer open. We keep the pin so search still finds it.</div>';
+    }
     if(m.access!=='limited') return '';
     return '<div class="access-warn"><strong>Limited access: not a public restroom</strong>'+escapeHtml(m.accessNote||'Hotel rooms, showrooms, and private clubs are not open to walk-in visitors.')+'</div>';
   }
@@ -1184,6 +1197,12 @@
       return L.divIcon({
         html:'<div class="marker-locked" aria-label="Locked">🔒</div>',
         className:'custom-marker custom-marker--locked', iconSize:[30,30], iconAnchor:[15,15], popupAnchor:[0,-15]
+      });
+    }
+    if(isClosed(m)){
+      return L.divIcon({
+        html:'<div style="background:#a1a1aa;color:#fff;border:2.5px solid #fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.22);font-size:13px;font-weight:700;">-</div>',
+        className:'custom-marker custom-marker--closed', iconSize:[30,30], iconAnchor:[15,15], popupAnchor:[0,-15]
       });
     }
     const status = m.bidetStatus;
@@ -1241,6 +1260,7 @@
 
   function cardStatusClass(m){
     if(doesNotOperate(m)) return 'card-unavailable';
+    if(isClosed(m)) return 'card--closed';
     if(m.bidetStatus==='none') return 'card--none';
     if(m.access==='limited') return 'card-limited';
     if(m.bidetStatus==='internet') return 'card--internet';
@@ -1282,11 +1302,11 @@
   function renderList(filtered){
     const q=getQuery(), el=document.getElementById('locationList');
     el.classList.remove('location-list-loading');
-    const verified = filtered.filter(m=>m.bidetStatus==='verified' && !doesNotOperate(m)).length;
-    const warmed = filtered.filter(m=>m.bidetStatus==='warmed' && !doesNotOperate(m)).length;
-    const internet = filtered.filter(m=>m.bidetStatus==='internet' && !doesNotOperate(m)).length;
-    const limited = filtered.filter(m=>m.access==='limited' && !doesNotOperate(m)).length;
-    const pub = filtered.filter(m=>m.access!=='limited' && !doesNotOperate(m)).length;
+    const verified = filtered.filter(m=>m.bidetStatus==='verified' && !doesNotOperate(m) && !isClosed(m)).length;
+    const warmed = filtered.filter(m=>m.bidetStatus==='warmed' && !doesNotOperate(m) && !isClosed(m)).length;
+    const internet = filtered.filter(m=>m.bidetStatus==='internet' && !doesNotOperate(m) && !isClosed(m)).length;
+    const limited = filtered.filter(m=>m.access==='limited' && !doesNotOperate(m) && !isClosed(m)).length;
+    const pub = filtered.filter(m=>m.access!=='limited' && !doesNotOperate(m) && !isClosed(m)).length;
     const masajid = filtered.filter(m=>m.type==='mosque').length;
     let countHtml;
     if(noBidetMode){
@@ -1329,11 +1349,14 @@
       const anchor = distanceAnchor();
       if(anchor && sortMode !== 'name') dist = formatDistance(haversineMiles(anchor,{lat:+m.latitude,lng:+m.longitude}));
       const locked = doesNotOperate(m);
+      const closed = isClosed(m);
       const limitedNote = locked
         ? '<p class="card-note card-note--locked">BidetBud does not operate in this country</p>'
+        : (closed
+        ? '<p class="card-note card-note--closed">Permanently closed</p>'
         : (m.bidetStatus==='none'
         ? '<p class="card-note card-note--none">We checked: no bidet or handheld sprayer here.</p>'
-        : (m.access==='limited' ? '<p class="card-note">'+escapeHtml(m.accessNote)+'</p>' : ''));
+        : (m.access==='limited' ? '<p class="card-note">'+escapeHtml(m.accessNote)+'</p>' : '')));
       const cardClass = 'card '+cardStatusClass(m)+(activeSpotId===m.id?' active':'');
       const typeIcon = typeLabel(m.type);
       const bidetLead = locked ? '' : '<p class="card-bidet-lead">'+escapeHtml(bidetLeadLabel(m))+'</p>';
@@ -1382,7 +1405,7 @@
     if(countEl) countEl.textContent = n ? (n + (n === 1 ? ' place' : ' places')) : 'No matches';
     if(listEl){
       listEl.innerHTML = rows.map(m =>
-        '<button type="button" class="search-peek-item'+(NO_BIDET(m.bidetStatus)?' search-peek-item--none':'')+'" data-id="'+m.id+'">'+
+        '<button type="button" class="search-peek-item'+(isClosed(m)?' search-peek-item--closed':NO_BIDET(m.bidetStatus)?' search-peek-item--none':'')+'" data-id="'+m.id+'">'+
         '<strong>'+highlight(m.name, q)+'</strong>'+
         '<span>'+escapeHtml([m.city, m.country].filter(Boolean).join(', '))+'</span>'+
         '</button>'
@@ -1656,14 +1679,14 @@
       '<p class="sub">'+escapeHtml(typeLabel(m.type))+' · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
       distLine+
       (locked ? '' : '<p class="detail-bidet-callout">'+escapeHtml(bidetLeadLabel(m))+'</p>')+
-      (m.bidetStatus==='none' && !locked ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\'ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : '')+
+      (isClosed(m) && !locked ? '' : (m.bidetStatus==='none' && !locked ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\'ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : ''))+
       accessWarn(m)+
       (locked ? '' : '<p class="detail-address">'+escapeHtml(m.address)+'</p>')+
       '<div class="row">'+statusTag(m)+accessTag(m)+'</div>'+
       (locked ? '' : (
       '<div class="detail-sheet-more">'+
       '<p class="detail-trust">'+escapeHtml(verifyText)+'</p>'+
-      trustHtml+quote+source+
+      (isClosed(m) ? '' : trustHtml+quote+source)+
       reportFormHtml(m)+
       '</div>'))+
       (mobile ? '' : desktopActions);
@@ -1866,7 +1889,7 @@
       : 'web';
     if(Camera){
       try {
-        // Android: system photo picker only — no READ_MEDIA_IMAGES / READ_MEDIA_VIDEO.
+        // Android: system photo picker only - no READ_MEDIA_IMAGES / READ_MEDIA_VIDEO.
         if(platform === 'android' && typeof Camera.pickImages === 'function'){
           const gallery = await Camera.pickImages({ quality: 70, limit: 1 });
           const blob = await blobFromNativePhoto(gallery && gallery.photos && gallery.photos[0]);
@@ -1916,7 +1939,7 @@
       return;
     }
     box.hidden = false;
-    box.innerHTML = '<p class="add-dupe-hint">Already on the map — tap to open</p>' + hits.map(m =>
+    box.innerHTML = '<p class="add-dupe-hint">Already on the map - tap to open</p>' + hits.map(m =>
       '<button type="button" class="add-dupe" data-id="'+escapeHtml(m.id)+'">'+
       '<strong>'+escapeHtml(m.name)+'</strong>'+
       '<span>'+escapeHtml([m.city, m.country].filter(Boolean).join(', '))+'</span>'+
@@ -2212,7 +2235,7 @@
     // the map jumps; preview with a CSS scale, then commit once on finger-up.
     if(leafletMap.doubleClickZoom) leafletMap.doubleClickZoom.disable();
     const iosLike = isIOS() || isNativeApp();
-    // Keep Leaflet pinch disabled — custom CSS-scale preview avoids tile thrash
+    // Keep Leaflet pinch disabled - custom CSS-scale preview avoids tile thrash
     // on iOS WKWebView. Pan still uses Leaflet dragging.
     if(leafletMap.touchZoom) leafletMap.touchZoom.disable();
     const container = leafletMap.getContainer();
@@ -2484,7 +2507,7 @@
       worldCopyJump:true,
       tap:false,
       bounceAtZoomLimits:false,
-      // Light inertia on iOS — zero made the map feel stuck/dead.
+      // Light inertia on iOS - zero made the map feel stuck/dead.
       inertia:true,
       inertiaDeceleration:iosLike ? 2500 : 3000,
       inertiaMaxSpeed:iosLike ? 1800 : 4000,

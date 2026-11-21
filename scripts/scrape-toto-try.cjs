@@ -4,7 +4,7 @@
  * Source: https://eu.toto.com/en/service/try-washlettm (rendered page saved as markdown)
  *
  * These are TOTO showrooms / dealers / retailers where a specific WASHLET model
- * is installed "in the guest toilet" and can be tried in person — treated as
+ * is installed "in the guest toilet" and can be tried in person - treated as
  * public spots with manufacturer-reference evidence.
  *
  * Usage:
@@ -68,7 +68,7 @@ function parsePostcodeCity(line) {
   return null;
 }
 
-// A bare city line (no digits, no product/model tokens) — used when a venue
+// A bare city line (no digits, no product/model tokens) - used when a venue
 // listing has a city but no postcode, e.g. "Riga".
 function looksLikeBareCity(line) {
   const s = line.trim();

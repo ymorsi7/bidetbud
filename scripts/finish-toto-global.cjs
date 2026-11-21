@@ -156,7 +156,7 @@ function parseHtml(buf, fallbackName) {
     products.find((p) => /washlet|neorest/i.test(p)) || 'TOTO WASHLET / NEOREST';
   const sourceQuote = bidetPara
     ? bidetPara.slice(0, 280)
-    : `TOTO Global Reference: ${name} — featured products include ${products.slice(0, 3).join(', ') || bidetType}`;
+    : `TOTO Global Reference: ${name} - featured products include ${products.slice(0, 3).join(', ') || bidetType}`;
   return { name, bidetType, sourceQuote };
 }
 

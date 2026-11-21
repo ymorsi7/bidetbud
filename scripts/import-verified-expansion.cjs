@@ -67,7 +67,7 @@ const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
 
 const seen = new Set(existing.map(dedupeKey));
-/** One article can cite many hotels — dedupe by URL + name, not URL alone. */
+/** One article can cite many hotels - dedupe by URL + name, not URL alone. */
 function evidenceKey(row) {
   return [row.sourceUrl || '', normName(row.name)].join('|');
 }

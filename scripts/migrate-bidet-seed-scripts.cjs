@@ -79,4 +79,4 @@ for (const file of files) {
   }
 }
 
-console.log(`Done — ${updated} script(s) migrated.`);
+console.log(`Done - ${updated} script(s) migrated.`);

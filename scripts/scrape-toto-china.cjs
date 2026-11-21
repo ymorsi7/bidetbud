@@ -73,7 +73,7 @@ const NAME_EN = {
   '北京三里屯通盈中心洲际酒店': 'InterContinental Beijing Sanlitun',
   '长沙瑞吉酒店': 'The St. Regis Changsha',
   '绍兴兰亭安麓酒店': 'Ahn Luh Shaoxing',
-  '上海外滩W酒店': 'W Shanghai — The Bund',
+  '上海外滩W酒店': 'W Shanghai - The Bund',
   '成都华尔道夫酒店': 'Waldorf Astoria Chengdu',
   '义乌香格里拉大酒店': 'Shangri-La Yiwu',
   '杭州柏悦酒店': 'Park Hyatt Hangzhou',
@@ -275,7 +275,7 @@ async function main() {
 
     const sourceQuote = extracted
       ? `TOTO China case study PDF: ${extracted.quote}`
-      : `TOTO China high-end project case study (智能洁净系统产品已做标注案例): ${cnName} — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn`;
+      : `TOTO China high-end project case study (智能洁净系统产品已做标注案例): ${cnName} - TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn`;
 
     if (!extracted) noQuote++;
 

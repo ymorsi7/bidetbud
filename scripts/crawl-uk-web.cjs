@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * UK bidet web crawler — explicit bidet/washlet/sprayer mentions only.
+ * UK bidet web crawler - explicit bidet/washlet/sprayer mentions only.
  *
  *   node scripts/crawl-uk-web.cjs --minutes=45
  *   node scripts/crawl-uk-web.cjs --minutes=45 --import

@@ -8,7 +8,7 @@ const http = require('http');
 const BIDET_KW =
   /Dusch[\s-]?WC|Washlet|WASHLET|NEOREST|Neorest|AquaClean|Hygienedusche|Bidet(?:sitz)?|SensoWash|ViClean|Sensia|Japanisch(?:es|er)?\s+WC|Smart[\s-]?WC|intelligente[nr]?\s+Toilette|Toilette\s+mit\s+(?:Dusch|Wasch)funktion|Reinigung\s+mit\s+(?:warmem\s+)?Wasser|Intim(?:reinigung|dusche)/i;
 
-/** Standard bathroom — NOT a bidet */
+/** Standard bathroom - NOT a bidet */
 const FALSE_POSITIVE =
   /\b(?:mit\s+)?Dusche\s*(?:\/|und|&|,)\s*WC\b|\bDU\s*\/\s*WC\b|\bShower\s*\/\s*WC\b|\bBath\s*\/\s*WC\b|\bDoppelzimmer\s+mit\s+Dusche\s+und\s+WC\b|\bAppartement[^.]{0,40}Dusche,\s*WC\b/i;
 
@@ -99,7 +99,7 @@ function extractTitle(html) {
   const m = html.match(/<title[^>]*>([^<]+)/i);
   if (!m) return '';
   return decodeHtml(m[1])
-    .replace(/\s*[-|–|]\s*.*$/, '')
+    .replace(/\s*[-|-|]\s*.*$/, '')
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, 100);
@@ -142,7 +142,7 @@ function parseGenericGermanPage(html, url) {
   let name = extractH1(html) || extractTitle(html) || guessNameFromUrl(url);
   // Prefer hotel brand over room type on German hotel sites
   if (/zimmer|suite|doppelzimmer|apartment/i.test(name) && /hotel-|\.de\/hotel/i.test(url)) {
-    const brand = extractTitle(html).replace(/\s*[-|–].*$/, '').trim();
+    const brand = extractTitle(html).replace(/\s*[-|-].*$/, '').trim();
     if (brand && brand.length > 8) name = brand;
   }
   const address = extractAddress(html);

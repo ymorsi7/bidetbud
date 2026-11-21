@@ -37,7 +37,7 @@ const MIME = {
 };
 
 if (!existsSync(join(WWW, 'index.html'))) {
-  console.error('mobile/www/index.html missing — run npm run sync:web first');
+  console.error('mobile/www/index.html missing - run npm run sync:web first');
   process.exit(1);
 }
 
@@ -53,7 +53,7 @@ function startServer() {
   return new Promise((resolve, reject) => {
     const server = createServer((req, res) => {
       const pathname = (req.url || '/').split('?')[0];
-      // Local fixture — CI has no sealed seed; www never ships bidet-seed.json.
+      // Local fixture - CI has no sealed seed; www never ships bidet-seed.json.
       if (pathname === '/api/session') {
         return sendJson(res, 200, { ok: true, ver: FIXTURE_VER });
       }

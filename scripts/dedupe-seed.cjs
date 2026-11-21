@@ -166,18 +166,18 @@ console.log(`Rows to remove: ${removeIdx.size}\n`);
 for (const g of report) {
   const k = seed[g.keep];
   console.log(
-    `KEEP  [#${g.keep}] ${k.name} — ${k.city || ''}, ${k.country} @ ${k.latitude},${k.longitude} (${k.bidetStatus})`
+    `KEEP  [#${g.keep}] ${k.name} - ${k.city || ''}, ${k.country} @ ${k.latitude},${k.longitude} (${k.bidetStatus})`
   );
   for (const d of g.dropped) {
     const r = seed[d];
     console.log(
-      `  DROP[#${d}] ${r.name} — ${r.city || ''}, ${r.country} @ ${r.latitude},${r.longitude} (${r.bidetStatus})`
+      `  DROP[#${d}] ${r.name} - ${r.city || ''}, ${r.country} @ ${r.latitude},${r.longitude} (${r.bidetStatus})`
     );
   }
 }
 
 if (!APPLY) {
-  console.log('\n(preview only — re-run with --apply to rewrite index.html)');
+  console.log('\n(preview only - re-run with --apply to rewrite index.html)');
   process.exit(0);
 }
 

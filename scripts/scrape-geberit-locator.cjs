@@ -5,7 +5,7 @@
  * data/geberit-locator-hotels.json.
  *
  * The widget loads a single static JSON feed (identical across locale sites), so
- * no headless browser or geocoding is needed — every row already carries
+ * no headless browser or geocoding is needed - every row already carries
  * coordinates, address, website and the installed AquaClean models.
  *
  *   node scripts/scrape-geberit-locator.cjs

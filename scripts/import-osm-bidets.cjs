@@ -2,7 +2,7 @@
 /**
  * Import OpenStreetMap toilets that mappers explicitly tagged with a bidet.
  *
- * OSM records this under the toilets:* namespace — toilets:wash=bidet_spray
+ * OSM records this under the toilets:* namespace - toilets:wash=bidet_spray
  * (handheld bidet shower), toilets:wash=washlet (electronic bidet seat), and the
  * older toilets:bidet=yes. Those tags are per-object bidet evidence, so they pass
  * the verification policy; everything else in amenity=toilets is ignored.
@@ -109,7 +109,7 @@ function countryFromIso(iso) {
 
 /**
  * Most bidet-tagged toilets carry no addr:country, so resolve the country from the
- * point itself. Results are cached — Nominatim asks for one request per second.
+ * point itself. Results are cached - Nominatim asks for one request per second.
  */
 async function reverseCountries(points) {
   const cache = fs.existsSync(GEOCODE_CACHE)

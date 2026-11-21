@@ -3,7 +3,7 @@
  * Import Geberit AquaClean hotels into BIDETBUD_SEED.
  *
  * Sources merged (in priority order):
- *   - data/geberit-locator-hotels.json (scrape-geberit-locator.cjs — the full
+ *   - data/geberit-locator-hotels.json (scrape-geberit-locator.cjs - the full
  *                                       ~495-venue Hotel Locator feed, w/ coords)
  *   - data/geberit-hotels.json         (scrape-geberit-hotels.cjs, geocoded)
  *   - data/geberit-france-hotels.json  (scrape-geberit-france-hotels.cjs, curated)
@@ -12,8 +12,8 @@
  * toilet installed, so rows get bidetStatus: "warmed" and
  * verifiedMethod: "manufacturer-reference". Requires sourceUrl + sourceQuote
  * and geocoded coordinates. Dedupes on coordinates and on a normalized name key
- * (so hotels already in the seed under a slightly different label — e.g. from
- * the TOTO references — aren't re-added).
+ * (so hotels already in the seed under a slightly different label - e.g. from
+ * the TOTO references - aren't re-added).
  *
  * Usage: node scripts/import-geberit-hotels.cjs
  */

@@ -427,6 +427,7 @@
       searchAliases: row.searchAliases || '',
       access,
       accessNote: access === 'limited' ? row.accessNote || 'Not a regular public restroom' : '',
+      closed: !!(row.closed === true || row.closed === 'true' || row.closed === 1),
     };
   }
 

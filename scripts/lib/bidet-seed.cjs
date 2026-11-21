@@ -13,7 +13,7 @@ const FULL_JSON = path.join(ROOT, 'data/bidet-restaurants.json');
 const SEED_TAG = '<script src="bidet-seed.js"></script>';
 const SEED_FETCH_MARK = "__BIDET_SEED_P";
 const ISRAEL_NOTE = `<script>
-// Israel entries disabled — not recognized as a country
+// Israel entries disabled - not recognized as a country
 // See data/israel-bidets-disabled.json (6 entries)
 </script>
 `;
@@ -25,7 +25,7 @@ function parseSeedJs(raw) {
   return JSON.parse(raw.slice(start, end + 1));
 }
 
-/** Slim row for the client bundle — drops empty fields and truncates long quotes. */
+/** Slim row for the client bundle - drops empty fields and truncates long quotes. */
 function slimRow(r) {
   const out = {
     name: r.name,
@@ -42,7 +42,8 @@ function slimRow(r) {
   if (r.sourceQuote) out.sourceQuote = String(r.sourceQuote).slice(0, 160);
   if (r.searchAliases) out.searchAliases = String(r.searchAliases).slice(0, 120);
   if (r.verifiedMethod) out.verifiedMethod = String(r.verifiedMethod).slice(0, 40);
-  // Public is the default in normalizeSeed — omit to shrink the download.
+  if (r.closed === true || r.closed === 'true' || r.closed === 1) out.closed = true;
+  // Public is the default in normalizeSeed - omit to shrink the download.
   if (r.access === 'limited') {
     out.access = 'limited';
     if (r.accessNote) out.accessNote = String(r.accessNote).slice(0, 80);

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Import China bidet locations — VERIFIED SOURCES ONLY.
+ * Import China bidet locations - VERIFIED SOURCES ONLY.
  *
  * Allowed sources:
  * - TOTO global/China manufacturer references (toto.com/project, toto.com.cn)

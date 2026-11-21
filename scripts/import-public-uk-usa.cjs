@@ -2,7 +2,7 @@
 /**
  * Add leftover PUBLIC USA / UK pins with per-venue bidet evidence.
  *
- * 1. Atly sitemap leftovers (Kura city branches, % Arabica Nolita) — city-suffixed
+ * 1. Atly sitemap leftovers (Kura city branches, % Arabica Nolita) - city-suffixed
  *    so same-name-in-country does not collapse chain locations.
  * 2. Live Atly fetch of Kura Revolving Sushi Bar location pages + hot US list pages.
  * 3. Optional OSM bidet-tagged toilets in GB / US (amenity=toilets only).
@@ -123,7 +123,7 @@ async function fetchAtlyRows() {
       const row = parseLocationPage(html, url);
       if (row && isUsablePublic(row)) rows.push(withCity(row));
     } catch {
-      /* 404 / timeout — expected for unused Kura ids */
+      /* 404 / timeout - expected for unused Kura ids */
     }
   });
   return rows;

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Apply verified GPS coordinates to data/russia-verified-bidets.json.
- * Nominatim often misses Russian hotel names — use hotel contact pages / maps.
+ * Nominatim often misses Russian hotel names - use hotel contact pages / maps.
  */
 const fs = require('fs');
 const path = require('path');

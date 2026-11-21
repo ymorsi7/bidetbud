@@ -1,5 +1,5 @@
 #!/bin/bash
-# CapPackages are committed — nothing to install for SPM.
+# CapPackages are committed - nothing to install for SPM.
 set -euo pipefail
 echo "=== BidetBud post-clone ==="
 ROOT="${CI_PRIMARY_REPOSITORY_PATH:-$(cd "$(dirname "$0")/.." && pwd)}"

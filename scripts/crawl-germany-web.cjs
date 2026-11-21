@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Long-running Germany bidet crawler — German websites only.
+ * Long-running Germany bidet crawler - German websites only.
  *
  * Sources: TOTO eu.toto.com/de, Geberit.de references, German hotel sites,
  * DuckDuckGo discovery on .de domains, HRS/booking/holidaycheck/tripadvisor.de.
@@ -105,7 +105,7 @@ const SEED_URLS = [
   'https://www.geberit.de/know-how/referenzen/hotel-hoeri/',
   'https://www.geberit.de/know-how/referenzen/hotel-rosenhof/',
   'https://www.geberit.de/badezimmerprodukte/wcs-urinale/dusch-wcs-geberit-aquaclean/testen/hotels-mit-dusch-wc/',
-  // TOTO Germany references (EN pages — DE slugs often 404)
+  // TOTO Germany references (EN pages - DE slugs often 404)
   'https://eu.toto.com/en/company-information/references/jw-marriott-hotel-frankfurt',
   'https://eu.toto.com/en/company-information/references/marriott-hotel-city-west-munich',
   'https://eu.toto.com/en/company-information/references/vier-jahreszeiten-kempinski-munich',
@@ -648,7 +648,7 @@ async function main() {
   const cache = loadCache();
   let cycle = 0;
 
-  console.log(`Germany web crawler — ${MINUTES} min, German sources focus`);
+  console.log(`Germany web crawler - ${MINUTES} min, German sources focus`);
   console.log(`Output: ${OUT} | existing: ${rows.length} | url queue: ${state.urlQueue.length}`);
 
   enqueueSeeds(state);

@@ -10,7 +10,7 @@ const OUT = path.join(__dirname, '../data/china-verified-bidets.json');
 const TOTO = path.join(__dirname, '../data/china-toto-projects.json');
 const CTRIP = path.join(__dirname, '../data/china-ctrip-bidets.json');
 
-/** Guest reviews, Flyert, official amenity pages — explicit 智能马桶/bidet evidence */
+/** Guest reviews, Flyert, official amenity pages - explicit 智能马桶/bidet evidence */
 const SUPPLEMENTAL = [
   {
     name: 'The St. Regis Shanghai Jing An',

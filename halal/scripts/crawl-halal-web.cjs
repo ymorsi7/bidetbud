@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Discover halal restaurants via web search (DDG/Mojeek) — finds Yelp, TripAdvisor,
+ * Discover halal restaurants via web search (DDG/Mojeek) - finds Yelp, TripAdvisor,
  * Google Maps, Reddit, Facebook, and venue pages that explicitly mention halal.
  *
  *   node scripts/crawl-halal-web.cjs --minutes=60

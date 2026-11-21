@@ -247,11 +247,11 @@ function classifyHalalStatus(text) {
   if (/certified halal|100%\s*halal|all food.*certified halal|fully halal|zabiha|everything.*halal|diet:halal.?only/i.test(t)) {
     return 'full';
   }
-  // OSM diet:halal=yes and other weak signals — not fully halal unless proven.
+  // OSM diet:halal=yes and other weak signals - not fully halal unless proven.
   return 'options';
 }
 
-/** Parse Zabihah venue HTML — UI badges beat generic schema text. */
+/** Parse Zabihah venue HTML - UI badges beat generic schema text. */
 function classifyZabihahHtml(html, name) {
   const t = String(html || '');
   const n = String(name || '');
@@ -307,7 +307,7 @@ function heuristicZabihahRow(row) {
     return r;
   }
 
-  if (/Zabihah listing — halal restaurant/i.test(q) || (r.halalStatus === 'full' && !q)) {
+  if (/Zabihah listing - halal restaurant/i.test(q) || (r.halalStatus === 'full' && !q)) {
     r.halalStatus = 'options';
     r.sourceQuote = 'Zabihah: halal options (conservative default)';
     return r;
@@ -355,7 +355,7 @@ const STORE_ZABIHAH_CATEGORIES = new Set([
   'international grocery',
 ]);
 
-/** Grocery / retail chains — name is often just "Safeway" or "Costco" with no other hint. */
+/** Grocery / retail chains - name is often just "Safeway" or "Costco" with no other hint. */
 const STORE_CHAIN_NAMES = [
   'safeway',
   'costco',
@@ -711,7 +711,7 @@ function listingVenueToRow(venue, listingUrl) {
   return row;
 }
 
-/** Bulk-extract venues embedded in Zabihah subregion / city listing pages (~50–100 per fetch). */
+/** Bulk-extract venues embedded in Zabihah subregion / city listing pages (~50-100 per fetch). */
 function parseZabihahListingHtml(html, listingUrl) {
   if (!html || html.length < 5000) return [];
   const rows = [];
@@ -989,7 +989,7 @@ function readVenueRows(jsonPath) {
   return Array.isArray(raw) ? raw : raw.rows || raw.establishments || [];
 }
 
-/** Append rows to .ndjson sidecar (O(new rows) memory — safe for large crawls). */
+/** Append rows to .ndjson sidecar (O(new rows) memory - safe for large crawls). */
 function appendVenueRows(jsonPath, rows) {
   if (!rows.length) return;
   const nd = ndjsonPath(jsonPath);

@@ -122,7 +122,7 @@ function main() {
   }
   const mapApi = path.join(ROOT, 'js', 'map-api.js');
   if (!fs.existsSync(mapApi)) {
-    throw new Error('Missing js/map-api.js — mobile map loads pins via /api/bootstrap.');
+    throw new Error('Missing js/map-api.js - mobile map loads pins via /api/bootstrap.');
   }
 
   fs.rmSync(WWW, { recursive: true, force: true });
@@ -137,7 +137,7 @@ function main() {
     copyDir(path.join(ROOT, dir), path.join(WWW, dir));
   }
 
-  // Map icons/logo only — shop product photos are not needed in the app bundle.
+  // Map icons/logo only - shop product photos are not needed in the app bundle.
   copyDir(path.join(ROOT, 'images'), path.join(WWW, 'images'), ['shop']);
 
   copyFile(BRIDGE_SRC, path.join(WWW, 'js', 'native-bridge.js'));

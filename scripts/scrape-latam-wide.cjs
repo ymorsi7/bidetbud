@@ -12,9 +12,9 @@ const OUT = path.join(__dirname, '../data/latam-wide-bidets.json');
 const BIDET_RE =
   /\bbidet(s|\s+toilet)?\b|\bbid[eé]\b|\bwashlet\b|\btoto[\s®™]*\s*(bidet|toilet|smart)?\b|\binodoro\s+(japon[eé]s|inteligente|autom[aá]tico)\b|\basiento\s+t[eé]rmico\b|\bshattaf\b|\bhand shower\b|\bhandheld sprayer\b|\bducha\s+de\s+mano\b|\bmanguera\s+higi[eé]nica\b|\belectronic\s+bidet\b|\bBA-3000/i;
 
-/** Pages to fetch — hotel aggregators, review sites, official pages */
+/** Pages to fetch - hotel aggregators, review sites, official pages */
 const TARGETS = [
-  // Mexico hotels — aggregator amenity lists
+  // Mexico hotels - aggregator amenity lists
   {
     country: 'Mexico',
     city: 'Cancún, Quintana Roo',
@@ -106,7 +106,7 @@ const TARGETS = [
     url: 'https://www.kayak.com/Punta-Sam-Hotels-Hotel-Mousai-Cancun-Adults-Only.1070825478.ksp',
     nameHint: 'Hotel Mousai Cancun',
   },
-  // Colombia — search momondo bogota hotels page for bidet amenity
+  // Colombia - search momondo bogota hotels page for bidet amenity
   {
     country: 'Colombia',
     city: 'Bogotá, Cundinamarca',
@@ -291,7 +291,7 @@ async function main() {
         continue;
       }
 
-      // KAYAK city pages — extract multiple hotels
+      // KAYAK city pages - extract multiple hotels
       if (/kayak\.com.*Hotels\./i.test(t.url) && !t.nameHint) {
         const kayRows = extractKayakBidetHotels(html, t.country, t.city);
         for (const row of kayRows) {

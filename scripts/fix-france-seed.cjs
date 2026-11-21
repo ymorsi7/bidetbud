@@ -37,8 +37,8 @@ function shouldRemove(row) {
   if (/^MAISON ALBAR LE PONT NEUF$/i.test(n)) return true;
   if (/^Louvre, Paris$/i.test(n)) return true;
   if (/^HOTEL BARRI.+LE FOUQUET/i.test(n)) return true;
-  if (/^Hôtel Plaza Athénée [-–] Paris, France$/i.test(n)) return true;
-  if (/^The Restaurant Blanc [-–] Paris 16è$/i.test(n)) return true;
+  if (/^Hôtel Plaza Athénée [--] Paris, France$/i.test(n)) return true;
+  if (/^The Restaurant Blanc [--] Paris 16è$/i.test(n)) return true;
   if (/^Les Neiges Hotel Courchevel$/i.test(n)) return true;
   if (/Maison Albar.*Imperator Hotel/i.test(n) && lat > 48.5 && lat < 49 && lon > 2 && lon < 3) {
     return true;

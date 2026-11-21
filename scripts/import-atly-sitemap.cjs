@@ -16,7 +16,7 @@ const { BIDET_RE } = require('./lib/atly-web.cjs');
 const SOURCE = path.join(__dirname, '../data/atly-sitemap-bidets.json');
 
 if (!fs.existsSync(SOURCE)) {
-  console.error(`Missing ${SOURCE} — run scripts/crawl-atly-sitemap.cjs first.`);
+  console.error(`Missing ${SOURCE} - run scripts/crawl-atly-sitemap.cjs first.`);
   process.exit(1);
 }
 

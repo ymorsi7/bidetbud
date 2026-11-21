@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Copy the site favicon into mobile/assets/logo.png for @capacitor/assets.
- * Source is the repo-root image — not a second design file.
+ * Source is the repo-root image - not a second design file.
  */
 'use strict';
 

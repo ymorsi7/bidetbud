@@ -530,7 +530,7 @@
               "name": "example"
             }
           ],
-          "docs": "Controls how the keyboard backdrop color (the area visible behind the\nkeyboard) is set every time the keyboard is about to show.\n\n- `'off'` — Do not tint the backdrop.\n- `'auto'` — Use the `backgroundColor` set in the Capacitor config;\n  otherwise derive the color from the web app's DOM body background.\n- `'dom'` — Always derive the color from the web app's DOM body\n  background, ignoring the `backgroundColor` config. If the DOM\n  has no resolvable background, the backdrop is left untouched.\n\nOnly available on iOS.",
+          "docs": "Controls how the keyboard backdrop color (the area visible behind the\nkeyboard) is set every time the keyboard is about to show.\n\n- `'off'` - Do not tint the backdrop.\n- `'auto'` - Use the `backgroundColor` set in the Capacitor config;\n  otherwise derive the color from the web app's DOM body background.\n- `'dom'` - Always derive the color from the web app's DOM body\n  background, ignoring the `backgroundColor` config. If the DOM\n  has no resolvable background, the backdrop is left untouched.\n\nOnly available on iOS.",
           "complexTypes": [],
           "type": "'off' | 'auto' | 'dom' | undefined"
         }

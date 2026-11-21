@@ -302,7 +302,7 @@ const result = await Camera.takePhoto({
 const imageUrl = result.webPath;
 ```
 
-**(1)** `width`/`height` each worked independently and set a maximum dimension while preserving aspect ratio. `targetWidth`/`targetHeight` must be used together — setting only one has no effect.
+**(1)** `width`/`height` each worked independently and set a maximum dimension while preserving aspect ratio. `targetWidth`/`targetHeight` must be used together - setting only one has no effect.
 
 #### `CameraSource.Photos` to `chooseFromGallery`
 
@@ -342,19 +342,19 @@ const { results } = await Camera.chooseFromGallery({ quality: 90 });
 
 #### Result type changes
 
-`getPhoto` returned a `Photo` object where the fields available depended on `resultType`. The new API removes `resultType` entirely — `MediaResult` has a fixed set of fields regardless of how the photo was taken.
+`getPhoto` returned a `Photo` object where the fields available depended on `resultType`. The new API removes `resultType` entirely - `MediaResult` has a fixed set of fields regardless of how the photo was taken.
 
 | `Photo` field | `MediaResult` equivalent |
 |---|---|
 | `path` | `uri` |
 | `webPath` | `webPath` |
 | `base64String` | `thumbnail` (on Web, contains the full image base64 encoded; on native, contains a thumbnail) |
-| `dataUrl` | No direct equivalent — see note below |
+| `dataUrl` | No direct equivalent - see note below |
 | `saved` | `saved` |
 | `format` | `metadata.format` (requires `includeMetadata: true`) |
 | `exif` | `metadata.exif` (requires `includeMetadata: true`) |
 
-**Constructing a data URL** — two options are available depending on your needs:
+**Constructing a data URL** - two options are available depending on your needs:
 
 On all platforms, you can combine `thumbnail` and `metadata.format` (requires `includeMetadata: true`). On native, `thumbnail` is lower-resolution:
 
@@ -400,7 +400,7 @@ for (const result of results) {
 }
 ```
 
-**(1)** `width`/`height` each worked independently and set a maximum dimension while preserving aspect ratio. `targetWidth`/`targetHeight` must be used together — setting only one has no effect.
+**(1)** `width`/`height` each worked independently and set a maximum dimension while preserving aspect ratio. `targetWidth`/`targetHeight` must be used together - setting only one has no effect.
 
 `chooseFromGallery` can also select videos or mixed media by setting `mediaType` to `MediaTypeSelection.Video` or `MediaTypeSelection.All`.
 
@@ -412,11 +412,11 @@ for (const result of results) {
 | `height` | `targetHeight` (1) | `takePhoto`, `chooseFromGallery` |
 | `direction` | `cameraDirection` | `takePhoto` |
 | `allowEditing` | `editable: 'in-app'` | `takePhoto`, `chooseFromGallery` |
-| `resultType` | — (removed, see [Result type changes](#result-type-changes)) | — |
-| `source` | — (removed, use separate methods) | — |
-| `promptLabel*` | — (removed, build your own UI) | — |
+| `resultType` | - (removed, see [Result type changes](#result-type-changes)) | - |
+| `source` | - (removed, use separate methods) | - |
+| `promptLabel*` | - (removed, build your own UI) | - |
 
-**(1)** `width`/`height` each worked independently and set a maximum dimension while preserving aspect ratio. `targetWidth`/`targetHeight` must be used together — setting only one has no effect.
+**(1)** `width`/`height` each worked independently and set a maximum dimension while preserving aspect ratio. `targetWidth`/`targetHeight` must be used together - setting only one has no effect.
 
 ## API
 

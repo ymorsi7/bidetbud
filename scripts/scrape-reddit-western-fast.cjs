@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Fast Reddit (Pullpush) scan — submission search only, top subreddits.
+ * Fast Reddit (Pullpush) scan - submission search only, top subreddits.
  * Output: data/reddit-western-raw.json
  */
 const fs = require('fs');

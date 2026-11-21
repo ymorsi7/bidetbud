@@ -17,7 +17,7 @@ const MANUAL = [
     bidetType: 'TOTO NEOREST / WASHLET',
     sourceUrl: 'https://www.toto.com.cn/cn/resource/pdf/project/20260701SZ.pdf',
     sourceQuote:
-      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 苏州丽思卡尔顿 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
+      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 苏州丽思卡尔顿 - TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
     verifiedMethod: 'manufacturer-reference',
     access: 'limited',
     accessNote: 'Hotel guests only',
@@ -34,7 +34,7 @@ const MANUAL = [
     bidetType: 'TOTO intelligent bathroom',
     sourceUrl: 'https://www.toto.com.cn/cn/resource/pdf/project/127.pdf',
     sourceQuote:
-      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 溧阳温德姆至尊豪廷温泉酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
+      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 溧阳温德姆至尊豪廷温泉酒店 - TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
     verifiedMethod: 'manufacturer-reference',
     access: 'limited',
     accessNote: 'Hotel guests only',
@@ -51,7 +51,7 @@ const MANUAL = [
     bidetType: 'TOTO NEOREST / WASHLET',
     sourceUrl: 'https://www.toto.com.cn/cn/resource/pdf/project/115.pdf',
     sourceQuote:
-      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 苏州四季酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
+      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 苏州四季酒店 - TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
     verifiedMethod: 'manufacturer-reference',
     access: 'limited',
     accessNote: 'Hotel guests only',
@@ -68,7 +68,7 @@ const MANUAL = [
     bidetType: 'TOTO NEOREST / WASHLET',
     sourceUrl: 'https://www.toto.com.cn/cn/resource/pdf/project/101.pdf',
     sourceQuote:
-      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 厦门华尔道夫酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
+      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 厦门华尔道夫酒店 - TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
     verifiedMethod: 'manufacturer-reference',
     access: 'limited',
     accessNote: 'Hotel guests only',
@@ -85,7 +85,7 @@ const MANUAL = [
     bidetType: 'TOTO NEOREST',
     sourceUrl: 'https://www.toto.com.cn/cn/resource/pdf/project/99.pdf',
     sourceQuote:
-      'TOTO China case study PDF: 南宁龙光那莲豪华精选酒店 — TOTO NEOREST intelligent bidet toilet products documented in manufacturer project PDF',
+      'TOTO China case study PDF: 南宁龙光那莲豪华精选酒店 - TOTO NEOREST intelligent bidet toilet products documented in manufacturer project PDF',
     verifiedMethod: 'manufacturer-reference',
     access: 'limited',
     accessNote: 'Hotel guests only',
@@ -102,7 +102,7 @@ const MANUAL = [
     bidetType: 'TOTO NEOREST / WASHLET',
     sourceUrl: 'https://www.toto.com.cn/cn/resource/pdf/project/85.pdf',
     sourceQuote:
-      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 北京王府井文华东方酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
+      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 北京王府井文华东方酒店 - TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
     verifiedMethod: 'manufacturer-reference',
     access: 'limited',
     accessNote: 'Hotel guests only',
@@ -136,7 +136,7 @@ const MANUAL = [
     bidetType: 'TOTO NEOREST / WASHLET',
     sourceUrl: 'https://www.toto.com.cn/cn/resource/pdf/project/75.pdf',
     sourceQuote:
-      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 成都华尔道夫酒店 — TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
+      'TOTO China high-end project case study (智能洁净系统产品已做标注案例): 成都华尔道夫酒店 - TOTO 卫洗丽®/诺锐斯特® intelligent bidet toilet installation documented on toto.com.cn',
     verifiedMethod: 'manufacturer-reference',
     access: 'limited',
     accessNote: 'Hotel guests only',

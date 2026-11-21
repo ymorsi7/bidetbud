@@ -13,7 +13,7 @@ const BIDET_RE =
   /\bbidet(s|\s+toilet|\s+attachment|\s+hand\s+shower)?\b|\bwashlet\b|\bclosomat\b|\baquaclean\b|\bshattaf\b|\bhandheld sprayer\b/i;
 
 if (!fs.existsSync(SOURCE)) {
-  console.log(`No ${SOURCE} — nothing to import.`);
+  console.log(`No ${SOURCE} - nothing to import.`);
   process.exit(0);
 }
 

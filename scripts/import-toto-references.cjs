@@ -44,7 +44,7 @@ if (!fs.existsSync(dataPath)) {
 const existing = readSeed();
 const toto = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 
-// Drop prior TOTO *case-study* rows only — never the Try WASHLET finder feed
+// Drop prior TOTO *case-study* rows only - never the Try WASHLET finder feed
 // (same eu.toto.com host, different path).
 const withoutToto = existing.filter((r) => {
   const url = String(r.sourceUrl || '');

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Import Russia bidet locations — VERIFIED SOURCES ONLY.
+ * Import Russia bidet locations - VERIFIED SOURCES ONLY.
  *
  * Do NOT bulk-import mosques, restaurants, or generic restrooms from OSM
  * unless a public source explicitly confirms a bidet/washlet is present.

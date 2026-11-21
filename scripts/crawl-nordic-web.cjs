@@ -112,7 +112,7 @@ function queriesFor(country, city) {
 
 /**
  * Curated seed URLs (country-pinned so geocoding stays in-country). Discovery
- * starting points — TOTO/Geberit references + known Nordic hotel review hubs.
+ * starting points - TOTO/Geberit references + known Nordic hotel review hubs.
  */
 const SEED_URLS = [
   { url: 'https://www.tripadvisor.com/Hotels-g189970-Reykjavik_Capital_Region-Hotels.html', country: 'IS', city: 'Reykjavik' },
@@ -385,7 +385,7 @@ async function main() {
   const rowMap = new Map(rows.map((r) => [rowKey(r), r]));
   let cycle = 0;
 
-  console.log(`Nordic web crawler — ${MINUTES} min across ${COUNTRIES.length} countries (IS, GL)`);
+  console.log(`Nordic web crawler - ${MINUTES} min across ${COUNTRIES.length} countries (IS, GL)`);
   console.log(`Output: ${OUT} | existing rows: ${rows.length} | queue: ${state.urlQueue.length}`);
 
   enqueueSeeds(state);

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Import France bidet locations — VERIFIED SOURCES ONLY.
+ * Import France bidet locations - VERIFIED SOURCES ONLY.
  *
  * Do NOT bulk-import mosques, halal restaurants, or generic restrooms from OSM
  * unless a public source explicitly confirms a bidet/washlet/spray is present.
@@ -58,7 +58,7 @@ if (!fs.existsSync(verifiedPath)) {
 
 const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
-// Net-new only — never strip other France rows (Booking / TOTO / Geberit / crawls).
+// Net-new only - never strip other France rows (Booking / TOTO / Geberit / crawls).
 const { mergeIntoSeed } = require('./lib/seed-merge.cjs');
 const batch = [];
 for (const item of verified) {

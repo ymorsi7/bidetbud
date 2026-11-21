@@ -9,7 +9,7 @@ function overlaps(a, b) {
 async function checkViewport(page, label, mobile) {
   const issues = [];
   if (mobile) {
-    // #noBidetToggle lives under More filters / the filter sheet — only check
+    // #noBidetToggle lives under More filters / the filter sheet - only check
     // controls that sit on the primary mobile chrome for overlap.
     const filterBtn = await page.locator('#mobileFilterBtn').boundingBox();
     const guests = await page.locator('#limitedAccessToggle').boundingBox();

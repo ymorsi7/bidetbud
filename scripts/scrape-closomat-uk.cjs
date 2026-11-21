@@ -3,8 +3,8 @@
  * Pull the Closomat "Changing Places by Closomat" map (a Google My Map) and keep
  * only the venues in the "Changing Places with a Closomat Toilet" layer.
  *
- * A Closomat is a wash-and-dry toilet — it washes with warm water and dries with
- * warm air — so those layers are per-venue bidet evidence. The second layer on the
+ * A Closomat is a wash-and-dry toilet - it washes with warm water and dries with
+ * warm air - so those layers are per-venue bidet evidence. The second layer on the
  * same map ("with a conventional toilet") is explicitly not, and is dropped.
  *
  * The map stores addresses rather than points, so postcodes are resolved through
@@ -60,7 +60,7 @@ function cityFrom(data) {
   return decode(data['Address 2'] || '').replace(/,$/, '');
 }
 
-/** api.postcodes.io bulk lookup — 100 postcodes per request. */
+/** api.postcodes.io bulk lookup - 100 postcodes per request. */
 function lookupPostcodes(postcodes) {
   const body = JSON.stringify({ postcodes });
   return new Promise((resolve, reject) => {

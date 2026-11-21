@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Merge all halal list sources into data/halal-restaurants.json, then embed
- * into halal/index.html (static site — no runtime fetch).
+ * into halal/index.html (static site - no runtime fetch).
  *
  * Sources (if present):
  *   data/zabihah-halal-restaurants.json
@@ -127,7 +127,7 @@ console.log(
 );
 if (zabihahInFile) {
   console.log(
-    `  (Zabihah.com sitemap ≈40,578 listings — beat them with Zabihah crawl + extras, not Zabihah alone)`,
+    `  (Zabihah.com sitemap ≈40,578 listings - beat them with Zabihah crawl + extras, not Zabihah alone)`,
   );
 }
 
@@ -137,7 +137,7 @@ if (zabihahRows.length > 50) {
   const ratio = zFull / zabihahRows.length;
   if (ratio > 0.85) {
     console.warn(
-      `  WARNING: ${Math.round(ratio * 100)}% of Zabihah rows are "fully halal" — run node scripts/reclassify-zabihah.cjs --import (or --instant for no network)`,
+      `  WARNING: ${Math.round(ratio * 100)}% of Zabihah rows are "fully halal" - run node scripts/reclassify-zabihah.cjs --import (or --instant for no network)`,
     );
   }
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Merge data/public-au-uk-crawl-bidets.json — public venues only.
+ * Merge data/public-au-uk-crawl-bidets.json - public venues only.
  */
 const fs = require('fs');
 const path = require('path');
@@ -15,7 +15,7 @@ const HOTEL_RE =
   /\b(hotel|motel|inn|resort|hostel|suites|lodge|marriott|hilton|hyatt|airbnb)\b/i;
 
 if (!fs.existsSync(SOURCE)) {
-  console.log(`No ${SOURCE} — nothing to import.`);
+  console.log(`No ${SOURCE} - nothing to import.`);
   process.exit(0);
 }
 

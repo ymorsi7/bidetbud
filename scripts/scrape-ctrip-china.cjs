@@ -4,7 +4,7 @@
  * Cities: Shanghai (cityId 2), Beijing (cityId 1).
  *
  * Discovery: Trip.com list search + Ctrip list HTML + DuckDuckGo site search.
- * Evidence: hotel detail pages — room names, hotel description, facility lists.
+ * Evidence: hotel detail pages - room names, hotel description, facility lists.
  *
  * Output: data/china-ctrip-bidets.json
  */

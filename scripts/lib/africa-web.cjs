@@ -27,7 +27,7 @@ const FALSE_POSITIVE =
 const ECOMMERCE_RE =
   /add\s+to\s+cart|add\s+to\s+basket|buy\s+now|order\s+on\s+whatsapp|in\s+stock|out\s+of\s+stock|sku\b|product\s+code|free\s+shipping|delivery\s+fee|price\s*:|unit\s+price|\bksh\b|\bkes\b|\bngn\b|\bzar\b|\bugx\b|\btzs\b|\bghs\b|per\s+piece|wholesale|checkout|shopping\s+cart|write\s+a\s+review|item\s*#/i;
 
-/** Venue context — the mention should be about a place, not a product. */
+/** Venue context - the mention should be about a place, not a product. */
 const VENUE_CTX_RE =
   /\b(hotel|hostel|guest\s?house|guesthouse|lodge|resort|apartment|apart[\s-]?hotel|suite|room|bathroom|en[\s-]?suite|bed\s*&?\s*breakfast|b&b|villa|chalet|restaurant|cafe|caf[eé]|mosque|masjid|masaajid|riad|inn|residence|spa)\b/i;
 
@@ -179,7 +179,7 @@ function extractTitle(html) {
   const m = html.match(/<title[^>]*>([^<]+)/i);
   if (!m) return '';
   return decodeHtml(m[1])
-    .replace(/\s*[-|–—»].*$/, '')
+    .replace(/\s*[-|- - »].*$/, '')
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, 100);

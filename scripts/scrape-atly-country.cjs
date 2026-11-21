@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
  * Deep-scrape Atly *bathroom* list pages for one country (public restaurants by default).
- * Uses scripts/lib/atly-web.cjs — only venue pages linked near bidet copy on list HTML.
+ * Uses scripts/lib/atly-web.cjs - only venue pages linked near bidet copy on list HTML.
  *
  * Note: Atly only serves bathroom lists for deep US paths in practice; UK/AU probe URLs
- * often 404 — use crawl-uk-web.cjs / crawl-anz-web.cjs for those regions.
+ * often 404 - use crawl-uk-web.cjs / crawl-anz-web.cjs for those regions.
  *
  *   node scripts/scrape-atly-country.cjs --country=UK
  *   node scripts/scrape-atly-country.cjs --country=Australia --max-lists=80 --max-locs=400

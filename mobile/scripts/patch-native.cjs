@@ -353,7 +353,7 @@ function patchAndroidManifest(file) {
   xml = ensurePermission(xml, 'android.permission.ACCESS_COARSE_LOCATION');
   xml = ensurePermission(xml, 'android.permission.ACCESS_FINE_LOCATION');
   xml = ensurePermission(xml, 'android.permission.CAMERA');
-  // Photo picker only — do not declare broad gallery access (Play Photo/Video policy).
+  // Photo picker only - do not declare broad gallery access (Play Photo/Video policy).
   xml = ensurePermissionRemoved(xml, 'android.permission.READ_MEDIA_IMAGES');
   xml = ensurePermissionRemoved(xml, 'android.permission.READ_MEDIA_VIDEO');
   xml = ensurePermissionRemoved(xml, 'android.permission.READ_EXTERNAL_STORAGE');

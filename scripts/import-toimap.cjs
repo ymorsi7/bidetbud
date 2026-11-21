@@ -15,7 +15,7 @@ const { mergeIntoSeed } = require('./lib/seed-merge.cjs');
 const SOURCE = path.join(__dirname, '../data/toimap-washlet-toilets.json');
 
 if (!fs.existsSync(SOURCE)) {
-  console.error('Missing ' + SOURCE + ' — run scripts/scrape-toimap.cjs first.');
+  console.error('Missing ' + SOURCE + ' - run scripts/scrape-toimap.cjs first.');
   process.exit(1);
 }
 

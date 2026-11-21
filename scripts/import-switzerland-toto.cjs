@@ -96,7 +96,7 @@ async function main() {
   for (const item of finder) {
     const geo = await geocode(item.address, cache);
     if (!geo || !geo.lat) {
-      console.warn('No geocode:', item.name, '—', item.address);
+      console.warn('No geocode:', item.name, ' - ', item.address);
       continue;
     }
 

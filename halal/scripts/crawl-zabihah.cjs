@@ -5,7 +5,7 @@
  *
  * Rows stream to data/zabihah-halal-restaurants.ndjson (append-only) so crawls
  * do not OOM re-stringifying a 30k+ JSON array. State keeps queue only (no
- * per-URL "done" map — that grew to ~4 MB and blew the heap).
+ * per-URL "done" map - that grew to ~4 MB and blew the heap).
  *
  *   node scripts/crawl-zabihah.cjs --minutes=120
  *   node scripts/crawl-zabihah.cjs --minutes=120 --concurrency=20

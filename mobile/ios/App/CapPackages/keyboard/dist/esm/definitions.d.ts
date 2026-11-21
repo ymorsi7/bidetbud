@@ -40,10 +40,10 @@ declare module '@capacitor/cli' {
              * Controls how the keyboard backdrop color (the area visible behind the
              * keyboard) is set every time the keyboard is about to show.
              *
-             * - `'off'` — Do not tint the backdrop.
-             * - `'auto'` — Use the `backgroundColor` set in the Capacitor config;
+             * - `'off'` - Do not tint the backdrop.
+             * - `'auto'` - Use the `backgroundColor` set in the Capacitor config;
              *   otherwise derive the color from the web app's DOM body background.
-             * - `'dom'` — Always derive the color from the web app's DOM body
+             * - `'dom'` - Always derive the color from the web app's DOM body
              *   background, ignoring the `backgroundColor` config. If the DOM
              *   has no resolvable background, the backdrop is left untouched.
              *

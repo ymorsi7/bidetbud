@@ -56,9 +56,9 @@ Bundle id **`com.bidetbud.app`**, display name **BidetBud**. Location permission
 
 > BidetBud uses your location only to find bidet spots near you.
 
-Location is **Near me only** — not tracking, not ads. `patch-native.cjs` writes that string into iOS `Info.plist` and Android `strings.xml`.
+Location is **Near me only** - not tracking, not ads. `patch-native.cjs` writes that string into iOS `Info.plist` and Android `strings.xml`.
 
-Camera / photos (Suggest a spot): iOS usage strings stay in `Info.plist`. Android keeps `CAMERA` only and **strips** `READ_MEDIA_IMAGES` / `READ_MEDIA_VIDEO` / storage — the add-spot flow uses the system photo picker, which Play treats as one-shot access. Copy:
+Camera / photos (Suggest a spot): iOS usage strings stay in `Info.plist`. Android keeps `CAMERA` only and **strips** `READ_MEDIA_IMAGES` / `READ_MEDIA_VIDEO` / storage - the add-spot flow uses the system photo picker, which Play treats as one-shot access. Copy:
 
 > BidetBud uses the camera so you can attach a photo when suggesting a spot.
 
@@ -153,10 +153,10 @@ On a Mac with `xcode-select` → `Xcode.app`:
 1. `cd mobile && npm run cap:sync`
 2. `npm run ios` and/or `npm run android` (or `open:ios` / `open:android` and Run)
 3. Confirm the map loads from the **bundled** seed (pins, count label)
-4. **Near me** — allow location; list/map should scope to you
+4. **Near me** - allow location; list/map should scope to you
 5. Open a spot via deep link (`bidetbud://open?spot=…` or `?country=` / `?view=`)
-6. **Airplane mode** — kill and reopen; bundled seed still paints the map
-7. Go **online** — if production `SEED_VER` / seed fingerprint changed, pins refresh without a store update
+6. **Airplane mode** - kill and reopen; bundled seed still paints the map
+7. Go **online** - if production `SEED_VER` / seed fingerprint changed, pins refresh without a store update
 
 ## Release (TestFlight / Play internal)
 

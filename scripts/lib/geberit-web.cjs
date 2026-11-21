@@ -20,7 +20,7 @@
  * present so geocoding can disambiguate.
  *
  * NOTE: the fully comprehensive "500+ hotels" list that powers Geberit's
- * interactive Hotel Locator (the Google-Maps widget) IS statically fetchable —
+ * interactive Hotel Locator (the Google-Maps widget) IS statically fetchable  - 
  * the widget loads a single JSON feed (see LOCATOR_URLS / fetchLocator below)
  * containing ~495 venues across ~17 countries, each with coordinates and the
  * installed AquaClean models. That feed is the primary source; these per-country
@@ -57,7 +57,7 @@ const SOURCES = [
     cc: 'ch',
     url: 'https://www.geberit.ch/badezimmerprodukte/wcs-urinale/dusch-wcs-geberit-aquaclean/testen/dusch-wc-hotel/',
   },
-  // NOTE: France is intentionally omitted — geberit.fr routes hotels through the
+  // NOTE: France is intentionally omitted - geberit.fr routes hotels through the
   // JS-only locator and its static "hotels-equipes" page merely mirrors German
   // example venues. Curated French hotels live in scrape-geberit-france-hotels.cjs.
 ];
@@ -68,7 +68,7 @@ const UA =
 
 /**
  * Geberit's interactive AquaClean "Hotel Locator" (the Google-Maps widget that
- * claims 500+ hotels) is fed by a single static JSON file — the COMPLETE
+ * claims 500+ hotels) is fed by a single static JSON file - the COMPLETE
  * European dataset (~495 venues across ~17 countries), each row already carrying
  * name, address, coordinates, phone, website and the installed AquaClean models.
  * Every locale site serves an identical copy; we try a handful for resilience.
@@ -116,7 +116,7 @@ function cityFromZipLocation(zip) {
   const original = decodeEntities(String(zip)).trim();
   // Drop a leading postcode only. Order matters, and each alternative must be a
   // whole token (followed by whitespace/end) so we don't slice the city's first
-  // letters — e.g. "6003 Luzern" must not match the NL "1931 XL" shape as
+  // letters - e.g. "6003 Luzern" must not match the NL "1931 XL" shape as
   // "6003 Lu". Alternatives: UK (SL5 7SE), NL (1931 XL), numeric (3-6 digits).
   const s = original
     .replace(
@@ -146,7 +146,7 @@ function locatorRowToSeed(r) {
   const country = CC_TO_COUNTRY[r.country] || r.country;
   let city = cityFromZipLocation(r.zip_location);
   // Fallback: some rows put only a postcode in zip_location (e.g. Czech "412 01")
-  // and the town in the address — derive city from the address minus house number.
+  // and the town in the address - derive city from the address minus house number.
   if (!city || /^\d/.test(city) || city.length < 3) {
     const addr = decodeEntities(r.address || '')
       .replace(/\s+\d+[a-z]?$/i, '')
@@ -197,7 +197,7 @@ async function fetchLocator() {
   throw new Error('Could not fetch Geberit hotel locator: ' + (lastErr && lastErr.message));
 }
 
-/** [minLat, maxLat, minLon, maxLon] per country code — reject geocoder drift. */
+/** [minLat, maxLat, minLon, maxLon] per country code - reject geocoder drift. */
 const COUNTRY_BBOX = {
   nl: [50.6, 53.7, 3.2, 7.4],
   de: [47.1, 55.2, 5.7, 15.2],

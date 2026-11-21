@@ -1,6 +1,6 @@
 /**
  * Build the browser-facing map rows: no evidence fields, no bidet-friendly
- * countries. This is what gets sealed for the API — never the research dump.
+ * countries. This is what gets sealed for the API - never the research dump.
  */
 const path = require('path');
 
@@ -61,6 +61,7 @@ function publicRow(r) {
   if (bidetType) out.bidetType = bidetType;
   if (r.searchAliases) out.searchAliases = String(r.searchAliases).slice(0, 120);
   if (access === 'limited' && r.accessNote) out.accessNote = String(r.accessNote).slice(0, 80);
+  if (r.closed === true || r.closed === 'true' || r.closed === 1) out.closed = true;
   return out;
 }
 

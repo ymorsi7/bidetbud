@@ -381,7 +381,7 @@ async function main() {
         const res = await page.goto(searchUrl(ss), { waitUntil: 'domcontentloaded', timeout: 60000 });
         const status = res && res.status();
         if (status && status >= 400) {
-          console.warn(`HTTP ${status} ${ss} — skip`);
+          console.warn(`HTTP ${status} ${ss} - skip`);
           break;
         }
         await page
@@ -396,14 +396,14 @@ async function main() {
       }
 
       if (/unusual traffic|captcha|client-challenge/i.test(html) && !html.includes('basicPropertyData')) {
-        console.warn(`challenge on ${ss} — waiting 20s`);
+        console.warn(`challenge on ${ss} - waiting 20s`);
         await sleep(20000);
         continue;
       }
 
       parsed = parsePage(html);
       if (!parsed.hotels.length) {
-        console.warn(`empty ${ss} — retry ${tries + 1}`);
+        console.warn(`empty ${ss} - retry ${tries + 1}`);
         await sleep(2000);
         continue;
       }

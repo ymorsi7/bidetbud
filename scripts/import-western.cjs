@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Append verified US/UK/Canada bidet locations from data/western-verified-bidets.json.
- * Does NOT replace existing rows — only adds net-new entries with source evidence.
+ * Does NOT replace existing rows - only adds net-new entries with source evidence.
  */
 const fs = require('fs');
 const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');

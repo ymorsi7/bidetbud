@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Extract halal restaurants from Atly bidet crawl JSON (explicit halal evidence only).
- * Writes data/halal-restaurants-seed.json only — run import-halal-all.cjs to embed.
+ * Writes data/halal-restaurants-seed.json only - run import-halal-all.cjs to embed.
  *
  *   node scripts/import-halal-atly.cjs
  */

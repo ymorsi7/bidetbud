@@ -9,7 +9,7 @@
  * - German trade press (SHK Profi, Baulinks)
  * - Official German luxury hotel sites
  *
- * Does NOT auto-import — review before adding to germany-verified-bidets.json.
+ * Does NOT auto-import - review before adding to germany-verified-bidets.json.
  */
 const fs = require('fs');
 const path = require('path');

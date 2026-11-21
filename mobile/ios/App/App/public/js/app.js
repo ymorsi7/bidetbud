@@ -1072,7 +1072,7 @@
     const shareUrl = encodeURIComponent(SITE_URL);
     const shareText = encodeURIComponent('We use BidetBud to find masajid and restaurants with bidets. Add spots your community should know about:');
     document.getElementById('thankYouContent').innerHTML =
-      '<p class="sub">Thanks — we review every submission before it goes live. Share BidetBud with a group that would use it.</p>'+
+      '<p class="sub">Thanks - we review every submission before it goes live. Share BidetBud with a group that would use it.</p>'+
       '<div class="dialog-actions share-actions">'+
       '<a class="btn btn-ghost" href="https://wa.me/?text='+shareText+'%20'+shareUrl+'" target="_blank" rel="noopener">WhatsApp</a>'+
       '<a class="btn btn-ghost" href="https://t.me/share/url?url='+shareUrl+'&text='+shareText+'" target="_blank" rel="noopener">Telegram</a>'+
@@ -1866,7 +1866,7 @@
       : 'web';
     if(Camera){
       try {
-        // Android: system photo picker only — no READ_MEDIA_IMAGES / READ_MEDIA_VIDEO.
+        // Android: system photo picker only - no READ_MEDIA_IMAGES / READ_MEDIA_VIDEO.
         if(platform === 'android' && typeof Camera.pickImages === 'function'){
           const gallery = await Camera.pickImages({ quality: 70, limit: 1 });
           const blob = await blobFromNativePhoto(gallery && gallery.photos && gallery.photos[0]);
@@ -1916,7 +1916,7 @@
       return;
     }
     box.hidden = false;
-    box.innerHTML = '<p class="add-dupe-hint">Already on the map — tap to open</p>' + hits.map(m =>
+    box.innerHTML = '<p class="add-dupe-hint">Already on the map - tap to open</p>' + hits.map(m =>
       '<button type="button" class="add-dupe" data-id="'+escapeHtml(m.id)+'">'+
       '<strong>'+escapeHtml(m.name)+'</strong>'+
       '<span>'+escapeHtml([m.city, m.country].filter(Boolean).join(', '))+'</span>'+
@@ -2212,7 +2212,7 @@
     // the map jumps; preview with a CSS scale, then commit once on finger-up.
     if(leafletMap.doubleClickZoom) leafletMap.doubleClickZoom.disable();
     const iosLike = isIOS() || isNativeApp();
-    // Keep Leaflet pinch disabled — custom CSS-scale preview avoids tile thrash
+    // Keep Leaflet pinch disabled - custom CSS-scale preview avoids tile thrash
     // on iOS WKWebView. Pan still uses Leaflet dragging.
     if(leafletMap.touchZoom) leafletMap.touchZoom.disable();
     const container = leafletMap.getContainer();
@@ -2484,7 +2484,7 @@
       worldCopyJump:true,
       tap:false,
       bounceAtZoomLimits:false,
-      // Light inertia on iOS — zero made the map feel stuck/dead.
+      // Light inertia on iOS - zero made the map feel stuck/dead.
       inertia:true,
       inertiaDeceleration:iosLike ? 2500 : 3000,
       inertiaMaxSpeed:iosLike ? 1800 : 4000,

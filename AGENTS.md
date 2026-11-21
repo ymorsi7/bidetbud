@@ -1,10 +1,10 @@
-# AGENTS.md — BidetBud
+# AGENTS.md - BidetBud
 
 Guide for AI agents and contributors working in this repository.
 
 ## Project summary
 
-**BidetBud** is a static, client-only map for finding bidet-equipped restrooms — masajid, restaurants, hotels, and public spots — in the **USA, UK, Canada, and Singapore**.
+**BidetBud** is a static, client-only map for finding bidet-equipped restrooms - masajid, restaurants, hotels, and public spots - in the **USA, UK, Canada, and Singapore**.
 
 - **Live:** [bidetbud.com](https://bidetbud.com/)
 - **Stack:** Single HTML page + CSS. No build step, no backend, no framework.
@@ -17,12 +17,45 @@ Related but separate project: [bidetbud.com](https://www.bidetbud.com/) is the S
 
 ---
 
+## Typography (hard rule)
+
+**No em dashes or en dashes anywhere in this repository.**
+
+- Forbidden Unicode: U+2014 (em dash) and U+2013 (en dash). Do not paste those glyphs into any file.
+- Use ASCII hyphen-minus `-` only (or a comma / colon / parentheses)
+- Applies to docs, UI copy, comments, commit messages you author, changelogs, and seed `sourceQuote` text we write. Prefer rewriting scraped quotes that contain them when we edit those rows.
+- Before finishing a change, search touched files for U+2014 / U+2013 and remove them.
+
+## Changelog (required)
+
+**Always update [`CHANGELOG.md`](CHANGELOG.md) in the same change set** as any user-facing, seed-policy, API, mobile, or ops work that someone would notice later. Do this **before** considering the task done - not as a follow-up, not "only if committing."
+
+| Update CHANGELOG | Skip (unless it was the whole task) |
+|------------------|-------------------------------------|
+| New/changed UI, filters, map behavior | Typo-only / comment-only edits |
+| Seed schema fields, verification rules, closed/no-bidet corrections | Pure dependency bumps with no behavior change |
+| Imports/scrapers that change what appears on the map | Re-running an existing import with zero net rows |
+| Netlify `/api/*`, seal pipeline, rate limits | Formatting / renames with identical behavior |
+| Mobile / Xcode Cloud / TestFlight path changes | |
+| Notable batch pin adds or mass corrections | Routine single-pin add with no policy change (still fine to log under **Data** if useful) |
+
+**How to write it**
+
+- Newest date section at the top (`## YYYY-MM-DD`). Reuse today’s section if it already exists.
+- Short bullets under **Map / UI**, **Data**, **Mobile**, **API**, etc.
+- Say *why it matters* (e.g. “hidden from default map”, not just “added `closed` field”).
+- Do not invent backdated epics for old unlogged work unless the user asks for a catch-up pass.
+
+Agents: if you ship a change and skip the changelog, that is an incomplete task.
+
+---
+
 ## Repository layout
 
 ```
 index.html                          BidetBud map; logic in js/app.js; seed in bidet-seed.json
 mobile/                             Capacitor iOS + Android shell (see mobile/README.md)
-halal/                              HalalBud map (index.html, seed.json, data/, scripts/) — see halal/README.md
+halal/                              HalalBud map (index.html, seed.json, data/, scripts/) - see halal/README.md
 shop/                               Affiliate shop page (index.html)
 css/app.css                         Shared UI styles (Inter font, zinc palette)
 css/github-star.css                 Footer link styles
@@ -62,7 +95,7 @@ scripts/
 **Do use:**
 
 - Vanilla JS in `js/app.js` + `js/map-api.js`
-- Styles in `css/app.css` — avoid large new inline style blocks
+- Styles in `css/app.css` - avoid large new inline style blocks
 - Node scripts in `scripts/` for data maintenance; `npm run seal` after imports
 - `npm run dev` for local static + API
 
@@ -70,7 +103,7 @@ scripts/
 
 ## Verification policy (critical)
 
-**Only add locations where a bidet is explicitly confirmed — never assume.**
+**Only add locations where a bidet is explicitly confirmed - never assume.**
 
 | OK | Not OK |
 |----|--------|
@@ -85,7 +118,7 @@ Every `internet` or `warmed` entry **must** have `sourceUrl` + `sourceQuote` cit
 
 ## Seed data (`BIDETBUD_SEED`)
 
-Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `warmed`, or `internet` appear on the map.
+Each location is a JSON object. Rows with `bidetStatus` of `verified`, `warmed`, or `internet` appear on the map by default; `none` appears in no-bidet mode / name search; `closed: true` hides the pin unless searched by name.
 
 ### Required / common fields
 
@@ -97,7 +130,7 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 | `city` | e.g. `"Berkeley, CA"` or `"East"` (SG region) |
 | `country` | `USA`, `UK`, `Canada`, or `Singapore` |
 | `type` | `mosque`, `restaurant`, `hotel`, or `public` |
-| `bidetStatus` | `verified` (user), `warmed` (heated/TOTO), `internet` (web source) |
+| `bidetStatus` | `verified` (user), `warmed` (heated/TOTO), `internet` (web source), or `none` (checked - no bidet) |
 | `access` | `public` or `limited` |
 
 ### Optional fields
@@ -110,8 +143,9 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 | `verifiedMethod` | How a verified spot was confirmed |
 | `searchAliases` | Extra search tokens; supports acronym matching (e.g. `ICSD` → Islamic Center of San Diego) |
 | `accessNote` | Shown when `access` is `limited` |
+| `closed` | `true` if permanently closed - hidden from default map/list; still findable by name search |
 
-### Example — verified masjid
+### Example - verified masjid
 
 ```js
 {
@@ -144,12 +178,12 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 | Normalization | `normalizeSeed`, `stableSeedId`, `HAS_BIDET` |
 | Search | `searchScore`, `matchesSearch`, acronym/`searchAliases` support |
 | Filters | `placeFilter` (all/mosque/restaurant), `extraFilter`, `countryFilter` |
-| URL state | `syncUrlFromState`, `applyUrlState` — params: `q`, `type`, `filter`, `country`, `near`, `radius`, `spot`, `sort`, `view` |
+| URL state | `syncUrlFromState`, `applyUrlState` - params: `q`, `type`, `filter`, `country`, `near`, `radius`, `spot`, `sort`, `view` |
 | List/map fit | `sortedLocations`, `markersForMap` / `pickMapMarkers`, `fitToSearchResults`, `fitMapToMatches`, `scheduleMapRefresh` |
 | Map | Leaflet map, `createIcon`, cluster group |
-| Types UI | `typeLabel` — maps `mosque` / `restaurant` / `hotel` / `public` |
+| Types UI | `typeLabel` - maps `mosque` / `restaurant` / `hotel` / `public` |
 | Friendly countries | `BIDET_FRIENDLY_COUNTRIES` + GeoJSON overlay (bidets common nationally) |
-| Analytics | `window.trackEvent(name, props)` — events: `bidetbud_view`, `bidetbud_add_open`, `bidetbud_promo_show`, `bidetbud_spot_open` |
+| Analytics | `window.trackEvent(name, props)` - events: `bidetbud_view`, `bidetbud_add_open`, `bidetbud_promo_show`, `bidetbud_spot_open` |
 
 ---
 
@@ -157,7 +191,7 @@ Each location is a JSON object. Only entries with `bidetStatus` of `verified`, `
 
 - Use **masajid** (not “masajed”) in all user-facing copy.
 - Internal `type` value remains `mosque`; UI label is “Masjid”.
-- Country filter chips are **generated from the seed** by `buildCountryFilters` / `renderCountryChips`: any country with at least `COUNTRY_CHIP_MIN` (10) mappable pins gets a chip, ranked by pin count. The literal in `COUNTRY_FILTERS` is only the pre-seed fallback, and `?country=` accepts any country in the data, chip or not. Because chips are re-rendered after load, `#typeChips` clicks are **delegated** — don't go back to binding each button.
+- Country filter chips are **generated from the seed** by `buildCountryFilters` / `renderCountryChips`: any country with at least `COUNTRY_CHIP_MIN` (10) mappable pins gets a chip, ranked by pin count. The literal in `COUNTRY_FILTERS` is only the pre-seed fallback, and `?country=` accepts any country in the data, chip or not. Because chips are re-rendered after load, `#typeChips` clicks are **delegated** - don't go back to binding each button.
 
 ## List/map coupling
 
@@ -167,7 +201,7 @@ anchor. Panning still re-renders the list via `scheduleMapRefresh` so distances
 stay current. Consequences to keep in mind:
 
 - When the filtered set exceeds `MAP_MARKER_CAP`, `markersForMap` ranks with the
-  same nearest-first order before slicing — never truncate in raw seed order or
+  same nearest-first order before slicing - never truncate in raw seed order or
   nearby pins disappear from the map while still showing in the list.
 - Near-me fits the map to a local cluster (`nearMeFitPins`) and reports how many
   pins fall inside the radius; the list itself stays nearest-first globally.
@@ -192,14 +226,14 @@ npm run count:public   # exits 1 until ≥3000 mappable public pins
 node scripts/normalize-seed-access.cjs   # after changing access rules
 ```
 
-Singapore community rows use `scripts/lib/map-public-access.cjs` — **handicap / family toilet**
+Singapore community rows use `scripts/lib/map-public-access.cjs` - **handicap / family toilet**
 sightings in public malls stay `public` (stall-specific notes go in `accessNote`).
 
 ## Singapore data import
 
 Source: `https://www.bidetbud.com/data/bidets.geolocation.json` (584 locations, synced from [@toiletswithbidetsg](https://www.instagram.com/toiletswithbidetsg/)).
 
-This is a **bidet-only** community map — each row is a user-submitted sighting (photo + location), not a generic toilet directory. Safe to import in bulk.
+This is a **bidet-only** community map - each row is a user-submitted sighting (photo + location), not a generic toilet directory. Safe to import in bulk.
 
 ```bash
 curl -sL "https://www.bidetbud.com/data/bidets.geolocation.json" \
@@ -248,7 +282,7 @@ Sets `bidetStatus: "internet"`, `verifiedMethod: "web-source"`, and only adds
 net-new rows (dedupes on name+coords and on `sourceUrl`). `import-africa.cjs` merges
 two sources: the curated `africa-verified-bidets.json` **and** the crawler output
 `africa-web-crawl-bidets.json` (below). Do **not** bulk-import from generic hotel
-directories — only rows where the source explicitly mentions a bidet.
+directories - only rows where the source explicitly mentions a bidet.
 
 ### Africa web crawler (long-running, "leave no stone unturned")
 
@@ -267,7 +301,7 @@ node scripts/crawl-africa-web.cjs --minutes=90 --import
 ### Global Atly crawler (public restaurants / cafés)
 
 `scripts/crawl-global-bidets.cjs` discovers Atly “best bathroom” list pages, deep-scans
-location slugs, and merges into the seed via `import-crawler-json.cjs` (fast — no Reddit geocode).
+location slugs, and merges into the seed via `import-crawler-json.cjs` (fast - no Reddit geocode).
 
 ```bash
 node scripts/crawl-global-bidets.cjs --hours=2 --import
@@ -285,7 +319,7 @@ node scripts/import-anz.cjs
 node scripts/import-china.cjs
 ```
 
-**Paraguay / Colombia:** only add rows with explicit bidet evidence (Atly bathroom copy, amenity lists, TOTO case studies). Empty Atly list pages are normal — do not bulk-import hotels without bidet proof.
+**Paraguay / Colombia:** only add rows with explicit bidet evidence (Atly bathroom copy, amenity lists, TOTO case studies). Empty Atly list pages are normal - do not bulk-import hotels without bidet proof.
 
 # crawl only (writes data/africa-web-crawl-bidets.json), import later:
 node scripts/crawl-africa-web.cjs --minutes=90
@@ -319,7 +353,7 @@ net-new rows (dedupes on name+coords, on `sourceUrl`, and on a normalized name
 key). `import-iceland-greenland.cjs` merges two sources: the curated
 `iceland-greenland-verified-bidets.json` **and** the crawler output
 `nordic-web-crawl-bidets.json` (below). Do **not** bulk-import from generic hotel
-directories — only rows where the source explicitly mentions a bidet. Bidets are
+directories - only rows where the source explicitly mentions a bidet. Bidets are
 rare here (mostly a handful of Reykjavik/Golden-Circle hotels and the Ilulissat
 hotels in Greenland).
 
@@ -328,8 +362,8 @@ hotels in Greenland).
 `scripts/crawl-nordic-web.cjs` discovers hotels/guesthouses/restaurants across
 Iceland and Greenland whose pages explicitly name a bidet / washlet / neorest /
 Geberit AquaClean / handheld sprayer. It reuses the generic Africa web-parsing
-helpers (`scripts/lib/africa-web.cjs`) — venue-schema requirement, e-commerce
-filtering, evidence-sentence extraction — and geocodes via photon **restricted to
+helpers (`scripts/lib/africa-web.cjs`) - venue-schema requirement, e-commerce
+filtering, evidence-sentence extraction - and geocodes via photon **restricted to
 IS/GL** so venues can't drift into the wrong nation.
 
 ```bash
@@ -366,7 +400,7 @@ node scripts/crawl-atly-sitemap.cjs --reset               # clear discovery + st
 
 Resumable: discovered lists live in `data/atly-bathroom-lists.json`, progress in
 `data/atly-sitemap-state.json`, rows stream to `data/atly-sitemap-bidets.json`.
-Parsing lives in `scripts/lib/atly-web.cjs` — Atly renders its editorial copy as
+Parsing lives in `scripts/lib/atly-web.cjs` - Atly renders its editorial copy as
 rich-text runs inside the Next.js payload, so the helpers rebuild those
 paragraphs before matching the bidet regex, and read coordinates from ld+json.
 Bidet-friendly countries are skipped, and a row is only kept when the venue's own
@@ -376,7 +410,7 @@ page names a bidet (not just the list page it came from).
 
 Closomat publishes a Google My Map of the Changing Places facilities it has
 installed, split into two layers. Only the "Changing Places with a Closomat
-Toilet" layer counts — a Closomat is a wash-and-dry toilet, so it is per-venue
+Toilet" layer counts - a Closomat is a wash-and-dry toilet, so it is per-venue
 bidet evidence; the "conventional toilet" layer is dropped. The map stores
 addresses rather than points, so postcodes are resolved through api.postcodes.io.
 
@@ -394,7 +428,7 @@ its equipment vocabulary, so it cannot be bulk-imported.
 
 ## OpenStreetMap bidet tags
 
-OSM records bidets under the `toilets:*` namespace — `toilets:wash=bidet_spray`
+OSM records bidets under the `toilets:*` namespace - `toilets:wash=bidet_spray`
 (handheld bidet shower), `toilets:wash=washlet` (electronic bidet seat), and the
 older `toilets:bidet=yes`. Those tags are per-object evidence, so they pass the
 verification policy.
@@ -458,13 +492,13 @@ inferred per row from phone dialling code, then website TLD, then postcode/city.
 ## Geberit AquaClean hotels import
 
 Geberit's interactive AquaClean **Hotel Locator** (the Google-Maps widget that
-advertises "500+ hotels") is powered by a single **static JSON feed** — the
+advertises "500+ hotels") is powered by a single **static JSON feed** - the
 complete European dataset of ~495 venues across ~17 countries, each row already
 carrying name, address, coordinates, phone, website and the installed AquaClean
 models. Every locale site serves an identical copy, e.g.
 `https://www.geberit.de/_assets/local-media/locators/2026-q2-hotellocator-de.json`
 (candidates listed in `LOCATOR_URLS` in `scripts/lib/geberit-web.cjs`). No
-headless browser or geocoding is needed — coordinates come straight from the feed.
+headless browser or geocoding is needed - coordinates come straight from the feed.
 
 ```bash
 node scripts/scrape-geberit-locator.cjs   # fetch feed -> data/geberit-locator-hotels.json (~495 rows, w/ coords)
@@ -486,7 +520,7 @@ postcode-only), and dirty coordinate strings (e.g. a stray trailing comma) are
 sanitized in `locatorRowToSeed`.
 
 **Legacy secondary source (optional):** per-country reference pages (Netherlands,
-Germany, Denmark, Austria, Switzerland — `SOURCES` in `geberit-web.cjs`) are
+Germany, Denmark, Austria, Switzerland - `SOURCES` in `geberit-web.cjs`) are
 still parseable as a human-readable cross-check via
 `scrape-geberit-hotels.cjs` + `geocode-geberit-hotels.cjs`, but the locator feed
 supersedes them (more venues, exact coordinates). Curated French hotels remain in
@@ -498,7 +532,7 @@ supersedes them (more venues, exact coordinates). Curated French hotels remain i
 
 Capacitor wraps the **same** static map. `sync:web` copies root assets into `mobile/www/`; the app does **not** maintain a second seed. When online, the WebView may refresh from `https://bidetbud.com/bidet-seed.json?v=<SEED_VER>` (same `SEED_VER` / `bb_seed_cache_*` keys as `index.html`).
 
-**Tracked:** `mobile/package.json`, `capacitor.config.ts`, `src/`, `scripts/`, README, `mobile/ios/App` (needed for Xcode Cloud). **Gitignored:** `mobile/android`, `mobile/www`, `mobile/node_modules`, `mobile/ios/DerivedData` — Netlify still publishes the repo root only. Fresh clone: `npm run cap:sync` (do not edit `www/` by hand).
+**Tracked:** `mobile/package.json`, `capacitor.config.ts`, `src/`, `scripts/`, README, `mobile/ios/App` (needed for Xcode Cloud). **Gitignored:** `mobile/android`, `mobile/www`, `mobile/node_modules`, `mobile/ios/DerivedData` - Netlify still publishes the repo root only. Fresh clone: `npm run cap:sync` (do not edit `www/` by hand).
 
 ```bash
 cd mobile
@@ -511,7 +545,7 @@ npm test                  # sync + smoke + deep-link unit tests
 npm run test:mobile:playwright   # www @ 390×844 (Chromium)
 ```
 
-CI: GitHub Actions workflow **`Mobile`**, job **`mobile`** (`.github/workflows/mobile.yml`) — lint, `npm test`, Playwright; no Xcode. From repo root: `npm run test:mobile`. Store / simulator / deep-link `adb` steps are in `mobile/README.md`.
+CI: GitHub Actions workflow **`Mobile`**, job **`mobile`** (`.github/workflows/mobile.yml`) - lint, `npm test`, Playwright; no Xcode. From repo root: `npm run test:mobile`. Store / simulator / deep-link `adb` steps are in `mobile/README.md`.
 
 ---
 
@@ -522,13 +556,13 @@ python3 -m http.server 8080
 # open http://localhost:8080
 ```
 
-**Do not** open `index.html` via `file://` — GeoJSON fetch and some assets need HTTP.
+**Do not** open `index.html` via `file://` - GeoJSON fetch and some assets need HTTP.
 
 ---
 
 ## UI / CSS conventions
 
-- Design: minimal 2026-style UI — Inter font, zinc/neutral palette, defined in `css/app.css`.
+- Design: minimal 2026-style UI - Inter font, zinc/neutral palette, defined in `css/app.css`.
 - Dropdowns/menus: use the `[hidden]` attribute; CSS must not override `display` on `[hidden]` elements (see `.menu-drop[hidden]` fix).
 - Search autocomplete: `#searchAc` needs high `z-index` (above map).
 - Add spot: native form + mini-map pin, submitted through Web3Forms (same key as report-incorrect).
@@ -540,11 +574,13 @@ When changing layout, test filter chips, three-dots menu, search dropdown, and m
 
 ## What to avoid
 
+- Shipping a noticeable change **without** updating `CHANGELOG.md` (see Changelog section above)
+- Using em dashes (U+2014) or en dashes (U+2013) anywhere (see Typography section above)
 - Re-introducing PWA/service worker/install banner unless explicitly requested
 - Committing unless the user asks
 - Adding secrets (.env, API keys) to the repo
-- Bloating `index.html` with unrelated refactors — keep diffs focused
-- Using `type: "restaurant"` for SG public restrooms — use `public` or `hotel` as appropriate
+- Bloating `index.html` with unrelated refactors - keep diffs focused
+- Using `type: "restaurant"` for SG public restrooms - use `public` or `hotel` as appropriate
 - Bulk-importing places of worship or restaurants without bidet-specific evidence
 
 ---
@@ -553,21 +589,23 @@ When changing layout, test filter chips, three-dots menu, search dropdown, and m
 
 | Task | Approach |
 |------|----------|
-| Add one verified spot | Append to `BIDETBUD_SEED`; set coords; optional `MANUAL` override |
+| Finish any user-facing change | Update `CHANGELOG.md` (same day section) before calling the work done |
+| Add one verified spot | Append to `BIDETBUD_SEED`; set coords; optional `MANUAL` override; `npm run seal` |
+| Mark no bidet / closed | `bidetStatus: "none"` or `closed: true`; seal; log under **Data** in CHANGELOG |
 | Bulk import region | Write a `scripts/import-*.cjs` patterned on `import-singapore.cjs` |
 | Fix coordinates | `MANUAL` in `apply-address-fixes.cjs`, then run script |
 | New filter/country | Update chip HTML, `updateFilterUi`, click handler, and `applyUrlState` |
-| UI change | Edit `css/app.css` + minimal HTML/JS in `index.html` |
+| UI change | Edit `css/app.css` + minimal HTML/JS in `index.html` / `js/` |
 | Mobile app | `cd mobile && npm run sync:web` after web/seed changes; see Mobile app section |
 
 ---
 
 ## Deployment
 
-Static files deployed to Netlify. No build command — publish repo root as-is.
+Static files deployed to Netlify. No build command - publish repo root as-is.
 
 ---
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT - see [LICENSE](LICENSE).

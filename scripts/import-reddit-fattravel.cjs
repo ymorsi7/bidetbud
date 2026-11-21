@@ -3,7 +3,7 @@
  * Import hotels named in the r/FATTravel "Hotels with Japanese toilets/washlets"
  * thread into BIDETBUD_SEED.
  *
- * Source: data/reddit-fattravel-bidets.json — each row cites the thread
+ * Source: data/reddit-fattravel-bidets.json - each row cites the thread
  * (sourceUrl + sourceQuote) as evidence of a bidet/washlet.
  *
  * Only adds net-new rows. Dedupes on name + coordinates (NOT on sourceUrl,
@@ -37,7 +37,7 @@ function toSeedRow(row) {
     verifiedMethod: row.verifiedMethod || 'web-source',
     access: row.access || 'limited',
     accessNote:
-      row.accessNote || 'Hotel guest rooms only — not open to the public',
+      row.accessNote || 'Hotel guest rooms only - not open to the public',
     ...(row.searchAliases ? { searchAliases: row.searchAliases } : {}),
   };
 }

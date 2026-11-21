@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Long-running China bidet crawler — Chinese websites only.
+ * Long-running China bidet crawler - Chinese websites only.
  *
  * Sources: Ctrip/Trip, Flyert, Qunar, Dianping, Mafengwo, Baidu/DuckDuckGo discovery.
  *
@@ -31,7 +31,7 @@ const minArg = args.find((a) => a.startsWith('--minutes='));
 const MINUTES = minArg ? Number(minArg.split('=')[1]) : 90;
 const DO_IMPORT = args.includes('--import');
 
-/** Tier-1/2 cities — Ctrip cityId + Chinese name */
+/** Tier-1/2 cities - Ctrip cityId + Chinese name */
 const CITIES = [
   { city: 'Shanghai', cityCn: '上海', id: 2 },
   { city: 'Beijing', cityCn: '北京', id: 1 },
@@ -437,7 +437,7 @@ async function main() {
   const cache = loadCache();
   let cycle = 0;
 
-  console.log(`China web crawler — ${MINUTES} min, Chinese sources focus`);
+  console.log(`China web crawler - ${MINUTES} min, Chinese sources focus`);
   console.log(`Output: ${OUT} | existing: ${rows.length} | hotel queue: ${state.hotelQueue.length}`);
 
   while (Date.now() < end) {

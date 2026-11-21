@@ -157,7 +157,7 @@ async function main() {
     return found;
   }
 
-  // Phase 1 — read each bathroom list page and collect the venues it links to.
+  // Phase 1 - read each bathroom list page and collect the venues it links to.
   const pendingLists = lists.filter((u) => !listsDone.has(u));
   process.stderr.write(
     `Lists: ${lists.length} total, ${pendingLists.length} pending. Venue queue: ${venueQueue.size}.\n`
@@ -182,7 +182,7 @@ async function main() {
   });
   persist();
 
-  // Phase 2 — check each venue page for bidet evidence.
+  // Phase 2 - check each venue page for bidet evidence.
   const pendingVenues = [...venueQueue];
   process.stderr.write(`Venues to check: ${pendingVenues.length}\n`);
   let checked = 0;

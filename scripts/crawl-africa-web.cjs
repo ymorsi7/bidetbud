@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Long-running Africa bidet crawler — African venues only.
+ * Long-running Africa bidet crawler - African venues only.
  *
  * Discovers hotels / guest houses / restaurants / masaajid across non-bidet-friendly
  * African countries whose web pages EXPLICITLY mention a bidet, shattaf / Arabic
@@ -311,7 +311,7 @@ async function processUrlBatch(state, rows, rowMap, cache, batch = 10) {
       const html = await fetchText(url, 'en');
       state.stats.pages++;
       if (!hasBidetSignal(html)) continue;
-      // Require structured venue data — filters out listicles / blogs / search pages.
+      // Require structured venue data - filters out listicles / blogs / search pages.
       if (!hasVenueSchema(html)) continue;
 
       // Determine country strictly from the search/seed context (no cross-country guessing).
@@ -401,7 +401,7 @@ async function main() {
   const rowMap = new Map(rows.map((r) => [rowKey(r), r]));
   let cycle = 0;
 
-  console.log(`Africa web crawler — ${MINUTES} min across ${COUNTRIES.length} countries`);
+  console.log(`Africa web crawler - ${MINUTES} min across ${COUNTRIES.length} countries`);
   console.log(`Output: ${OUT} | existing rows: ${rows.length} | queue: ${state.urlQueue.length}`);
 
   enqueueSeeds(state);

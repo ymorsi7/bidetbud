@@ -1,4 +1,4 @@
-BidetBud — App Review notes
+BidetBud - App Review notes
 Build: 1.0.1 (7)  |  Bundle: com.bidetbud.app  |  Apple ID: 6815273990
 
 1) How to review (no login)
@@ -20,11 +20,11 @@ Anyone can suggest a spot or an update. Submissions are emailed to us via Web3Fo
 BidetBud is a free map of restrooms that have a bidet, handheld sprayer (shattaf), or washlet. Target audience: travelers and anyone who wants a washlet-style restroom, including people who use masajid, restaurants, hotels, and public facilities.
 
 4) External services (core)
-- OpenStreetMap / Carto tile servers — map tiles
-- https://bidetbud.com/bidet-seed.json — public listing data (also bundled offline)
-- Web3Forms (api.web3forms.com) — email for suggest-a-spot and reports (no user accounts)
+- OpenStreetMap / Carto tile servers - map tiles
+- https://bidetbud.com/bidet-seed.json - public listing data (also bundled offline)
+- Web3Forms (api.web3forms.com) - email for suggest-a-spot and reports (no user accounts)
 - Device location via iOS (Near me only)
-- GoatCounter — anonymous page-view counts (no ads, no tracking SDK)
+- GoatCounter - anonymous page-view counts (no ads, no tracking SDK)
 No authentication provider, no payments, no AI API.
 
 5) Regions

@@ -18,6 +18,7 @@ const {
   verificationPlainText,
   bidetLeadLabel,
   doesNotOperate,
+  isClosed,
   boxesOverlap,
   pickMapMarkers,
   allowLimitedAccessState,
@@ -140,6 +141,12 @@ describe('verificationPlainText', () => {
       /does not operate/i
     );
   });
+  it('flags permanently closed venues', () => {
+    assert.match(
+      verificationPlainText({ closed: true, bidetStatus: 'internet' }),
+      /permanently closed/i
+    );
+  });
 });
 
 describe('doesNotOperate', () => {
@@ -149,12 +156,23 @@ describe('doesNotOperate', () => {
   });
 });
 
+describe('isClosed', () => {
+  it('reads the closed flag', () => {
+    assert.equal(isClosed({ closed: true }), true);
+    assert.equal(isClosed({ closed: false }), false);
+    assert.equal(isClosed({}), false);
+  });
+});
+
 describe('bidetLeadLabel', () => {
   it('prefers bidet type when present', () => {
     assert.equal(bidetLeadLabel({ bidetStatus: 'verified', bidetType: 'Handheld sprayer' }), 'Handheld sprayer');
   });
   it('marks no-operate countries as unavailable', () => {
     assert.equal(bidetLeadLabel({ country: 'Israel', bidetType: 'Bidet' }), 'Unavailable');
+  });
+  it('marks permanently closed venues', () => {
+    assert.equal(bidetLeadLabel({ closed: true, bidetType: 'TOTO toilet' }), 'Permanently closed');
   });
 });
 

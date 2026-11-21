@@ -28,7 +28,7 @@ if (!Array.isArray(rows)) {
   process.exit(1);
 }
 
-/** Minimal fields for the client map — drops import-only metadata and long quotes. */
+/** Minimal fields for the client map - drops import-only metadata and long quotes. */
 function slimRow(r) {
   const out = {
     name: r.name,

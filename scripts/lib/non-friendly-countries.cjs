@@ -1,5 +1,5 @@
 /**
- * Countries where bidets are the norm — skip in global crawler (matches index.html).
+ * Countries where bidets are the norm - skip in global crawler (matches index.html).
  */
 const BIDET_FRIENDLY_COUNTRIES = new Set([
   'Japan',

@@ -89,7 +89,7 @@ function venueName(html, url) {
     : '';
   if (!t || /closomat|changing places|blog/i.test(t)) {
     const title = html.match(/<title[^>]*>([^<]+)/i);
-    t = title ? decodeHtml(title[1]).replace(/\s*[|\-–].*$/, '').trim() : '';
+    t = title ? decodeHtml(title[1]).replace(/\s*[|\--].*$/, '').trim() : '';
   }
   t = t
     .replace(/^Changing Places (?:at|by Closomat at)\s+/i, '')

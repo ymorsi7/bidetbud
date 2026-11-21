@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Bulk-extract Zabihah venues from subregion + city listing pages (~50–100 venues/page).
+ * Bulk-extract Zabihah venues from subregion + city listing pages (~50-100 venues/page).
  * Much higher yield than re-fetching individual restaurant URLs already in the sitemap crawl.
  *
  *   node scripts/crawl-zabihah-listings.cjs --minutes=60

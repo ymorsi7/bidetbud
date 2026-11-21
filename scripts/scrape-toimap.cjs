@@ -3,7 +3,7 @@
  * Download every TOIMAP public toilet whose Washlet flag is true.
  *
  * TOIMAP (toimap.jp) is a Japan toilet map. Each Firestore row has a boolean
- * Washlet / 温水洗浄便座 field — that is per-venue bidet evidence. Rows with
+ * Washlet / 温水洗浄便座 field - that is per-venue bidet evidence. Rows with
  * Washlet=false are dropped.
  *
  *   node scripts/scrape-toimap.cjs

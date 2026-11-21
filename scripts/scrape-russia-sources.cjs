@@ -11,7 +11,7 @@
  * - level.travel Russia hotel descriptions
  * - Official .ru hotel room pages (curated URL list)
  *
- * Does NOT auto-import — human must verify each row before adding to
+ * Does NOT auto-import - human must verify each row before adding to
  * data/russia-verified-bidets.json (AGENTS.md policy).
  */
 const fs = require('fs');
@@ -25,7 +25,7 @@ const DELAY_MS = 1200;
 const BIDET_RE =
   /\b(биде|бидэ|washlet|neorest|гигиеническ(?:ий|ого)\s+душ|умн(?:ый|ого)\s+унитаз|крышк[аи]-биде)\b/i;
 
-/** Curated Russian-source URLs — expand as new hotels are found */
+/** Curated Russian-source URLs - expand as new hotels are found */
 const SEED_URLS = [
   // newtoto.ru Russia projects
   'https://newtoto.ru/category/projects/restoran-marukame/',
@@ -112,7 +112,7 @@ function guessName(url, text) {
   const title = text.match(/<title[^>]*>([^<]+)/i);
   if (title) {
     return title[1]
-      .replace(/\s*[-|–].*$/, '')
+      .replace(/\s*[-|-].*$/, '')
       .replace(/\s+/g, ' ')
       .trim()
       .slice(0, 80);

@@ -68,7 +68,7 @@ html.capacitor-native textarea{
   max-width:100%;
 }
 
-/* Full-screen Suggest a spot page — not a popup. */
+/* Full-screen Suggest a spot page - not a popup. */
 html.capacitor-native body.add-screen-open .shell{
   display:none!important;
 }

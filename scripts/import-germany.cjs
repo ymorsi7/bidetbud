@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Import Germany bidet locations — VERIFIED SOURCES ONLY.
+ * Import Germany bidet locations - VERIFIED SOURCES ONLY.
  *
  * Allowed sources:
  * - TOTO Europe / Geberit manufacturer references
@@ -60,7 +60,7 @@ if (!fs.existsSync(verifiedPath)) {
 const existing = readSeed();
 const verified = JSON.parse(fs.readFileSync(verifiedPath, 'utf8'));
 
-// Net-new only — never strip other Germany rows (TOTO try / Geberit / Booking).
+// Net-new only - never strip other Germany rows (TOTO try / Geberit / Booking).
 const { mergeIntoSeed } = require('./lib/seed-merge.cjs');
 const batch = [];
 for (const item of verified) {

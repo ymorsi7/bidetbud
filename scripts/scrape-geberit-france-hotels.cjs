@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Geberit AquaClean hotels in France — curated from geberit-alba.fr testimonials,
+ * Geberit AquaClean hotels in France - curated from geberit-alba.fr testimonials,
  * Geberit press (THP News), and French trade press.
  *
  * The interactive hotel map on geberit.fr loads markers client-side only; this script
@@ -12,7 +12,7 @@ const path = require('path');
 
 const OUT = path.join(__dirname, '../data/geberit-france-hotels.json');
 
-/** Verified France hotels with Geberit AquaClean — each row has sourceUrl + sourceQuote */
+/** Verified France hotels with Geberit AquaClean - each row has sourceUrl + sourceQuote */
 const GEBERIT_FRANCE_HOTELS = [
   {
     name: 'Hostellerie de Levernois',

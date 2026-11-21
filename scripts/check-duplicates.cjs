@@ -78,7 +78,7 @@ const exactCoordDups = [...byCoord.values()].filter((g) => g.length > 1);
 console.log(`=== 1. Exact coordinate collisions (5dp): ${exactCoordDups.length} groups ===`);
 exactCoordDups.forEach((g) => {
   console.log(`  @ ${g[0].latitude},${g[0].longitude}`);
-  g.forEach((r) => console.log(`     [#${r.__i}] ${r.name} — ${r.city || ''}, ${r.country || ''} (${r.bidetStatus})`));
+  g.forEach((r) => console.log(`     [#${r.__i}] ${r.name} - ${r.city || ''}, ${r.country || ''} (${r.bidetStatus})`));
 });
 console.log();
 
@@ -96,8 +96,8 @@ for (const [nk, rows] of groups) {
       if (d < 75) {
         nameCoordDupCount++;
         console.log(`  ~${Math.round(d)}m apart:`);
-        console.log(`     [#${ra.__i}] ${ra.name} — ${ra.city || ''}, ${ra.country || ''} @ ${ra.latitude},${ra.longitude} (${ra.bidetStatus})`);
-        console.log(`     [#${rb.__i}] ${rb.name} — ${rb.city || ''}, ${rb.country || ''} @ ${rb.latitude},${rb.longitude} (${rb.bidetStatus})`);
+        console.log(`     [#${ra.__i}] ${ra.name} - ${ra.city || ''}, ${ra.country || ''} @ ${ra.latitude},${ra.longitude} (${ra.bidetStatus})`);
+        console.log(`     [#${rb.__i}] ${rb.name} - ${rb.city || ''}, ${rb.country || ''} @ ${rb.latitude},${rb.longitude} (${rb.bidetStatus})`);
       }
     }
   }
@@ -118,7 +118,7 @@ for (const [nk, rows] of groups) {
   }
   for (const [key, rs] of seen) {
     if (rs.length < 2) continue;
-    // Skip ones already reported as within-75m (they'd overlap) — still show for completeness
+    // Skip ones already reported as within-75m (they'd overlap) - still show for completeness
     nameCityDupCount++;
     console.log(`  "${rs[0].name}" (${rs[0].city}, ${rs[0].country}) x${rs.length}`);
     rs.forEach((r) => console.log(`     [#${r.__i}] @ ${r.latitude},${r.longitude} (${r.bidetStatus})`));

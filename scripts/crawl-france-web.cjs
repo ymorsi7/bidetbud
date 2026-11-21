@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Long-running France bidet crawler — French websites and FR-market sources.
+ * Long-running France bidet crawler - French websites and FR-market sources.
  *
  * Usage:
  *   node scripts/crawl-france-web.cjs --minutes=90
@@ -221,8 +221,8 @@ function toRow(parsed, city, sourceLabel) {
     access: /showroom|distributeur/i.test(parsed.name || '') ? 'public' : 'limited',
     accessNote:
       /showroom|distributeur/i.test(parsed.name || '')
-        ? 'Showroom — horaires sur place'
-        : 'Clients de l\'établissement — vérifier avant visite',
+        ? 'Showroom - horaires sur place'
+        : 'Clients de l\'établissement - vérifier avant visite',
   };
 }
 
@@ -494,7 +494,7 @@ async function main() {
   const cache = loadCache();
   let cycle = 0;
 
-  console.log(`France web crawler — ${MINUTES} min`);
+  console.log(`France web crawler - ${MINUTES} min`);
   console.log(`Output: ${OUT} | existing: ${rows.length}`);
 
   enqueueSeeds(state);

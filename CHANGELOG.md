@@ -2,25 +2,72 @@
 
 BidetBud started as **BidetBeacon** on [ymorsi7.github.io](https://github.com/ymorsi7/ymorsi7.github.io) (`new/bidetbeacon.html`). It moved to this repo on **2026-07-02**. Commits before that date are in the github.io repo; commits after are here.
 
-Format: newest first. Skips routine “added N pins” commits unless it was a big batch.
+Format: newest first. Skips routine “added N pins” commits unless it was a big batch. **Every user-facing or seed-policy change must land here in the same PR/commit** (see `AGENTS.md`).
 
-## 2026-09-15
+## 2026-11-21
 
-**Mobile (Capacitor)**
+**Map / seed quality**
 
-- iOS + Android shell under `mobile/` wrapping the same static map (offline `sync:web` → `www/`, optional live refresh of `bidet-seed.json` from bidetbud.com)
-- Capacitor 8, bundle id `com.bidetbud.app`, custom scheme `bidetbud://open?spot=&view=&country=`
-- Smoke, deep-link unit tests, Playwright at 390×844; GitHub Actions job `Mobile` / `mobile` (no Xcode)
-- Native trees (`ios/`, `android/`, `www/`) stay gitignored so Netlify still publishes the repo root
+- **Permanently closed** venues: seed field `closed: true`. Hidden from the default map/list; still findable by name search with a Closed badge, grey marker, and detail banner. Report form already had “Permanently closed” - apply this flag when those reports check out.
+- Marked **Zauo** (152 W 24th St, NYC) permanently closed
+- Corrected **Five Guys** (56 W 14th St, NYC): in-person check → `bidetStatus: "none"` (Atly “bidet toilets” claim was wrong)
+- `isClosed` in `js/core.js`; `closed` passed through `normalizeSeed`, slim seed, and sealed public rows
+- **AGENTS.md**: changelog is required on every noticeable change; **no em dashes** (U+2014) or en dashes (U+2013) anywhere in the repo (use ASCII `-`)
+
+## 2026-11-18
+
+**Mobile / TestFlight (Xcode Cloud)**
+
+- Wired **Xcode Cloud** archive path for App Store / TestFlight (`mobile/ios/App/App.xcodeproj`, shared `App` scheme, vendored CapPackages / CapApp-SPM)
+- Fixed SPM resolve on Cloud (no more `node_modules`-only package paths)
+- Xcode 26+ ad-hoc archive fix: Release sets `CODE_SIGNING_ALLOWED = NO` so Cloud can archive with `CODE_SIGN_IDENTITY=-` and re-sign on export
+- App Store review assets and reply notes under `mobile/store/ios/`
+- App bug fixes and UI polish on the Capacitor shell
+
+**Data**
+
+- Location coordinate accuracy audit + duplicate cleanup
+- Form masajid fills and SoCal naming conflict fixes (earlier in the week: 2026-11-12)
+
+## 2026-11-10
+
+**API / privacy**
+
+- Map pins no longer ship as a public `bidet-seed.json` dump
+- Sealed AES blob (`npm run seal` → `netlify/functions/_data/map-seed.enc`) served via rate-limited `/api/*` (session, spots, search, spot, meta, bootstrap)
+- Plaintext research `data/` stays gitignored; sample seed for OSS
+- Full-map boot via one `/api/bootstrap` request; sealed-seed path fix inside Netlify function bundles
+- Mobile CI no longer depends on a root plaintext seed file
+
+## 2026-11 (early)
+
+- Map/tile and UX follow-ups (`maps`, issue closes)
+- Ongoing pin and copy updates ahead of the sealed-API cutover
+
+## 2026-10 (late)
+
+**Map / UI**
+
+- **No-bidet** listings (`bidetStatus: "none"`): shown in no-bidet mode or when searching by name, with distinct list/detail styling
+- Search improvements (scoring / name matching in `js/search-seed.js`)
+- UI fixes on web + iOS (filters, detail sheet, native polish)
+
+**Data**
+
+- Philippines location imports
+- Batch pin adds, form imports, Dallas masjid / IACC naming fixes
+- Kafi BBQ and other community spots
+- Pin duplicate removal
+- Carto Voyager basemap key read from `window.BIDETBUD_CARTO_KEY` (secret not committed)
 
 ## 2026-10 (early)
 
 **Map/list rework**
 
-- The sidebar list is now **scoped to the map view** — panning or zooming re-renders it, and the count line reads "N places in view of M". Previously the list was global and alphabetical, so the map could sit over North America while the first card was a toilet in Singapore
+- The sidebar list is **scoped to the map view** - panning or zooming re-renders it, and the count line reads "N places in view of M". Previously the list was global and alphabetical, so the map could sit over North America while the first card was a toilet in Singapore
 - Typing a query **flies the map to the matches** instead of leaving them off-screen in a distant cluster
-- Default sort is **closest to the map centre** (or to you, with Near me); added a **Closest / Verified first / A–Z** sort control
-- **Country chips are generated from the seed** (any country with 10+ pins, ranked by count) instead of ten hard-coded names — Austria, Switzerland, Netherlands, Belgium and Denmark are now filterable, and `?country=` accepts anything in the data
+- Default sort is **closest to the map centre** (or to you, with Near me); added a **Closest / Verified first / A-Z** sort control
+- **Country chips are generated from the seed** (any country with 10+ pins, ranked by count) instead of ten hard-coded names - Austria, Switzerland, Netherlands, Belgium and Denmark are now filterable, and `?country=` accepts anything in the data
 - Shareable **`view=lat,lng,zoom`** and **`sort=`** URL params, so a copied link reproduces what you were looking at
 - Empty views get a **"Show all N"** escape hatch rather than a dead end
 - Fixed: mobile filter toggles rendered as **unlabelled icons** below 420px (a bare padlock for "Guests only"); the icon drops instead of the label now
@@ -31,18 +78,35 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 **Data**
 
 - **Open-access** pins ~**2,460+** on the default map (was ~2,120); **`npm run count:public`** gates releases at **3,000**
-- Singapore `@toiletswithbidetsg` import: handicap / family-toilet sightings count as **public** (mall & hawker restrooms, not “limited”)
+- Singapore `@toiletswithbidetsg` import: handicap / family-toilet sightings count as **public** (mall and hawker restrooms, not "limited")
 - `scripts/lib/map-public-access.cjs`, `normalize-seed-access.cjs`, `count-mappable-public.cjs`
 - Atly global crawler **`--slug-burst=`** for batch slug deep-scans; `import-crawler-json.cjs` (fast merge, no Reddit geocode)
 - Fixed stale `if (!match)` guards in several `import-*.cjs` scripts (seed lives in JSON now, not `index.html`)
 - `import-france.cjs` keeps TOTO Try WASHLET + Geberit rows when refreshing curated France data
 - Re-synced TOTO Try WASHLET finder (~1,310 EU showrooms, `access: public`)
-- Reddit + Atly crawl merges: hundreds of **public** restaurant/coffee rows (USA, UK, Canada, France, …)
+- Reddit + Atly crawl merges: hundreds of **public** restaurant/coffee rows (USA, UK, Canada, France, and more)
 - Country filters: **Germany**, **Australia**, **Mexico** (desktop + mobile sheet)
 - Slim seed carries `verifiedMethod` again so trust lines work from JSON fetch
 - Import scripts dedupe on **source URL + venue name** (one article can cite many hotels)
 - JSON-LD `WebSite` on the map home page
 - Seed cache **`20261005a`**
+
+## 2026-09-23 to 2026-09-30
+
+- **Privacy** page and other App Store / store-listing friendly pages
+- App Store dependency and asset prep; UI/UX passes on web and native
+- Islamic Center of Tucson and other single-spot adds
+- Capacitor app assets and store adjustments
+
+## 2026-09-15
+
+**Mobile (Capacitor)**
+
+- iOS + Android shell under `mobile/` wrapping the same static map (offline `sync:web` -> `www/`, optional live refresh of seed from bidetbud.com)
+- Capacitor 8, bundle id `com.bidetbud.app`, custom scheme `bidetbud://open?spot=&view=&country=`
+- Smoke, deep-link unit tests, Playwright at 390x844; GitHub Actions job `Mobile` / `mobile` (no Xcode)
+- Native trees (`ios/`, `android/`, `www/`) stay gitignored so Netlify still publishes the repo root
+- Same-day UI/UX, popup, and footer fixes on the main site
 
 ## 2026-09 (late)
 
@@ -81,32 +145,32 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 
 ## 2026-07 (this repo)
 
-- **2026-07-02** — Repo created; files migrated from GitHub Pages (~408 pins, USA / UK / Canada). `bidetbeacon.html` removed from github.io; `/bidetbeacon` redirects to [bidetbud.com](https://bidetbud.com/)
-- **2026-07-04** — Renamed BidetBeacon → BidetBud in code and domain
-- **2026-07-05** — Portfolio footer links on github.io updated to bidetbud.com
+- **2026-07-02** - Repo created; files migrated from GitHub Pages (~408 pins, USA / UK / Canada). `bidetbeacon.html` removed from github.io; `/bidetbeacon` redirects to [bidetbud.com](https://bidetbud.com/)
+- **2026-07-04** - Renamed BidetBeacon → BidetBud in code and domain
+- **2026-07-05** - Portfolio footer links on github.io updated to bidetbud.com
 - Singapore community data imported ([@toiletswithbidetsg](https://www.instagram.com/toiletswithbidetsg/))
 - Bulk imports: TOTO WASHLET references, Geberit AquaClean hotels, Russia / China / Africa / Mexico crawlers
 - “Report incorrect info” and “no bidet here” on the add-spot form
 - Async seed load (`bidet-seed.json`) so the map opens faster ([#1](https://github.com/ymorsi7/bidetbud/pull/1))
-- **HalalBud** — separate halal restaurant map ([#2](https://github.com/ymorsi7/bidetbud/pull/2)); now served at `/halal/`
+- **HalalBud** - separate halal restaurant map ([#2](https://github.com/ymorsi7/bidetbud/pull/2)); now served at `/halal/`
 - Search: acronym matching (e.g. ICSD → Islamic Center of San Diego)
 - Filter overlay and legend UI fixes
 - Add-spot form moved to Web3Forms (was FormSubmit on GitHub Pages)
 
-## 2026-06 (GitHub Pages — BidetBeacon)
+## 2026-06 (GitHub Pages - BidetBeacon)
 
 Hosted at `ymorsi7.github.io/new/bidetbeacon.html`, linked from the portfolio site footer.
 
-- **2026-06-03** — First public version: Leaflet map, ~40 verified masajid and restaurants (USA, UK, Canada)
+- **2026-06-03** - First public version: Leaflet map, ~40 verified masajid and restaurants (USA, UK, Canada)
 - Same day: bulk seed import brought the list to ~200 pins
 - Add-spot form (FormSubmit), search, masjid/restaurant filters, map legend (verified / heated / web)
 - GoatCounter analytics; GitHub star link in footer
-- **2026-06-04** — Green overlay for bidet-friendly countries; custom favicon; YouTube demo link in footer; promo popup asking visitors to submit spots; first form submissions merged in; geocode helper script (`apply-address-fixes.cjs`)
-- **2026-06-06** — +25 verified locations in one batch
-- Through **2026-06-30** — Steady community additions; ~408 pins total (340 USA, 46 UK, 22 Canada)
+- **2026-06-04** - Green overlay for bidet-friendly countries; custom favicon; YouTube demo link in footer; promo popup asking visitors to submit spots; first form submissions merged in; geocode helper script (`apply-address-fixes.cjs`)
+- **2026-06-06** - +25 verified locations in one batch
+- Through **2026-06-30** - Steady community additions; ~408 pins total (340 USA, 46 UK, 22 Canada)
 
 ---
 
-**Counts (approx., `main` today):** ~3,870 seed rows; **~2,460** mappable **open access** pins — run `node scripts/scrape-atly-na.cjs` + `import-na-bidets.cjs` / global list bursts to push past **3,000** (`npm run count:public`).
+**Counts (approx., `main` today):** ~3,870 seed rows; **~2,460** mappable **open access** pins - run `node scripts/scrape-atly-na.cjs` + `import-na-bidets.cjs` / global list bursts to push past **3,000** (`npm run count:public`).
 
 Pre-migration git history: `git log --oneline -- new/bidetbeacon.html` in [ymorsi7/ymorsi7.github.io](https://github.com/ymorsi7/ymorsi7.github.io). Post-migration: `git log --oneline` here.

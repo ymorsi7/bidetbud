@@ -3,8 +3,8 @@
  * Append verified African bidet locations into BIDETBUD_SEED.
  *
  * Sources (merged, in order):
- *   1. data/africa-verified-bidets.json   — hand-curated, cited rows
- *   2. data/africa-web-crawl-bidets.json  — output of crawl-africa-web.cjs (optional)
+ *   1. data/africa-verified-bidets.json   - hand-curated, cited rows
+ *   2. data/africa-web-crawl-bidets.json  - output of crawl-africa-web.cjs (optional)
  *
  * Only adds net-new rows that carry explicit source evidence (sourceUrl +
  * sourceQuote). Never replaces existing rows.

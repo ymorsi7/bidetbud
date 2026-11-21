@@ -58,7 +58,7 @@ const MANUAL = {
       bidetType: 'Bidet (bidé)',
       sourceUrl: 'https://hotel-plaza-garibaldi.mexico-hotels-mx.com/es/',
       sourceQuote:
-        'Guest review on hotel listing (ES): \"Realmente disfruté de un bidé en el baño personal\" — separate bidé fixture noted in room bathroom.',
+        'Guest review on hotel listing (ES): \"Realmente disfruté de un bidé en el baño personal\" - separate bidé fixture noted in room bathroom.',
       verifiedMethod: 'web-source',
       access: 'limited',
       accessNote: 'Hotel guests; verify room type',
@@ -199,7 +199,7 @@ async function main() {
         if (!row) {
           const quote = extractQuote(html);
           if (!quote) continue;
-          // Atly list page hit — skip, handled by scrape-atly-latam
+          // Atly list page hit - skip, handled by scrape-atly-latam
           if (url.includes('atly.com/best/')) continue;
           row = {
             name: url.split('/').filter(Boolean).pop().replace(/-/g, ' '),

@@ -33,7 +33,7 @@ const RUN_MS =
   (minutesIdx >= 0 ? Number(args[minutesIdx + 1]) : 90) * 60 * 1000;
 const DELAY_MS = delayIdx >= 0 ? Number(args[delayIdx + 1]) : 900;
 
-/** Match explicit bidet evidence — NOT generic nav "Для биде" product links */
+/** Match explicit bidet evidence - NOT generic nav "Для биде" product links */
 const BIDET_PATTERNS = [
   /биде/gi,
   /бидэ/gi,
@@ -106,7 +106,7 @@ function guessName(url, html) {
   const title = html.match(/<title[^>]*>([^<]+)/i);
   if (title) {
     return title[1]
-      .replace(/\s*[-|–|—].*$/, '')
+      .replace(/\s*[-|-| - ].*$/, '')
       .replace(/\s+/g, ' ')
       .trim()
       .slice(0, 100);
@@ -163,7 +163,7 @@ function fetchUrl(url) {
   });
 }
 
-/** 101hotels Russia city slugs — crawl hotel listing pages for /rooms links */
+/** 101hotels Russia city slugs - crawl hotel listing pages for /rooms links */
 const HOTELS_101_CITIES = [
   'moskva', 'sankt-peterburg', 'sochi', 'anapa', 'gelendjik', 'tuapse',
   'krasnodar', 'kazan', 'ekaterinburg', 'novosibirsk', 'vladivostok',

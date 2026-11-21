@@ -61,7 +61,7 @@ function loadSeed() {
   const paths = resolveDataPaths();
   if (!paths) {
     const err = new Error(
-      'Sealed map seed missing — run node scripts/seal-map-seed.cjs (searched: '
+      'Sealed map seed missing - run node scripts/seal-map-seed.cjs (searched: '
       + candidateDataDirs().slice(0, 6).join(', ') + ')'
     );
     err.status = 503;

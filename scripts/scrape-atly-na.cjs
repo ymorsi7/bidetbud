@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Scrape Atly "best bathroom" lists — pre-filter list HTML for bidet evidence, then geocode.
+ * Scrape Atly "best bathroom" lists - pre-filter list HTML for bidet evidence, then geocode.
  * Output: data/atly-na-bidets.json
  */
 const fs = require('fs');
@@ -161,7 +161,7 @@ function extractBidetCandidates(html, listUrl) {
     addFromWindow(html.slice(start, end), url);
   }
 
-  // Pass 2: bidet mention may sit far from slug in large list pages — walk to nearest slug
+  // Pass 2: bidet mention may sit far from slug in large list pages - walk to nearest slug
   const bidetWalk = new RegExp(BIDET_RE.source, 'gi');
   let bm;
   while ((bm = bidetWalk.exec(html))) {

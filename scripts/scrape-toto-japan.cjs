@@ -14,7 +14,7 @@ const SEARCH_PAGES = [
   'https://info.jp.toto.com/com-et/jirei/search/index.htm?A=08&C=99&p=2',
 ];
 
-/** Photon misses Japanese names — hand-verified coordinates */
+/** Photon misses Japanese names - hand-verified coordinates */
 const MANUAL_GEO = {
   '2644': {
     lat: '43.0618',

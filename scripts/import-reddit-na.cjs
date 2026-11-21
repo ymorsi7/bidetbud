@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Geocode Reddit NA leads and import verified-looking entries into seed.
- * Reads data/reddit-na-raw.json — requires bidet in snippet + successful geocode.
+ * Reads data/reddit-na-raw.json - requires bidet in snippet + successful geocode.
  */
 const fs = require('fs');
 const { readSeed, writeSeed } = require('./lib/bidet-seed.cjs');

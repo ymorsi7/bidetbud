@@ -1540,7 +1540,7 @@
     "city": "Chandler, AZ",
     "country": "USA"
   },
-  "US|1124 Boylston St, Boston, MA, 02115 Phone:(617) 936-3955 Restaurant Hours: Sun-Thurs:10:00 AM – 12:00 AM Fri-Sat:10:00 AM – 2:00, USA": null,
+  "US|1124 Boylston St, Boston, MA, 02115 Phone:(617) 936-3955 Restaurant Hours: Sun-Thurs:10:00 AM - 12:00 AM Fri-Sat:10:00 AM - 2:00, USA": null,
   "US|Shahs Halal Food, Boston, USA": {
     "latitude": "42.3467379",
     "longitude": "-71.0889394",
@@ -1802,7 +1802,7 @@
     "city": "Arizona",
     "country": "USA"
   },
-  "US|200 Edgewood Ave NE, Atlanta, GA 30303 Phone:(404) 549-7256 Restaurant Hours: Mon-Thurs:11:00 AM – 12:00 AM Fri:11:00 AM – 02:00, USA": null,
+  "US|200 Edgewood Ave NE, Atlanta, GA 30303 Phone:(404) 549-7256 Restaurant Hours: Mon-Thurs:11:00 AM - 12:00 AM Fri:11:00 AM - 02:00, USA": null,
   "US|Shahs Halal Food, Atlanta, USA": {
     "latitude": "41.4051724",
     "longitude": "-73.4183867",
@@ -2357,7 +2357,7 @@
     "city": "Washington, DC",
     "country": "USA"
   },
-  "US|1331 Connecticut Ave NW, Washington, DC 20036 Phone:(202) 438-7646 Restaurant Hours: Mon-Sat:10:30 AM – 04:00 AM Sun:10:30 AM –, USA": null,
+  "US|1331 Connecticut Ave NW, Washington, DC 20036 Phone:(202) 438-7646 Restaurant Hours: Mon-Sat:10:30 AM - 04:00 AM Sun:10:30 AM -, USA": null,
   "US|Shahs Halal Food, Washington, USA": {
     "latitude": "38.9081346",
     "longitude": "-77.042299",

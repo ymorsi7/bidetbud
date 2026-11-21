@@ -15,7 +15,7 @@
   const LIVE_ORIGIN = 'https://bidetbud.com';
 
   function isNativeShell() {
-    // Only the real Capacitor runtime — not the CSS class sync-web adds for layout
+    // Only the real Capacitor runtime - not the CSS class sync-web adds for layout
     // (Playwright serves www with that class but still needs same-origin /api stubs).
     try {
       return !!(
@@ -29,7 +29,7 @@
   }
 
   function apiOrigin() {
-    // Capacitor WebView origin is capacitor://localhost / https://localhost —
+    // Capacitor WebView origin is capacitor://localhost / https://localhost  - 
     // talk to production for map pins (CapacitorHttp bypasses CORS).
     if (isNativeShell()) return LIVE_ORIGIN;
     return location.origin;
@@ -102,7 +102,7 @@
         countries: data.countries || [],
         spots: data.spots,
       }));
-    } catch (e) { /* quota — ignore */ }
+    } catch (e) { /* quota - ignore */ }
   }
 
   function applyBootstrap(data) {

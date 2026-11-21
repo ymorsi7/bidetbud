@@ -13,7 +13,7 @@ const { mergeIntoSeed } = require('./lib/seed-merge.cjs');
 const SOURCE = path.join(__dirname, '../data/closomat-uk-bidets.json');
 
 if (!fs.existsSync(SOURCE)) {
-  console.error(`Missing ${SOURCE} — run scripts/scrape-closomat-uk.cjs first.`);
+  console.error(`Missing ${SOURCE} - run scripts/scrape-closomat-uk.cjs first.`);
   process.exit(1);
 }
 

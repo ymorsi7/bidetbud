@@ -9,7 +9,7 @@ const path = require('path');
 
 const seed = readSeed();
 
-/** Official / verified coordinates — override geocoder when present */
+/** Official / verified coordinates - override geocoder when present */
 const MANUAL = {
   'Berkeley Masjid': {
     latitude: '37.8619778',
