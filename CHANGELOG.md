@@ -4,6 +4,18 @@ BidetBud started as **BidetBeacon** on [ymorsi7.github.io](https://github.com/ym
 
 Format: newest first. Skips routine “added N pins” commits unless it was a big batch. **Every user-facing or seed-policy change must land here in the same PR/commit** (see `AGENTS.md`).
 
+## 2026-11-22
+
+**Map / UI**
+
+- New **Bidet blog** at `/blog/` (same topbar/footer chrome as Privacy/Shop)
+- Footer + menu links: Blog and [github.com/ymorsi7/bidetbud](https://github.com/ymorsi7/bidetbud)
+- First post: Nov 21 Astoria field note with muted portrait video of the Moka & Co sprayer
+
+**Data**
+
+- Added **Moka & Co** (28-54 Steinway St, Astoria, NY) as `verified` - in-person bidet confirmation
+
 ## 2026-11-21
 
 **Mobile / Xcode Cloud**

@@ -1,0 +1,117 @@
+/* BidetBud blog: scrollable page chrome matching privacy/shop. */
+html.page-blog,
+html.page-blog body{
+  overflow:auto;
+  height:auto;
+  min-height:100%;
+  min-height:100dvh;
+  overscroll-behavior:auto;
+}
+html.page-blog .shell{
+  height:auto;
+  min-height:100dvh;
+}
+html.page-blog .site-footer{display:block}
+
+html.page-blog .topbar-inner{
+  display:flex;
+  max-width:720px;
+  width:100%;
+}
+
+.blog-main{
+  flex:1;
+  width:100%;
+  max-width:720px;
+  margin:0 auto;
+  padding:28px 20px 64px;
+}
+.blog-main > h1{
+  font-size:1.75rem;
+  font-weight:700;
+  letter-spacing:-.04em;
+  line-height:1.2;
+  margin:0 0 8px;
+}
+.blog-lede{
+  color:var(--muted);
+  font-size:.9375rem;
+  font-weight:500;
+  margin:0 0 36px;
+  line-height:1.5;
+}
+
+.blog-post{
+  margin:0 0 48px;
+  padding:0 0 40px;
+  border-bottom:1px solid var(--line);
+}
+.blog-post:last-of-type{
+  border-bottom:none;
+  padding-bottom:0;
+  margin-bottom:0;
+}
+.blog-post-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px 12px;
+  align-items:center;
+  color:var(--muted);
+  font-size:.8125rem;
+  font-weight:500;
+  margin:0 0 12px;
+}
+.blog-post-meta time{color:var(--muted)}
+.blog-post-loc{color:var(--brand-deep);font-weight:600}
+.blog-post h2{
+  font-size:1.35rem;
+  font-weight:700;
+  letter-spacing:-.03em;
+  line-height:1.25;
+  margin:0 0 16px;
+}
+.blog-post p{
+  color:var(--text);
+  font-size:.975rem;
+  line-height:1.65;
+  margin:0 0 14px;
+}
+.blog-post a{color:var(--brand-deep)}
+
+.blog-video{
+  margin:24px 0 8px;
+  border-radius:var(--radius-sm);
+  overflow:hidden;
+  background:#0a0a0a;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-sm);
+  max-width:360px;
+}
+.blog-video video{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:9 / 16;
+  object-fit:cover;
+  background:#0a0a0a;
+}
+.blog-video figcaption{
+  padding:10px 12px 12px;
+  font-size:.75rem;
+  font-weight:500;
+  color:var(--muted);
+  background:var(--surface);
+  border-top:1px solid var(--line);
+  line-height:1.4;
+}
+
+@media(max-width:820px){
+  html.page-blog .topbar-inner{
+    display:flex;
+    flex-wrap:nowrap;
+    padding:10px 14px;
+  }
+  html.page-blog .site-footer{display:block}
+  .blog-main{padding:20px 16px 48px}
+  .blog-video{max-width:100%}
+}
