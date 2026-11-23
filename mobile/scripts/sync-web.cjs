@@ -134,11 +134,12 @@ function main() {
   fs.writeFileSync(indexDest, rewritten);
 
   for (const dir of COPY_DIRS) {
-    copyDir(path.join(ROOT, dir), path.join(WWW, dir));
+    // Blog stylesheet is site-only (blog/ is not shipped in the app).
+    copyDir(path.join(ROOT, dir), path.join(WWW, dir), dir === 'css' ? ['blog.css'] : []);
   }
 
-  // Map icons/logo only - shop product photos are not needed in the app bundle.
-  copyDir(path.join(ROOT, 'images'), path.join(WWW, 'images'), ['shop']);
+  // Map icons/logo only - shop product photos and blog media stay on the site.
+  copyDir(path.join(ROOT, 'images'), path.join(WWW, 'images'), ['shop', 'blog']);
 
   copyFile(BRIDGE_SRC, path.join(WWW, 'js', 'native-bridge.js'));
   copyFile(DEEP_LINK_SRC, path.join(WWW, 'js', 'deep-link.js'));

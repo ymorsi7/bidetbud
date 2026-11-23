@@ -163,8 +163,11 @@ On a Mac with `xcode-select` → `Xcode.app`:
 ### iOS (TestFlight)
 
 **Xcode Cloud (preferred):** `mobile/ios/App` is committed (Apple requires the
-`.xcodeproj` to exist in git). `ci_scripts/ci_post_clone.sh` refreshes
-`www` → `App/public` via `cap sync` on each build. Workflow project path:
+`.xcodeproj` to exist in git). `ci_scripts/ci_post_clone.sh` runs
+`npm run sync:web`, copies `www/` into `App/public`, and re-applies
+`patch-native` on each Cloud build so TestFlight is not stuck on a stale
+web shell. Bump `APP_VERSION` / `IOS_BUILD` in `scripts/patch-native.cjs`
+(and `package.json`) before a release push. Workflow project path:
 `mobile/ios/App/App.xcodeproj`. A push to `main` starts a build; when it
 succeeds, TestFlight gets a new build automatically.
 

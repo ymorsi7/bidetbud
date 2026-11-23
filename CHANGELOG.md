@@ -4,6 +4,13 @@ BidetBud started as **BidetBeacon** on [ymorsi7.github.io](https://github.com/ym
 
 Format: newest first. Skips routine “added N pins” commits unless it was a big batch. **Every user-facing or seed-policy change must land here in the same PR/commit** (see `AGENTS.md`).
 
+## 2026-11-23
+
+**Mobile / TestFlight**
+
+- Bumped to **1.0.4 (16)** and re-synced `App/public` from the current map shell (was stuck on a Nov 21 copy)
+- Xcode Cloud `ci_post_clone.sh` now runs `sync:web` + copies into `App/public` + `patch-native` so Cloud builds stop shipping a stale web bundle
+
 ## 2026-11-22
 
 **Map / UI**

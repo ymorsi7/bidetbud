@@ -40,7 +40,7 @@
 <link rel="preload" href="js/core.js?v=20261109a" as="script">
 <link rel="preload" href="js/search-seed.js?v=20261014b" as="script">
 <link rel="preload" href="js/map-api.js?v=20261110b" as="script">
-<link rel="preload" href="js/app.js?v=20261118b" as="script">
+<link rel="preload" href="js/app.js?v=20261122c" as="script">
 <script src="vendor/leaflet.js" defer></script>
 <script src="vendor/leaflet.markercluster.js" defer></script>
 <script src="js/core.js?v=20261109a" defer></script>
@@ -49,7 +49,7 @@
 <script src="js/carto-key.js" defer></script>
 <script src="js/deep-link.js" defer></script>
 <script src="js/native-bridge.js" defer></script>
-<script src="js/app.js?v=20261118b" defer></script>
+<script src="js/app.js?v=20261122c" defer></script>
 <script>
 (function () {
   var queue = [];
@@ -105,6 +105,7 @@
             <button type="button" role="menuitem" id="menuCopyView">Copy link to this view</button>
             <button type="button" role="menuitem" id="menuAbout">About</button>
             <button type="button" role="menuitem" id="menuLegend">Map legend</button>
+            <a class="menu-drop-link" role="menuitem" href="https://bidetbud.com/blog/">Blog</a>
             <a class="menu-drop-link" role="menuitem" href="https://bidetbud.com/privacy">Privacy</a>
             <a class="menu-drop-link" role="menuitem" href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a class="menu-drop-link" role="menuitem" href="https://instagram.com/bidetbud" target="_blank" rel="noopener noreferrer">Instagram</a>
@@ -192,6 +193,7 @@
           <span class="radius-label">Radius:</span>
           <button type="button" class="chip" data-radius="5">5 mi</button>
           <button type="button" class="chip" data-radius="10">10 mi</button>
+          <button type="button" class="chip" data-radius="15">15 mi</button>
           <button type="button" class="chip" data-radius="25">25 mi</button>
           <button type="button" class="chip active" data-radius="50">50 mi</button>
           <button type="button" class="chip" data-radius="100">100 mi</button>
@@ -292,6 +294,8 @@
 
   <footer class="site-footer">
     <nav class="site-footer-nav" aria-label="Site links">
+      <a href="https://bidetbud.com/blog/">Blog</a>
+      <a href="https://github.com/ymorsi7/bidetbud" target="_blank" rel="noopener noreferrer">GitHub</a>
       <a href="https://bidetbud.com/privacy">Privacy</a>
       <span class="site-footer-live" id="copyLinkStatus" aria-live="polite" hidden></span>
     </nav>

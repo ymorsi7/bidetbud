@@ -7,11 +7,13 @@
   // A country needs at least this many pins to earn a filter chip.
   const COUNTRY_CHIP_MIN = 10;
   const POPULAR_CITIES = ['NYC', 'Bay Area', 'Houston', 'London', 'Toronto', 'Chicago', 'Dallas', 'Sunset Park', 'Williamsburg'];
-  const RADIUS_OPTIONS = [5, 10, 25, 50, 100];
+  const RADIUS_OPTIONS = [5, 10, 15, 25, 50, 100];
   const RECENT_SEARCH_KEY = 'bb_recent_searches';
+  const FIRST_VISIT_KEY = 'bb_visited';
+  const FIRST_VISIT_VIEW = { lat: 36.8741, lng: -103.2715, zoom: 4 };
   const ALONG_ROUTE_MI = 3;
   const MAP_MIN_ZOOM = 3;
-  const DEFAULT_MAP_CENTER = { lat: 39.8283, lng: -98.5795 };
+  const DEFAULT_MAP_CENTER = { lat: 36.8741, lng: -103.2715 };
   const DEFAULT_MAP_ZOOM = 4;
 
   const HAS_BIDET = s => s === 'verified' || s === 'warmed' || s === 'internet';
@@ -87,6 +89,9 @@
   }
   function doesNotOperate(m){
     return core.doesNotOperate ? core.doesNotOperate(m) : String(m && m.country || '').trim().toLowerCase() === 'israel';
+  }
+  function isClosed(m){
+    return core.isClosed ? core.isClosed(m) : !!(m && m.closed);
   }
   // Natural Earth 50m: johan/world.geo.json omits Singapore (SG falls inside Malaysia's polygon).
   const BIDET_COUNTRY_GEOJSON_URL = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_50m_admin_0_countries.geojson';
@@ -1114,6 +1119,12 @@
     const q = getQuery();
     return allLocations.filter(m=>{
       if(!validCoord(m)) return false;
+      // Permanently closed: hide unless the visitor searches the name
+      // (so "Zauo" still explains why it vanished).
+      if(isClosed(m)){
+        const named = q && (typeof matchesNameSearch === 'function' ? matchesNameSearch(m, q) : matchesSearch(m, q));
+        if(!named) return false;
+      }
       const isNone = NO_BIDET(m.bidetStatus);
       if(isNone){
         const named = q && (typeof matchesNameSearch === 'function' ? matchesNameSearch(m, q) : matchesSearch(m, q));
@@ -1157,6 +1168,7 @@
 
   function statusTag(m){
     if(doesNotOperate(m)) return '';
+    if(isClosed(m)) return '<span class="tag tag-closed">Closed</span>';
     if(m.bidetStatus==='none') return '<span class="tag tag-none">No bidet</span>';
     if(m.bidetStatus==='internet') return '<span class="tag tag-internet">Web</span>';
     if(m.bidetStatus==='warmed') return '<span class="tag tag-warmed">Heated</span>';
@@ -1173,6 +1185,9 @@
     if(doesNotOperate(m)){
       return '<div class="access-warn access-warn--locked"><strong>BidetBud does not operate in this country</strong>This spot is locked and is not listed or verified here.</div>';
     }
+    if(isClosed(m)){
+      return '<div class="access-warn access-warn--closed"><strong>Permanently closed</strong>This spot is no longer open. We keep the pin so search still finds it.</div>';
+    }
     if(m.access!=='limited') return '';
     return '<div class="access-warn"><strong>Limited access: not a public restroom</strong>'+escapeHtml(m.accessNote||'Hotel rooms, showrooms, and private clubs are not open to walk-in visitors.')+'</div>';
   }
@@ -1184,6 +1199,12 @@
       return L.divIcon({
         html:'<div class="marker-locked" aria-label="Locked">🔒</div>',
         className:'custom-marker custom-marker--locked', iconSize:[30,30], iconAnchor:[15,15], popupAnchor:[0,-15]
+      });
+    }
+    if(isClosed(m)){
+      return L.divIcon({
+        html:'<div style="background:#a1a1aa;color:#fff;border:2.5px solid #fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.22);font-size:13px;font-weight:700;">-</div>',
+        className:'custom-marker custom-marker--closed', iconSize:[30,30], iconAnchor:[15,15], popupAnchor:[0,-15]
       });
     }
     const status = m.bidetStatus;
@@ -1241,6 +1262,7 @@
 
   function cardStatusClass(m){
     if(doesNotOperate(m)) return 'card-unavailable';
+    if(isClosed(m)) return 'card--closed';
     if(m.bidetStatus==='none') return 'card--none';
     if(m.access==='limited') return 'card-limited';
     if(m.bidetStatus==='internet') return 'card--internet';
@@ -1282,11 +1304,11 @@
   function renderList(filtered){
     const q=getQuery(), el=document.getElementById('locationList');
     el.classList.remove('location-list-loading');
-    const verified = filtered.filter(m=>m.bidetStatus==='verified' && !doesNotOperate(m)).length;
-    const warmed = filtered.filter(m=>m.bidetStatus==='warmed' && !doesNotOperate(m)).length;
-    const internet = filtered.filter(m=>m.bidetStatus==='internet' && !doesNotOperate(m)).length;
-    const limited = filtered.filter(m=>m.access==='limited' && !doesNotOperate(m)).length;
-    const pub = filtered.filter(m=>m.access!=='limited' && !doesNotOperate(m)).length;
+    const verified = filtered.filter(m=>m.bidetStatus==='verified' && !doesNotOperate(m) && !isClosed(m)).length;
+    const warmed = filtered.filter(m=>m.bidetStatus==='warmed' && !doesNotOperate(m) && !isClosed(m)).length;
+    const internet = filtered.filter(m=>m.bidetStatus==='internet' && !doesNotOperate(m) && !isClosed(m)).length;
+    const limited = filtered.filter(m=>m.access==='limited' && !doesNotOperate(m) && !isClosed(m)).length;
+    const pub = filtered.filter(m=>m.access!=='limited' && !doesNotOperate(m) && !isClosed(m)).length;
     const masajid = filtered.filter(m=>m.type==='mosque').length;
     let countHtml;
     if(noBidetMode){
@@ -1329,11 +1351,14 @@
       const anchor = distanceAnchor();
       if(anchor && sortMode !== 'name') dist = formatDistance(haversineMiles(anchor,{lat:+m.latitude,lng:+m.longitude}));
       const locked = doesNotOperate(m);
+      const closed = isClosed(m);
       const limitedNote = locked
         ? '<p class="card-note card-note--locked">BidetBud does not operate in this country</p>'
+        : (closed
+        ? '<p class="card-note card-note--closed">Permanently closed</p>'
         : (m.bidetStatus==='none'
         ? '<p class="card-note card-note--none">We checked: no bidet or handheld sprayer here.</p>'
-        : (m.access==='limited' ? '<p class="card-note">'+escapeHtml(m.accessNote)+'</p>' : ''));
+        : (m.access==='limited' ? '<p class="card-note">'+escapeHtml(m.accessNote)+'</p>' : '')));
       const cardClass = 'card '+cardStatusClass(m)+(activeSpotId===m.id?' active':'');
       const typeIcon = typeLabel(m.type);
       const bidetLead = locked ? '' : '<p class="card-bidet-lead">'+escapeHtml(bidetLeadLabel(m))+'</p>';
@@ -1382,7 +1407,7 @@
     if(countEl) countEl.textContent = n ? (n + (n === 1 ? ' place' : ' places')) : 'No matches';
     if(listEl){
       listEl.innerHTML = rows.map(m =>
-        '<button type="button" class="search-peek-item'+(NO_BIDET(m.bidetStatus)?' search-peek-item--none':'')+'" data-id="'+m.id+'">'+
+        '<button type="button" class="search-peek-item'+(isClosed(m)?' search-peek-item--closed':NO_BIDET(m.bidetStatus)?' search-peek-item--none':'')+'" data-id="'+m.id+'">'+
         '<strong>'+highlight(m.name, q)+'</strong>'+
         '<span>'+escapeHtml([m.city, m.country].filter(Boolean).join(', '))+'</span>'+
         '</button>'
@@ -1436,8 +1461,11 @@
       highlightMarker(highlightedMarkerId);
     }
     updateUserMarker();
-    const shouldFit = !initialBoundsDone && filtered.length && !getQuery() && !nearMe && !activeSpotId && !isNativeApp();
-    if(isNativeApp() && !initialBoundsDone) initialBoundsDone = true;
+    // Never fitBounds to the full worldwide pin set - that lands in the mid-Atlantic at zoom 3.
+    // Only auto-fit when a filter has narrowed the map (country / type / etc.).
+    const narrowed = Boolean(countryFilter || placeFilter !== 'all' || extraFilter || noBidetMode);
+    const shouldFit = !initialBoundsDone && narrowed && filtered.length && !getQuery() && !nearMe && !activeSpotId && !isNativeApp();
+    if((isNativeApp() || !narrowed) && !initialBoundsDone) initialBoundsDone = true;
     if(shouldFit){
       const bounds = L.latLngBounds(filtered.map(m=>[+m.latitude,+m.longitude]));
       if(bounds.isValid()){
@@ -1656,14 +1684,14 @@
       '<p class="sub">'+escapeHtml(typeLabel(m.type))+' · '+escapeHtml(m.city)+', '+escapeHtml(m.country)+'</p>'+
       distLine+
       (locked ? '' : '<p class="detail-bidet-callout">'+escapeHtml(bidetLeadLabel(m))+'</p>')+
-      (m.bidetStatus==='none' && !locked ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\'ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : '')+
+      (isClosed(m) && !locked ? '' : (m.bidetStatus==='none' && !locked ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\'ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : ''))+
       accessWarn(m)+
       (locked ? '' : '<p class="detail-address">'+escapeHtml(m.address)+'</p>')+
       '<div class="row">'+statusTag(m)+accessTag(m)+'</div>'+
       (locked ? '' : (
       '<div class="detail-sheet-more">'+
       '<p class="detail-trust">'+escapeHtml(verifyText)+'</p>'+
-      trustHtml+quote+source+
+      (isClosed(m) ? '' : trustHtml+quote+source)+
       reportFormHtml(m)+
       '</div>'))+
       (mobile ? '' : desktopActions);
@@ -2504,6 +2532,9 @@
       map.setView([pendingView.lat, pendingView.lng], pendingView.zoom, { animate: false });
       initialBoundsDone = true;
       pendingView = null;
+    } else if(!native){
+      // Keep the default US overview; do not later fitBounds to every pin on earth.
+      initialBoundsDone = true;
     }
     map.createPane('countriesPane');
     map.getPane('countriesPane').style.zIndex = 350;
@@ -2618,11 +2649,47 @@
     setTimeout(()=>safeInvalidateSize(), 80);
   }
 
+  function urlHasBrowseIntent(params){
+    return Boolean(
+      params.get('view') ||
+      params.get('near') ||
+      params.get('spot') ||
+      params.get('q') ||
+      params.get('country') ||
+      params.get('type') ||
+      params.get('filter') ||
+      params.get('nobidet') ||
+      params.get('limited') ||
+      params.get('sort')
+    );
+  }
+
+  /** First clean visit lands on the US overview (same as /?view=36.8741,-103.2715,4). */
+  function maybeFirstVisitDefaultView(){
+    if(isNativeApp() || autoCentered || !map || spotFromUrl) return false;
+    let seen = false;
+    try{ seen = localStorage.getItem(FIRST_VISIT_KEY) === '1'; }catch(e){ return false; }
+    const params = new URLSearchParams(location.search);
+    const intent = urlHasBrowseIntent(params);
+    try{ localStorage.setItem(FIRST_VISIT_KEY, '1'); }catch(e){}
+    if(seen || intent) return false;
+
+    autoCentered = true;
+    initialBoundsDone = true;
+    const v = FIRST_VISIT_VIEW;
+    map.setView([v.lat, v.lng], v.zoom, { animate: false });
+    const viewStr = v.lat + ',' + v.lng + ',' + v.zoom;
+    try{ history.replaceState(null, '', '/?view=' + encodeURIComponent(viewStr) + (location.hash || '')); }catch(e){}
+    syncUrlFromState();
+    refresh();
+    return true;
+  }
+
   function maybeAutoCenterOnUser(){
     if(autoCentered || !map) return;
     if(spotFromUrl) return;
     const params = new URLSearchParams(location.search);
-    if(params.get('view') || params.get('near') === '1' || params.get('spot') || params.get('q')) return;
+    if(urlHasBrowseIntent(params)) return;
     const cached = window.__BB_LAST_LOC;
     if(cached && isFinite(cached.lat) && isFinite(cached.lng)){
       autoCentered = true;
@@ -3075,9 +3142,11 @@
   function bootFromCache(){
     initData();
     applyDistanceUnits();
-    refresh();
     showLoadToast();
-    maybeAutoCenterOnUser();
+    // Apply default / near-me view before the first refresh so syncUrl does not
+    // capture a worldwide fitBounds center (mid-Atlantic at zoom 3).
+    if(!maybeFirstVisitDefaultView()) maybeAutoCenterOnUser();
+    refresh();
     maybeShowFirstRunHints();
     if(spotFromUrl){
       const api = window.BidetBudMapApi;

@@ -71,4 +71,36 @@ XML
 fi
 test -f "$APP_DIR/capacitor.config.json"
 test -f "$APP_DIR/config.xml"
+
+# Refresh the embedded web shell from the repo root. Without this, Cloud archives
+# ship whatever stale App/public was last committed (TestFlight never picks up
+# map/blog/seed UI changes).
+echo "[ci_post_clone] syncing web → App/public"
+if ! command -v node >/dev/null 2>&1; then
+  echo "[ci_post_clone] installing node via brew"
+  brew install node@22
+  brew link --force --overwrite node@22 || true
+fi
+cd "$ROOT/mobile"
+# sync-web + patch-native are plain Node (no npm install / Cap CLI needed).
+# Keep cordova.js / cordova_plugins.js already committed under App/public -
+# those are Cap bridge files that sync-web does not generate.
+node scripts/sync-web.cjs
+PUBLIC_DIR=ios/App/App/public
+mkdir -p "$PUBLIC_DIR"
+if command -v rsync >/dev/null 2>&1; then
+  rsync -a --delete \
+    --exclude cordova.js \
+    --exclude cordova_plugins.js \
+    www/ "$PUBLIC_DIR/"
+else
+  cp -R www/. "$PUBLIC_DIR/"
+fi
+rm -f "$PUBLIC_DIR/css/blog.css"
+rm -rf "$PUBLIC_DIR/images/blog"
+node scripts/patch-native.cjs
+test -f "$PUBLIC_DIR/index.html"
+test -f "$PUBLIC_DIR/js/app.js"
+test -f "$PUBLIC_DIR/cordova.js"
+echo "[ci_post_clone] App/public refreshed ($(wc -c < "$PUBLIC_DIR/js/app.js") bytes app.js)"
 echo "OK"
