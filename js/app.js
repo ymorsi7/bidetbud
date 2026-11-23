@@ -10,10 +10,10 @@
   const RADIUS_OPTIONS = [5, 10, 15, 25, 50, 100];
   const RECENT_SEARCH_KEY = 'bb_recent_searches';
   const FIRST_VISIT_KEY = 'bb_visited';
-  const FIRST_VISIT_NEAR_RADIUS = 15;
+  const FIRST_VISIT_VIEW = { lat: 36.8741, lng: -103.2715, zoom: 4 };
   const ALONG_ROUTE_MI = 3;
   const MAP_MIN_ZOOM = 3;
-  const DEFAULT_MAP_CENTER = { lat: 39.8283, lng: -98.5795 };
+  const DEFAULT_MAP_CENTER = { lat: 36.8741, lng: -103.2715 };
   const DEFAULT_MAP_ZOOM = 4;
 
   const HAS_BIDET = s => s === 'verified' || s === 'warmed' || s === 'internet';
@@ -2658,8 +2658,8 @@
     );
   }
 
-  /** First clean visit lands on near-me at 15 mi (same as /?near=1&radius=15). */
-  function maybeFirstVisitNearMe(){
+  /** First clean visit lands on the US overview (same as /?view=36.8741,-103.2715,4). */
+  function maybeFirstVisitDefaultView(){
     if(isNativeApp() || autoCentered || !map || spotFromUrl) return false;
     let seen = false;
     try{ seen = localStorage.getItem(FIRST_VISIT_KEY) === '1'; }catch(e){ return false; }
@@ -2668,25 +2668,12 @@
     try{ localStorage.setItem(FIRST_VISIT_KEY, '1'); }catch(e){}
     if(seen || intent) return false;
 
-    radiusMi = FIRST_VISIT_NEAR_RADIUS;
-    nearMe = true;
-    nearMeFitPending = true;
     autoCentered = true;
-    const next = '/?near=1&radius=' + FIRST_VISIT_NEAR_RADIUS + (location.hash || '');
-    try{ history.replaceState(null, '', next); }catch(e){}
-    updateNearMeUi();
-    updateFilterUi();
-    requestUserLocation({
-      silent:true,
-      onOk(){
-        applyDistanceUnits();
-        nearMeFitPending = true;
-        updateUserMarker();
-        updateNearMeUi();
-        refresh();
-        maybeShowPromo('nearme');
-      }
-    });
+    initialBoundsDone = true;
+    const v = FIRST_VISIT_VIEW;
+    map.setView([v.lat, v.lng], v.zoom, { animate: false });
+    const viewStr = v.lat + ',' + v.lng + ',' + v.zoom;
+    try{ history.replaceState(null, '', '/?view=' + encodeURIComponent(viewStr) + (location.hash || '')); }catch(e){}
     syncUrlFromState();
     refresh();
     return true;
@@ -3151,7 +3138,7 @@
     applyDistanceUnits();
     refresh();
     showLoadToast();
-    if(!maybeFirstVisitNearMe()) maybeAutoCenterOnUser();
+    if(!maybeFirstVisitDefaultView()) maybeAutoCenterOnUser();
     maybeShowFirstRunHints();
     if(spotFromUrl){
       const api = window.BidetBudMapApi;
