@@ -7,8 +7,10 @@
   // A country needs at least this many pins to earn a filter chip.
   const COUNTRY_CHIP_MIN = 10;
   const POPULAR_CITIES = ['NYC', 'Bay Area', 'Houston', 'London', 'Toronto', 'Chicago', 'Dallas', 'Sunset Park', 'Williamsburg'];
-  const RADIUS_OPTIONS = [5, 10, 25, 50, 100];
+  const RADIUS_OPTIONS = [5, 10, 15, 25, 50, 100];
   const RECENT_SEARCH_KEY = 'bb_recent_searches';
+  const FIRST_VISIT_KEY = 'bb_visited';
+  const FIRST_VISIT_NEAR_RADIUS = 15;
   const ALONG_ROUTE_MI = 3;
   const MAP_MIN_ZOOM = 3;
   const DEFAULT_MAP_CENTER = { lat: 39.8283, lng: -98.5795 };
@@ -2641,11 +2643,60 @@
     setTimeout(()=>safeInvalidateSize(), 80);
   }
 
+  function urlHasBrowseIntent(params){
+    return Boolean(
+      params.get('view') ||
+      params.get('near') ||
+      params.get('spot') ||
+      params.get('q') ||
+      params.get('country') ||
+      params.get('type') ||
+      params.get('filter') ||
+      params.get('nobidet') ||
+      params.get('limited') ||
+      params.get('sort')
+    );
+  }
+
+  /** First clean visit lands on near-me at 15 mi (same as /?near=1&radius=15). */
+  function maybeFirstVisitNearMe(){
+    if(isNativeApp() || autoCentered || !map || spotFromUrl) return false;
+    let seen = false;
+    try{ seen = localStorage.getItem(FIRST_VISIT_KEY) === '1'; }catch(e){ return false; }
+    const params = new URLSearchParams(location.search);
+    const intent = urlHasBrowseIntent(params);
+    try{ localStorage.setItem(FIRST_VISIT_KEY, '1'); }catch(e){}
+    if(seen || intent) return false;
+
+    radiusMi = FIRST_VISIT_NEAR_RADIUS;
+    nearMe = true;
+    nearMeFitPending = true;
+    autoCentered = true;
+    const next = '/?near=1&radius=' + FIRST_VISIT_NEAR_RADIUS + (location.hash || '');
+    try{ history.replaceState(null, '', next); }catch(e){}
+    updateNearMeUi();
+    updateFilterUi();
+    requestUserLocation({
+      silent:true,
+      onOk(){
+        applyDistanceUnits();
+        nearMeFitPending = true;
+        updateUserMarker();
+        updateNearMeUi();
+        refresh();
+        maybeShowPromo('nearme');
+      }
+    });
+    syncUrlFromState();
+    refresh();
+    return true;
+  }
+
   function maybeAutoCenterOnUser(){
     if(autoCentered || !map) return;
     if(spotFromUrl) return;
     const params = new URLSearchParams(location.search);
-    if(params.get('view') || params.get('near') === '1' || params.get('spot') || params.get('q')) return;
+    if(urlHasBrowseIntent(params)) return;
     const cached = window.__BB_LAST_LOC;
     if(cached && isFinite(cached.lat) && isFinite(cached.lng)){
       autoCentered = true;
@@ -3100,7 +3151,7 @@
     applyDistanceUnits();
     refresh();
     showLoadToast();
-    maybeAutoCenterOnUser();
+    if(!maybeFirstVisitNearMe()) maybeAutoCenterOnUser();
     maybeShowFirstRunHints();
     if(spotFromUrl){
       const api = window.BidetBudMapApi;
