@@ -11,6 +11,7 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 - New **Bidet blog** at `/blog/` (same topbar/footer chrome as Privacy/Shop)
 - Footer + menu links: Blog and [github.com/ymorsi7/bidetbud](https://github.com/ymorsi7/bidetbud)
 - First post: Nov 21 Astoria field note with muted portrait video of the Moka & Co sprayer
+- Blog: Nov 22 Bridgeview / Chicagoland field note (Jazwah, M'daKhan, ZamZam Sweets)
 
 **Data**
 
