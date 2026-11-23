@@ -62,6 +62,8 @@ const MANUAL_SPOTS = [
   { name: 'Urth Caffé (Orange)', queries: ['urth cafe orange', 'urth caffe orange', 'urth orange'], status: ['none'] },
   { name: 'Jazwah', queries: ['jazwah', 'jazwah bridgeview', 'jazwah coffee'], status: ['none'] },
   { name: 'Al Manakeesh (Bridgeview)', queries: ['al manakeesh', 'manakeesh bridgeview', 'al manakeesh bridgeview'], status: ['verified'] },
+  { name: "M'daKhan", queries: ['mdakhan', 'mda khan', "m'dakhan bridgeview"], status: ['none'] },
+  { name: 'Zmzm Sweets', queries: ['zmzm sweets', 'zamzam sweets', 'zamzam sweets bridgeview', 'zmzm chicago ridge'], status: ['verified'] },
   { name: 'Fritzsche Haustechnik GmbH', queries: ['fritzsche haustechnik'], status: ['verified'] },
   { name: 'Yosaku', queries: ['yosaku portland'], status: ['warmed', 'internet', 'verified'] },
   { name: 'Ayat Bushwick', queries: ['ayat bushwick'], status: ['internet', 'verified'] },

@@ -15,6 +15,8 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 **Data**
 
 - Added **Moka & Co** (28-54 Steinway St, Astoria, NY) as `verified` - in-person bidet confirmation
+- Added **Zmzm Sweets** (10511 S Harlem Ave, Chicago Ridge / Bridgeview area) as `verified` - in-person bidet confirmation
+- Added **M'daKhan** (9115 S Harlem Ave, Bridgeview, IL) as `none` - in-person check, no bidet
 
 ## 2026-11-21
 

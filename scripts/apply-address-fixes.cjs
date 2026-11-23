@@ -258,6 +258,18 @@ const MANUAL = {
     latitude: '41.7387348',
     longitude: '-87.7988888',
   },
+  "M'daKhan": {
+    address: '9115 S Harlem Ave, Bridgeview, IL 60455',
+    city: 'Bridgeview, IL',
+    latitude: '41.7258844',
+    longitude: '-87.7984082',
+  },
+  'Zmzm Sweets': {
+    address: '10511 S Harlem Ave, Chicago Ridge, IL 60415',
+    city: 'Chicago Ridge, IL',
+    latitude: '41.6996450',
+    longitude: '-87.7968310',
+  },
 };
 
 function haversine(lat1, lon1, lat2, lon2) {
