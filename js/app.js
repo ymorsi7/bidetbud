@@ -1461,8 +1461,11 @@
       highlightMarker(highlightedMarkerId);
     }
     updateUserMarker();
-    const shouldFit = !initialBoundsDone && filtered.length && !getQuery() && !nearMe && !activeSpotId && !isNativeApp();
-    if(isNativeApp() && !initialBoundsDone) initialBoundsDone = true;
+    // Never fitBounds to the full worldwide pin set - that lands in the mid-Atlantic at zoom 3.
+    // Only auto-fit when a filter has narrowed the map (country / type / etc.).
+    const narrowed = Boolean(countryFilter || placeFilter !== 'all' || extraFilter || noBidetMode);
+    const shouldFit = !initialBoundsDone && narrowed && filtered.length && !getQuery() && !nearMe && !activeSpotId && !isNativeApp();
+    if((isNativeApp() || !narrowed) && !initialBoundsDone) initialBoundsDone = true;
     if(shouldFit){
       const bounds = L.latLngBounds(filtered.map(m=>[+m.latitude,+m.longitude]));
       if(bounds.isValid()){
@@ -2529,6 +2532,9 @@
       map.setView([pendingView.lat, pendingView.lng], pendingView.zoom, { animate: false });
       initialBoundsDone = true;
       pendingView = null;
+    } else if(!native){
+      // Keep the default US overview; do not later fitBounds to every pin on earth.
+      initialBoundsDone = true;
     }
     map.createPane('countriesPane');
     map.getPane('countriesPane').style.zIndex = 350;
@@ -3136,9 +3142,11 @@
   function bootFromCache(){
     initData();
     applyDistanceUnits();
-    refresh();
     showLoadToast();
+    // Apply default / near-me view before the first refresh so syncUrl does not
+    // capture a worldwide fitBounds center (mid-Atlantic at zoom 3).
     if(!maybeFirstVisitDefaultView()) maybeAutoCenterOnUser();
+    refresh();
     maybeShowFirstRunHints();
     if(spotFromUrl){
       const api = window.BidetBudMapApi;

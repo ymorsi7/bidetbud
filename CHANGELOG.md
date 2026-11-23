@@ -13,6 +13,7 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 - First post: Nov 21 Astoria field note with muted portrait video of the Moka & Co sprayer
 - Blog: Nov 22 Bridgeview / Chicagoland field note (Jazwah, M'daKhan, ZamZam Sweets)
 - First clean visit to the map opens the US overview (`/?view=36.8741,-103.2715,4`); shared links still win. Added a 15 mi radius chip.
+- Stopped the bare map load from `fitBounds` to every pin worldwide (that was rewriting the URL to a mid-Atlantic zoom-3 view).
 
 **Data**
 
