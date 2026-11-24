@@ -949,19 +949,43 @@
 
       <div id="fade" class="clip" data-start="59.3" data-duration="0.7" data-track-index="5"></div>
 
-      <!-- Voiceover only. No music (haram). No SFX bed. -->
-      <audio id="vo-hook" src="assets/voice/hook.wav" data-start="0.35" data-duration="2.603" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-bidets" src="assets/voice/bidets.wav" data-start="3.05" data-duration="0.939" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-world" src="assets/voice/world.wav" data-start="5.55" data-duration="7.616" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-pins" src="assets/voice/pins.wav" data-start="13.25" data-duration="2.197" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-filters" src="assets/voice/filters.wav" data-start="15.55" data-duration="3.989" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-search" src="assets/voice/search.wav" data-start="20.2" data-duration="6.827" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-detail" src="assets/voice/detail.wav" data-start="27.15" data-duration="3.136" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-near" src="assets/voice/near.wav" data-start="30.4" data-duration="4.8" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-evidence" src="assets/voice/evidence.wav" data-start="35.5" data-duration="6.165" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-phone" src="assets/voice/phone.wav" data-start="42.4" data-duration="5.76" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-add" src="assets/voice/add.wav" data-start="48.9" data-duration="4.928" data-volume="1" data-track-index="6"></audio>
-      <audio id="vo-end" src="assets/voice/end.wav" data-start="54.9" data-duration="3.797" data-volume="1" data-track-index="6"></audio>
+      <!-- Voice + non-musical bed (room tone / air). No instruments. -->
+      <audio
+        id="bed-room"
+        src="assets/sfx/roomtone.wav"
+        data-start="0"
+        data-duration="60"
+        data-volume="0.26"
+        data-fade-in="0.8"
+        data-fade-out="1.2"
+        data-track-index="8"
+      ></audio>
+
+      <audio id="vo-hook" src="assets/voice/hook.wav" data-start="0.25" data-duration="2.283" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-bidets" src="assets/voice/bidets.wav" data-start="2.85" data-duration="0.725" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-world" src="assets/voice/world.wav" data-start="5.4" data-duration="6.293" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-pins" src="assets/voice/pins.wav" data-start="11.9" data-duration="1.856" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-filters" src="assets/voice/filters.wav" data-start="14.6" data-duration="3.285" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-search" src="assets/voice/search.wav" data-start="18.3" data-duration="6.4" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-detail" src="assets/voice/detail.wav" data-start="25.0" data-duration="2.709" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-near" src="assets/voice/near.wav" data-start="28.0" data-duration="3.733" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-evidence" src="assets/voice/evidence.wav" data-start="35.4" data-duration="5.12" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-phone" src="assets/voice/phone.wav" data-start="42.3" data-duration="4.587" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-add" src="assets/voice/add.wav" data-start="48.9" data-duration="3.989" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <audio id="vo-end" src="assets/voice/end.wav" data-start="54.5" data-duration="3.349" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+
+      <!-- UI / transition SFX only (air whoosh, click, pop). Not instruments. -->
+      <audio id="sfx-whoosh-fly" src="assets/sfx/whoosh.mp3" data-start="4.85" data-duration="0.9" data-media-start="2.25" data-volume="0.28" data-track-index="7"></audio>
+      <audio id="sfx-whoosh-win" src="assets/sfx/whoosh.mp3" data-start="10.7" data-duration="0.85" data-media-start="2.25" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-pop-stats" src="assets/sfx/pop.mp3" data-start="8.3" data-duration="0.55" data-volume="0.45" data-track-index="7"></audio>
+      <audio id="sfx-click-masajid" src="assets/sfx/click.mp3" data-start="16.1" data-duration="0.3" data-volume="0.55" data-track-index="7"></audio>
+      <audio id="sfx-click-rest" src="assets/sfx/click.mp3" data-start="17.9" data-duration="0.3" data-volume="0.5" data-track-index="7"></audio>
+      <audio id="sfx-click-type" src="assets/sfx/click.mp3" data-start="21.65" data-duration="0.3" data-volume="0.48" data-track-index="7"></audio>
+      <audio id="sfx-pop-card" src="assets/sfx/pop.mp3" data-start="25.15" data-duration="0.55" data-volume="0.42" data-track-index="7"></audio>
+      <audio id="sfx-whoosh-phone" src="assets/sfx/whoosh.mp3" data-start="42.1" data-duration="0.8" data-media-start="2.28" data-volume="0.26" data-track-index="7"></audio>
+      <audio id="sfx-pop-pin1" src="assets/sfx/pop.mp3" data-start="51.2" data-duration="0.55" data-volume="0.4" data-track-index="7"></audio>
+      <audio id="sfx-pop-pin2" src="assets/sfx/pop.mp3" data-start="51.62" data-duration="0.55" data-volume="0.38" data-track-index="7"></audio>
+      <audio id="sfx-pop-pin3" src="assets/sfx/pop.mp3" data-start="52.04" data-duration="0.55" data-volume="0.4" data-track-index="7"></audio>
     </div>
 
     <script>

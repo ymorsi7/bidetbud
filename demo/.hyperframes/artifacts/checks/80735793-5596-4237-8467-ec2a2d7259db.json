@@ -1,0 +1,2250 @@
+{
+  "ok": true,
+  "strict": false,
+  "browserSkipped": false,
+  "lint": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 13,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "composition_file_too_large",
+        "severity": "warning",
+        "message": "This HTML composition file has 792 lines. Smaller sub-compositions are easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/yusufmorsi/Documents/GitHub/bidetbeacon/demo/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Split coherent scenes or layers into separate .html files under compositions/, then mount them from the parent with data-composition-src so each file stays small enough to inspect, revise, and validate independently."
+      },
+      {
+        "code": "timeline_track_too_dense",
+        "severity": "warning",
+        "message": "This HTML file has 9 timed elements. Smaller sub-compositions keep timelines easier to read, iterate on, and diff.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "/Users/yusufmorsi/Documents/GitHub/bidetbeacon/demo/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move coherent scene groups into separate .html files under compositions/ and mount them from the parent with data-composition-src so the timeline stays easier to inspect, revise, and validate."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"bg\"> is a timeline element that contains nested <div id=\"orb-a\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#bg",
+        "dataAttributes": {},
+        "sourceFile": "/Users/yusufmorsi/Documents/GitHub/bidetbeacon/demo/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"bg\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s-hook\"> is a timeline element that contains nested <div id=\"hook-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s-hook",
+        "dataAttributes": {},
+        "sourceFile": "/Users/yusufmorsi/Documents/GitHub/bidetbeacon/demo/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s-hook\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s-title\"> is a timeline element that contains nested <div id=\"title-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s-title",
+        "dataAttributes": {},
+        "sourceFile": "/Users/yusufmorsi/Documents/GitHub/bidetbeacon/demo/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s-title\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s-product\"> is a timeline element that contains nested <div id=\"win\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s-product",
+        "dataAttributes": {},
+        "sourceFile": "/Users/yusufmorsi/Documents/GitHub/bidetbeacon/demo/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s-product\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s-trust\"> is a timeline element that contains nested <div id=\"trust-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s-trust",
+        "dataAttributes": {},
+        "sourceFile": "/Users/yusufmorsi/Documents/GitHub/bidetbeacon/demo/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s-trust\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s-phone\"> is a timeline element that contains nested <div id=\"phone-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s-phone",
+        "dataAttributes": {},
+        "sourceFile": "/Users/yusufmorsi/Documents/GitHub/bidetbeacon/demo/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s-phone\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s-add\"> is a timeline element that contains nested <div id=\"add-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s-add",
+        "dataAttributes": {},
+        "sourceFile": "/Users/yusufmorsi/Documents/GitHub/bidetbeacon/demo/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s-add\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<section id=\"s-end\"> is a timeline element that contains nested <div id=\"end-stage\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#s-end",
+        "dataAttributes": {},
+        "sourceFile": "/Users/yusufmorsi/Documents/GitHub/bidetbeacon/demo/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <section id=\"s-end\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Audible clips overlap on Studio track 8: assets/sfx/roomtone.wav at 0-60s and assets/sfx/airhiss.wav at 0-60s. Both play at once whatever their track (the render mixes every audible clip; data-track-index only picks the Studio lane), and Studio draws them over each other in that lane.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "If both should sound (a whoosh into a hit), give one its own data-track-index; the mix does not change. If one is a leftover duplicate, remove it or move it so the windows do not overlap."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Audible clips overlap on Studio track 7: assets/sfx/pop.mp3 at 51.2-51.75s and assets/sfx/pop.mp3 at 51.62-52.17s. Both play at once whatever their track (the render mixes every audible clip; data-track-index only picks the Studio lane), and Studio draws them over each other in that lane.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "If both should sound (a whoosh into a hit), give one its own data-track-index; the mix does not change. If one is a leftover duplicate, remove it or move it so the windows do not overlap."
+      },
+      {
+        "code": "duplicate_audio_track",
+        "severity": "warning",
+        "message": "Audible clips overlap on Studio track 7: assets/sfx/pop.mp3 at 51.62-52.17s and assets/sfx/pop.mp3 at 52.04-52.59s. Both play at once whatever their track (the render mixes every audible clip; data-track-index only picks the Studio lane), and Studio draws them over each other in that lane.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "If both should sound (a whoosh into a hit), give one its own data-track-index; the mix does not change. If one is a leftover duplicate, remove it or move it so the windows do not overlap."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 48,
+    "infoCount": 1,
+    "findings": [
+      {
+        "code": "media_proxy_fallback",
+        "severity": "info",
+        "message": "[hyperframes] runtime_media_proxy_fallback: \"http://127.0.0.1:49979/assets/moka-verified.mp4\" uses a codec (h264) this browser can't decode; auto-swapped to an authoring proxy for this preview only. Render output is unaffected.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 0,
+        "url": "http://127.0.0.1:49979/",
+        "line": 922
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.475 s, 0.132 s after a later tween on autoAlpha ends at 4.343 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.843 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3431224
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.389 s, 0.093 s after a later tween on autoAlpha ends at 4.296 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.796 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.2960975
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.611 s, 0.193 s after a later tween on autoAlpha ends at 4.418 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.918 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4184051
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.241 s, 0.025 s after a later tween on autoAlpha ends at 4.215 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.715 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.215436
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.453 s, 0.120 s after a later tween on autoAlpha ends at 4.333 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.833 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3326158
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.315 s, 0.057 s after a later tween on autoAlpha ends at 4.258 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.758 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.2578492
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.669 s, 0.216 s after a later tween on autoAlpha ends at 4.453 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.953 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.452612
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.263 s, 0.030 s after a later tween on autoAlpha ends at 4.233 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.733 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.2332652
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.340 s, 0.060 s after a later tween on autoAlpha ends at 4.280 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.780 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.280424399999999
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.681 s, 0.213 s after a later tween on autoAlpha ends at 4.468 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.968 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4680636
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.406 s, 0.089 s after a later tween on autoAlpha ends at 4.317 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.817 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3166066999999995
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.350 s, 0.060 s after a later tween on autoAlpha ends at 4.289 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.789 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.2894494000000005
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.381 s, 0.073 s after a later tween on autoAlpha ends at 4.308 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.808 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.307794299999999
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.626 s, 0.184 s after a later tween on autoAlpha ends at 4.442 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.942 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4423341
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.493 s, 0.123 s after a later tween on autoAlpha ends at 4.370 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.870 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3698733999999995
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.571 s, 0.155 s after a later tween on autoAlpha ends at 4.416 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.916 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4160335
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.661 s, 0.195 s after a later tween on autoAlpha ends at 4.466 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.966 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4664315000000006
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.271 s, 0.018 s after a later tween on autoAlpha ends at 4.253 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.753 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.2525257
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.594 s, 0.162 s after a later tween on autoAlpha ends at 4.432 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.932 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4316523
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.707 s, 0.212 s after a later tween on autoAlpha ends at 4.495 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.995 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4948540999999995
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.526 s, 0.129 s after a later tween on autoAlpha ends at 4.397 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.897 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3970482
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.518 s, 0.125 s after a later tween on autoAlpha ends at 4.393 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.893 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3934926
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.697 s, 0.203 s after a later tween on autoAlpha ends at 4.494 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.994 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4942812
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.404 s, 0.071 s after a later tween on autoAlpha ends at 4.334 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.834 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3338064
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.341 s, 0.039 s after a later tween on autoAlpha ends at 4.302 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.802 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3017506
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.327 s, 0.033 s after a later tween on autoAlpha ends at 4.295 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.795 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.2945571000000005
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.319 s, 0.029 s after a later tween on autoAlpha ends at 4.290 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.790 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.29003
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.704 s, 0.201 s after a later tween on autoAlpha ends at 4.503 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 4.003 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.5027704
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.670 s, 0.185 s after a later tween on autoAlpha ends at 4.485 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.985 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4850995000000005
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.705 s, 0.195 s after a later tween on autoAlpha ends at 4.510 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 4.010 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.5095648
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.641 s, 0.166 s after a later tween on autoAlpha ends at 4.475 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.975 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4745073
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.709 s, 0.195 s after a later tween on autoAlpha ends at 4.514 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 4.014 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.5139921
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.759 s, 0.217 s after a later tween on autoAlpha ends at 4.542 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 4.042 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.5415963
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.295 s, 0.008 s after a later tween on autoAlpha ends at 4.287 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.787 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.2866232
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.344 s, 0.028 s after a later tween on autoAlpha ends at 4.316 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.816 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3163874
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.293 s, 0.005 s after a later tween on autoAlpha ends at 4.288 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.788 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.2880348
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.771 s, 0.218 s after a later tween on autoAlpha ends at 4.553 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 4.053 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.5527173
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.464 s, 0.079 s after a later tween on autoAlpha ends at 4.386 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.886 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3855718
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.765 s, 0.213 s after a later tween on autoAlpha ends at 4.552 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 4.052 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.5519862
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.518 s, 0.101 s after a later tween on autoAlpha ends at 4.417 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.917 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.416752300000001
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.591 s, 0.132 s after a later tween on autoAlpha ends at 4.459 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.959 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.4590648
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.376 s, 0.035 s after a later tween on autoAlpha ends at 4.341 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.841 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3414152
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.431 s, 0.057 s after a later tween on autoAlpha ends at 4.374 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.874 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3739117
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.545 s, 0.106 s after a later tween on autoAlpha ends at 4.439 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.939 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.43884
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.784 s, 0.210 s after a later tween on autoAlpha ends at 4.574 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 4.074 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.5738346
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.446 s, 0.057 s after a later tween on autoAlpha ends at 4.389 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 3.889 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.3886126
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.694 s, 0.168 s after a later tween on autoAlpha ends at 4.527 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 4.027 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.5267905
+      },
+      {
+        "code": "gsap_tween_tail",
+        "severity": "warning",
+        "message": "In timeline \"main\", a tween on autoAlpha of div.drop ends at 4.700 s, 0.169 s after a later tween on autoAlpha ends at 4.531 s. For that tail the earlier tween takes autoAlpha back and leaves its own end value on screen, so the later tween's end never shows. End the earlier tween by 4.031 s, or add overwrite: \"auto\" to the later tween.",
+        "selector": "[data-composition-id]",
+        "dataAttributes": {
+          "data-composition-id": "main",
+          "data-start": "0",
+          "data-duration": "60",
+          "data-fps": "30",
+          "data-width": "1920",
+          "data-height": "1080"
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "time": 4.5312934
+      }
+    ]
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 12,
+    "findings": [
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 3.333,
+        "selector": "#orb-a",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": -491.4,
+          "top": -623.5,
+          "right": 1008.6,
+          "bottom": 876.5,
+          "width": 1500,
+          "height": 1500
+        },
+        "containerSelector": "#bg",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 491.4,
+          "top": 623.5
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -491.4,
+          "y": -623.5,
+          "width": 1500,
+          "height": 1500
+        },
+        "firstSeen": 3.333,
+        "lastSeen": 56.667,
+        "occurrences": 9,
+        "heldMs": 0,
+        "times": [
+          3.333,
+          10,
+          16.667,
+          23.333,
+          30,
+          36.667,
+          43.333,
+          50,
+          56.667
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 3.333,
+        "selector": "#orb-b",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 925.9,
+          "top": 285.7,
+          "right": 2425.9,
+          "bottom": 1785.7,
+          "width": 1500,
+          "height": 1500
+        },
+        "containerSelector": "#bg",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 505.9,
+          "bottom": 705.7
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 925.9,
+          "y": 285.7,
+          "width": 1500,
+          "height": 1500
+        },
+        "firstSeen": 3.333,
+        "lastSeen": 56.667,
+        "occurrences": 9,
+        "heldMs": 0,
+        "times": [
+          3.333,
+          10,
+          16.667,
+          23.333,
+          30,
+          36.667,
+          43.333,
+          50,
+          56.667
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 10,
+        "selector": "#sweep",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": 1780.85,
+          "top": 30,
+          "right": 2140.85,
+          "bottom": 750,
+          "width": 360,
+          "height": 720
+        },
+        "containerSelector": "#root",
+        "text": "",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "right": 220.85
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1780.85,
+          "y": 30,
+          "width": 360,
+          "height": 720
+        },
+        "firstSeen": 10,
+        "lastSeen": 10,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          10
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 23.333,
+        "selector": "#win",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": -213,
+          "top": 117.1,
+          "right": 3099,
+          "bottom": 2292.9,
+          "width": 3312,
+          "height": 2175.8
+        },
+        "containerSelector": "#s-product",
+        "text": "bidetbud.com",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -213,
+          "y": 117.1,
+          "width": 3312,
+          "height": 2175.8
+        },
+        "firstSeen": 23.333,
+        "lastSeen": 23.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.333
+        ]
+      },
+      {
+        "code": "panel_out_of_canvas",
+        "severity": "info",
+        "time": 23.333,
+        "selector": "#win-bar",
+        "message": "Painted panel extends outside the composition canvas.",
+        "rect": {
+          "left": -213,
+          "top": 117.1,
+          "right": 3099,
+          "bottom": 222.9,
+          "width": 3312,
+          "height": 105.8
+        },
+        "containerSelector": "#root",
+        "text": "bidetbud.com",
+        "fixHint": "Move the panel inward, or mark intentional off-canvas animation with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "overflow": {
+          "left": 213,
+          "right": 1179
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": -213,
+          "y": 117.1,
+          "width": 3312,
+          "height": 105.8
+        },
+        "firstSeen": 23.333,
+        "lastSeen": 23.333,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          23.333
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 42.373,
+        "selector": "#trust-copy > div:nth-of-type(2) > div:nth-of-type(3) > span:nth-of-type(2) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 268.52,
+          "top": 527.25,
+          "right": 752.72,
+          "bottom": 660.12,
+          "width": 484.2,
+          "height": 132.87
+        },
+        "containerSelector": "#phone-copy > div:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "guessing.",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply. Decoration nobody needs to read can take data-layout-ignore.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 268.52,
+          "y": 527.25,
+          "width": 484.2,
+          "height": 132.87
+        },
+        "firstSeen": 42.373,
+        "lastSeen": 42.373,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          42.373
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 48.814,
+        "selector": "#phone-copy > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 130,
+          "top": 369.44,
+          "right": 223.52,
+          "bottom": 507.44,
+          "width": 93.52,
+          "height": 138
+        },
+        "containerSelector": "#add-copy > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "In",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply. Decoration nobody needs to read can take data-layout-ignore.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 130,
+          "y": 369.44,
+          "width": 93.52,
+          "height": 138
+        },
+        "firstSeen": 48.814,
+        "lastSeen": 48.814,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          48.814
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 48.814,
+        "selector": "#phone-copy > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(2) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 244.5,
+          "top": 369.44,
+          "right": 479.45,
+          "bottom": 507.44,
+          "width": 234.95,
+          "height": 138
+        },
+        "containerSelector": "#add-copy > div:nth-of-type(2) > div:nth-of-type(1) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "your",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply. Decoration nobody needs to read can take data-layout-ignore.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 244.5,
+          "y": 369.44,
+          "width": 234.95,
+          "height": 138
+        },
+        "firstSeen": 48.814,
+        "lastSeen": 48.814,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          48.814
+        ]
+      },
+      {
+        "code": "content_overlap",
+        "severity": "info",
+        "time": 48.814,
+        "selector": "#phone-copy > div:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "message": "Two text blocks overlap and may render unreadable.",
+        "rect": {
+          "left": 130,
+          "top": 495.91,
+          "right": 517.02,
+          "bottom": 633.91,
+          "width": 387.02,
+          "height": 138
+        },
+        "containerSelector": "#add-copy > div:nth-of-type(2) > div:nth-of-type(2) > span:nth-of-type(1) > span:nth-of-type(1)",
+        "text": "pocket.",
+        "fixHint": "Give each block its own zone, or put data-layout-allow-overlap on the text or on a container inside the scene. A marker on the scene root does not apply. Decoration nobody needs to read can take data-layout-ignore.",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 130,
+          "y": 495.91,
+          "width": 387.02,
+          "height": 138
+        },
+        "firstSeen": 48.814,
+        "lastSeen": 48.814,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          48.814
+        ]
+      },
+      {
+        "code": "container_overflow",
+        "severity": "info",
+        "time": 50,
+        "selector": "#add-img",
+        "message": "Element extends outside a clipping layout container.",
+        "rect": {
+          "left": 526.03,
+          "top": -17.06,
+          "right": 2293.97,
+          "bottom": 1097.34,
+          "width": 1767.94,
+          "height": 1114.4
+        },
+        "containerSelector": "#add-card",
+        "fixHint": "Resize/reposition the child or container, or mark intentional overflow with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 1065.52,
+          "top": 197.15,
+          "right": 1754.48,
+          "bottom": 884.36,
+          "width": 688.96,
+          "height": 687.21
+        },
+        "overflow": {
+          "left": 539.49,
+          "right": 539.49,
+          "top": 214.21,
+          "bottom": 212.98
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "add-img",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 526.03,
+          "y": -17.06,
+          "width": 1767.94,
+          "height": 1114.4
+        },
+        "firstSeen": 50,
+        "lastSeen": 50,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          50
+        ]
+      },
+      {
+        "code": "escaped_container",
+        "severity": "info",
+        "time": 50,
+        "selector": "#add-img",
+        "message": "Positioned element renders far outside its offset parent — its coordinates were likely computed in a different frame (canvas/viewport pixels).",
+        "rect": {
+          "left": 526.03,
+          "top": -17.06,
+          "right": 2293.97,
+          "bottom": 1097.34,
+          "width": 1767.94,
+          "height": 1114.4
+        },
+        "containerSelector": "#add-card",
+        "text": "",
+        "fixHint": "Compute left/top in the offset parent's frame (subtract its rect), or mark intentional placement with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 1065.52,
+          "top": 197.15,
+          "right": 1754.48,
+          "bottom": 884.36,
+          "width": 688.96,
+          "height": 687.21
+        },
+        "dataAttributes": {
+          "data-hf-render-id": "add-img",
+          "data-hf-authored-opacity": ""
+        },
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 526.03,
+          "y": -17.06,
+          "width": 1767.94,
+          "height": 1114.4
+        },
+        "firstSeen": 50,
+        "lastSeen": 50,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          50
+        ]
+      },
+      {
+        "code": "canvas_content_at_edge",
+        "severity": "info",
+        "time": 56.667,
+        "selector": "#world2",
+        "message": "Canvas content touches the frame edge (left, right).",
+        "rect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "containerSelector": "#root",
+        "fixHint": "Keep drawn text inside the visible part of the canvas, or mark intentional full-bleed art with data-layout-allow-overflow.",
+        "containerRect": {
+          "left": 0,
+          "top": 0,
+          "right": 1920,
+          "bottom": 1080,
+          "width": 1920,
+          "height": 1080
+        },
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 1080
+        },
+        "firstSeen": 56.667,
+        "lastSeen": 56.667,
+        "occurrences": 1,
+        "heldMs": 0,
+        "times": [
+          56.667
+        ]
+      }
+    ],
+    "duration": 60,
+    "samples": [
+      3.333,
+      10,
+      16.667,
+      23.333,
+      30,
+      36.667,
+      43.333,
+      50,
+      56.667
+    ],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 12,
+    "truncated": false,
+    "faceCheck": {
+      "ran": true,
+      "candidates": 0,
+      "faces": 0
+    }
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [
+      3.333,
+      16.667,
+      30,
+      43.333,
+      56.667
+    ],
+    "checked": 15,
+    "passed": 15
+  },
+  "craft": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 4,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "text_below_floor",
+        "severity": "warning",
+        "message": "Type floor is 28 px (2.6% of the 1080 px short side, what a phone can read) and 13 text elements stay under it for 0.5 s or more, the smallest \"bidetbud.com\" at 12 px: set reading text to at least 28 px, or put data-layout-ignore on text that is texture rather than reading; see references/look.md.",
+        "text": "bidetbud.com",
+        "selector": "#win-url",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 928.14,
+          "y": 310.79,
+          "width": 79.84,
+          "height": 14.7
+        },
+        "time": 11.25,
+        "times": [
+          8.5,
+          8.625,
+          11.25,
+          35.625,
+          37.375,
+          37.625,
+          38,
+          38.375,
+          42.875,
+          44,
+          44.125,
+          49.25,
+          57
+        ],
+        "fontPx": 12.34,
+        "floorPx": 28,
+        "seconds": 9.75,
+        "elements": [
+          {
+            "selector": "#win-url",
+            "text": "bidetbud.com",
+            "fontPx": 12.34,
+            "time": 11.25,
+            "seconds": 9.75
+          },
+          {
+            "selector": "#clip-badge",
+            "text": "Verified in person",
+            "fontPx": 19.97,
+            "time": 44,
+            "seconds": 5
+          },
+          {
+            "selector": "div.s",
+            "text": "Real footage from the BidetBud blog",
+            "fontPx": 22,
+            "time": 44.125,
+            "seconds": 4.875
+          },
+          {
+            "selector": "#add-eyebrow",
+            "text": "Community-built",
+            "fontPx": 23.75,
+            "time": 49.25,
+            "seconds": 5.125
+          },
+          {
+            "selector": "#stats > div:nth-of-type(1) > div:nth-of-type(2)",
+            "text": "Places with a bidet",
+            "fontPx": 24,
+            "time": 8.5,
+            "seconds": 3
+          },
+          {
+            "selector": "#stats > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "Countries",
+            "fontPx": 24,
+            "time": 8.625,
+            "seconds": 2.875
+          },
+          {
+            "selector": "#phone-eyebrow",
+            "text": "On your phone",
+            "fontPx": 24,
+            "time": 42.875,
+            "seconds": 6.125
+          },
+          {
+            "selector": "#trust-eyebrow",
+            "text": "How a pin earns its place",
+            "fontPx": 24.03,
+            "time": 35.625,
+            "seconds": 6.875
+          },
+          {
+            "selector": "#legend > div:nth-of-type(2) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "Heated seat or WASHLET install",
+            "fontPx": 25.51,
+            "time": 37.625,
+            "seconds": 4.875
+          },
+          {
+            "selector": "#legend > div:nth-of-type(1) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "Someone confirmed this in person",
+            "fontPx": 25.9,
+            "time": 37.375,
+            "seconds": 5.125
+          },
+          {
+            "selector": "#legend > div:nth-of-type(3) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "Found online, not yet verified in person",
+            "fontPx": 25.95,
+            "time": 38,
+            "seconds": 4.5
+          },
+          {
+            "selector": "#end-sign",
+            "text": "Sadaqah jariyah of hygiene.",
+            "fontPx": 26,
+            "time": 57,
+            "seconds": 3
+          },
+          {
+            "selector": "#legend > div:nth-of-type(4) > div:nth-of-type(2) > div:nth-of-type(2)",
+            "text": "Hotel guests or restricted entry",
+            "fontPx": 26.12,
+            "time": 38.375,
+            "seconds": 4.125
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"PLACES WITH A BIDET\" (4 words) is on screen 0.07 s (±0.01 s), under its 1.27 s floor: hold it about 0.5 s + 0.3 s a word (1.70 s here) before it leaves or changes; see references/motion.md.",
+        "text": "PLACES WITH A BIDET",
+        "selector": "#stats > div:nth-of-type(1) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1157.12,
+          "y": 952.46,
+          "width": 357.8800000000001,
+          "height": 30.519999999999982
+        },
+        "time": 11.336,
+        "words": 4,
+        "seconds": 0.07,
+        "floorSeconds": 1.275,
+        "measured": [
+          {
+            "time": 11,
+            "opacity": 1,
+            "heightPx": 29
+          },
+          {
+            "time": 11.125,
+            "opacity": 0.98,
+            "heightPx": 29
+          },
+          {
+            "time": 11.25,
+            "opacity": 0.86,
+            "heightPx": 29
+          },
+          {
+            "time": 11.375,
+            "opacity": 0.57,
+            "heightPx": 31
+          },
+          {
+            "time": 11.5,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 11.625,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 11.75,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"COUNTRIES\" (1 word) is on screen 0.07 s (±0.01 s), under its 0.40 s floor: hold it about 0.5 s + 0.3 s a word (0.80 s here) before it leaves or changes; see references/motion.md.",
+        "text": "COUNTRIES",
+        "selector": "#stats > div:nth-of-type(2) > div:nth-of-type(2)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 1657.97,
+          "y": 952.46,
+          "width": 185.87999999999988,
+          "height": 30.519999999999982
+        },
+        "time": 11.336,
+        "words": 1,
+        "seconds": 0.07,
+        "floorSeconds": 0.4,
+        "measured": [
+          {
+            "time": 11,
+            "opacity": 1,
+            "heightPx": 29
+          },
+          {
+            "time": 11.125,
+            "opacity": 0.98,
+            "heightPx": 29
+          },
+          {
+            "time": 11.25,
+            "opacity": 0.86,
+            "heightPx": 29
+          },
+          {
+            "time": 11.375,
+            "opacity": 0.57,
+            "heightPx": 31
+          },
+          {
+            "time": 11.5,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 11.625,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 11.75,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      },
+      {
+        "code": "line_unread",
+        "severity": "warning",
+        "message": "\"ICSD finds the Islamic Center of San Diego.\" (8 words) is on screen 2.00 s (±0.01 s), under its 2.17 s floor: hold it about 0.5 s + 0.3 s a word (2.90 s here) before it leaves or changes; see references/motion.md.",
+        "text": "ICSD finds the Islamic Center of San Diego.",
+        "selector": "#cap-4 > span:nth-of-type(1)",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 604.77,
+          "y": 982.14,
+          "width": 710.46,
+          "height": 45.999999999999886
+        },
+        "time": 24.539,
+        "words": 8,
+        "seconds": 2,
+        "floorSeconds": 2.175,
+        "measured": [
+          {
+            "time": 24.25,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 24.375,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 24.5,
+            "opacity": 0.38,
+            "heightPx": 46
+          },
+          {
+            "time": 24.625,
+            "opacity": 0.8,
+            "heightPx": 46
+          },
+          {
+            "time": 24.75,
+            "opacity": 0.98,
+            "heightPx": 46
+          },
+          {
+            "time": 24.875,
+            "opacity": 1,
+            "heightPx": 46
+          },
+          {
+            "time": 25,
+            "opacity": 1,
+            "heightPx": 46
+          },
+          {
+            "time": 26.125,
+            "opacity": 1,
+            "heightPx": 46
+          },
+          {
+            "time": 26.25,
+            "opacity": 1,
+            "heightPx": 46
+          },
+          {
+            "time": 26.375,
+            "opacity": 0.99,
+            "heightPx": 46
+          },
+          {
+            "time": 26.5,
+            "opacity": 0.64,
+            "heightPx": 46
+          },
+          {
+            "time": 26.625,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 26.75,
+            "opacity": null,
+            "heightPx": null
+          },
+          {
+            "time": 26.875,
+            "opacity": null,
+            "heightPx": null
+          }
+        ]
+      }
+    ],
+    "enabled": true,
+    "step": 0.125,
+    "samples": 480
+  },
+  "audio": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 1,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "audio_clip_silent",
+        "severity": "warning",
+        "message": "assets/sfx/airhiss.wav is silent for the whole part this clip plays (0-60 s of the file).",
+        "selector": "#bed-air",
+        "dataAttributes": {},
+        "sourceFile": "index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "timeRange": [
+          0,
+          60
+        ],
+        "fixHint": "Check the file has sound there, or move data-media-start to where it does."
+      }
+    ]
+  },
+  "hdr": {
+    "autoPromotion": {
+      "triggeringAsset": "assets/moka-verified.mp4",
+      "output": {
+        "colorSpace": "BT.2020",
+        "codec": "HEVC Main10"
+      }
+    },
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

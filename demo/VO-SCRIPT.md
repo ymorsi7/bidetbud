@@ -19,6 +19,6 @@ Do not read on-screen headlines word-for-word. Leave air under big type.
 | 49.5-53.2 | Add spot | Know a spot? Add it. Every submission is reviewed before it goes live. |
 | 54.8-58.5 | End card | BidetBud.com. Free, community-built, open source. |
 
-No music (haram). Voiceover only.
+No music / no instruments (haram). Soft brown-noise room tone + air hiss fill gaps. UI whoosh/click/pop only.
 
-Placed starts (Kokoro `am_michael`): hook 0.35, bidets 3.05, world 5.55, pins 13.25, filters 15.55, search 20.2, detail 27.15, near 30.4, evidence 35.5, phone 42.4, add 48.9, end 54.9.
+Voice: Kokoro `am_adam` at 1.08x with clarity EQ. Placed: hook 0.25, bidets 2.85, world 5.4, pins 11.9, filters 14.6, search 18.3, detail 25.0, near 28.0, evidence 35.4, phone 42.3, add 48.9, end 54.5.

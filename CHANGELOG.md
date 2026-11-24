@@ -10,7 +10,7 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 
 - HyperFrames 60s product film under `demo/` (cold open → world pins → live UI verbs → evidence → phone + Moka clip → add a spot → bidetbud.com)
 - YouTube thumbnail composited from real Near me + Moka captures (`demo/assets/youtube-thumbnail.jpg`)
-- Demo voiceover (Kokoro Michael, no music) wired to the 60s HyperFrames timeline
+- Demo voiceover (Kokoro Adam, no music) plus soft room-tone bed and UI SFX on the 60s HyperFrames timeline
 
 **Mobile / TestFlight**
 
