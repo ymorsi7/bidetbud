@@ -1,0 +1,166 @@
+#!/usr/bin/env node
+/**
+ * Build the dot-matrix world map used by the demo film's title and end cards.
+ *
+ *   node demo/scripts/build-world-dots.cjs
+ *
+ * Output: demo/assets/world-dots.js  (sets window.BB_WORLD)
+ *
+ * Two layers on one coarse grid (CELL degrees per dot):
+ *   land  every grid cell whose centre is on land (Natural Earth 110m, public domain)
+ *   pins  grid cells that hold at least one bidet pin, with a 1-4 density bucket
+ *
+ * Privacy: pins are read from the SAME sealed public set the live /api/* serves
+ * (never the private research seed), and only a per-cell density bucket is
+ * written. No names, addresses, or coordinates finer than CELL degrees leave
+ * this script, so the output is safe to publish with the repo.
+ */
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
+
+const ROOT = path.resolve(__dirname, '../..');
+const OUT = path.resolve(__dirname, '../assets/world-dots.js');
+const LAND_URL =
+  'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_land.geojson';
+const LAND_CACHE = path.join(require('os').tmpdir(), 'ne_110m_land.geojson');
+
+const CELL = 1.5; // degrees per dot
+const LON_MIN = -180;
+const LON_MAX = 180;
+const LAT_MAX = 78; // top edge
+const LAT_MIN = -57; // bottom edge (drops Antarctica)
+
+const COLS = Math.round((LON_MAX - LON_MIN) / CELL);
+const ROWS = Math.round((LAT_MAX - LAT_MIN) / CELL);
+
+async function loadLand() {
+  if (!fs.existsSync(LAND_CACHE)) {
+    const res = await fetch(LAND_URL);
+    if (!res.ok) throw new Error('land fetch failed: HTTP ' + res.status);
+    fs.writeFileSync(LAND_CACHE, await res.text());
+  }
+  return JSON.parse(fs.readFileSync(LAND_CACHE, 'utf8'));
+}
+
+function ringContains(ring, x, y) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const xi = ring[i][0];
+    const yi = ring[i][1];
+    const xj = ring[j][0];
+    const yj = ring[j][1];
+    if (yi > y !== yj > y && x < ((xj - xi) * (y - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+function polygons(geo) {
+  const out = [];
+  for (const f of geo.features) {
+    const g = f.geometry;
+    const polys = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
+    for (const rings of polys) {
+      let minX = Infinity;
+      let minY = Infinity;
+      let maxX = -Infinity;
+      let maxY = -Infinity;
+      for (const [x, y] of rings[0]) {
+        if (x < minX) minX = x;
+        if (x > maxX) maxX = x;
+        if (y < minY) minY = y;
+        if (y > maxY) maxY = y;
+      }
+      out.push({ rings, minX, minY, maxX, maxY });
+    }
+  }
+  return out;
+}
+
+function isLand(polys, lon, lat) {
+  for (const p of polys) {
+    if (lon < p.minX || lon > p.maxX || lat < p.minY || lat > p.maxY) continue;
+    if (!ringContains(p.rings[0], lon, lat)) continue;
+    let hole = false;
+    for (let h = 1; h < p.rings.length; h++) {
+      if (ringContains(p.rings[h], lon, lat)) {
+        hole = true;
+        break;
+      }
+    }
+    if (!hole) return true;
+  }
+  return false;
+}
+
+function publicRows() {
+  const { loadDotEnv, open, requireSeedKey } = require(path.join(ROOT, 'scripts/lib/map-seed-crypto.cjs'));
+  const { ENC_REL } = require(path.join(ROOT, 'scripts/lib/public-map-seed.cjs'));
+  loadDotEnv();
+  return open(fs.readFileSync(path.join(ROOT, ENC_REL)), requireSeedKey());
+}
+
+function bucket(n) {
+  if (n >= 60) return 4;
+  if (n >= 12) return 3;
+  if (n >= 3) return 2;
+  return 1;
+}
+
+(async () => {
+  const polys = polygons(await loadLand());
+
+  const land = [];
+  for (let r = 0; r < ROWS; r++) {
+    const lat = LAT_MAX - (r + 0.5) * CELL;
+    for (let c = 0; c < COLS; c++) {
+      const lon = LON_MIN + (c + 0.5) * CELL;
+      if (isLand(polys, lon, lat)) land.push(c, r);
+    }
+  }
+
+  const HAS_BIDET = new Set(['verified', 'warmed', 'internet']);
+  const rows = publicRows().filter((r) => HAS_BIDET.has(r.bidetStatus));
+  const cells = new Map();
+  const countries = new Set();
+  for (const row of rows) {
+    const lat = Number(row.latitude);
+    const lon = Number(row.longitude);
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) continue;
+    if (lat > LAT_MAX || lat < LAT_MIN) continue;
+    const c = Math.min(COLS - 1, Math.max(0, Math.floor((lon - LON_MIN) / CELL)));
+    const r = Math.min(ROWS - 1, Math.max(0, Math.floor((LAT_MAX - lat) / CELL)));
+    const key = r * COLS + c;
+    cells.set(key, (cells.get(key) || 0) + 1);
+    if (row.country) countries.add(row.country);
+  }
+
+  const pins = [];
+  for (const [key, n] of [...cells.entries()].sort((a, b) => a[0] - b[0])) {
+    pins.push(key % COLS, Math.floor(key / COLS), bucket(n));
+  }
+
+  const world = {
+    cell: CELL,
+    cols: COLS,
+    rows: ROWS,
+    lonMin: LON_MIN,
+    latMax: LAT_MAX,
+    land, // flat [col,row, col,row, ...]
+    pins, // flat [col,row,bucket, ...]
+  };
+
+  const banner =
+    '/* Generated by demo/scripts/build-world-dots.cjs. Do not edit by hand.\n' +
+    ' * Land: Natural Earth 110m (public domain). Pins: coarse density buckets only. */\n';
+  fs.mkdirSync(path.dirname(OUT), { recursive: true });
+  fs.writeFileSync(OUT, banner + 'window.BB_WORLD = ' + JSON.stringify(world) + ';\n');
+
+  console.log('grid', COLS + 'x' + ROWS, '| land dots', land.length / 2, '| pin cells', pins.length / 3);
+  console.log('public bidet pins', rows.length, '| countries', countries.size);
+  console.log('wrote', path.relative(process.cwd(), OUT), (fs.statSync(OUT).size / 1024).toFixed(1) + ' KB');
+})().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

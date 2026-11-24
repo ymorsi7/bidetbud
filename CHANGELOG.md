@@ -6,6 +6,10 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 
 ## 2026-11-23
 
+**Demo**
+
+- HyperFrames 60s product film under `demo/` (cold open → world pins → live UI verbs → evidence → phone + Moka clip → add a spot → bidetbud.com)
+
 **Mobile / TestFlight**
 
 - Bumped to **1.0.4 (16)** and re-synced `App/public` from the current map shell (was stuck on a Nov 21 copy)
