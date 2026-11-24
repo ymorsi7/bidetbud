@@ -2,7 +2,7 @@
 
 GOAL:    After 60 s a stranger knows BidetBud finds verified bidets on a real map, and wants to open bidetbud.com.
 OUTPUT:  HyperFrames, 1920 x 1080, 30 fps
-TIME:    60 s x 30 = 1800 frames; music target ~110 bpm (16 frames/beat) when bed is present
+TIME:    60 s x 30 = 1800 frames; voiceover only (no music)
 
 LOOK:
   ground #09090b zinc (product chrome, not a void of floating widgets);

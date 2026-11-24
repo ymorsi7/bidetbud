@@ -1,0 +1,58 @@
+{
+  "provider": "heygen",
+  "voice": "f91cc0b0eea44f8391f080d2de079ea2",
+  "lang": "en",
+  "lines": [
+    {
+      "id": "hook",
+      "text": "There's one thing the West still hasn't figured out."
+    },
+    {
+      "id": "bidets",
+      "text": "Bidets."
+    },
+    {
+      "id": "world",
+      "text": "BidetBud is the map of places that actually have one. Over ten thousand spots, across more than eighty countries."
+    },
+    {
+      "id": "pins",
+      "text": "Every pin is a real restroom."
+    },
+    {
+      "id": "filters",
+      "text": "Filter by masajid, restaurants, hotels, public spots."
+    },
+    {
+      "id": "search",
+      "text": "Search a city, a name, even an acronym. I C S D finds the Islamic Center of San Diego."
+    },
+    {
+      "id": "detail",
+      "text": "Confirmed in person. Directions in one tap."
+    },
+    {
+      "id": "near",
+      "text": "Near me: a hundred thirty-five places within ten miles of Union Square."
+    },
+    {
+      "id": "evidence",
+      "text": "Every pin needs real evidence. A bidet, washlet, or handheld sprayer. No guessing."
+    },
+    {
+      "id": "phone",
+      "text": "On your phone, in your pocket. This is real footage from a verified spot in Astoria."
+    },
+    {
+      "id": "add",
+      "text": "Know a spot? Add it. Every submission is reviewed before it goes live."
+    },
+    {
+      "id": "end",
+      "text": "BidetBud.com. Free, community-built, open source."
+    }
+  ],
+  "bgm": {
+    "mode": "none"
+  }
+}

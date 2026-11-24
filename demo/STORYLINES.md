@@ -20,7 +20,7 @@ Viewer feels a wry cold open ("the West still hasn't figured out… Bidets."), t
 
 **Look:** Zinc `#09090b` ground, Inter, teal accent only on one word / pin / CTA per beat; real product screenshots; dot-matrix world from sealed pin cells.
 
-**Sound:** Confident mid-tempo electronic bed (~110 bpm), opens soft under the hook, lifts when pins ignite, soft whooshes on window moves, pop on pins and stats, short fade under the end card.
+**Sound:** Voiceover only (no music). Dry founder walkthrough timed to each beat.
 
 ---
 
