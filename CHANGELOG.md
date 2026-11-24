@@ -4,13 +4,20 @@ BidetBud started as **BidetBeacon** on [ymorsi7.github.io](https://github.com/ym
 
 Format: newest first. Skips routine “added N pins” commits unless it was a big batch. **Every user-facing or seed-policy change must land here in the same PR/commit** (see `AGENTS.md`).
 
+## 2026-11-24
+
+**Demo**
+
+- YouTube A/B pack v2: 3 distinct colorful thumbs (emerald masjid / cream 10K+ / blue near-me split) with large type + paired titles
+
 ## 2026-11-23
 
 **Demo**
 
 - HyperFrames 60s product film under `demo/` (cold open → world pins → live UI verbs → evidence → phone + Moka clip → add a spot → bidetbud.com)
 - YouTube thumbnail composited from real Near me + Moka captures (`demo/assets/youtube-thumbnail.jpg`)
-- Demo voiceover (Kokoro Adam, no music) plus soft room-tone bed and UI SFX on the 60s HyperFrames timeline
+- Demo audio: wordless vocal-pad bed (no religious lyrics) + UI SFX; YouTube thumbnail rebuilt in modern sans (no Impact yellow)
+- Demo: "Bidets." land now hits with riser/impact/pop/spray SFX and a harder visual pop
 
 **Mobile / TestFlight**
 

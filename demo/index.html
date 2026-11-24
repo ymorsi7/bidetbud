@@ -949,43 +949,86 @@
 
       <div id="fade" class="clip" data-start="59.3" data-duration="0.7" data-track-index="5"></div>
 
-      <!-- Voice + non-musical bed (room tone / air). No instruments. -->
+      <!-- Wordless vocal pad (oohs/aahs + hum). No religious lyrics. No instruments. -->
       <audio
-        id="bed-room"
-        src="assets/sfx/roomtone.wav"
+        id="bed-nasheed"
+        src="assets/sfx/nasheed-bed.wav"
         data-start="0"
         data-duration="60"
-        data-volume="0.26"
-        data-fade-in="0.8"
-        data-fade-out="1.2"
+        data-volume="0.34"
+        data-fade-in="1.4"
+        data-fade-out="2.2"
         data-track-index="8"
       ></audio>
 
-      <audio id="vo-hook" src="assets/voice/hook.wav" data-start="0.25" data-duration="2.283" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-bidets" src="assets/voice/bidets.wav" data-start="2.85" data-duration="0.725" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-world" src="assets/voice/world.wav" data-start="5.4" data-duration="6.293" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-pins" src="assets/voice/pins.wav" data-start="11.9" data-duration="1.856" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-filters" src="assets/voice/filters.wav" data-start="14.6" data-duration="3.285" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-search" src="assets/voice/search.wav" data-start="18.3" data-duration="6.4" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-detail" src="assets/voice/detail.wav" data-start="25.0" data-duration="2.709" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-near" src="assets/voice/near.wav" data-start="28.0" data-duration="3.733" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-evidence" src="assets/voice/evidence.wav" data-start="35.4" data-duration="5.12" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-phone" src="assets/voice/phone.wav" data-start="42.3" data-duration="4.587" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-add" src="assets/voice/add.wav" data-start="48.9" data-duration="3.989" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
-      <audio id="vo-end" src="assets/voice/end.wav" data-start="54.5" data-duration="3.349" data-volume="1.15" data-track-index="6" data-fx-chain="{&quot;version&quot;:1,&quot;nodes&quot;:[{&quot;type&quot;:&quot;highpass&quot;,&quot;id&quot;:&quot;hp&quot;,&quot;params&quot;:{&quot;frequency&quot;:90}},{&quot;type&quot;:&quot;peaking&quot;,&quot;id&quot;:&quot;pres&quot;,&quot;params&quot;:{&quot;frequency&quot;:2800,&quot;gain&quot;:2.2,&quot;q&quot;:1.1}},{&quot;type&quot;:&quot;limiter&quot;,&quot;id&quot;:&quot;lim&quot;,&quot;params&quot;:{&quot;limit&quot;:-1.2}}]}"></audio>
+      <!-- Bidets. land: riser into impact + pop + spray (peaks synced to 3.02 / spray burst). -->
+      <audio
+        id="sfx-riser-bidets"
+        src="assets/sfx/riser.mp3"
+        data-start="0.05"
+        data-duration="3.2"
+        data-media-start="0.5"
+        data-volume="0.42"
+        data-fade-out="0.35"
+        data-track-index="7"
+      ></audio>
+      <audio
+        id="sfx-impact-bidets"
+        src="assets/sfx/impact.mp3"
+        data-start="1.07"
+        data-duration="2.2"
+        data-volume="0.55"
+        data-fade-out="0.4"
+        data-track-index="7"
+      ></audio>
+      <audio
+        id="sfx-pop-bidets"
+        src="assets/sfx/pop.mp3"
+        data-start="2.93"
+        data-duration="0.55"
+        data-volume="0.95"
+        data-track-index="9"
+      ></audio>
+      <audio
+        id="sfx-splash-bidets"
+        src="assets/sfx/splash.mp3"
+        data-start="1.75"
+        data-duration="2.4"
+        data-volume="0.5"
+        data-fade-out="0.5"
+        data-track-index="9"
+      ></audio>
+      <audio
+        id="sfx-spray-bidets"
+        src="assets/sfx/spray.mp3"
+        data-start="3.0"
+        data-duration="1.8"
+        data-media-start="0.4"
+        data-volume="0.7"
+        data-fade-out="0.4"
+        data-track-index="9"
+      ></audio>
 
-      <!-- UI / transition SFX only (air whoosh, click, pop). Not instruments. -->
-      <audio id="sfx-whoosh-fly" src="assets/sfx/whoosh.mp3" data-start="4.85" data-duration="0.9" data-media-start="2.25" data-volume="0.28" data-track-index="7"></audio>
-      <audio id="sfx-whoosh-win" src="assets/sfx/whoosh.mp3" data-start="10.7" data-duration="0.85" data-media-start="2.25" data-volume="0.3" data-track-index="7"></audio>
-      <audio id="sfx-pop-stats" src="assets/sfx/pop.mp3" data-start="8.3" data-duration="0.55" data-volume="0.45" data-track-index="7"></audio>
-      <audio id="sfx-click-masajid" src="assets/sfx/click.mp3" data-start="16.1" data-duration="0.3" data-volume="0.55" data-track-index="7"></audio>
-      <audio id="sfx-click-rest" src="assets/sfx/click.mp3" data-start="17.9" data-duration="0.3" data-volume="0.5" data-track-index="7"></audio>
-      <audio id="sfx-click-type" src="assets/sfx/click.mp3" data-start="21.65" data-duration="0.3" data-volume="0.48" data-track-index="7"></audio>
-      <audio id="sfx-pop-card" src="assets/sfx/pop.mp3" data-start="25.15" data-duration="0.55" data-volume="0.42" data-track-index="7"></audio>
-      <audio id="sfx-whoosh-phone" src="assets/sfx/whoosh.mp3" data-start="42.1" data-duration="0.8" data-media-start="2.28" data-volume="0.26" data-track-index="7"></audio>
-      <audio id="sfx-pop-pin1" src="assets/sfx/pop.mp3" data-start="51.2" data-duration="0.55" data-volume="0.4" data-track-index="7"></audio>
-      <audio id="sfx-pop-pin2" src="assets/sfx/pop.mp3" data-start="51.62" data-duration="0.55" data-volume="0.38" data-track-index="7"></audio>
-      <audio id="sfx-pop-pin3" src="assets/sfx/pop.mp3" data-start="52.04" data-duration="0.55" data-volume="0.4" data-track-index="7"></audio>
+      <!-- Soft UI accents on later beats. -->
+      <audio id="sfx-whoosh-fly" src="assets/sfx/whoosh.mp3" data-start="4.85" data-duration="0.9" data-media-start="2.25" data-volume="0.32" data-track-index="7"></audio>
+      <audio id="sfx-pop-logo" src="assets/sfx/pop.mp3" data-start="5.75" data-duration="0.55" data-volume="0.55" data-track-index="9"></audio>
+      <audio id="sfx-whoosh-win" src="assets/sfx/whoosh.mp3" data-start="10.7" data-duration="0.85" data-media-start="2.25" data-volume="0.34" data-track-index="7"></audio>
+      <audio id="sfx-pop-stats" src="assets/sfx/pop.mp3" data-start="8.3" data-duration="0.55" data-volume="0.55" data-track-index="9"></audio>
+      <audio id="sfx-click-masajid" src="assets/sfx/click.mp3" data-start="16.1" data-duration="0.3" data-volume="0.55" data-track-index="9"></audio>
+      <audio id="sfx-click-rest" src="assets/sfx/click.mp3" data-start="17.9" data-duration="0.3" data-volume="0.5" data-track-index="9"></audio>
+      <audio id="sfx-click-type" src="assets/sfx/click.mp3" data-start="21.65" data-duration="0.3" data-volume="0.48" data-track-index="9"></audio>
+      <audio id="sfx-click-type2" src="assets/sfx/click.mp3" data-start="22.1" data-duration="0.3" data-volume="0.42" data-track-index="9"></audio>
+      <audio id="sfx-click-type3" src="assets/sfx/click.mp3" data-start="22.45" data-duration="0.3" data-volume="0.4" data-track-index="9"></audio>
+      <audio id="sfx-click-type4" src="assets/sfx/click.mp3" data-start="22.8" data-duration="0.3" data-volume="0.45" data-track-index="9"></audio>
+      <audio id="sfx-pop-card" src="assets/sfx/pop.mp3" data-start="25.15" data-duration="0.55" data-volume="0.5" data-track-index="9"></audio>
+      <audio id="sfx-whoosh-trust" src="assets/sfx/whoosh.mp3" data-start="34.9" data-duration="0.85" data-media-start="2.25" data-volume="0.28" data-track-index="7"></audio>
+      <audio id="sfx-pop-legend" src="assets/sfx/pop.mp3" data-start="37.2" data-duration="0.55" data-volume="0.45" data-track-index="9"></audio>
+      <audio id="sfx-whoosh-phone" src="assets/sfx/whoosh.mp3" data-start="42.1" data-duration="0.8" data-media-start="2.28" data-volume="0.3" data-track-index="7"></audio>
+      <audio id="sfx-pop-moka" src="assets/sfx/pop.mp3" data-start="43.2" data-duration="0.55" data-volume="0.5" data-track-index="9"></audio>
+      <audio id="sfx-pop-pin1" src="assets/sfx/pop.mp3" data-start="51.2" data-duration="0.55" data-volume="0.55" data-track-index="9"></audio>
+      <audio id="sfx-pop-pin2" src="assets/sfx/pop.mp3" data-start="51.62" data-duration="0.55" data-volume="0.5" data-track-index="9"></audio>
+      <audio id="sfx-pop-pin3" src="assets/sfx/pop.mp3" data-start="52.04" data-duration="0.55" data-volume="0.52" data-track-index="9"></audio>
+      <audio id="sfx-pop-end" src="assets/sfx/pop.mp3" data-start="54.55" data-duration="0.55" data-volume="0.6" data-track-index="9"></audio>
     </div>
 
     <script>
@@ -1223,24 +1266,31 @@
         tl.fromTo(words("#hook-lines"), { yPercent: 115 }, { yPercent: 0, duration: 0.8, stagger: 0.075, ease: "expo.out" }, 0.35);
         tl.to("#hook-lines", { autoAlpha: 0, y: -46, filter: "blur(14px)", duration: 0.42, ease: "power2.in" }, 2.62);
 
+        // Hard land: overshoot + micro kick so "Bidets." feels like a hit, not a fade.
         tl.fromTo(
           "#hook-word",
-          { autoAlpha: 0, scale: 1.7, filter: "blur(36px)" },
-          { autoAlpha: 1, scale: 1, filter: "blur(0px)", duration: 0.75, ease: "expo.out" },
+          { autoAlpha: 0, scale: 2.35, filter: "blur(42px)", rotation: -4 },
+          { autoAlpha: 1, scale: 1, filter: "blur(0px)", rotation: 0, duration: 0.58, ease: "back.out(2.4)" },
           3.02
+        );
+        tl.fromTo(
+          "#hook-word",
+          { x: 0, y: 0 },
+          { x: 12, y: -8, duration: 0.07, ease: "power2.out", yoyo: true, repeat: 3 },
+          3.08
         );
         for (const d of DROPS) {
           tl.fromTo(
             d.el,
-            { x: 0, y: 0, scale: 0.2, autoAlpha: 0 },
-            { x: d.x, y: d.y, scale: 1, autoAlpha: 1, duration: d.dur, ease: "expo.out" },
-            3.06 + d.delay
+            { x: 0, y: 0, scale: 0.15, autoAlpha: 0 },
+            { x: d.x, y: d.y, scale: 1.15, autoAlpha: 1, duration: d.dur * 0.85, ease: "expo.out" },
+            3.04 + d.delay * 0.85
           );
-          tl.to(d.el, { autoAlpha: 0, duration: 0.5, ease: "power1.in" }, 3.06 + d.delay + d.dur * 0.55);
+          tl.to(d.el, { autoAlpha: 0, scale: 0.6, duration: 0.45, ease: "power1.in" }, 3.04 + d.delay * 0.85 + d.dur * 0.5);
         }
-        tl.fromTo("#hook-arc-path", { strokeDashoffset: 1.1 }, { strokeDashoffset: 0, duration: 0.8, ease: "power3.inOut" }, 3.5);
-        // Slow push while the word holds, then fly through it into the map.
-        tl.fromTo("#hook-word-wrap", { scale: 1 }, { scale: 1.06, duration: 2.0, ease: "none" }, 3.1);
+        tl.fromTo("#hook-arc-path", { strokeDashoffset: 1.1 }, { strokeDashoffset: 0, duration: 0.7, ease: "power3.inOut" }, 3.35);
+        // Slow push on the wrap (not the word) while it holds, then fly through into the map.
+        tl.fromTo("#hook-word-wrap", { scale: 1 }, { scale: 1.08, duration: 1.85, ease: "none" }, 3.25);
         tl.to("#hook-arc", { autoAlpha: 0, duration: 0.25, ease: "power1.in" }, 5.05);
         tl.to("#hook-word-wrap", { scale: 9, autoAlpha: 0, duration: 0.7, ease: "power3.in" }, 5.12);
 
