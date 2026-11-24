@@ -1,6 +1,6 @@
 {
   "name": "bidetbud-mobile",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": true,
   "description": "BidetBud Capacitor shell - iOS and Android wrap the same static map as bidetbud.com.",
   "license": "MIT",

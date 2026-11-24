@@ -35,7 +35,7 @@ function wrap(fn) {
               'access-control-allow-credentials': 'true',
               'vary': 'Origin',
             } : {}),
-            'access-control-allow-headers': 'content-type',
+            'access-control-allow-headers': 'content-type, authorization, x-bb-s, x-bb-session',
             'access-control-allow-methods': 'GET,OPTIONS',
           },
           body: '',

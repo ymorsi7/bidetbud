@@ -1,11 +1,17 @@
 /**
  * Map data client. Loads the full public pin set once via /api/bootstrap
  * (session cookie + rate limit). No public bidet-seed.json dump.
+ *
+ * Native (CapacitorHttp): warm /api/session first, then send the returned
+ * token as X-BB-S on bootstrap. CapHttp often omits Origin and may not
+ * attach HttpOnly cookies the way a browser would - the header is the
+ * reliable path for TestFlight / Play builds.
  */
 (function (global) {
   const state = {
     ver: '',
     sessionReady: null,
+    sessionToken: '',
     byId: new Map(),
     countries: [],
     total: 0,
@@ -13,6 +19,7 @@
   };
 
   const LIVE_ORIGIN = 'https://bidetbud.com';
+  const TOKEN_KEY = 'bb_s_token';
 
   function isNativeShell() {
     // Only the real Capacitor runtime - not the CSS class sync-web adds for layout
@@ -29,7 +36,7 @@
   }
 
   function apiOrigin() {
-    // Capacitor WebView origin is capacitor://localhost / https://localhost  - 
+    // Capacitor WebView origin is capacitor://localhost / https://localhost -
     // talk to production for map pins (CapacitorHttp bypasses CORS).
     if (isNativeShell()) return LIVE_ORIGIN;
     return location.origin;
@@ -48,11 +55,41 @@
     return u.pathname + u.search;
   }
 
+  function readStoredToken() {
+    try {
+      return sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY) || '';
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function storeToken(token) {
+    state.sessionToken = token || '';
+    if (!token) return;
+    try {
+      sessionStorage.setItem(TOKEN_KEY, token);
+      localStorage.setItem(TOKEN_KEY, token);
+    } catch (e) { /* private mode */ }
+  }
+
+  function authHeaders() {
+    const headers = { Accept: 'application/json' };
+    const token = state.sessionToken || readStoredToken();
+    if (token) {
+      state.sessionToken = token;
+      // Prefer Authorization - Netlify edge strips some custom X-* headers.
+      // Keep X-BB-S as a fallback for local / older proxies.
+      headers.Authorization = 'Bearer ' + token;
+      headers['X-BB-S'] = token;
+    }
+    return headers;
+  }
+
   async function getJson(path, params) {
     const cross = isNativeShell();
     const res = await fetch(apiUrl(path, params), {
       credentials: cross ? 'include' : 'same-origin',
-      headers: { Accept: 'application/json' },
+      headers: authHeaders(),
       cache: 'no-store',
     });
     if (!res.ok) throw new Error('Map API ' + res.status);
@@ -123,23 +160,14 @@
     return state.bootstrapped;
   }
 
-  async function bootstrap() {
-    preloadCache();
-    const data = await getJson('/api/bootstrap');
-    if (!data || !Array.isArray(data.spots) || !data.spots.length) {
-      throw new Error('Empty map bootstrap');
-    }
-    applyBootstrap(data);
-    writeLocalCache(data);
-    return data;
-  }
-
   function ensureSession() {
     if (state.sessionReady) return state.sessionReady;
+    state.sessionToken = state.sessionToken || readStoredToken();
     state.sessionReady = getJson('/api/session')
       .then((data) => {
         state.ver = data.ver || state.ver;
         global.__BIDET_SEED_VER = state.ver;
+        if (data && data.token) storeToken(data.token);
         return data;
       })
       .catch((err) => {
@@ -147,6 +175,26 @@
         throw err;
       });
     return state.sessionReady;
+  }
+
+  async function bootstrap() {
+    preloadCache();
+    // Native CapHttp: session first so bootstrap can auth via X-BB-S without Origin.
+    if (isNativeShell() || !state.sessionToken) {
+      try {
+        await ensureSession();
+      } catch (e) {
+        // Website same-origin bootstrap still works without a prior session.
+        if (isNativeShell()) throw e;
+      }
+    }
+    const data = await getJson('/api/bootstrap');
+    if (!data || !Array.isArray(data.spots) || !data.spots.length) {
+      throw new Error('Empty map bootstrap');
+    }
+    applyBootstrap(data);
+    writeLocalCache(data);
+    return data;
   }
 
   async function loadSpot(id) {

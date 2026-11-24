@@ -6,6 +6,11 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 
 ## 2026-11-24
 
+**Map / API**
+
+- Fixed TestFlight / Capacitor empty map: CapHttp omits Origin so `/api/bootstrap` was 403. Native client now warms `/api/session`, then sends `Authorization: Bearer` (Netlify was stripping custom `X-BB-S`).
+- Mobile bumped to **1.0.5 (17)** so App Store Connect accepts a new TestFlight build (16 was stuck / Xcode Cloud failing on reuse).
+
 **Demo**
 
 - YouTube A/B pack v2: 3 distinct colorful thumbs (emerald masjid / cream 10K+ / blue near-me split) with large type + paired titles
