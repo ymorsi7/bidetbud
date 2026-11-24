@@ -6,6 +6,10 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 
 ## 2026-11-24
 
+**Map / UI**
+
+- Fixed mobile **Suggest a spot** screen: `#addDialog` `max-height:720px` was beating the full-screen rules, so the form floated as a short card with gaps. Now true full-bleed on phone / Capacitor, cleaner labels, Yes/No control, and keyboard-safe footer. Mobile **1.0.5 (19)**.
+
 **Map / API**
 
 - Fixed TestFlight / Capacitor empty map: CapHttp omits Origin so `/api/bootstrap` was 403. Native client now warms `/api/session`, then sends `Authorization: Bearer` (Netlify was stripping custom `X-BB-S`).

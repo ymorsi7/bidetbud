@@ -738,7 +738,7 @@
   function initSubmitPanel(){
     const intro = document.getElementById('addIntro');
     if(intro){
-      intro.textContent = 'Name and whether it has a bidet is enough. We review every submission before it goes live.';
+      intro.textContent = 'Name is enough. We review every suggestion before it goes on the map.';
     }
     const emailPanel = document.getElementById('emailPanel');
     if(emailPanel) emailPanel.hidden = false;

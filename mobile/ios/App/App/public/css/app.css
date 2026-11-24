@@ -206,6 +206,8 @@ body.modal-open{overflow:hidden}
 .thank-lead{margin:8px 0 6px;font-size:1.375rem;font-weight:650;letter-spacing:-.03em}
 .dialog.wide{max-width:640px}
 #addOverlay.open,#thankYouOverlay.open{align-items:center;padding:24px}
+/* Desktop / tablet card. Mobile + Capacitor full-screen overrides use #id
+   selectors below so they beat this max-height:720px rule. */
 #addDialog.dialog.wide,#thankYouDialog.add-screen-dialog{max-width:560px;width:100%;max-height:min(92dvh,720px);overflow:hidden;padding:0;display:flex;flex-direction:column}
 .add-screen-bar{display:grid;grid-template-columns:minmax(72px,auto) 1fr minmax(72px,auto);align-items:center;gap:8px;flex-shrink:0;padding:8px 8px 8px 4px;background:#fff;z-index:2;border-bottom:1px solid var(--line)}
 .dialog .add-screen-bar h2{padding:0;margin:0;text-align:center;font-size:1.0625rem;line-height:1.2}
@@ -412,22 +414,90 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
   .overlay.open .add-screen-dialog{border-radius:0;max-height:none;padding:0;animation:none;box-shadow:none}
   body.add-screen-open .shell{display:none!important}
   body.add-screen-open #addOverlay.open,
-  body.add-screen-open #thankYouOverlay.open{position:absolute;inset:0;align-items:stretch;padding:0;background:#fff;display:flex;flex-direction:column}
-  body.add-screen-open .add-screen-dialog{max-height:none;height:100%;border-radius:0;box-shadow:none;padding:0;animation:none;display:flex;flex-direction:column;overflow:hidden;max-width:none}
-  body.add-screen-open .add-screen-bar{padding:10px 8px 10px 4px}
-  body.add-screen-open .add-screen-body{padding:18px 20px 16px}
-  body.add-screen-open .add-screen-foot{padding:12px 16px calc(12px + var(--safe-bottom))}
-  body.add-screen-open .form input,
-  body.add-screen-open .form textarea{min-height:48px;padding:13px 14px;border-radius:14px;font-size:16px;background:#f4f4f5;border-color:transparent}
-  body.add-screen-open .form input:focus,
-  body.add-screen-open .form textarea:focus{background:#fff;border-color:rgba(13,148,136,.35)}
-  body.add-screen-open .form label,
-  body.add-screen-open #addDialog .form-label{margin-top:18px;font-size:.75rem}
-  body.add-screen-open #addIntro{margin:0 0 18px;font-size:.9375rem}
-  body.add-screen-open .add-bidet-segmented{padding:4px;border-radius:14px}
-  body.add-screen-open .add-bidet-segmented button{min-height:48px;font-size:1rem;border-radius:11px}
-  body.add-screen-open .add-photo-btn{min-height:52px;border-radius:14px;border-style:dashed}
-  body.add-screen-open .add-screen-foot .btn{min-height:52px;border-radius:14px;font-size:1rem}
+  body.add-screen-open #thankYouOverlay.open{position:absolute;inset:0;align-items:stretch;justify-content:stretch;padding:0;background:#fff;display:flex;flex-direction:column}
+  /* ID selectors required: beat #addDialog.dialog.wide { max-height:720px }. */
+  body.add-screen-open #addDialog.dialog.wide,
+  body.add-screen-open #thankYouDialog.add-screen-dialog{
+    max-width:none!important;
+    width:100%!important;
+    max-height:none!important;
+    height:100%!important;
+    min-height:100%;
+    border-radius:0;
+    box-shadow:none;
+    padding:0;
+    animation:none;
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    margin:0;
+  }
+  body.add-screen-open #addDialog .add-screen-bar,
+  body.add-screen-open #thankYouDialog .add-screen-bar{padding:10px 12px 10px 4px}
+  body.add-screen-open #addDialog .add-screen-body,
+  body.add-screen-open #thankYouDialog .add-screen-body{padding:16px 20px 20px}
+  body.add-screen-open #addDialog .add-screen-foot,
+  body.add-screen-open #thankYouDialog .add-screen-foot{padding:12px 16px calc(12px + var(--safe-bottom));padding-bottom:calc(12px + var(--safe-bottom) + var(--kb-height, 0px))}
+  body.add-screen-open #addDialog .form input,
+  body.add-screen-open #addDialog .form textarea{min-height:48px;padding:13px 14px;border-radius:14px;font-size:16px;background:#f4f4f5;border:1px solid transparent}
+  body.add-screen-open #addDialog .form input:focus,
+  body.add-screen-open #addDialog .form textarea:focus{background:#fff;border-color:rgba(13,148,136,.35);box-shadow:0 0 0 4px var(--brand-soft)}
+  body.add-screen-open #addDialog .form label,
+  body.add-screen-open #addDialog .form-label{
+    margin:16px 0 8px;
+    font-size:.8125rem;
+    font-weight:600;
+    letter-spacing:-.01em;
+    text-transform:none;
+    color:var(--text);
+  }
+  body.add-screen-open #addDialog .form label:first-of-type{margin-top:4px}
+  body.add-screen-open #addIntro{margin:0 0 14px;font-size:.875rem;line-height:1.45;color:var(--muted)}
+  body.add-screen-open #addDialog .add-bidet-segmented{
+    display:flex;
+    width:100%;
+    padding:4px;
+    border-radius:14px;
+    background:rgba(24,24,27,.06);
+    gap:4px;
+  }
+  body.add-screen-open #addDialog .add-bidet-segmented button{
+    flex:1 1 0;
+    min-width:0;
+    min-height:48px;
+    font-size:1rem;
+    font-weight:600;
+    border-radius:11px;
+    padding:10px 12px;
+  }
+  body.add-screen-open #addDialog .add-bidet-segmented button.active{
+    background:#fff;
+    box-shadow:0 1px 3px rgba(24,24,27,.12);
+  }
+  body.add-screen-open #addDialog .add-more{
+    margin:20px 0 4px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:0;
+    background:#fafafa;
+  }
+  body.add-screen-open #addDialog .add-more>summary{
+    padding:0 14px;
+    min-height:48px;
+    font-size:.9375rem;
+  }
+  body.add-screen-open #addDialog .add-more[open]{
+    padding-bottom:14px;
+    background:#fff;
+  }
+  body.add-screen-open #addDialog .add-more[open]>summary{border-bottom:1px solid var(--line);margin-bottom:12px}
+  body.add-screen-open #addDialog .add-more label,
+  body.add-screen-open #addDialog .add-more .form-label{margin-left:14px;margin-right:14px}
+  body.add-screen-open #addDialog .add-more textarea,
+  body.add-screen-open #addDialog .add-photo-btn,
+  body.add-screen-open #addDialog .add-photo-preview{margin-left:14px;margin-right:14px;width:calc(100% - 28px)}
+  body.add-screen-open #addDialog .add-photo-btn{min-height:52px;border-radius:14px;border-style:dashed;justify-content:center;gap:8px}
+  body.add-screen-open #addDialog .add-screen-foot .btn{min-height:52px;border-radius:14px;font-size:1rem;font-weight:650}
   body.add-screen-open .share-actions .btn{width:100%;min-height:44px}
   .overlay-sheet.open .legend-dialog{max-height:min(82dvh,560px);padding:20px 16px calc(16px + var(--safe-bottom))}
   #detailOverlay.open{align-items:flex-end;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;pointer-events:none}

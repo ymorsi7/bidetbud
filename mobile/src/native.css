@@ -117,14 +117,39 @@ html.capacitor-native .map-controls{
   bottom:calc(56px + var(--safe-bottom) + 16px);
   gap:10px;
 }
-html.capacitor-native body.add-screen-open .add-screen-bar{
-  padding-top:calc(8px + var(--safe-top));
+html.capacitor-native body.add-screen-open #addOverlay.open,
+html.capacitor-native body.add-screen-open #thankYouOverlay.open{
+  /* Visual viewport on iOS keyboard - keep form pinned to the shell. */
+  height:100% !important;
+  height:100dvh !important;
+  max-height:100dvh !important;
 }
-html.capacitor-native body.add-screen-open .add-screen-bar h2{
+html.capacitor-native body.add-screen-open #addDialog.dialog.wide,
+html.capacitor-native body.add-screen-open #thankYouDialog.add-screen-dialog{
+  max-width:none !important;
+  max-height:none !important;
+  width:100% !important;
+  height:100% !important;
+  border-radius:0 !important;
+}
+html.capacitor-native body.add-screen-open #addDialog .add-screen-bar,
+html.capacitor-native body.add-screen-open #thankYouDialog .add-screen-bar{
+  padding-top:calc(8px + var(--safe-top));
+  padding-left:4px;
+  padding-right:12px;
+}
+html.capacitor-native body.add-screen-open #addDialog .add-screen-bar h2,
+html.capacitor-native body.add-screen-open #thankYouDialog .add-screen-bar h2{
   font-size:1.0625rem;
 }
 html.capacitor-native body.add-screen-open #addIntro{
   color:var(--muted);
+}
+html.capacitor-native.keyboard-open body.add-screen-open #addDialog .add-screen-foot{
+  padding-bottom:calc(12px + var(--safe-bottom) + var(--kb-height, 0px));
+}
+html.capacitor-native.keyboard-open body.add-screen-open #addDialog .add-screen-body{
+  padding-bottom:24px;
 }
 html.capacitor-native .overlay:not(#detailOverlay),
 html.capacitor-native .dialog:not(.detail-dialog){
