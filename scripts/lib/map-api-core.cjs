@@ -153,12 +153,12 @@ function isCapacitorOrigin(headers) {
   }
 }
 
-function sessionCookie(secret, headers) {
-  const token = makeSessionToken(secret);
+function sessionCookie(secret, headers, token) {
+  const value = token || makeSessionToken(secret);
   const isLocal = /localhost|127\.0\.0\.1/i.test(headers.host || '');
   const crossNative = isCapacitorOrigin(headers);
   return [
-    `bb_s=${encodeURIComponent(token)}`,
+    `bb_s=${encodeURIComponent(value)}`,
     'Path=/',
     'HttpOnly',
     // Native WebView is cross-site to bidetbud.com; Lax would drop the cookie.
@@ -179,21 +179,45 @@ function corsHeaders(headers) {
 }
 
 function handleSession({ secret, ver, headers }) {
-  return json(200, { ok: true, ver }, {
-    'set-cookie': sessionCookie(secret, headers),
+  const token = makeSessionToken(secret);
+  // Mirror token in the JSON body so CapacitorHttp clients can send it back as
+  // X-BB-S when the native cookie jar does not attach bb_s on cross-origin calls.
+  return json(200, { ok: true, ver, token }, {
+    'set-cookie': sessionCookie(secret, headers, token),
     ...corsHeaders(headers),
   });
+}
+
+function sessionTokenFromHeaders(headers, secret) {
+  const cookies = parseCookies(headers.cookie || headers.Cookie || '');
+  if (verifySessionToken(cookies.bb_s, secret)) return cookies.bb_s;
+  // CapacitorHttp often omits Origin and sometimes drops Set-Cookie into a jar
+  // the WebView fetch cannot see. Native client also sends the token as a header
+  // after /api/session (see js/map-api.js).
+  const hdr =
+    headers['x-bb-s'] ||
+    headers['X-BB-S'] ||
+    headers['x-bb-session'] ||
+    headers['X-BB-Session'] ||
+    '';
+  if (hdr && verifySessionToken(hdr, secret)) return hdr;
+  const auth = headers.authorization || headers.Authorization || '';
+  const m = /^Bearer\s+(.+)$/i.exec(String(auth));
+  if (m && verifySessionToken(m[1].trim(), secret)) return m[1].trim();
+  return '';
 }
 
 /** One-shot boot: session cookie + full public pin set (no evidence fields). */
 function handleBootstrap({ secret, ver, rows, headers, ip }) {
   rateLimit(`bootstrap:${ip || clientIp(headers)}`, { limit: 30, windowMs: 60 * 60 * 1000 });
   const site = String(headers['sec-fetch-site'] || headers['Sec-Fetch-Site'] || '').toLowerCase();
+  const sessionOk = Boolean(sessionTokenFromHeaders(headers, secret));
   // First paint from the site itself (no cookie yet). Block bare curl dumps.
+  // Native (CapacitorHttp) often has no Origin - allow only with a valid session.
   if (site === 'same-origin' || site === 'same-site') {
     /* ok */
   } else {
-    assertBrowserRequest(headers, { sessionOk: false });
+    assertBrowserRequest(headers, { sessionOk });
   }
   return json(200, {
     ok: true,
@@ -209,8 +233,8 @@ function handleBootstrap({ secret, ver, rows, headers, ip }) {
 
 function requireAuthed(event, secret) {
   const headers = event.headers || {};
-  const cookies = parseCookies(headers.cookie || headers.Cookie || '');
-  const sessionOk = verifySessionToken(cookies.bb_s, secret);
+  const token = sessionTokenFromHeaders(headers, secret);
+  const sessionOk = Boolean(token);
   assertBrowserRequest(headers, { sessionOk });
   if (!sessionOk) {
     const err = new Error('Unauthorized');
@@ -218,6 +242,7 @@ function requireAuthed(event, secret) {
     throw err;
   }
   const ip = clientIp(headers);
+  const cookies = parseCookies(headers.cookie || headers.Cookie || '');
   return { headers, ip, cookies };
 }
 
