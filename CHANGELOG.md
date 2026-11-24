@@ -9,7 +9,7 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 **Map / API**
 
 - Fixed TestFlight / Capacitor empty map: CapHttp omits Origin so `/api/bootstrap` was 403. Native client now warms `/api/session`, then sends `Authorization: Bearer` (Netlify was stripping custom `X-BB-S`).
-- Mobile bumped to **1.0.5 (17)** so App Store Connect accepts a new TestFlight build (16 was stuck / Xcode Cloud failing on reuse).
+- Fixed Xcode Cloud hard-fail: `ci_post_clone` `grep CapPackages` exited 1 after Cap sync rewrote `CapApp-SPM` to `node_modules`. Cloud scripts now rewrite SPM to vendored `CapPackages` and assert before archive. Mobile **1.0.5 (18)**.
 
 **Demo**
 

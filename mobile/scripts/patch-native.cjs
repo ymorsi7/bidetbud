@@ -13,8 +13,8 @@ const MOBILE = path.resolve(__dirname, '..');
 const APP_ID = 'com.bidetbud.app';
 const APP_NAME = 'BidetBud';
 const APP_VERSION = '1.0.5';
-const IOS_BUILD = '17';
-const ANDROID_VERSION_CODE = '17';
+const IOS_BUILD = '18';
+const ANDROID_VERSION_CODE = '18';
 const APPLE_TEAM = '9U4YC847Z3';
 const LOCATION_COPY =
   'BidetBud uses your location only to find bidet spots near you.';
@@ -481,6 +481,16 @@ function main() {
     } else {
       console.log('patch-native: android version already set');
     }
+  }
+
+  // Cap sync rewrites CapApp-SPM to node_modules; keep Cloud on CapPackages.
+  {
+    const { spawnSync } = require('child_process');
+    const r = spawnSync(process.execPath, [path.join(__dirname, 'fix-cap-spm-paths.cjs')], {
+      stdio: 'inherit',
+    });
+    if (r.status !== 0) throw new Error('fix-cap-spm-paths failed');
+    n++;
   }
 
   return n;

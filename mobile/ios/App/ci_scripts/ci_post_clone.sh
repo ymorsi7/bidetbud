@@ -3,8 +3,15 @@ set -euo pipefail
 echo "=== BidetBud post-clone (project-local) ==="
 ROOT="${CI_PRIMARY_REPOSITORY_PATH:-$(cd "$(dirname "$0")/../../../.." && pwd)}"
 cd "$ROOT"
+
+# Vendored Capacitor SPM plugins (no npm required on Cloud).
+test -d mobile/ios/App/CapPackages/app
+test -d mobile/ios/App/CapPackages/camera
+test -d mobile/ios/App/CapPackages/geolocation
+test -d mobile/ios/App/CapPackages/keyboard
+test -d mobile/ios/App/CapPackages/splash-screen
+test -d mobile/ios/App/CapPackages/status-bar
 ls mobile/ios/App/CapPackages
-grep CapPackages mobile/ios/App/CapApp-SPM/Package.swift
 
 # Xcode embeds these as Resources. Cap sync generates them locally, but they
 # used to be gitignored so Cloud archives failed with missing-file errors.
@@ -81,6 +88,9 @@ if ! command -v node >/dev/null 2>&1; then
   brew install node@22
   brew link --force --overwrite node@22 || true
 fi
+command -v node >/dev/null 2>&1
+node -v
+
 cd "$ROOT/mobile"
 # sync-web + patch-native are plain Node (no npm install / Cap CLI needed).
 # Keep cordova.js / cordova_plugins.js already committed under App/public -
@@ -99,8 +109,19 @@ fi
 rm -f "$PUBLIC_DIR/css/blog.css"
 rm -rf "$PUBLIC_DIR/images/blog"
 node scripts/patch-native.cjs
+# Cap sync rewrites CapApp-SPM to node_modules; Cloud has no npm install.
+# Always point SPM at vendored CapPackages before xcodebuild.
+node scripts/fix-cap-spm-paths.cjs
 test -f "$PUBLIC_DIR/index.html"
 test -f "$PUBLIC_DIR/js/app.js"
+test -f "$PUBLIC_DIR/js/map-api.js"
 test -f "$PUBLIC_DIR/cordova.js"
+# Fail the build if Package.swift still points at missing node_modules.
+if grep -q 'node_modules/@capacitor' ios/App/CapApp-SPM/Package.swift; then
+  echo "[ci_post_clone] ERROR: CapApp-SPM still references node_modules" >&2
+  exit 1
+fi
+grep -q '../CapPackages/app' ios/App/CapApp-SPM/Package.swift
 echo "[ci_post_clone] App/public refreshed ($(wc -c < "$PUBLIC_DIR/js/app.js") bytes app.js)"
+echo "[ci_post_clone] CapApp-SPM → CapPackages OK"
 echo "OK"
