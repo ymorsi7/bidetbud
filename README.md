@@ -2,6 +2,8 @@
 
 A free map of places with bidets: masajid, restaurants, hotels, and public restrooms.
 
+![bidetbud — zoom from the US map into New York, filter masajid and open a verified bidet spot](https://raw.githubusercontent.com/yasirwhite/opendemo-media/main/ymorsi7-bidetbud/bidetbud-demo.gif)
+
 **Live:** [bidetbud.com](https://bidetbud.com/)
 
 Every pin needs real evidence that a bidet, washlet, or handheld sprayer is there. No guessing.
