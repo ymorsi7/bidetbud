@@ -12,9 +12,9 @@ const path = require('path');
 const MOBILE = path.resolve(__dirname, '..');
 const APP_ID = 'com.bidetbud.app';
 const APP_NAME = 'BidetBud';
-const APP_VERSION = '1.0.5';
-const IOS_BUILD = '19';
-const ANDROID_VERSION_CODE = '19';
+const APP_VERSION = '1.0.6';
+const IOS_BUILD = '39';
+const ANDROID_VERSION_CODE = '39';
 const APPLE_TEAM = '9U4YC847Z3';
 const LOCATION_COPY =
   'BidetBud uses your location only to find bidet spots near you.';
