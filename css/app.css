@@ -579,6 +579,9 @@ mark.hl{background:rgba(250,204,21,.35);border-radius:4px;padding:0 2px}
 .map-legend-tip .btn-sm{width:100%}
 .btn-sm{min-height:32px;padding:6px 10px;font-size:.75rem}
 .detail-bidet-callout{font-size:1.0625rem;font-weight:700;color:var(--brand-deep);margin:12px 0 8px;line-height:1.35}
+.detail-photos{display:flex;gap:8px;overflow-x:auto;margin:0 0 12px;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.detail-photo{flex:0 0 auto;display:block;width:min(42vw,168px);aspect-ratio:4/3;border-radius:10px;overflow:hidden;border:1px solid var(--line);background:var(--zinc-100,#f4f4f5);text-decoration:none}
+.detail-photo img{width:100%;height:100%;object-fit:cover;display:block}
 .detail-trust{font-size:.8125rem;color:var(--muted);margin:0 0 12px;line-height:1.45}
 .detail-source{font-size:.75rem;color:var(--muted);margin-top:8px}
 .detail-sticky-footer{flex-shrink:0;padding:10px 16px calc(10px + var(--safe-bottom));margin-top:0;border-top:1px solid var(--line);background:var(--surface);display:flex;flex-direction:column;gap:6px}

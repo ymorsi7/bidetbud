@@ -63,6 +63,12 @@ const MANUAL = {
     latitude: '32.2345873',
     longitude: '-110.9576512',
   },
+  'Islamic Center of Flagstaff': {
+    address: '1829 N East St, Flagstaff, AZ 86004',
+    city: 'Flagstaff, AZ',
+    latitude: '35.2061989',
+    longitude: '-111.6191718',
+  },
   'Cloud Naan': {
     address: '888 S Greenville Ave, Ste 224, Richardson, TX 75081',
     city: 'Richardson, TX',

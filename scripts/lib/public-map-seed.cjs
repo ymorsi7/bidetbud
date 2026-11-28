@@ -62,6 +62,22 @@ function publicRow(r) {
   if (r.searchAliases) out.searchAliases = String(r.searchAliases).slice(0, 120);
   if (access === 'limited' && r.accessNote) out.accessNote = String(r.accessNote).slice(0, 80);
   if (r.closed === true || r.closed === 'true' || r.closed === 1) out.closed = true;
+  const photos = normalizePhotos(r.photos);
+  if (photos.length) out.photos = photos;
+  return out;
+}
+
+/** Relative site paths only (e.g. images/spots/foo.jpg) - drop remote / traversal. */
+function normalizePhotos(raw) {
+  const list = Array.isArray(raw) ? raw : raw ? [raw] : [];
+  const out = [];
+  for (const item of list) {
+    const p = String(item || '').trim().replace(/^\/+/, '');
+    if (!p || p.includes('..') || p.includes('://') || p.startsWith('data:')) continue;
+    if (!/^images\/spots\/[A-Za-z0-9._/-]+\.(jpe?g|png|webp)$/i.test(p)) continue;
+    out.push(p);
+    if (out.length >= 6) break;
+  }
   return out;
 }
 
@@ -131,6 +147,7 @@ module.exports = {
   FRIENDLY,
   isFriendlyCountry,
   publicRow,
+  normalizePhotos,
   buildPublicSeed,
   countryCounts,
   inBBox,

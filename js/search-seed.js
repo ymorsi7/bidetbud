@@ -428,6 +428,9 @@
       access,
       accessNote: access === 'limited' ? row.accessNote || 'Not a regular public restroom' : '',
       closed: !!(row.closed === true || row.closed === 'true' || row.closed === 1),
+      photos: Array.isArray(row.photos)
+        ? row.photos.map((p) => String(p || '').trim()).filter(Boolean).slice(0, 6)
+        : [],
     };
   }
 

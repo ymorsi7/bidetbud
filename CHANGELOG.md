@@ -10,8 +10,13 @@ Format: newest first. Skips routine “added N pins” commits unless it was a b
 
 - Bumped to **1.0.6 (39)** so App Store Connect accepts a new binary. Train **1.0.5** is closed (already approved); build 38 failed with ITMS-90186 / ITMS-90062.
 
+**Map / UI**
+
+- Spot detail can show a photo strip when a pin has `photos` (local `images/spots/…` paths).
+
 **Data**
 
+- Verified **Islamic Center of Flagstaff** (1829 N East St, AZ) - user-confirmed handheld sprayer, public access, with bathroom photos on the pin.
 - Added ~177 high-confidence pins (seed 10894 → 11071), mostly restaurants / cafes / public - not another hotel dump. Sources: Atly bathroom-list burst (venue-page bidet quotes), expanded OSM `toilets:wash` / `toilets:bidet` on restaurants and cafes, plus leftover non-hotel web rows. Hotels barely moved (+6). Every kept row has explicit bidet / washlet / shattaf / OSM bidet-tag evidence.
 - Restaurant-first crawl queries for UK / ANZ web scrapers; new `crawl-public-restaurants.cjs` + Atly deep-public helpers for non-hotel passes. Fixed broken title-strip regex in `africa-web.cjs` that crashed those crawlers.
 

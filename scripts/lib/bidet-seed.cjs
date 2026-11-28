@@ -48,6 +48,12 @@ function slimRow(r) {
     out.access = 'limited';
     if (r.accessNote) out.accessNote = String(r.accessNote).slice(0, 80);
   }
+  if (Array.isArray(r.photos) && r.photos.length) {
+    out.photos = r.photos
+      .map((p) => String(p || '').trim().replace(/^\/+/, ''))
+      .filter((p) => p && !p.includes('..') && /^images\/spots\//i.test(p))
+      .slice(0, 6);
+  }
   return out;
 }
 

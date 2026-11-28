@@ -1597,6 +1597,19 @@
     wireMapsLinks(root);
   }
 
+  function detailPhotosHtml(m){
+    const photos = Array.isArray(m.photos) ? m.photos.filter(Boolean) : [];
+    if(!photos.length) return '';
+    const figs = photos.map((src, i)=>{
+      const href = escapeHtml(src);
+      const alt = escapeHtml((m.name || 'Spot') + ' photo ' + (i + 1));
+      return '<a class="detail-photo" href="'+href+'" target="_blank" rel="noopener">'+
+        '<img src="'+href+'" alt="'+alt+'" loading="lazy" decoding="async">'+
+        '</a>';
+    }).join('');
+    return '<div class="detail-photos" role="group" aria-label="Photos of this spot">'+figs+'</div>';
+  }
+
   function openDetail(id, fromUrl){
     const local = allLocations.find(x=>x.id===id);
     if(local){
@@ -1677,6 +1690,8 @@
       '<button type="button" class="btn btn-ghost js-report-no-bidet">Report no bidet here</button>'+
       '</div>');
 
+    const photosHtml = locked ? '' : detailPhotosHtml(m);
+
     const nativeTitle = document.getElementById('detailNativeTitle');
     if(nativeTitle) nativeTitle.textContent = m.name;
     document.getElementById('detailContent').innerHTML =
@@ -1687,6 +1702,7 @@
       (isClosed(m) && !locked ? '' : (m.bidetStatus==='none' && !locked ? '<div class="access-warn access-warn--none"><strong>No bidet here</strong>We\'ve recorded this spot as not having a bidet or handheld sprayer. Bring your own if you need one.</div>' : ''))+
       accessWarn(m)+
       (locked ? '' : '<p class="detail-address">'+escapeHtml(m.address)+'</p>')+
+      photosHtml+
       '<div class="row">'+statusTag(m)+accessTag(m)+'</div>'+
       (locked ? '' : (
       '<div class="detail-sheet-more">'+
