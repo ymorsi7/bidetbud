@@ -31,6 +31,10 @@ const QUERY = `[out:json][timeout:200];
 (
   nwr["amenity"="toilets"]["toilets:wash"~"bidet|washlet"];
   nwr["amenity"="toilets"]["toilets:bidet"="yes"];
+  nwr["amenity"~"restaurant|cafe|fast_food|fuel|library|community_centre|place_of_worship"]["toilets:wash"~"bidet|washlet"];
+  nwr["amenity"~"restaurant|cafe|fast_food|fuel|library|community_centre|place_of_worship"]["toilets:bidet"="yes"];
+  nwr["shop"]["toilets:wash"~"bidet|washlet"];
+  nwr["tourism"="museum"]["toilets:wash"~"bidet|washlet"];
 );
 out center tags;`;
 
@@ -156,6 +160,12 @@ function toRow(el, geo) {
   const street = [tags['addr:housenumber'], tags['addr:street']].filter(Boolean).join(' ');
   const city = tags['addr:city'] || tags['addr:suburb'] || geo.city || '';
 
+  const amenity = String(tags.amenity || tags.shop || tags.tourism || '');
+  let type = 'public';
+  if (/restaurant|cafe|fast_food|food_court/i.test(amenity + ' ' + (tags.cuisine || ''))) type = 'restaurant';
+  else if (/place_of_worship|mosque/i.test(amenity) || /mosque|masjid/i.test(tags.name || '')) type = 'mosque';
+  else if (/hotel|guest_house/i.test(amenity)) type = 'hotel';
+
   return {
     name: tags.name || tags.operator || `Public toilets${city ? ` - ${city}` : ''}`,
     address: [street, tags['addr:postcode'], city].filter(Boolean).join(', '),
@@ -163,7 +173,7 @@ function toRow(el, geo) {
     longitude: String(lon),
     city,
     country,
-    type: 'public',
+    type,
     bidetStatus: 'internet',
     bidetType,
     sourceUrl: `https://www.openstreetmap.org/${el.type}/${el.id}`,

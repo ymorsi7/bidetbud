@@ -30,11 +30,13 @@ const COUNTRIES = [
 ];
 
 const QUERIES = (city, country) => [
-  `bidet hotel ${city} ${country}`,
-  `"bidet" bathroom ${city} hotel`,
-  `washlet ${city} ${country}`,
-  `TOTO washlet hotel ${city}`,
-  `handheld bidet sprayer ${city} hotel`,
+  `"washlet" (restaurant OR cafe OR sushi) ${city} ${country}`,
+  `"japanese toilet" restaurant ${city}`,
+  `"bidet" (restaurant OR cafe) bathroom ${city}`,
+  `"bidet" (mall OR "shopping centre" OR "food court") toilet ${city}`,
+  `handheld bidet sprayer restaurant ${city}`,
+  `TOTO washlet showroom ${city} ${country}`,
+  `"bidet" (mosque OR masjid) ${city} ${country}`,
   `bidet ${city} site:com.au`,
   `bidet ${city} site:co.nz`,
 ];

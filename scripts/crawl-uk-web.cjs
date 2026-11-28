@@ -49,13 +49,14 @@ const CITIES = [
 ];
 
 const QUERIES = (city) => [
-  `bidet hotel ${city} UK`,
-  `"bidet" bathroom ${city} hotel site:co.uk`,
-  `washlet ${city} United Kingdom hotel`,
-  `TOTO washlet ${city} site:co.uk`,
-  `Closomat ${city} site:co.uk`,
-  `Geberit AquaClean hotel ${city} UK`,
+  `"washlet" (restaurant OR cafe OR sushi) ${city} UK`,
+  `"japanese toilet" restaurant ${city}`,
+  `"bidet" (restaurant OR cafe) bathroom ${city} UK`,
   `handheld bidet sprayer restaurant ${city} UK`,
+  `"bidet" (mall OR "shopping centre" OR "food court") toilet ${city}`,
+  `Closomat "Changing Places" ${city} site:co.uk`,
+  `TOTO washlet showroom ${city} site:co.uk`,
+  `"bidet" (mosque OR masjid) ${city} UK`,
   `bidet ${city} site:tripadvisor.co.uk`,
 ];
 

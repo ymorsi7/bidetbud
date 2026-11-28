@@ -179,7 +179,7 @@ function extractTitle(html) {
   const m = html.match(/<title[^>]*>([^<]+)/i);
   if (!m) return '';
   return decodeHtml(m[1])
-    .replace(/\s*[-|- - »].*$/, '')
+    .replace(/\s*[-|\u2013\u2014\u00bb].*$/, '')
     .replace(/\s+/g, ' ')
     .trim()
     .slice(0, 100);

@@ -405,13 +405,20 @@ async function processLocation(state, rows, cand) {
 
 async function deepScanSlugBatch(state, rows, batchSize = 40) {
   const batch = state.slugQueue.splice(0, batchSize);
+  let n = 0;
   for (const slug of batch) {
     if (state.processedSlugs[slug]) continue;
     state.processedSlugs[slug] = Date.now();
     const url = `https://www.atly.com/location/${slug}`;
     if (state.processedLocs[url]) continue;
     await processLocation(state, rows, { url, listUrl: 'deep-scan', quote: '' });
-    await sleep(150);
+    n++;
+    if (n % 25 === 0) {
+      saveState(state);
+      saveOut(rows);
+      process.stdout.write(`  deep-scan ${n}/${batch.length} rows=${rows.length}\n`);
+    }
+    await sleep(120);
   }
 }
 
@@ -468,11 +475,24 @@ async function main() {
   let rows = loadOut();
 
   if (LIST_BURST > 0) {
-    console.log(`List burst - up to ${LIST_BURST} Atly list pages (bathroom guides)`);
+    // Prefer queued bathroom / non-hotel list URLs (listQueue head), then PROBE_URLS.
+    console.log(`List burst - up to ${LIST_BURST} Atly list pages (prefer queue / non-hotel)`);
+    const fromQueue = [];
+    while (fromQueue.length < LIST_BURST && state.listQueue.length) {
+      const u = state.listQueue.shift();
+      if (!u) break;
+      if (!FRESH_LISTS && state.processedLists[u]) continue;
+      if (/hotel/i.test(u) && !/bathroom/i.test(u)) continue;
+      fromQueue.push(u);
+    }
+    const need = LIST_BURST - fromQueue.length;
     const start = Number(state.listBurstIndex) || 0;
-    const lists = PROBE_URLS.slice(start, start + LIST_BURST);
-    state.listBurstIndex = start + lists.length;
-    console.log(`List slice ${start}-${state.listBurstIndex} of ${PROBE_URLS.length} bathroom probe URLs`);
+    const fromProbe = need > 0 ? PROBE_URLS.slice(start, start + need) : [];
+    if (fromProbe.length) state.listBurstIndex = start + fromProbe.length;
+    const lists = [...fromQueue, ...fromProbe];
+    console.log(
+      `Burst lists: ${fromQueue.length} from queue + ${fromProbe.length} probes (queue left ${state.listQueue.length})`
+    );
     let found = 0;
     for (const listUrl of lists) {
       if (!FRESH_LISTS && state.processedLists[listUrl]) continue;
@@ -483,15 +503,25 @@ async function main() {
         for (const c of extractBidetCandidates(html, listUrl)) {
           if (await processLocation(state, rows, c)) found++;
         }
+        // Queue every slug for optional deep scan (venue-page evidence even if list lacked bidet near link).
+        for (const slug of extractSlugs(html)) {
+          if (!state.processedSlugs[slug]) state.slugQueue.push(slug);
+        }
         state.stats.lists++;
         await sleep(180);
       } catch (e) {
         console.warn('List fail:', listUrl, e.message);
       }
     }
+    // Deep-scan a chunk of newly queued slugs for venue-page bidet quotes.
+    const slugScan = Math.min(400, state.slugQueue.length);
+    if (slugScan > 0) {
+      console.log(`Deep-scanning ${slugScan} location slugs for venue-page bidet evidence…`);
+      await deepScanSlugBatch(state, rows, slugScan);
+    }
     saveState(state);
     saveOut(rows);
-    console.log(`List burst done: +${found} locations, total crawler rows ${rows.length}`);
+    console.log(`List burst done: +${found} from lists, total crawler rows ${rows.length}`);
     if (DO_IMPORT) runImport();
     return;
   }
